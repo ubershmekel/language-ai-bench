@@ -1,12 +1,50 @@
 {
-  "schema_version":"1.0.0",
-  "status":"not-run-no-paid-key",
-  "rungs":[
-    {"configuration":"gpt-5.6-luna-low","seeds":0,"pass_rate":null,"malformed_action_rate":null},
-    {"configuration":"gpt-5.6-luna-medium","seeds":0,"pass_rate":null,"malformed_action_rate":null},
-    {"configuration":"gpt-5.6-terra-low","seeds":0,"pass_rate":null,"malformed_action_rate":null},
-    {"configuration":"gpt-5.6-terra-medium","seeds":0,"pass_rate":null,"malformed_action_rate":null},
-    {"configuration":"gpt-5.6-sol-low","seeds":0,"pass_rate":null,"malformed_action_rate":null},
-    {"configuration":"gpt-5.6-sol-medium","seeds":0,"pass_rate":null,"malformed_action_rate":null}
-  ]
+  "schema_version": "1.0.0",
+  "status": "stopped-at-cheapest-rung-ceiling",
+  "rungs": [
+    {
+      "configuration": "gpt-5.6-luna-low",
+      "balanced_primary_runs": 22,
+      "pass_rate": 1.0,
+      "malformed_action_rate": 0.0,
+      "observed_cost_usd": 0.11832375,
+      "disposition": "Ceiling persisted after a realistic harder task family; no higher rung is justified."
+    },
+    {
+      "configuration": "gpt-5.6-luna-medium",
+      "balanced_primary_runs": 0,
+      "pass_rate": null,
+      "malformed_action_rate": null,
+      "disposition": "not run; a stronger rung would worsen the ceiling"
+    },
+    {
+      "configuration": "gpt-5.6-terra-low",
+      "balanced_primary_runs": 0,
+      "pass_rate": null,
+      "malformed_action_rate": null,
+      "disposition": "not run"
+    },
+    {
+      "configuration": "gpt-5.6-terra-medium",
+      "balanced_primary_runs": 0,
+      "pass_rate": null,
+      "malformed_action_rate": null,
+      "disposition": "not run"
+    },
+    {
+      "configuration": "gpt-5.6-sol-low",
+      "balanced_primary_runs": 0,
+      "pass_rate": null,
+      "malformed_action_rate": null,
+      "disposition": "not run"
+    },
+    {
+      "configuration": "gpt-5.6-sol-medium",
+      "balanced_primary_runs": 0,
+      "pass_rate": null,
+      "malformed_action_rate": null,
+      "disposition": "not run"
+    }
+  ],
+  "note": "Malformed-action rate counts Pier/mini-swe-agent command-format exceptions; none occurred. This ladder is a selection record, not a model comparison."
 }

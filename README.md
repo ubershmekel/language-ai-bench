@@ -19,7 +19,7 @@ ranking off this prototype is misreading it. Success means a fair pipeline and a
 
 ## Decision study: new versus existing Node projects
 
-v0.2 adds a focused decision study for choosing JavaScript or strict TypeScript
+v0.3 adds a focused decision study for choosing JavaScript or strict TypeScript
 when vibe coding. The original optimistic-concurrency family is the brownfield
 condition: the agent changes an existing CRUD service. `task-service-greenfield`
 is the greenfield condition: the agent receives a minimal runnable Node scaffold
@@ -27,9 +27,10 @@ and builds the same observable service contract. Each condition compares only
 JavaScript with TypeScript, using identical runtime versions, task wording,
 verifier bytes, model, effort, and bash-only scaffold.
 
-The four cells and stopping budget are recorded in `decision_benchmark.json`.
-Results are exploratory evidence from one behavioral contract—not a universal
-language ranking. Greenfield and brownfield pass rates are reported separately.
+The staged cells and stopping budget are recorded in `decision_benchmark.json`.
+Results cover two related behavioral contracts but remain exploratory—not a
+universal language ranking. Greenfield and brownfield pass rates are reported
+separately. The current findings are in [`docs/DECISION_REPORT.md`](docs/DECISION_REPORT.md).
 
 ## Run it on Linux (or Docker Desktop's Linux engine)
 
@@ -100,12 +101,10 @@ rollout = sum(step_prefix_tokens × effective_input_rate)
 matrix  = rollout × 4 languages × seeds × task_families
 ```
 
-The first paid TypeScript pilot passed at `$0.00523397`: 26,046 input tokens
-(19,331 cached), 2,678 output tokens, and 7 agent steps. At that observed rate,
-the 20-rollout decision study projects to `$0.104679`. `cost_pilot.json` stores
-the measurement; provider spend remains the hard backstop because the local
-mock runner's `--max-spend-usd` does not wrap Pier. Paid Pier jobs therefore run
-serially and fail closed if usage or cost metadata is missing.
+The two-rollout cost pilot averaged `$0.00586597`. The balanced primary study
+completed 22 runs for `$0.11832375`; every run reported token/cache/cost metadata.
+`cost_pilot.json` stores the pilot. Provider spend remains the hard backstop,
+with Pier runs serialized and a native `$0.10` per-rollout agent cost limit.
 
 ## Results and contributions
 
@@ -118,9 +117,10 @@ as new result directories; do not overwrite existing runs. See
 
 ## Current status
 
-- Four real services build and run in Linux containers.
+- All original and decision-study task variants build and run in Linux containers.
 - Reference 100%, null parity, and four-sabotage parity are green.
 - Passing and plausible-failing mock runs exist with non-empty events.
-- One paid TypeScript pilot passed; the JS/TS decision matrix is the next stage.
+- The balanced paid JS/TS study completed 22/22 with no exceptions; pass-rate cells hit a ceiling.
+- TypeScript used modestly fewer output tokens/steps but longer agent wall time; see the decision report.
 - DeepSWE's public corpus pilot remains incomplete because some published
   trajectory URLs are currently inaccessible (a [documented 403 issue](https://github.com/datacurve-ai/deep-swe/issues/59)); it cannot substitute for this matched family anyway.

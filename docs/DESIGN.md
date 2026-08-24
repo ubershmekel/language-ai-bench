@@ -5,8 +5,9 @@
 [DeepSWE](https://github.com/datacurve-ai/deep-swe) already uses Harbor tasks,
 Pier, and mini-swe-agent across several languages, but its language tasks come
 from different repositories and domains. Language is therefore confounded with
-task/repository difficulty. This project's contribution is one matched task
-family implemented four ways. DeepSWE holds reference solutions for review;
+task/repository difficulty. This project's core contribution is matched task families that hold behavior
+constant across language variants. v0.3 adds a focused JS/TS decision study
+crossed with greenfield and brownfield starting conditions. DeepSWE holds reference solutions for review;
 here reference execution is automated because verifier parity is the validity
 gate.
 
@@ -79,11 +80,14 @@ The cheapest-first selection ladder is recorded in
 `model_selection_ladder.json`. Effort is pinned treatment metadata, not a casual
 cost dial. Reject rungs with non-trivial malformed actions; stop at the cheapest
 clean 40–60% rung. Difficulty may change only within plausible maintainer
-tickets. No paid key was supplied, so observations are intentionally null.
+tickets. The cheapest rung, GPT-5.6 Luna at low effort, completed all 22 balanced runs
+without command-format exceptions. The original and hardened task families both
+hit a ceiling, so stronger rungs were not run; `model_selection_ladder.json`
+records that stopping decision.
 
 ## Threats and next families
 
-- Task representativeness: one HTTP concurrency ticket is not a language.
+- Task representativeness: two related backend HTTP contracts are not a language ecosystem.
 - Scaffold mediation: bash choice/invocation behavior can mask type benefits.
 - Runtime/ecosystem/pretraining confounding outside the JS/TS matched pair.
 - Calibration sabotage modes are deliberate fault injections, not empirical

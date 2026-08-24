@@ -1,0 +1,302 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_version": "0.3.0",
+  "generated_at": "2026-08-24T22:40:28.185530Z",
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "model_settings": {
+    "reasoning_effort": "low",
+    "cache_control": "default_end",
+    "per_rollout_cost_limit_usd": 0.1
+  },
+  "agent": "mini-swe-agent@2.4.6",
+  "pier": "0.3.1",
+  "scaffold": "mini-swe-agent/bash-only",
+  "source_jobs": [
+    "decision-brownfield-rung1",
+    "decision-greenfield-rung1",
+    "decision-schedule-rung1"
+  ],
+  "primary": {
+    "runs": 22,
+    "passed": 22,
+    "pass_rate": 1.0,
+    "pass_rate_wilson_95": [
+      0.851345,
+      1.0
+    ],
+    "total_cost_usd": 0.11832375,
+    "mean_cost_usd": 0.00537835,
+    "mean_input_tokens": 29903.86,
+    "mean_cached_input_tokens": 21237.27,
+    "cache_hit_rate": 0.710185,
+    "mean_output_tokens": 2364.14,
+    "mean_agent_steps": 6.45,
+    "mean_agent_seconds": 40.89
+  },
+  "cells": [
+    {
+      "task_family": "optimistic-concurrency",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "runs": 2,
+      "passed": 2,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.34238,
+        1.0
+      ],
+      "total_cost_usd": 0.0126857,
+      "mean_cost_usd": 0.00634285,
+      "mean_input_tokens": 31480.5,
+      "mean_cached_input_tokens": 22720,
+      "cache_hit_rate": 0.721717,
+      "mean_output_tokens": 3119.5,
+      "mean_agent_steps": 7,
+      "mean_agent_seconds": 40.14
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "runs": 2,
+      "passed": 2,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.34238,
+        1.0
+      ],
+      "total_cost_usd": 0.01129163,
+      "mean_cost_usd": 0.00564582,
+      "mean_input_tokens": 27333.5,
+      "mean_cached_input_tokens": 18564.5,
+      "cache_hit_rate": 0.679185,
+      "mean_output_tokens": 2606,
+      "mean_agent_steps": 6.5,
+      "mean_agent_seconds": 59.79
+    },
+    {
+      "task_family": "schedule-variants",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.438503,
+        1.0
+      ],
+      "total_cost_usd": 0.01488476,
+      "mean_cost_usd": 0.00496159,
+      "mean_input_tokens": 34864.33,
+      "mean_cached_input_tokens": 25274.33,
+      "cache_hit_rate": 0.724934,
+      "mean_output_tokens": 1757.67,
+      "mean_agent_steps": 7,
+      "mean_agent_seconds": 29.34
+    },
+    {
+      "task_family": "schedule-variants",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.438503,
+        1.0
+      ],
+      "total_cost_usd": 0.01618966,
+      "mean_cost_usd": 0.00539655,
+      "mean_input_tokens": 38535,
+      "mean_cached_input_tokens": 27679.33,
+      "cache_hit_rate": 0.718291,
+      "mean_output_tokens": 1816.33,
+      "mean_agent_steps": 6.67,
+      "mean_agent_seconds": 42.02
+    },
+    {
+      "task_family": "schedule-variants",
+      "project_maturity": "greenfield",
+      "language": "javascript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.438503,
+        1.0
+      ],
+      "total_cost_usd": 0.01692309,
+      "mean_cost_usd": 0.00564103,
+      "mean_input_tokens": 30214.33,
+      "mean_cached_input_tokens": 21575.67,
+      "cache_hit_rate": 0.714087,
+      "mean_output_tokens": 2585,
+      "mean_agent_steps": 6.67,
+      "mean_agent_seconds": 35.54
+    },
+    {
+      "task_family": "schedule-variants",
+      "project_maturity": "greenfield",
+      "language": "typescript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.438503,
+        1.0
+      ],
+      "total_cost_usd": 0.01671841,
+      "mean_cost_usd": 0.0055728,
+      "mean_input_tokens": 33144.67,
+      "mean_cached_input_tokens": 24542.67,
+      "cache_hit_rate": 0.740471,
+      "mean_output_tokens": 2486.33,
+      "mean_agent_steps": 6.33,
+      "mean_agent_seconds": 46.08
+    },
+    {
+      "task_family": "task-service-greenfield",
+      "project_maturity": "greenfield",
+      "language": "javascript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.438503,
+        1.0
+      ],
+      "total_cost_usd": 0.01508436,
+      "mean_cost_usd": 0.00502812,
+      "mean_input_tokens": 23192.33,
+      "mean_cached_input_tokens": 16177.67,
+      "cache_hit_rate": 0.697544,
+      "mean_output_tokens": 2501.33,
+      "mean_agent_steps": 6.33,
+      "mean_agent_seconds": 36.09
+    },
+    {
+      "task_family": "task-service-greenfield",
+      "project_maturity": "greenfield",
+      "language": "typescript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.438503,
+        1.0
+      ],
+      "total_cost_usd": 0.01454614,
+      "mean_cost_usd": 0.00484871,
+      "mean_input_tokens": 20135,
+      "mean_cached_input_tokens": 12967.33,
+      "cache_hit_rate": 0.64402,
+      "mean_output_tokens": 2373.33,
+      "mean_agent_steps": 5.33,
+      "mean_agent_seconds": 44.19
+    }
+  ],
+  "maturity_summaries": [
+    {
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "runs": 5,
+      "passed": 5,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.565518,
+        1.0
+      ],
+      "total_cost_usd": 0.02757046,
+      "mean_cost_usd": 0.00551409,
+      "mean_input_tokens": 33510.8,
+      "mean_cached_input_tokens": 24252.6,
+      "cache_hit_rate": 0.723725,
+      "mean_output_tokens": 2302.4,
+      "mean_agent_steps": 7,
+      "mean_agent_seconds": 33.66
+    },
+    {
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "runs": 5,
+      "passed": 5,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.565518,
+        1.0
+      ],
+      "total_cost_usd": 0.02748129,
+      "mean_cost_usd": 0.00549626,
+      "mean_input_tokens": 34054.4,
+      "mean_cached_input_tokens": 24033.4,
+      "cache_hit_rate": 0.705736,
+      "mean_output_tokens": 2132.2,
+      "mean_agent_steps": 6.6,
+      "mean_agent_seconds": 49.13
+    },
+    {
+      "project_maturity": "greenfield",
+      "language": "javascript",
+      "runs": 6,
+      "passed": 6,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.609666,
+        1.0
+      ],
+      "total_cost_usd": 0.03200745,
+      "mean_cost_usd": 0.00533458,
+      "mean_input_tokens": 26703.33,
+      "mean_cached_input_tokens": 18876.67,
+      "cache_hit_rate": 0.706903,
+      "mean_output_tokens": 2543.17,
+      "mean_agent_steps": 6.5,
+      "mean_agent_seconds": 35.81
+    },
+    {
+      "project_maturity": "greenfield",
+      "language": "typescript",
+      "runs": 6,
+      "passed": 6,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.609666,
+        1.0
+      ],
+      "total_cost_usd": 0.03126455,
+      "mean_cost_usd": 0.00521076,
+      "mean_input_tokens": 26639.83,
+      "mean_cached_input_tokens": 18755,
+      "cache_hit_rate": 0.704021,
+      "mean_output_tokens": 2429.83,
+      "mean_agent_steps": 5.83,
+      "mean_agent_seconds": 45.13
+    }
+  ],
+  "contrasts": [
+    {
+      "project_maturity": "brownfield",
+      "typescript_minus_javascript_pass_rate": 0.0,
+      "typescript_relative_mean_cost_percent": -0.32,
+      "typescript_relative_mean_input_percent": 1.62,
+      "typescript_relative_mean_output_percent": -7.39,
+      "typescript_relative_mean_steps_percent": -5.71,
+      "typescript_relative_mean_agent_seconds_percent": 45.96
+    },
+    {
+      "project_maturity": "greenfield",
+      "typescript_minus_javascript_pass_rate": 0.0,
+      "typescript_relative_mean_cost_percent": -2.32,
+      "typescript_relative_mean_input_percent": -0.24,
+      "typescript_relative_mean_output_percent": -4.46,
+      "typescript_relative_mean_steps_percent": -10.31,
+      "typescript_relative_mean_agent_seconds_percent": 26.03
+    }
+  ],
+  "excluded": [
+    "One earlier TypeScript cost-pilot pass was excluded because it was not part of a balanced JS/TS phase.",
+    "One pre-model Windows proxy infrastructure failure was excluded and recorded no usage or cost."
+  ],
+  "finding": "All 22 balanced primary runs passed. Pass-rate superiority is not detectable because every cell hit the ceiling.",
+  "publication_boundary": "Aggregate Pier result summaries only; no prompts, trajectories, commands, patches, environment variables, or trial identifiers."
+}
