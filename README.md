@@ -54,6 +54,8 @@ fallback.
 
 ## Real agents through Pier
 
+For secret setup, the two-rollout cost pilot, and the publication boundary, follow [the paid-run guide](docs/RUNNING_PAID.md).
+
 Install [Pier](https://github.com/datacurve-ai/pier), then run one Harbor task
 directory with a fresh context per seed:
 
@@ -111,4 +113,3 @@ as new result directories; do not overwrite existing runs. See
 - No paid model was called; no model-selection claim is made.
 - DeepSWE's public corpus pilot remains incomplete because some published
   trajectory URLs are currently inaccessible (a [documented 403 issue](https://github.com/datacurve-ai/deep-swe/issues/59)); it cannot substitute for this matched family anyway.
-

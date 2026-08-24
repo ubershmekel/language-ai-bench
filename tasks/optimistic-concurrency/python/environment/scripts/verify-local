@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+PORT=${PORT:-8080} python src/server.py & pid=$!;trap 'kill $pid 2>/dev/null || true' EXIT
+python scripts/wait_ready.py --url "http://127.0.0.1:$PORT/tasks/1"
+python scripts/dev_verify.py --base-url "http://127.0.0.1:$PORT"

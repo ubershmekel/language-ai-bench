@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-08-24T20:56:02.450693+00:00",
+  "cells": [
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "go",
+      "typecheck_config": "default",
+      "model": "mock/plausible-fail",
+      "scaffold": "local-mock/bash-only-compatible",
+      "runs": 1,
+      "passed": 0,
+      "pass_rate": 0.0,
+      "measured_cost_usd": 0.0,
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "go",
+      "typecheck_config": "default",
+      "model": "mock/solve",
+      "scaffold": "local-mock/bash-only-compatible",
+      "runs": 1,
+      "passed": 1,
+      "pass_rate": 1.0,
+      "measured_cost_usd": 0.0,
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "javascript",
+      "typecheck_config": "none",
+      "model": "mock/plausible-fail",
+      "scaffold": "local-mock/bash-only-compatible",
+      "runs": 1,
+      "passed": 0,
+      "pass_rate": 0.0,
+      "measured_cost_usd": 0.0,
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "javascript",
+      "typecheck_config": "none",
+      "model": "mock/solve",
+      "scaffold": "local-mock/bash-only-compatible",
+      "runs": 1,
+      "passed": 1,
+      "pass_rate": 1.0,
+      "measured_cost_usd": 0.0,
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "python",
+      "typecheck_config": "none",
+      "model": "mock/plausible-fail",
+      "scaffold": "local-mock/bash-only-compatible",
+      "runs": 1,
+      "passed": 0,
+      "pass_rate": 0.0,
+      "measured_cost_usd": 0.0,
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "python",
+      "typecheck_config": "none",
+      "model": "mock/solve",
+      "scaffold": "local-mock/bash-only-compatible",
+      "runs": 1,
+      "passed": 1,
+      "pass_rate": 1.0,
+      "measured_cost_usd": 0.0,
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "typescript",
+      "typecheck_config": "strict",
+      "model": "mock/plausible-fail",
+      "scaffold": "local-mock/bash-only-compatible",
+      "runs": 1,
+      "passed": 0,
+      "pass_rate": 0.0,
+      "measured_cost_usd": 0.0,
+      "input_tokens": 0,
+      "output_tokens": 0
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "typescript",
+      "typecheck_config": "strict",
+      "model": "mock/solve",
+      "scaffold": "local-mock/bash-only-compatible",
+      "runs": 1,
+      "passed": 1,
+      "pass_rate": 1.0,
+      "measured_cost_usd": 0.0,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  ],
+  "warning": "One task family is pipeline evidence, not a language leaderboard."
+}

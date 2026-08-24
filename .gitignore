@@ -3,4 +3,10 @@ __pycache__/
 .benchmark-state/
 node_modules/
 dist/
-
+.env
+.env.*
+!.env.example
+.venv/
+jobs/
+private-results/
+pier-work/

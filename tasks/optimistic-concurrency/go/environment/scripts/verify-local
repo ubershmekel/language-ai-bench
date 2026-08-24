@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+go build -o /tmp/task-server ./src
+PORT=${PORT:-8080} /tmp/task-server & pid=$!;trap 'kill $pid 2>/dev/null || true' EXIT
+python3 scripts/wait_ready.py --url "http://127.0.0.1:$PORT/tasks/1"
+python3 scripts/dev_verify.py --base-url "http://127.0.0.1:$PORT"
