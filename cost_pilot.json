@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "status": "mock-only-paid-pilot-not-run",
+  "rollouts": 2,
+  "measured_total_cost_usd": 0.0,
+  "measured_cost_per_rollout_usd": 0.0,
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "note": "These are zero-model-call mock measurements. A paid pilot requires a dedicated capped provider key and must replace this file before paid execution."
+}

@@ -1,0 +1,12 @@
+{
+  "schema_version":"1.0.0",
+  "status":"not-run-no-paid-key",
+  "rungs":[
+    {"configuration":"gpt-5.6-luna-low","seeds":0,"pass_rate":null,"malformed_action_rate":null},
+    {"configuration":"gpt-5.6-luna-medium","seeds":0,"pass_rate":null,"malformed_action_rate":null},
+    {"configuration":"gpt-5.6-terra-low","seeds":0,"pass_rate":null,"malformed_action_rate":null},
+    {"configuration":"gpt-5.6-terra-medium","seeds":0,"pass_rate":null,"malformed_action_rate":null},
+    {"configuration":"gpt-5.6-sol-low","seeds":0,"pass_rate":null,"malformed_action_rate":null},
+    {"configuration":"gpt-5.6-sol-medium","seeds":0,"pass_rate":null,"malformed_action_rate":null}
+  ]
+}

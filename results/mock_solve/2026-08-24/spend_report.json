@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "total_cost_usd": 0,
+  "by_language": {
+    "go": {
+      "cost_usd": 0,
+      "runs": 1
+    },
+    "javascript": {
+      "cost_usd": 0,
+      "runs": 1
+    },
+    "python": {
+      "cost_usd": 0,
+      "runs": 1
+    },
+    "typescript": {
+      "cost_usd": 0,
+      "runs": 1
+    }
+  },
+  "by_cell": {
+    "typescript/strict": 0,
+    "javascript/none": 0,
+    "python/none": 0,
+    "go/default": 0
+  },
+  "by_outcome": {
+    "passed": 0
+  }
+}

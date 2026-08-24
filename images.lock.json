@@ -1,0 +1,6 @@
+{
+  "node:22.14.0-bookworm-slim": "sha256:1c18d9ab3af4585870b92e4dbc5cac5a0dc77dd13df1a5905cea89fc720eb05b",
+  "python:3.11.11-slim-bookworm": "sha256:081075da77b2b55c23c088251026fb69a7b2bf92471e491ff5fd75c192fd38e5",
+  "golang:1.24.0-bookworm": "sha256:b970e6d47c09fdd34179acef5c4fecaf6410f0b597a759733b3cbea04b4e604a",
+  "debian:bookworm-slim": "sha256:abd67ffcfa541b485a3dff59865ab629aa048a6c613e639d36e7456b0b229241"
+}
