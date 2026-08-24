@@ -15,8 +15,21 @@ one optimistic-concurrency task family and exactly four cells:
 centerpiece. Python and Go differ in ecosystem, diagnostics, compilation,
 test-loop latency, and likely pretraining exposure. With one task family, v1 can
 support no conclusion about languages in general. Anyone reading a language
-ranking off this prototype is misreading it. Success means a fair pipeline and
-a green calibration report.
+ranking off this prototype is misreading it. Success means a fair pipeline and a green calibration report.
+
+## Decision study: new versus existing Node projects
+
+v0.2 adds a focused decision study for choosing JavaScript or strict TypeScript
+when vibe coding. The original optimistic-concurrency family is the brownfield
+condition: the agent changes an existing CRUD service. `task-service-greenfield`
+is the greenfield condition: the agent receives a minimal runnable Node scaffold
+and builds the same observable service contract. Each condition compares only
+JavaScript with TypeScript, using identical runtime versions, task wording,
+verifier bytes, model, effort, and bash-only scaffold.
+
+The four cells and stopping budget are recorded in `decision_benchmark.json`.
+Results are exploratory evidence from one behavioral contract—not a universal
+language ranking. Greenfield and brownfield pass rates are reported separately.
 
 ## Run it on Linux (or Docker Desktop's Linux engine)
 
@@ -87,14 +100,12 @@ rollout = sum(step_prefix_tokens × effective_input_rate)
 matrix  = rollout × 4 languages × seeds × task_families
 ```
 
-The checked-in two-rollout pilot is a **measured mock pilot: 0 tokens, $0**. A
-paid pilot has deliberately not been fabricated: `cost_pilot.json` is marked
-`mock-only-paid-pilot-not-run`, and the model ladder has null observations.
-Before paid execution, run two real rollouts, verify cache metadata is present
-and hitting, replace the pilot, then dry-run the full projection. Missing usage
-must abort (fail closed). `scripts/run_benchmark.py` demonstrates
-`--max-spend-usd`, live totals, persisted restart-safe spend, and a mid-matrix
-abort. Cut seeds if the projection is too high; do not cut calibration.
+The first paid TypeScript pilot passed at `$0.00523397`: 26,046 input tokens
+(19,331 cached), 2,678 output tokens, and 7 agent steps. At that observed rate,
+the 20-rollout decision study projects to `$0.104679`. `cost_pilot.json` stores
+the measurement; provider spend remains the hard backstop because the local
+mock runner's `--max-spend-usd` does not wrap Pier. Paid Pier jobs therefore run
+serially and fail closed if usage or cost metadata is missing.
 
 ## Results and contributions
 
@@ -110,6 +121,6 @@ as new result directories; do not overwrite existing runs. See
 - Four real services build and run in Linux containers.
 - Reference 100%, null parity, and four-sabotage parity are green.
 - Passing and plausible-failing mock runs exist with non-empty events.
-- No paid model was called; no model-selection claim is made.
+- One paid TypeScript pilot passed; the JS/TS decision matrix is the next stage.
 - DeepSWE's public corpus pilot remains incomplete because some published
   trajectory URLs are currently inaccessible (a [documented 403 issue](https://github.com/datacurve-ai/deep-swe/issues/59)); it cannot substitute for this matched family anyway.

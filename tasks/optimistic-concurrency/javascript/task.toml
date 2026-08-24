@@ -2,6 +2,7 @@ schema_version = "1.4"
 [metadata]
 task_family = "optimistic-concurrency"
 language = "javascript"
+project_maturity = "brownfield"
 typecheck_config = "none"
 [verifier]
 timeout_sec = 120.0

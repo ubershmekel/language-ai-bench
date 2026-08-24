@@ -1,9 +1,9 @@
 schema_version = "1.4"
 [metadata]
-task_family = "optimistic-concurrency"
-language = "typescript"
-project_maturity = "brownfield"
-typecheck_config = "strict"
+task_family = "task-service-greenfield"
+language = "javascript"
+project_maturity = "greenfield"
+typecheck_config = "none"
 [verifier]
 timeout_sec = 120.0
 [agent]

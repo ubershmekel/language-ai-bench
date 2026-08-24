@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_version": "0.2.0",
+  "objective": "Compare JavaScript and strict TypeScript for vibe-coded new and existing Node projects.",
+  "scaffold": "mini-swe-agent/bash-only",
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "model_settings": {
+    "reasoning_effort": "low",
+    "cache_control": "default_end"
+  },
+  "target_attempts_per_cell": 5,
+  "planned_rollouts": 20,
+  "max_spend_usd": 4.0,
+  "cells": [
+    {
+      "task_family": "optimistic-concurrency",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "typecheck_config": "none"
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "typecheck_config": "strict"
+    },
+    {
+      "task_family": "task-service-greenfield",
+      "project_maturity": "greenfield",
+      "language": "javascript",
+      "typecheck_config": "none"
+    },
+    {
+      "task_family": "task-service-greenfield",
+      "project_maturity": "greenfield",
+      "language": "typescript",
+      "typecheck_config": "strict"
+    }
+  ],
+  "analysis": {
+    "primary_contrasts": [
+      "typescript-vs-javascript-within-brownfield",
+      "typescript-vs-javascript-within-greenfield"
+    ],
+    "warning": "Exploratory single-contract evidence; do not generalize to all projects or models."
+  }
+}
