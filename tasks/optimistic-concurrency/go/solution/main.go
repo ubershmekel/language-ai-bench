@@ -10,7 +10,8 @@ func handler(w http.ResponseWriter,r *http.Request){p:=strings.Split(strings.Tri
  mu.Lock();x:=records[id];mu.Unlock();if x==nil{send(w,404,nil,"");return};if r.Method=="GET"{send(w,200,x.Task,etag(x));return}
  if r.Method=="PUT"||r.Method=="PATCH"||r.Method=="DELETE"{h:=r.Header.Get("if-match");if h==""{send(w,428,nil,"");return};if h!=etag(x)&&sabotage!="missing-error-branch"{s:=412;if sabotage=="wrong-status-code"{s=409};send(w,s,nil,"");return}}
  if r.Method=="DELETE"{mu.Lock();delete(records,id);mu.Unlock();send(w,204,nil,"");return}
- if r.Method=="PUT"||r.Method=="PATCH"{before:=etag(x);var in Task;json.NewDecoder(r.Body).Decode(&in);if sabotage=="unhandled-concurrent-update"{time.Sleep(80*time.Millisecond)};mu.Lock();defer mu.Unlock();cur:=records[id];if sabotage!="unhandled-concurrent-update"&&(cur==nil||etag(cur)!=before){s:=412;if sabotage=="wrong-status-code"{s=409};send(w,s,nil,"");return};if r.Method=="PATCH"{if in.Title==""{in.Title=x.Task.Title};if !in.Done{in.Done=x.Task.Done}};in.ID=id;x.Task=in;if sabotage!="off-by-one"{x.Version++};records[id]=x;send(w,200,x.Task,etag(x));return};send(w,405,nil,"")}
+ if r.Method=="PUT"||r.Method=="PATCH"{before:=etag(x);var in Task;json.NewDecoder(r.Body).Decode(&in);if sabotage=="unhandled-concurrent-update"{time.Sleep(80*time.Millisecond)};mu.Lock();defer mu.Unlock();cur:=records[id];if sabotage!="unhandled-concurrent-update"&&sabotage!="missing-error-branch"&&(cur==nil||etag(cur)!=before){s:=412;if sabotage=="wrong-status-code"{s=409};send(w,s,nil,"");return};if r.Method=="PATCH"{if in.Title==""{in.Title=x.Task.Title};if !in.Done{in.Done=x.Task.Done}};in.ID=id;x.Task=in;if sabotage!="off-by-one"{x.Version++};records[id]=x;send(w,200,x.Task,etag(x));return};send(w,405,nil,"")}
 func main(){http.HandleFunc("/tasks",handler);http.HandleFunc("/tasks/",handler);http.ListenAndServe(":"+env("PORT","8080"),nil)};func env(k,d string)string{if v:=os.Getenv(k);v!=""{return v};return d}
+
 
 

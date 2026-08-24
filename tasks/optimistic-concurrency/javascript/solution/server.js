@@ -19,12 +19,13 @@ const server = http.createServer(async (req,res) => {
     if(req.method==="DELETE"){records.delete(id);return send(res,204);}
     if(req.method==="PUT"||req.method==="PATCH"){
       const before=tag(rec), b=await read(req); if(sabotage==="unhandled-concurrent-update") await new Promise(r=>setTimeout(r,80));
-      const current=records.get(id); if(sabotage!=="unhandled-concurrent-update" && (!current || tag(current)!==before))return send(res,sabotage==="wrong-status-code"?409:412,{error:"precondition"});
+      const current=records.get(id); if(sabotage!=="unhandled-concurrent-update" && sabotage!=="missing-error-branch" && (!current || tag(current)!==before))return send(res,sabotage==="wrong-status-code"?409:412,{error:"precondition"});
       rec.task=req.method==="PUT"?{id,title:b.title,done:!!b.done}:{...rec.task,...b,id}; if(sabotage!=="off-by-one")rec.version++; records.set(id,rec); return send(res,200,rec.task,tag(rec));
     }
     return send(res,405,{error:"method not allowed"});
   } catch { return send(res,400,{error:"invalid json"}); }
 });
 server.listen(Number(process.env.PORT||8080),"0.0.0.0",()=>console.log("ready"));
+
 
 

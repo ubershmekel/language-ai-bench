@@ -29,7 +29,7 @@ class Handler(BaseHTTPRequestHandler):
             if sabotage=="unhandled-concurrent-update":time.sleep(.08)
             with lock:
                 current=records.get(ident)
-                if sabotage!="unhandled-concurrent-update" and (current is None or tag(current)!=before):return self.send(409 if sabotage=="wrong-status-code" else 412,{"error":"precondition"})
+                if sabotage not in ("unhandled-concurrent-update","missing-error-branch") and (current is None or tag(current)!=before):return self.send(409 if sabotage=="wrong-status-code" else 412,{"error":"precondition"})
                 rec["task"]={"id":ident,"title":value.get("title"),"done":bool(value.get("done",False))} if self.command=="PUT" else {**rec["task"],**value,"id":ident}
                 if sabotage!="off-by-one":rec["version"]+=1
                 records[ident]=rec
@@ -38,5 +38,6 @@ class Handler(BaseHTTPRequestHandler):
     do_GET=do_POST=do_PUT=do_PATCH=do_DELETE=route
     def log_message(self,*_):pass
 ThreadingHTTPServer(("0.0.0.0",int(os.getenv("PORT","8080"))),Handler).serve_forever()
+
 
 
