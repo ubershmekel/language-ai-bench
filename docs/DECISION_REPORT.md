@@ -2,9 +2,9 @@
 
 ## Bottom line
 
-**Use TypeScript by default for projects you expect to keep or extend; use JavaScript for genuinely disposable scripts and tiny prototypes.**
+**This study found no completion-rate winner between JavaScript and TypeScript.**
 
-That recommendation is not based on a pass-rate win: all 22 balanced runs passed. Under GPT-5.6 Luna at low reasoning effort, both languages solved both greenfield and brownfield tasks, including the harder cross-file schedule-union change. TypeScript showed no completion penalty and used modestly fewer output tokens and agent steps, but its compile/test loop took longer wall-clock time. The practical recommendation therefore combines this no-penalty result with the unmeasured maintenance value of static checks; it is not proof that TypeScript makes agents more accurate.
+All 22 balanced runs passed. Under GPT-5.6 Luna at low reasoning effort, both languages solved the greenfield and brownfield tasks, including the harder cross-file schedule-union change. TypeScript showed no completion penalty and used modestly fewer output tokens and agent steps, while its compile/test loop took longer wall-clock time. Those operational differences are descriptive: the all-green result hit a ceiling and provides no evidence that either language makes agents more accurate.
 
 ## Results by project maturity
 
@@ -30,11 +30,9 @@ Descriptive TypeScript-versus-JavaScript differences:
 
 Every cell reached 100%, so the study cannot estimate a TypeScript accuracy advantage or establish equivalence. The 95% Wilson lower bound is only about 57% for 5/5 and 61% for 6/6. This is one model snapshot, low effort, a bash-only agent, two related backend contracts, and no LSP/editor feedback. It does not test React/Next.js ecosystems, long-lived maintenance, human review, dependency migrations, or defect rates after future changes.
 
-## Practical choice
+## What this means for choosing a language
 
-- **New application expected to grow:** TypeScript. The agent paid no observed success penalty, and future edits gain compiler feedback.
-- **Existing multi-file application:** TypeScript, more strongly. Cross-module schema changes are exactly where static contracts provide insurance, even though this model solved both arms.
-- **One-off automation, throwaway prototype, or tiny script:** JavaScript is reasonable when minimizing setup and compile latency matters more than future refactors.
+Based on this study alone, both JavaScript and strict TypeScript were viable for the tested work. TypeScript offers compiler feedback and explicit contracts; JavaScript reduces setup and compile latency. Those are engineering tradeoffs outside the measured pass-rate result—not evidence that this benchmark proved one language better for vibe coding.
 
 Primary paid spend was **$0.11832375**. Raw Pier jobs remain private; the public JSON contains aggregates only.
 

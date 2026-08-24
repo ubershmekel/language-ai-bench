@@ -1,187 +1,149 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="dark" />
-    <meta
-      name="description"
-      content="A controlled coding-agent benchmark comparing JavaScript and TypeScript for new and existing Node projects."
-    />
-    <meta property="og:title" content="JavaScript vs TypeScript for vibe coding" />
-    <meta
-      property="og:description"
-      content="22 matched coding-agent runs. One practical language choice."
-    />
-    <title>JavaScript vs TypeScript · Language AI Bench</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <script src="./app.js" defer></script>
-  </head>
-  <body>
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="Language AI Bench home">
-        <span class="brand-mark" aria-hidden="true">L/AB</span>
-        <span>Language AI Bench</span>
-      </a>
-      <nav aria-label="Report navigation">
-        <a href="#results">Results</a>
-        <a href="#method">Method</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench">GitHub ↗</a>
-      </nav>
-    </header>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="Language AI Bench tests whether programming-language choice changes how well coding agents complete equivalent software-engineering tasks." />
+  <meta property="og:title" content="Language AI Bench" />
+  <meta property="og:description" content="The same coding task. Equivalent projects. Different programming languages." />
+  <title>Language AI Bench</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Language AI Bench home"><span class="brand-mark">L/AB</span><span>Language AI Bench</span></a>
+    <nav aria-label="Report navigation">
+      <a href="#about">What it is</a><a href="#study">First study</a><a href="#results">Results</a><a href="#roadmap">Languages</a><a href="./details.html">Technical details</a>
+    </nav>
+  </header>
 
-    <main id="top">
-      <section class="hero section-shell">
-        <div class="eyebrow"><span class="pulse"></span> Decision study · 2026</div>
-        <h1>TypeScript,<br /><em>by default.</em></h1>
-        <p class="hero-copy">
-          For Node projects you expect to keep or extend. JavaScript remains a
-          sound choice for truly disposable scripts and tiny prototypes.
-        </p>
+  <main id="top">
+    <section class="hero section-shell">
+      <div class="hero-copy-block">
+        <p class="eyebrow">Open coding-agent experiment</p>
+        <h1>Does language choice change how well an AI agent codes?</h1>
+        <p class="hero-copy">Language AI Bench gives an autonomous coding agent the same software-engineering job in equivalent projects, then checks each result against the same behavioral contract.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#results">Explore the evidence</a>
-          <a class="button ghost" href="./DECISION_REPORT.md">Read the full report</a>
+          <a class="button primary" href="#study">See the first experiment</a>
+          <a class="button ghost" href="https://github.com/ubershmekel/language-ai-bench">View the source ↗</a>
         </div>
-        <p class="scope-note">
-          This is a practical recommendation—not proof of an accuracy advantage.
-          Every balanced run passed.
-        </p>
-      </section>
-
-      <section class="scoreboard section-shell" aria-label="Primary study summary">
-        <article class="headline-stat">
-          <span class="stat-label">Balanced passes</span>
-          <strong id="primary-passes">22/22</strong>
-          <span id="primary-rate">100% pass rate</span>
-        </article>
-        <article>
-          <span class="stat-label">Primary spend</span>
-          <strong id="primary-cost">$0.1183</strong>
-          <span>measured API cost</span>
-        </article>
-        <article>
-          <span class="stat-label">Input cache hit</span>
-          <strong id="primary-cache">71.0%</strong>
-          <span>across all runs</span>
-        </article>
-        <article>
-          <span class="stat-label">Study outcome</span>
-          <strong>Ceiling</strong>
-          <span>no pass-rate separation</span>
-        </article>
-      </section>
-
-      <section class="decision section-shell" aria-labelledby="decision-title">
-        <div class="section-heading">
-          <p class="kicker">The practical choice</p>
-          <h2 id="decision-title">Match the language to the project’s half-life.</h2>
-        </div>
-        <div class="decision-grid">
-          <article class="decision-card featured">
-            <span class="card-index">01</span>
-            <p class="card-label">New app expected to grow</p>
-            <h3>Choose TypeScript</h3>
-            <p>No observed success penalty, fewer agent steps, and compiler feedback for the next edit.</p>
-          </article>
-          <article class="decision-card">
-            <span class="card-index">02</span>
-            <p class="card-label">Existing multi-file app</p>
-            <h3>Choose TypeScript</h3>
-            <p>Static contracts provide useful insurance when schemas and behavior cross module boundaries.</p>
-          </article>
-          <article class="decision-card">
-            <span class="card-index">03</span>
-            <p class="card-label">One-off or throwaway</p>
-            <h3>JavaScript is reasonable</h3>
-            <p>Skip setup and compile latency when future maintenance genuinely does not matter.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="results" class="results section-shell" aria-labelledby="results-title">
-        <div class="section-heading split-heading">
-          <div>
-            <p class="kicker">Matched comparison</p>
-            <h2 id="results-title">What the runs actually measured</h2>
-          </div>
-          <p>
-            GPT-5.6 Luna · low reasoning · mini-swe-agent · identical Node runtime,
-            task wording, verifier, and bash-only scaffold.
-          </p>
-        </div>
-
-        <div id="comparison-panels" class="comparison-panels" aria-live="polite">
-          <p class="loading">Loading aggregate results…</p>
-        </div>
-      </section>
-
-      <section class="interpretation section-shell">
-        <div class="finding">
-          <p class="kicker">Strongest signal</p>
-          <p class="finding-text">
-            TypeScript used <span id="step-range">6–10%</span> fewer agent steps
-            and <span id="output-range">4–7%</span> fewer output tokens—without
-            changing final correctness.
-          </p>
-        </div>
-        <div class="tradeoff">
-          <p class="kicker">Visible tradeoff</p>
-          <p>
-            TypeScript’s compile/test loop took longer in agent wall time. That
-            overhead was about <strong id="time-range">26–46%</strong> in these small samples.
-          </p>
-        </div>
-      </section>
-
-      <section id="method" class="method section-shell" aria-labelledby="method-title">
-        <div class="section-heading split-heading">
-          <div>
-            <p class="kicker">Read this honestly</p>
-            <h2 id="method-title">Useful evidence, narrow license.</h2>
-          </div>
-        </div>
-        <div class="method-grid">
-          <article>
-            <h3>What it supports</h3>
-            <p>
-              For two related Node/HTTP contracts, strict TypeScript imposed no
-              completion penalty in either greenfield or brownfield work.
-            </p>
-          </article>
-          <article>
-            <h3>What it cannot prove</h3>
-            <p>
-              With every cell at 100%, this study cannot detect an accuracy win
-              or establish equivalence. The samples are small and come from one model snapshot.
-            </p>
-          </article>
-          <article>
-            <h3>Publication boundary</h3>
-            <p>
-              Only aggregate Pier summaries are public. Prompts, trajectories,
-              commands, patches, environment variables, and trial identifiers stay private.
-            </p>
-          </article>
-        </div>
-        <div class="source-links">
-          <a href="./data/decision-results.json">Aggregate JSON ↗</a>
-          <a href="./DECISION_REPORT.md">Full analysis ↗</a>
-          <a href="./DESIGN.md">Study design ↗</a>
-          <a href="./RUNNING_PAID.md">Run it yourself ↗</a>
-        </div>
-      </section>
-    </main>
-
-    <footer class="section-shell">
-      <p>MIT licensed. Built to be rerun, challenged, and extended.</p>
-      <p id="generated-at">Aggregate generated 2026-08-24</p>
-    </footer>
-
-    <noscript>
-      <div class="noscript">
-        JavaScript is only used to render the checked aggregate JSON. The full
-        result remains available in <a href="./DECISION_REPORT.md">the report</a>.
       </div>
-    </noscript>
-  </body>
+      <aside class="question-card" aria-label="Core benchmark question">
+        <p class="small-label">The question</p>
+        <p>If the task, tests, model, and agent stay fixed, does changing the programming language change whether the agent succeeds—or how it gets there?</p>
+        <div class="language-pills"><span>JavaScript</span><span>TypeScript</span><span>Python</span><span>Go</span></div>
+      </aside>
+    </section>
+
+    <section id="about" class="about section-shell" aria-labelledby="about-title">
+      <div class="section-heading">
+        <p class="kicker">What this benchmark is</p>
+        <h2 id="about-title">A controlled comparison, not a language leaderboard.</h2>
+        <p class="section-intro">A fair language study needs more than asking a model to write four unrelated snippets. This project builds equivalent repositories and asks an agent to do realistic work inside each one.</p>
+      </div>
+      <div class="principles-grid">
+        <article><span class="index">01</span><h3>Same job</h3><p>The task wording and required behavior stay aligned across languages.</p></article>
+        <article><span class="index">02</span><h3>Real repository</h3><p>The agent reads code, edits multiple files, runs commands, and deals with tooling feedback.</p></article>
+        <article><span class="index">03</span><h3>Shared behavioral check</h3><p>One language-neutral verifier tests the running service instead of grading code style.</p></article>
+      </div>
+    </section>
+
+    <section id="study" class="study section-shell" aria-labelledby="study-title">
+      <div class="section-heading split-heading">
+        <div><p class="kicker">Experiment 01 · optimistic concurrency</p><h2 id="study-title">The agent had to prevent two writers from overwriting each other.</h2></div>
+        <p class="section-intro">This is a small backend task with state, HTTP rules, error handling, and a race condition—not a toy function or syntax quiz.</p>
+      </div>
+      <div class="task-explainer">
+        <article class="prompt-card">
+          <div class="card-header"><span>Prompt excerpt</span><a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/optimistic-concurrency/instruction.md">Full prompt ↗</a></div>
+          <blockquote>“Add HTTP optimistic concurrency control. GET responses include a stable quoted ETag. Writes require If-Match. Two writes using the same tag must not both succeed.”</blockquote>
+          <p>The existing-project version begins with a working CRUD service. The new-project version asks the agent to build the service and concurrency behavior from a minimal scaffold.</p>
+        </article>
+        <article class="http-card" aria-label="Simplified example of the required behavior">
+          <div class="card-header"><span>Simplified behavior</span><span>HTTP</span></div>
+          <div class="http-line"><code>GET /tasks/1</code><span>→</span><code>200 · ETag "v7"</code></div>
+          <div class="http-line"><code>PATCH · If-Match "v7"</code><span>→</span><code class="success">200 · now "v8"</code></div>
+          <div class="http-line"><code>PATCH · If-Match "v7"</code><span>→</span><code class="failure">412 · stale</code></div>
+          <div class="http-line"><code>PATCH · no If-Match</code><span>→</span><code class="failure">428 · required</code></div>
+          <p>Hidden checks also cover concurrent writes, deletion, stable tags, ordinary CRUD behavior, and regressions.</p>
+        </article>
+      </div>
+      <div class="source-strip">
+        <span>Inspect the actual task:</span>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/optimistic-concurrency/javascript">JavaScript repo ↗</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/optimistic-concurrency/typescript">TypeScript repo ↗</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/optimistic-concurrency/python">Python repo ↗</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/optimistic-concurrency/go">Go repo ↗</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/optimistic-concurrency/verifier/verify.py">Shared verifier ↗</a>
+      </div>
+    </section>
+
+    <section class="run-explainer section-shell" aria-labelledby="run-title">
+      <div class="section-heading"><p class="kicker">What happens in one run</p><h2 id="run-title">One fresh agent gets one repository and one chance.</h2></div>
+      <ol class="run-flow">
+        <li><span>1</span><strong>Fresh context</strong><p>No memory from another language or attempt.</p></li>
+        <li><span>2</span><strong>Agent works</strong><p>It reads, edits, runs tests, and responds to compiler or runtime feedback.</p></li>
+        <li><span>3</span><strong>Hidden verifier</strong><p>The same external HTTP checks exercise every language implementation.</p></li>
+        <li><span>4</span><strong>Pass or fail</strong><p>A pass means the completed service satisfied the required behavior.</p></li>
+      </ol>
+    </section>
+
+    <section id="results" class="results section-shell" aria-labelledby="results-title">
+      <div class="result-headline">
+        <p class="kicker">First paid comparison · JavaScript vs TypeScript</p>
+        <h2 id="results-title">The study found no winner.</h2>
+        <p>All <strong id="primary-total">22</strong> balanced attempts passed. That is good news for the agent, but weak evidence for comparing the languages: the task hit a ceiling and could not separate them.</p>
+      </div>
+      <div class="notation-explainer">
+        <strong>What does “6/6 passed” mean?</strong>
+        <p>Six independent agent attempts were run in that condition, and all six completed the full task. It does <em>not</em> mean there were six test cases.</p>
+      </div>
+      <div class="result-grid" aria-label="Pass counts by condition">
+        <article><p>Existing project</p><h3>JavaScript</h3><strong data-result="brownfield-javascript">5/5</strong><span>attempts passed</span></article>
+        <article><p>Existing project</p><h3>TypeScript</h3><strong data-result="brownfield-typescript">5/5</strong><span>attempts passed</span></article>
+        <article><p>New project</p><h3>JavaScript</h3><strong data-result="greenfield-javascript">6/6</strong><span>attempts passed</span></article>
+        <article><p>New project</p><h3>TypeScript</h3><strong data-result="greenfield-typescript">6/6</strong><span>attempts passed</span></article>
+      </div>
+      <div class="interpretation-grid">
+        <article class="finding-card"><p class="small-label">What we can say</p><h3>TypeScript did not stop the agent from finishing.</h3><p>Strict typing imposed no observed completion penalty in these new or existing Node projects. JavaScript also completed every attempt.</p></article>
+        <article class="finding-card caution"><p class="small-label">What we cannot say</p><h3>We did not show that TypeScript makes agents more successful.</h3><p>With 100% in every cell, there is no measured accuracy advantage to explain. Small differences in steps, tokens, cost, and time are descriptive telemetry, not a verdict.</p></article>
+      </div>
+      <div class="details-link">
+        <div><strong>Looking for cost, tokens, cache rate, agent steps, or confidence intervals?</strong><p>Those are useful for auditing and replication, so they live on a separate technical page.</p></div>
+        <a class="button ghost" href="./details.html">Open technical details →</a>
+      </div>
+    </section>
+
+    <section id="roadmap" class="roadmap section-shell" aria-labelledby="roadmap-title">
+      <div class="section-heading split-heading">
+        <div><p class="kicker">The benchmark is broader than experiment 01</p><h2 id="roadmap-title">Four language arms, at different stages.</h2></div>
+        <p class="section-intro">JavaScript and TypeScript are the cleanest matched pair. Python and Go broaden the question, but also introduce ecosystem and compiler confounds.</p>
+      </div>
+      <div class="language-status">
+        <article><div><span class="language-dot js"></span><h3>JavaScript</h3></div><p>No static type checker.</p><strong class="status published">Agent results published</strong></article>
+        <article><div><span class="language-dot ts"></span><h3>TypeScript</h3></div><p>Strict structural typing.</p><strong class="status published">Agent results published</strong></article>
+        <article><div><span class="language-dot py"></span><h3>Python</h3></div><p>No checker in the first arm.</p><strong class="status ready">Task calibrated · study pending</strong></article>
+        <article><div><span class="language-dot go"></span><h3>Go</h3></div><p>Compiler-enforced nominal typing.</p><strong class="status ready">Task calibrated · study pending</strong></article>
+      </div>
+      <p class="calibration-note">“Calibrated” means the known-good solution passes, the untouched project fails on the same behaviors, and seeded broken solutions are caught consistently in all four languages. It is not an agent result.</p>
+    </section>
+
+    <section class="next section-shell" aria-labelledby="next-title">
+      <div><p class="kicker">What comes next</p><h2 id="next-title">Make the benchmark harder before making the claim louder.</h2></div>
+      <ul>
+        <li>Run the calibrated Python and Go arms with the same agent controls.</li>
+        <li>Add task families where type feedback might actually prevent subtle defects.</li>
+        <li>Repeat across models and richer coding-agent scaffolds.</li>
+        <li>Measure maintenance edits, migrations, and regressions—not only first completion.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="section-shell">
+    <div><strong>Language AI Bench</strong><p>MIT licensed. Built to be rerun, challenged, and extended.</p></div>
+    <div class="footer-links"><a href="./DECISION_REPORT.md">Written report</a><a href="./DESIGN.md">Design</a><a href="./data/decision-results.json">Aggregate data</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub</a></div>
+  </footer>
+</body>
 </html>
