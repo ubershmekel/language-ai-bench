@@ -1,0 +1,1 @@
+{"off-by-one":"A successful update forgets to advance the resource version.","missing-error-branch":"A stale If-Match value is accepted.","wrong-status-code":"A stale If-Match value returns 409 instead of 412.","unhandled-concurrent-update":"The compare and update are not atomic."}
