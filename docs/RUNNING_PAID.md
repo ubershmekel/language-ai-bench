@@ -40,6 +40,15 @@ pier --version
 pier run --help
 ```
 
+On native Windows, Pier 0.3.1 writes its Linux Squid bootstrap script with
+CRLF endings. Apply the pinned, idempotent workaround after installation:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\patch_pier_windows.py
+```
+
+The script refuses to modify any other Pier version and is a no-op on Linux.
+
 Calibration must remain green. Pier changes independently of this repository,
 so record `pier --version` and pin that version before publishing a real batch.
 
