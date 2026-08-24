@@ -1,12 +1,18 @@
-# JavaScript vs TypeScript for vibe-coded Node projects
+# Language AI Bench: first cross-language report
 
 ## Bottom line
 
-**This study found no completion-rate winner between JavaScript and TypeScript.**
+**All 24 published attempts passed; no language winner is detectable.**
 
-All 22 balanced runs passed. Under GPT-5.6 Luna at low reasoning effort, both languages solved the greenfield and brownfield tasks, including the harder cross-file schedule-union change. TypeScript showed no completion penalty and used modestly fewer output tokens and agent steps, while its compile/test loop took longer wall-clock time. Those operational differences are descriptive: the all-green result hit a ceiling and provides no evidence that either language makes agents more accurate.
+The balanced primary study contains 22 JavaScript/TypeScript attempts across new and existing Node projects. Python and Go each add one illustrative run of the existing optimistic-concurrency task. Those two 1/1 results prove that the calibrated four-language pipeline works end to end; they do not estimate Python or Go success rates and should not be compared as if they were equally sampled benchmark cells.
 
-## Results by project maturity
+## What the benchmark asked
+
+The first task requires an agent to add optimistic concurrency to a task service: stable ETags, required If-Match headers, stale-write rejection, correct deletion behavior, and protection against two conflicting writes both succeeding. The existing-project condition starts from working CRUD code. The new-project condition starts from a minimal Node scaffold.
+
+One fresh mini-swe-agent context receives one repository and the behavior-focused prompt. A shared language-neutral HTTP verifier grades the final service. A pass means the complete hidden behavior contract succeeded; 6/6 means six independent agent attempts passed, not six test cases.
+
+## Balanced JavaScript/TypeScript study
 
 | Condition | Language | Passed | Pass rate | Mean cost | Mean output | Mean steps | Mean agent time |
 |---|---|---:|---:|---:|---:|---:|---:|
@@ -20,20 +26,27 @@ Descriptive TypeScript-versus-JavaScript differences:
 - **Brownfield:** pass-rate difference 0 points; output tokens -7.39%, steps -5.71%, cost -0.32%, agent time +45.96%.
 - **Greenfield:** pass-rate difference 0 points; output tokens -4.46%, steps -10.31%, cost -2.32%, agent time +26.03%.
 
-## What the result licenses
+Every balanced cell reached 100%, so the task hit a ceiling. The study cannot estimate an accuracy advantage or establish equivalence.
 
-- For these two Node/HTTP contracts, this model/scaffold completed JavaScript and strict TypeScript equally often.
-- TypeScript did not make greenfield generation less likely to succeed and did not obstruct brownfield schema evolution.
-- The small efficiency differences are descriptive; with 5 brownfield and 6 greenfield runs per language, they are not stable population estimates.
+## Python and Go examples
 
-## What it does not license
+| Language | Type feedback | Condition | Passed | Cost | Output | Steps | Agent time |
+|---|---|---|---:|---:|---:|---:|---:|
+| Python | none | Existing | 1/1 | $0.006897 | 3257 | 9 | 40.29s |
+| Go | compiler | Existing | 1/1 | $0.005861 | 2952 | 6 | 40.53s |
 
-Every cell reached 100%, so the study cannot estimate a TypeScript accuracy advantage or establish equivalence. The 95% Wilson lower bound is only about 57% for 5/5 and 61% for 6/6. This is one model snapshot, low effort, a bash-only agent, two related backend contracts, and no LSP/editor feedback. It does not test React/Next.js ecosystems, long-lived maintenance, human review, dependency migrations, or defect rates after future changes.
+Both examples passed the same hidden optimistic-concurrency verifier with no exceptions. Because each language has only one paid attempt, the result licenses only an end-to-end pipeline claim: this agent solved this instance once in Python and once in Go.
 
-## What this means for choosing a language
+## What the results support
 
-Based on this study alone, both JavaScript and strict TypeScript were viable for the tested work. TypeScript offers compiler feedback and explicit contracts; JavaScript reduces setup and compile latency. Those are engineering tradeoffs outside the measured pass-rate result—not evidence that this benchmark proved one language better for vibe coding.
+- The tested agent completed the optimistic-concurrency task at least once in all four language arms.
+- JavaScript and strict TypeScript completed every balanced new- and existing-project attempt.
+- Strict TypeScript imposed no observed completion penalty in the balanced study.
 
-Primary paid spend was **$0.11832375**. Raw Pier jobs remain private; the public JSON contains aggregates only.
+## What the results do not support
 
-See [`data/decision-results.json`](data/decision-results.json) for machine-readable aggregates and confidence intervals.
+The report is not a four-language ranking. Python and Go have different ecosystems, compiler behavior, diagnostics, and likely model exposure, and each has only one agent attempt. The study also uses one model snapshot, low reasoning effort, a bash-only scaffold, related backend contracts, and no editor/LSP feedback. It does not measure long-term maintenance, frontend work, dependency migrations, human review, or future defect rates.
+
+Total measured spend across all 24 published attempts was **$0.13108191**. Raw Pier jobs remain private; the public JSON contains aggregates only.
+
+See data/decision-results.json for machine-readable aggregates and confidence intervals.

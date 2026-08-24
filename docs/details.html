@@ -57,26 +57,28 @@
             <tr><td>Existing</td><td>TypeScript</td><td>5/5</td><td>$0.005496</td><td>2,132</td><td>6.60</td><td>49.13s</td></tr>
             <tr><td>New</td><td>JavaScript</td><td>6/6</td><td>$0.005335</td><td>2,543</td><td>6.50</td><td>35.81s</td></tr>
             <tr><td>New</td><td>TypeScript</td><td>6/6</td><td>$0.005211</td><td>2,430</td><td>5.83</td><td>45.13s</td></tr>
+            <tr><td>Existing · example</td><td>Python</td><td>1/1</td><td>$0.006897</td><td>3,257</td><td>9.00</td><td>40.29s</td></tr>
+            <tr><td>Existing · example</td><td>Go</td><td>1/1</td><td>$0.005861</td><td>2,952</td><td>6.00</td><td>40.53s</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="details-note"><strong>Interpretation:</strong> every condition reached 100%, so these operational differences are descriptive. TypeScript used somewhat fewer output tokens and steps while taking longer wall-clock time. The sample is too small, and the pass-rate ceiling too complete, to turn those differences into a language ranking.</p>
+      <p class="details-note"><strong>Interpretation:</strong> every published run passed, so these operational differences are descriptive. The balanced comparison exists only for JavaScript and TypeScript. Python and Go each have one illustrative run and must not be read as equally sampled cells or as a ranking.</p>
     </section>
 
     <section class="details-section section-shell">
       <h2>Spend and confidence</h2>
       <div class="config-grid">
-        <div><span>Balanced runs</span><strong id="detail-runs">22</strong></div>
-        <div><span>Passed</span><strong id="detail-passed">22</strong></div>
-        <div><span>Primary API spend</span><strong id="detail-cost">$0.118324</strong></div>
-        <div><span>Mean run time</span><strong id="detail-time">40.89s</strong></div>
+        <div><span>Published attempts</span><strong id="detail-runs">24</strong></div>
+        <div><span>Passed</span><strong id="detail-passed">24</strong></div>
+        <div><span>Total API spend</span><strong id="detail-cost">$0.131082</strong></div>
+        <div><span>Mean agent time</span><strong id="detail-time">40.85s</strong></div>
       </div>
-      <p class="details-note">A perfect observed pass rate does not imply a perfect underlying success rate. The 95% Wilson lower bound is about 57% for 5/5 and 61% for 6/6. More importantly, all cells hitting the ceiling means this task cannot estimate a JavaScript/TypeScript accuracy difference.</p>
+      <p class="details-note">A perfect observed pass rate does not imply a perfect underlying success rate. The 95% Wilson lower bound is about 57% for 5/5, 61% for 6/6, and only 21% for 1/1. More importantly, the ceiling prevents a JavaScript/TypeScript accuracy estimate, while the single Python and Go runs provide no stable rate estimate at all.</p>
     </section>
 
     <section class="details-section section-shell">
       <h2>Known limitations</h2>
-      <p class="details-note">This is one model snapshot, one bash-only agent scaffold, two related Node service conditions, and a small number of attempts. It does not test long-term maintenance, React or browser applications, editor/LSP feedback, dependency migrations, human review, or Python/Go agent performance. The current Python and Go arms establish verifier parity only; their comparable paid runs are still pending.</p>
+      <p class="details-note">This is one model snapshot, one bash-only agent scaffold, related backend contracts, and a small number of attempts. It does not test long-term maintenance, React or browser applications, editor/LSP feedback, dependency migrations, or human review. Python and Go now demonstrate one successful agent run each, but repeated comparable runs are still pending.</p>
       <p><a class="back-link" href="./">← Return to the experiment overview</a></p>
     </section>
   </main>

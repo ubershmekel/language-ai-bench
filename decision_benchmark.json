@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
-  "benchmark_version": "0.3.0",
-  "objective": "Compare JavaScript and strict TypeScript for vibe-coded new and existing Node projects.",
+  "benchmark_version": "0.4.0",
+  "objective": "Compare matched JavaScript/TypeScript work and demonstrate the calibrated Python/Go arms end to end.",
   "scaffold": "mini-swe-agent/bash-only",
   "model": "openrouter/openai/gpt-5.6-luna",
   "model_settings": {
@@ -10,6 +10,8 @@
   },
   "target_attempts_per_cell": 3,
   "planned_rollouts": 22,
+  "illustrative_rollouts": 2,
+  "published_rollouts": 24,
   "max_spend_usd": 4.0,
   "cells": [
     {
@@ -67,6 +69,28 @@
       "language": "typescript",
       "typecheck_config": "strict",
       "phase_attempts": 3
+    }
+  ],
+  "illustrative_extensions": [
+    {
+      "task_family": "optimistic-concurrency",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "typecheck_config": "none",
+      "phase_attempts": 1,
+      "sample_seed": 20260830,
+      "private_job": "decision-python-example",
+      "interpretation": "illustrative_single_run"
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "typecheck_config": "default",
+      "phase_attempts": 1,
+      "sample_seed": 20260831,
+      "private_job": "decision-go-example",
+      "interpretation": "illustrative_single_run"
     }
   ],
   "analysis": {

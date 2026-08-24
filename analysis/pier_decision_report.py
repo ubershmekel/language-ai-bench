@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Aggregate private Pier summaries into a GitHub Pages-safe decision report."""
+"""Aggregate private Pier summaries into a GitHub Pages-safe language report."""
 
 from __future__ import annotations
 
@@ -13,17 +13,27 @@ from collections import defaultdict
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCES = (
-    ("decision-brownfield-rung1", "optimistic-concurrency", "brownfield", "simple"),
-    ("decision-greenfield-rung1", "task-service-greenfield", "greenfield", "simple"),
-    ("decision-schedule-rung1", "schedule-variants", None, "prefixed"),
+    ("decision-brownfield-rung1", "optimistic-concurrency", "brownfield", "simple", "primary"),
+    ("decision-greenfield-rung1", "task-service-greenfield", "greenfield", "simple", "primary"),
+    ("decision-schedule-rung1", "schedule-variants", None, "prefixed", "primary"),
+    ("decision-python-example", "optimistic-concurrency", "brownfield", "simple", "example"),
+    ("decision-go-example", "optimistic-concurrency", "brownfield", "simple", "example"),
 )
+TYPECHECK_CONFIG = {
+    "javascript": "none",
+    "typescript": "strict",
+    "python": "none",
+    "go": "default",
+}
 
 
 def wilson(passed: int, total: int, z: float = 1.959963984540054) -> list[float]:
     proportion = passed / total
     denominator = 1 + z * z / total
     center = (proportion + z * z / (2 * total)) / denominator
-    margin = z * math.sqrt(proportion * (1 - proportion) / total + z * z / (4 * total * total)) / denominator
+    margin = z * math.sqrt(
+        proportion * (1 - proportion) / total + z * z / (4 * total * total)
+    ) / denominator
     return [round(center - margin, 6), round(center + margin, 6)]
 
 
@@ -33,7 +43,7 @@ def parse_time(value: str) -> dt.datetime:
 
 def read_rows(jobs_dir: pathlib.Path) -> list[dict]:
     rows = []
-    for job_name, family, fixed_maturity, mode in SOURCES:
+    for job_name, family, fixed_maturity, mode, cohort in SOURCES:
         job_dir = jobs_dir / job_name
         if not job_dir.is_dir():
             raise SystemExit(f"missing required private Pier job: {job_dir}")
@@ -43,7 +53,7 @@ def read_rows(jobs_dir: pathlib.Path) -> list[dict]:
                 continue
             result = json.loads(result_path.read_text(encoding="utf-8"))
             if result.get("exception_info") is not None:
-                raise SystemExit(f"errored primary trial: {trial_dir.name}")
+                raise SystemExit(f"errored published trial: {trial_dir.name}")
             task_name = result["task_name"]
             if mode == "prefixed":
                 maturity, language = task_name.split("-", 1)
@@ -54,6 +64,7 @@ def read_rows(jobs_dir: pathlib.Path) -> list[dict]:
             finished = parse_time(result["agent_execution"]["finished_at"])
             rows.append(
                 {
+                    "cohort": cohort,
                     "task_family": family,
                     "project_maturity": maturity,
                     "language": language,
@@ -85,7 +96,9 @@ def aggregate(rows: list[dict]) -> dict:
         "total_cost_usd": round(sum(row["cost_usd"] for row in rows), 8),
         "mean_cost_usd": round(statistics.mean(row["cost_usd"] for row in rows), 8),
         "mean_input_tokens": round(statistics.mean(row["input_tokens"] for row in rows), 2),
-        "mean_cached_input_tokens": round(statistics.mean(row["cached_input_tokens"] for row in rows), 2),
+        "mean_cached_input_tokens": round(
+            statistics.mean(row["cached_input_tokens"] for row in rows), 2
+        ),
         "cache_hit_rate": round(cached / input_tokens, 6),
         "mean_output_tokens": round(statistics.mean(row["output_tokens"] for row in rows), 2),
         "mean_agent_steps": round(statistics.mean(row["agent_steps"] for row in rows), 2),
@@ -93,77 +106,146 @@ def aggregate(rows: list[dict]) -> dict:
     }
 
 
-def relative_delta(ts_value: float, js_value: float) -> float:
-    return round((ts_value / js_value - 1) * 100, 2)
+def relative_delta(other_value: float, base_value: float) -> float:
+    return round((other_value / base_value - 1) * 100, 2)
 
 
 def build_report(rows: list[dict]) -> dict:
+    primary_rows = [row for row in rows if row["cohort"] == "primary"]
+    example_rows = [row for row in rows if row["cohort"] == "example"]
+
     cells = []
     grouped = defaultdict(list)
-    for row in rows:
+    for row in primary_rows:
         grouped[(row["task_family"], row["project_maturity"], row["language"])].append(row)
     for key, items in sorted(grouped.items()):
-        cells.append({"task_family": key[0], "project_maturity": key[1], "language": key[2], **aggregate(items)})
+        cells.append(
+            {
+                "task_family": key[0],
+                "project_maturity": key[1],
+                "language": key[2],
+                "typecheck_config": TYPECHECK_CONFIG[key[2]],
+                **aggregate(items),
+            }
+        )
 
-    maturity = []
+    maturity_summaries = []
     contrasts = []
     for name in ("brownfield", "greenfield"):
         per_language = {}
         for language in ("javascript", "typescript"):
-            items = [row for row in rows if row["project_maturity"] == name and row["language"] == language]
+            items = [
+                row
+                for row in primary_rows
+                if row["project_maturity"] == name and row["language"] == language
+            ]
             summary = aggregate(items)
-            maturity.append({"project_maturity": name, "language": language, **summary})
+            maturity_summaries.append(
+                {
+                    "project_maturity": name,
+                    "language": language,
+                    "typecheck_config": TYPECHECK_CONFIG[language],
+                    **summary,
+                }
+            )
             per_language[language] = summary
-        js, ts = per_language["javascript"], per_language["typescript"]
+        javascript, typescript = per_language["javascript"], per_language["typescript"]
         contrasts.append(
             {
                 "project_maturity": name,
-                "typescript_minus_javascript_pass_rate": round(ts["pass_rate"] - js["pass_rate"], 6),
-                "typescript_relative_mean_cost_percent": relative_delta(ts["mean_cost_usd"], js["mean_cost_usd"]),
-                "typescript_relative_mean_input_percent": relative_delta(ts["mean_input_tokens"], js["mean_input_tokens"]),
-                "typescript_relative_mean_output_percent": relative_delta(ts["mean_output_tokens"], js["mean_output_tokens"]),
-                "typescript_relative_mean_steps_percent": relative_delta(ts["mean_agent_steps"], js["mean_agent_steps"]),
-                "typescript_relative_mean_agent_seconds_percent": relative_delta(ts["mean_agent_seconds"], js["mean_agent_seconds"]),
+                "typescript_minus_javascript_pass_rate": round(
+                    typescript["pass_rate"] - javascript["pass_rate"], 6
+                ),
+                "typescript_relative_mean_cost_percent": relative_delta(
+                    typescript["mean_cost_usd"], javascript["mean_cost_usd"]
+                ),
+                "typescript_relative_mean_input_percent": relative_delta(
+                    typescript["mean_input_tokens"], javascript["mean_input_tokens"]
+                ),
+                "typescript_relative_mean_output_percent": relative_delta(
+                    typescript["mean_output_tokens"], javascript["mean_output_tokens"]
+                ),
+                "typescript_relative_mean_steps_percent": relative_delta(
+                    typescript["mean_agent_steps"], javascript["mean_agent_steps"]
+                ),
+                "typescript_relative_mean_agent_seconds_percent": relative_delta(
+                    typescript["mean_agent_seconds"], javascript["mean_agent_seconds"]
+                ),
             }
         )
 
-    overall = aggregate(rows)
+    polyglot_examples = []
+    example_groups = defaultdict(list)
+    for row in example_rows:
+        example_groups[(row["task_family"], row["project_maturity"], row["language"])].append(row)
+    for key, items in sorted(example_groups.items()):
+        polyglot_examples.append(
+            {
+                "task_family": key[0],
+                "project_maturity": key[1],
+                "language": key[2],
+                "typecheck_config": TYPECHECK_CONFIG[key[2]],
+                "interpretation": "illustrative_single_run",
+                **aggregate(items),
+            }
+        )
+
+    primary_summary = aggregate(primary_rows)
+    published_summary = aggregate(rows)
+
     return {
         "schema_version": "1.0.0",
-        "benchmark_version": "0.3.0",
+        "benchmark_version": "0.4.0",
         "generated_at": max(row["finished_at"] for row in rows),
+        "objective": "Test equivalent coding-agent work across JavaScript, TypeScript, Python, and Go without treating the languages as an undifferentiated leaderboard.",
         "model": rows[0]["model"],
-        "model_settings": {"reasoning_effort": "low", "cache_control": "default_end", "per_rollout_cost_limit_usd": 0.1},
+        "model_settings": {
+            "reasoning_effort": "low",
+            "cache_control": "default_end",
+            "per_rollout_cost_limit_usd": 0.1,
+        },
         "agent": f"mini-swe-agent@{rows[0]['agent_version']}",
         "pier": "0.3.1",
         "scaffold": "mini-swe-agent/bash-only",
         "source_jobs": [source[0] for source in SOURCES],
-        "primary": overall,
+        "all_published": published_summary,
+        "primary": primary_summary,
         "cells": cells,
-        "maturity_summaries": maturity,
+        "maturity_summaries": maturity_summaries,
         "contrasts": contrasts,
+        "polyglot_examples": polyglot_examples,
+        "finding": f"All {primary_summary['passed']} balanced JavaScript/TypeScript primary runs and both single Python/Go examples passed. No language winner is detectable; the Python and Go results demonstrate end-to-end feasibility only.",
         "excluded": [
             "One earlier TypeScript cost-pilot pass was excluded because it was not part of a balanced JS/TS phase.",
             "One pre-model Windows proxy infrastructure failure was excluded and recorded no usage or cost.",
         ],
-        "finding": "All 22 balanced primary runs passed. Pass-rate superiority is not detectable because every cell hit the ceiling.",
         "publication_boundary": "Aggregate Pier result summaries only; no prompts, trajectories, commands, patches, environment variables, or trial identifiers.",
     }
 
 
 def render_markdown(report: dict) -> str:
     contrasts = {item["project_maturity"]: item for item in report["contrasts"]}
-    summaries = {(item["project_maturity"], item["language"]): item for item in report["maturity_summaries"]}
+    summaries = {
+        (item["project_maturity"], item["language"]): item
+        for item in report["maturity_summaries"]
+    }
+    examples = {item["language"]: item for item in report["polyglot_examples"]}
     lines = [
-        "# JavaScript vs TypeScript for vibe-coded Node projects",
+        "# Language AI Bench: first cross-language report",
         "",
         "## Bottom line",
         "",
-        "**Use TypeScript by default for projects you expect to keep or extend; use JavaScript for genuinely disposable scripts and tiny prototypes.**",
+        f"**All {report['all_published']['runs']} published attempts passed; no language winner is detectable.**",
         "",
-        "That recommendation is not based on a pass-rate win: all 22 balanced runs passed. Under GPT-5.6 Luna at low reasoning effort, both languages solved both greenfield and brownfield tasks, including the harder cross-file schedule-union change. TypeScript showed no completion penalty and used modestly fewer output tokens and agent steps, but its compile/test loop took longer wall-clock time. The practical recommendation therefore combines this no-penalty result with the unmeasured maintenance value of static checks; it is not proof that TypeScript makes agents more accurate.",
+        f"The balanced primary study contains {report['primary']['runs']} JavaScript/TypeScript attempts across new and existing Node projects. Python and Go each add one illustrative run of the existing optimistic-concurrency task. Those two 1/1 results prove that the calibrated four-language pipeline works end to end; they do not estimate Python or Go success rates and should not be compared as if they were equally sampled benchmark cells.",
         "",
-        "## Results by project maturity",
+        "## What the benchmark asked",
+        "",
+        "The first task requires an agent to add optimistic concurrency to a task service: stable ETags, required If-Match headers, stale-write rejection, correct deletion behavior, and protection against two conflicting writes both succeeding. The existing-project condition starts from working CRUD code. The new-project condition starts from a minimal Node scaffold.",
+        "",
+        "One fresh mini-swe-agent context receives one repository and the behavior-focused prompt. A shared language-neutral HTTP verifier grades the final service. A pass means the complete hidden behavior contract succeeded; 6/6 means six independent agent attempts passed, not six test cases.",
+        "",
+        "## Balanced JavaScript/TypeScript study",
         "",
         "| Condition | Language | Passed | Pass rate | Mean cost | Mean output | Mean steps | Mean agent time |",
         "|---|---|---:|---:|---:|---:|---:|---:|",
@@ -171,9 +253,9 @@ def render_markdown(report: dict) -> str:
     for maturity in ("brownfield", "greenfield"):
         for language in ("javascript", "typescript"):
             item = summaries[(maturity, language)]
-            language_label = {"javascript": "JavaScript", "typescript": "TypeScript"}[language]
+            label = {"javascript": "JavaScript", "typescript": "TypeScript"}[language]
             lines.append(
-                f"| {maturity.title()} | {language_label} | {item['passed']}/{item['runs']} | {item['pass_rate']:.0%} | ${item['mean_cost_usd']:.6f} | {item['mean_output_tokens']:.0f} | {item['mean_agent_steps']:.2f} | {item['mean_agent_seconds']:.2f}s |"
+                f"| {maturity.title()} | {label} | {item['passed']}/{item['runs']} | {item['pass_rate']:.0%} | ${item['mean_cost_usd']:.6f} | {item['mean_output_tokens']:.0f} | {item['mean_agent_steps']:.2f} | {item['mean_agent_seconds']:.2f}s |"
             )
     lines += ["", "Descriptive TypeScript-versus-JavaScript differences:", ""]
     for maturity in ("brownfield", "greenfield"):
@@ -183,25 +265,36 @@ def render_markdown(report: dict) -> str:
         )
     lines += [
         "",
-        "## What the result licenses",
+        "Every balanced cell reached 100%, so the task hit a ceiling. The study cannot estimate an accuracy advantage or establish equivalence.",
         "",
-        "- For these two Node/HTTP contracts, this model/scaffold completed JavaScript and strict TypeScript equally often.",
-        "- TypeScript did not make greenfield generation less likely to succeed and did not obstruct brownfield schema evolution.",
-        "- The small efficiency differences are descriptive; with 5 brownfield and 6 greenfield runs per language, they are not stable population estimates.",
+        "## Python and Go examples",
         "",
-        "## What it does not license",
+        "| Language | Type feedback | Condition | Passed | Cost | Output | Steps | Agent time |",
+        "|---|---|---|---:|---:|---:|---:|---:|",
+    ]
+    feedback = {"python": "none", "go": "compiler"}
+    for language in ("python", "go"):
+        item = examples[language]
+        lines.append(
+            f"| {language.title()} | {feedback[language]} | Existing | {item['passed']}/{item['runs']} | ${item['mean_cost_usd']:.6f} | {item['mean_output_tokens']:.0f} | {item['mean_agent_steps']:.0f} | {item['mean_agent_seconds']:.2f}s |"
+        )
+    lines += [
         "",
-        "Every cell reached 100%, so the study cannot estimate a TypeScript accuracy advantage or establish equivalence. The 95% Wilson lower bound is only about 57% for 5/5 and 61% for 6/6. This is one model snapshot, low effort, a bash-only agent, two related backend contracts, and no LSP/editor feedback. It does not test React/Next.js ecosystems, long-lived maintenance, human review, dependency migrations, or defect rates after future changes.",
+        "Both examples passed the same hidden optimistic-concurrency verifier with no exceptions. Because each language has only one paid attempt, the result licenses only an end-to-end pipeline claim: this agent solved this instance once in Python and once in Go.",
         "",
-        "## Practical choice",
+        "## What the results support",
         "",
-        "- **New application expected to grow:** TypeScript. The agent paid no observed success penalty, and future edits gain compiler feedback.",
-        "- **Existing multi-file application:** TypeScript, more strongly. Cross-module schema changes are exactly where static contracts provide insurance, even though this model solved both arms.",
-        "- **One-off automation, throwaway prototype, or tiny script:** JavaScript is reasonable when minimizing setup and compile latency matters more than future refactors.",
+        "- The tested agent completed the optimistic-concurrency task at least once in all four language arms.",
+        "- JavaScript and strict TypeScript completed every balanced new- and existing-project attempt.",
+        "- Strict TypeScript imposed no observed completion penalty in the balanced study.",
         "",
-        f"Primary paid spend was **${report['primary']['total_cost_usd']:.8f}**. Raw Pier jobs remain private; the public JSON contains aggregates only.",
+        "## What the results do not support",
         "",
-        "See [`data/decision-results.json`](data/decision-results.json) for machine-readable aggregates and confidence intervals.",
+        "The report is not a four-language ranking. Python and Go have different ecosystems, compiler behavior, diagnostics, and likely model exposure, and each has only one agent attempt. The study also uses one model snapshot, low reasoning effort, a bash-only scaffold, related backend contracts, and no editor/LSP feedback. It does not measure long-term maintenance, frontend work, dependency migrations, human review, or future defect rates.",
+        "",
+        f"Total measured spend across all {report['all_published']['runs']} published attempts was **${report['all_published']['total_cost_usd']:.8f}**. Raw Pier jobs remain private; the public JSON contains aggregates only.",
+        "",
+        "See data/decision-results.json for machine-readable aggregates and confidence intervals.",
     ]
     return "\n".join(lines) + "\n"
 
@@ -209,8 +302,16 @@ def render_markdown(report: dict) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--jobs-dir", type=pathlib.Path, default=ROOT / "jobs")
-    parser.add_argument("--json-output", type=pathlib.Path, default=ROOT / "docs" / "data" / "decision-results.json")
-    parser.add_argument("--markdown-output", type=pathlib.Path, default=ROOT / "docs" / "DECISION_REPORT.md")
+    parser.add_argument(
+        "--json-output",
+        type=pathlib.Path,
+        default=ROOT / "docs" / "data" / "decision-results.json",
+    )
+    parser.add_argument(
+        "--markdown-output",
+        type=pathlib.Path,
+        default=ROOT / "docs" / "DECISION_REPORT.md",
+    )
     args = parser.parse_args()
     report = build_report(read_rows(args.jobs_dir))
     encoded = (json.dumps(report, indent=2) + "\n").encode("utf-8")
@@ -219,7 +320,11 @@ def main() -> None:
     args.json_output.parent.mkdir(parents=True, exist_ok=True)
     args.json_output.write_bytes(encoded)
     args.markdown_output.write_bytes(render_markdown(report).encode("utf-8"))
-    print(f"wrote {args.json_output} and {args.markdown_output}: {report['primary']['passed']}/{report['primary']['runs']} passes, ${report['primary']['total_cost_usd']:.8f}")
+    print(
+        f"wrote {args.json_output} and {args.markdown_output}: "
+        f"{report['all_published']['passed']}/{report['all_published']['runs']} passes, "
+        f"${report['all_published']['total_cost_usd']:.8f}"
+    )
 
 
 if __name__ == "__main__":

@@ -106,6 +106,17 @@
         <article><p>New project</p><h3>JavaScript</h3><strong data-result="greenfield-javascript">6/6</strong><span>attempts passed</span></article>
         <article><p>New project</p><h3>TypeScript</h3><strong data-result="greenfield-typescript">6/6</strong><span>attempts passed</span></article>
       </div>
+      <div class="example-results">
+        <div>
+          <p class="small-label">Cross-language pipeline examples</p>
+          <h3>Python and Go also completed the existing-project task once.</h3>
+          <p>These are single end-to-end examples under the same model and verifier. A 1/1 result shows that the pipeline worked and the agent solved this instance; it does not estimate either language's success rate.</p>
+        </div>
+        <div class="example-result-grid">
+          <article><h4>Python</h4><strong data-result="brownfield-python">1/1</strong><span>illustrative run passed</span></article>
+          <article><h4>Go</h4><strong data-result="brownfield-go">1/1</strong><span>illustrative run passed</span></article>
+        </div>
+      </div>
       <div class="interpretation-grid">
         <article class="finding-card"><p class="small-label">What we can say</p><h3>TypeScript did not stop the agent from finishing.</h3><p>Strict typing imposed no observed completion penalty in these new or existing Node projects. JavaScript also completed every attempt.</p></article>
         <article class="finding-card caution"><p class="small-label">What we cannot say</p><h3>We did not show that TypeScript makes agents more successful.</h3><p>With 100% in every cell, there is no measured accuracy advantage to explain. Small differences in steps, tokens, cost, and time are descriptive telemetry, not a verdict.</p></article>
@@ -124,16 +135,16 @@
       <div class="language-status">
         <article><div><span class="language-dot js"></span><h3>JavaScript</h3></div><p>No static type checker.</p><strong class="status published">Agent results published</strong></article>
         <article><div><span class="language-dot ts"></span><h3>TypeScript</h3></div><p>Strict structural typing.</p><strong class="status published">Agent results published</strong></article>
-        <article><div><span class="language-dot py"></span><h3>Python</h3></div><p>No checker in the first arm.</p><strong class="status ready">Task calibrated · study pending</strong></article>
-        <article><div><span class="language-dot go"></span><h3>Go</h3></div><p>Compiler-enforced nominal typing.</p><strong class="status ready">Task calibrated · study pending</strong></article>
+        <article><div><span class="language-dot py"></span><h3>Python</h3></div><p>No checker in the first arm.</p><strong class="status ready">1 illustrative run passed</strong></article>
+        <article><div><span class="language-dot go"></span><h3>Go</h3></div><p>Compiler-enforced nominal typing.</p><strong class="status ready">1 illustrative run passed</strong></article>
       </div>
-      <p class="calibration-note">“Calibrated” means the known-good solution passes, the untouched project fails on the same behaviors, and seeded broken solutions are caught consistently in all four languages. It is not an agent result.</p>
+      <p class="calibration-note">All four arms remain calibration-green: known-good solutions pass, untouched projects fail on the same behaviors, and seeded broken solutions are caught consistently. Python and Go now also have one paid agent pass each, but still need repeated attempts before comparative interpretation.</p>
     </section>
 
     <section class="next section-shell" aria-labelledby="next-title">
       <div><p class="kicker">What comes next</p><h2 id="next-title">Make the benchmark harder before making the claim louder.</h2></div>
       <ul>
-        <li>Run the calibrated Python and Go arms with the same agent controls.</li>
+        <li>Repeat Python and Go with enough independent attempts to estimate success rates.</li>
         <li>Add task families where type feedback might actually prevent subtle defects.</li>
         <li>Repeat across models and richer coding-agent scaffolds.</li>
         <li>Measure maintenance edits, migrations, and regressions—not only first completion.</li>

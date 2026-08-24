@@ -1,37 +1,43 @@
 "use strict";
 
 const resultName = (maturity, language) => `${maturity}-${language}`;
+const languageLabels = {
+  javascript: "JavaScript",
+  typescript: "TypeScript",
+  python: "Python",
+  go: "Go",
+};
 
 function formatMoney(value, digits = 6) {
   return `$${Number(value).toFixed(digits)}`;
 }
 
-function displayCondition(maturity) {
-  return maturity === "brownfield" ? "Existing" : "New";
+function displayCondition(summary) {
+  const base = summary.project_maturity === "brownfield" ? "Existing" : "New";
+  return summary.interpretation === "illustrative_single_run" ? `${base} · example` : base;
 }
 
-function displayLanguage(language) {
-  return language === "javascript" ? "JavaScript" : "TypeScript";
+function updateResult(summary) {
+  const output = document.querySelector(
+    `[data-result="${resultName(summary.project_maturity, summary.language)}"]`,
+  );
+  if (output) output.textContent = `${summary.passed}/${summary.runs}`;
 }
 
 function updateOverview(data) {
   const total = document.querySelector("#primary-total");
   if (total) total.textContent = String(data.primary.runs);
-
-  for (const summary of data.maturity_summaries) {
-    const output = document.querySelector(
-      `[data-result="${resultName(summary.project_maturity, summary.language)}"]`,
-    );
-    if (output) output.textContent = `${summary.passed}/${summary.runs}`;
-  }
+  data.maturity_summaries.forEach(updateResult);
+  data.polyglot_examples.forEach(updateResult);
 }
 
 function updateDetails(data) {
+  const published = data.all_published;
   const fields = {
-    "#detail-runs": data.primary.runs,
-    "#detail-passed": data.primary.passed,
-    "#detail-cost": formatMoney(data.primary.total_cost_usd),
-    "#detail-time": `${data.primary.mean_agent_seconds.toFixed(2)}s`,
+    "#detail-runs": published.runs,
+    "#detail-passed": published.passed,
+    "#detail-cost": formatMoney(published.total_cost_usd),
+    "#detail-time": `${published.mean_agent_seconds.toFixed(2)}s`,
   };
 
   for (const [selector, value] of Object.entries(fields)) {
@@ -42,19 +48,20 @@ function updateDetails(data) {
   const body = document.querySelector("#details-results");
   if (!body) return;
 
-  const order = { brownfield: 0, greenfield: 1, javascript: 0, typescript: 1 };
-  const summaries = [...data.maturity_summaries].sort(
+  const languageOrder = { javascript: 0, typescript: 1, python: 2, go: 3 };
+  const summaries = [...data.maturity_summaries, ...data.polyglot_examples].sort(
     (a, b) =>
-      order[a.project_maturity] - order[b.project_maturity] ||
-      order[a.language] - order[b.language],
+      (a.project_maturity === "brownfield" ? 0 : 1) -
+        (b.project_maturity === "brownfield" ? 0 : 1) ||
+      languageOrder[a.language] - languageOrder[b.language],
   );
 
   body.replaceChildren(
     ...summaries.map((summary) => {
       const row = document.createElement("tr");
       const values = [
-        displayCondition(summary.project_maturity),
-        displayLanguage(summary.language),
+        displayCondition(summary),
+        languageLabels[summary.language],
         `${summary.passed}/${summary.runs}`,
         formatMoney(summary.mean_cost_usd),
         Math.round(summary.mean_output_tokens).toLocaleString("en-US"),
@@ -79,7 +86,9 @@ async function loadResults() {
   if (
     data.schema_version !== "1.0.0" ||
     !data.primary ||
-    !Array.isArray(data.maturity_summaries)
+    !data.all_published ||
+    !Array.isArray(data.maturity_summaries) ||
+    !Array.isArray(data.polyglot_examples)
   ) {
     throw new Error("Unsupported aggregate schema");
   }

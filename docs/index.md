@@ -1,14 +1,18 @@
 ---
 layout: default
-title: JavaScript vs TypeScript Decision Study
+title: Language AI Bench
 ---
 
 # Language AI Bench
 
-The current decision study asks whether JavaScript or strict TypeScript is a
-better default for AI-assisted new and existing Node projects.
+Language AI Bench gives a coding agent equivalent software-engineering tasks in
+different programming languages and grades the final behavior with a shared
+verifier. The first report contains a balanced JavaScript/TypeScript study plus
+one illustrative Python run and one illustrative Go run.
 
-- [Read the decision report](DECISION_REPORT.md)
+- [Open the report overview](index.html)
+- [Read the cross-language report](DECISION_REPORT.md)
+- [View technical details](details.html)
 - [Download aggregate JSON](data/decision-results.json)
 - [Read the experimental design](DESIGN.md)
 

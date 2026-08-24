@@ -1,7 +1,8 @@
 {
   "schema_version": "1.0.0",
-  "benchmark_version": "0.3.0",
-  "generated_at": "2026-08-24T22:40:28.185530Z",
+  "benchmark_version": "0.4.0",
+  "generated_at": "2026-08-24T23:34:50.247638Z",
+  "objective": "Test equivalent coding-agent work across JavaScript, TypeScript, Python, and Go without treating the languages as an undifferentiated leaderboard.",
   "model": "openrouter/openai/gpt-5.6-luna",
   "model_settings": {
     "reasoning_effort": "low",
@@ -14,8 +15,27 @@
   "source_jobs": [
     "decision-brownfield-rung1",
     "decision-greenfield-rung1",
-    "decision-schedule-rung1"
+    "decision-schedule-rung1",
+    "decision-python-example",
+    "decision-go-example"
   ],
+  "all_published": {
+    "runs": 24,
+    "passed": 24,
+    "pass_rate": 1.0,
+    "pass_rate_wilson_95": [
+      0.862024,
+      1.0
+    ],
+    "total_cost_usd": 0.13108191,
+    "mean_cost_usd": 0.00546175,
+    "mean_input_tokens": 30407.67,
+    "mean_cached_input_tokens": 21745.96,
+    "cache_hit_rate": 0.715147,
+    "mean_output_tokens": 2425.83,
+    "mean_agent_steps": 6.54,
+    "mean_agent_seconds": 40.85
+  },
   "primary": {
     "runs": 22,
     "passed": 22,
@@ -38,6 +58,7 @@
       "task_family": "optimistic-concurrency",
       "project_maturity": "brownfield",
       "language": "javascript",
+      "typecheck_config": "none",
       "runs": 2,
       "passed": 2,
       "pass_rate": 1.0,
@@ -58,6 +79,7 @@
       "task_family": "optimistic-concurrency",
       "project_maturity": "brownfield",
       "language": "typescript",
+      "typecheck_config": "strict",
       "runs": 2,
       "passed": 2,
       "pass_rate": 1.0,
@@ -78,6 +100,7 @@
       "task_family": "schedule-variants",
       "project_maturity": "brownfield",
       "language": "javascript",
+      "typecheck_config": "none",
       "runs": 3,
       "passed": 3,
       "pass_rate": 1.0,
@@ -98,6 +121,7 @@
       "task_family": "schedule-variants",
       "project_maturity": "brownfield",
       "language": "typescript",
+      "typecheck_config": "strict",
       "runs": 3,
       "passed": 3,
       "pass_rate": 1.0,
@@ -118,6 +142,7 @@
       "task_family": "schedule-variants",
       "project_maturity": "greenfield",
       "language": "javascript",
+      "typecheck_config": "none",
       "runs": 3,
       "passed": 3,
       "pass_rate": 1.0,
@@ -138,6 +163,7 @@
       "task_family": "schedule-variants",
       "project_maturity": "greenfield",
       "language": "typescript",
+      "typecheck_config": "strict",
       "runs": 3,
       "passed": 3,
       "pass_rate": 1.0,
@@ -158,6 +184,7 @@
       "task_family": "task-service-greenfield",
       "project_maturity": "greenfield",
       "language": "javascript",
+      "typecheck_config": "none",
       "runs": 3,
       "passed": 3,
       "pass_rate": 1.0,
@@ -178,6 +205,7 @@
       "task_family": "task-service-greenfield",
       "project_maturity": "greenfield",
       "language": "typescript",
+      "typecheck_config": "strict",
       "runs": 3,
       "passed": 3,
       "pass_rate": 1.0,
@@ -199,6 +227,7 @@
     {
       "project_maturity": "brownfield",
       "language": "javascript",
+      "typecheck_config": "none",
       "runs": 5,
       "passed": 5,
       "pass_rate": 1.0,
@@ -218,6 +247,7 @@
     {
       "project_maturity": "brownfield",
       "language": "typescript",
+      "typecheck_config": "strict",
       "runs": 5,
       "passed": 5,
       "pass_rate": 1.0,
@@ -237,6 +267,7 @@
     {
       "project_maturity": "greenfield",
       "language": "javascript",
+      "typecheck_config": "none",
       "runs": 6,
       "passed": 6,
       "pass_rate": 1.0,
@@ -256,6 +287,7 @@
     {
       "project_maturity": "greenfield",
       "language": "typescript",
+      "typecheck_config": "strict",
       "runs": 6,
       "passed": 6,
       "pass_rate": 1.0,
@@ -293,10 +325,56 @@
       "typescript_relative_mean_agent_seconds_percent": 26.03
     }
   ],
+  "polyglot_examples": [
+    {
+      "task_family": "optimistic-concurrency",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "typecheck_config": "default",
+      "interpretation": "illustrative_single_run",
+      "runs": 1,
+      "passed": 1,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.206549,
+        1.0
+      ],
+      "total_cost_usd": 0.00586095,
+      "mean_cost_usd": 0.00586095,
+      "mean_input_tokens": 26856,
+      "mean_cached_input_tokens": 18915,
+      "cache_hit_rate": 0.704312,
+      "mean_output_tokens": 2952,
+      "mean_agent_steps": 6,
+      "mean_agent_seconds": 40.53
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "typecheck_config": "none",
+      "interpretation": "illustrative_single_run",
+      "runs": 1,
+      "passed": 1,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.206549,
+        1.0
+      ],
+      "total_cost_usd": 0.00689721,
+      "mean_cost_usd": 0.00689721,
+      "mean_input_tokens": 45043,
+      "mean_cached_input_tokens": 35768,
+      "cache_hit_rate": 0.794086,
+      "mean_output_tokens": 3257,
+      "mean_agent_steps": 9,
+      "mean_agent_seconds": 40.29
+    }
+  ],
+  "finding": "All 22 balanced JavaScript/TypeScript primary runs and both single Python/Go examples passed. No language winner is detectable; the Python and Go results demonstrate end-to-end feasibility only.",
   "excluded": [
     "One earlier TypeScript cost-pilot pass was excluded because it was not part of a balanced JS/TS phase.",
     "One pre-model Windows proxy infrastructure failure was excluded and recorded no usage or cost."
   ],
-  "finding": "All 22 balanced primary runs passed. Pass-rate superiority is not detectable because every cell hit the ceiling.",
   "publication_boundary": "Aggregate Pier result summaries only; no prompts, trajectories, commands, patches, environment variables, or trial identifiers."
 }
