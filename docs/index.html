@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta
+      name="description"
+      content="A controlled coding-agent benchmark comparing JavaScript and TypeScript for new and existing Node projects."
+    />
+    <meta property="og:title" content="JavaScript vs TypeScript for vibe coding" />
+    <meta
+      property="og:description"
+      content="22 matched coding-agent runs. One practical language choice."
+    />
+    <title>JavaScript vs TypeScript · Language AI Bench</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Language AI Bench home">
+        <span class="brand-mark" aria-hidden="true">L/AB</span>
+        <span>Language AI Bench</span>
+      </a>
+      <nav aria-label="Report navigation">
+        <a href="#results">Results</a>
+        <a href="#method">Method</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench">GitHub ↗</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section-shell">
+        <div class="eyebrow"><span class="pulse"></span> Decision study · 2026</div>
+        <h1>TypeScript,<br /><em>by default.</em></h1>
+        <p class="hero-copy">
+          For Node projects you expect to keep or extend. JavaScript remains a
+          sound choice for truly disposable scripts and tiny prototypes.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#results">Explore the evidence</a>
+          <a class="button ghost" href="./DECISION_REPORT.md">Read the full report</a>
+        </div>
+        <p class="scope-note">
+          This is a practical recommendation—not proof of an accuracy advantage.
+          Every balanced run passed.
+        </p>
+      </section>
+
+      <section class="scoreboard section-shell" aria-label="Primary study summary">
+        <article class="headline-stat">
+          <span class="stat-label">Balanced passes</span>
+          <strong id="primary-passes">22/22</strong>
+          <span id="primary-rate">100% pass rate</span>
+        </article>
+        <article>
+          <span class="stat-label">Primary spend</span>
+          <strong id="primary-cost">$0.1183</strong>
+          <span>measured API cost</span>
+        </article>
+        <article>
+          <span class="stat-label">Input cache hit</span>
+          <strong id="primary-cache">71.0%</strong>
+          <span>across all runs</span>
+        </article>
+        <article>
+          <span class="stat-label">Study outcome</span>
+          <strong>Ceiling</strong>
+          <span>no pass-rate separation</span>
+        </article>
+      </section>
+
+      <section class="decision section-shell" aria-labelledby="decision-title">
+        <div class="section-heading">
+          <p class="kicker">The practical choice</p>
+          <h2 id="decision-title">Match the language to the project’s half-life.</h2>
+        </div>
+        <div class="decision-grid">
+          <article class="decision-card featured">
+            <span class="card-index">01</span>
+            <p class="card-label">New app expected to grow</p>
+            <h3>Choose TypeScript</h3>
+            <p>No observed success penalty, fewer agent steps, and compiler feedback for the next edit.</p>
+          </article>
+          <article class="decision-card">
+            <span class="card-index">02</span>
+            <p class="card-label">Existing multi-file app</p>
+            <h3>Choose TypeScript</h3>
+            <p>Static contracts provide useful insurance when schemas and behavior cross module boundaries.</p>
+          </article>
+          <article class="decision-card">
+            <span class="card-index">03</span>
+            <p class="card-label">One-off or throwaway</p>
+            <h3>JavaScript is reasonable</h3>
+            <p>Skip setup and compile latency when future maintenance genuinely does not matter.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="results" class="results section-shell" aria-labelledby="results-title">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="kicker">Matched comparison</p>
+            <h2 id="results-title">What the runs actually measured</h2>
+          </div>
+          <p>
+            GPT-5.6 Luna · low reasoning · mini-swe-agent · identical Node runtime,
+            task wording, verifier, and bash-only scaffold.
+          </p>
+        </div>
+
+        <div id="comparison-panels" class="comparison-panels" aria-live="polite">
+          <p class="loading">Loading aggregate results…</p>
+        </div>
+      </section>
+
+      <section class="interpretation section-shell">
+        <div class="finding">
+          <p class="kicker">Strongest signal</p>
+          <p class="finding-text">
+            TypeScript used <span id="step-range">6–10%</span> fewer agent steps
+            and <span id="output-range">4–7%</span> fewer output tokens—without
+            changing final correctness.
+          </p>
+        </div>
+        <div class="tradeoff">
+          <p class="kicker">Visible tradeoff</p>
+          <p>
+            TypeScript’s compile/test loop took longer in agent wall time. That
+            overhead was about <strong id="time-range">26–46%</strong> in these small samples.
+          </p>
+        </div>
+      </section>
+
+      <section id="method" class="method section-shell" aria-labelledby="method-title">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="kicker">Read this honestly</p>
+            <h2 id="method-title">Useful evidence, narrow license.</h2>
+          </div>
+        </div>
+        <div class="method-grid">
+          <article>
+            <h3>What it supports</h3>
+            <p>
+              For two related Node/HTTP contracts, strict TypeScript imposed no
+              completion penalty in either greenfield or brownfield work.
+            </p>
+          </article>
+          <article>
+            <h3>What it cannot prove</h3>
+            <p>
+              With every cell at 100%, this study cannot detect an accuracy win
+              or establish equivalence. The samples are small and come from one model snapshot.
+            </p>
+          </article>
+          <article>
+            <h3>Publication boundary</h3>
+            <p>
+              Only aggregate Pier summaries are public. Prompts, trajectories,
+              commands, patches, environment variables, and trial identifiers stay private.
+            </p>
+          </article>
+        </div>
+        <div class="source-links">
+          <a href="./data/decision-results.json">Aggregate JSON ↗</a>
+          <a href="./DECISION_REPORT.md">Full analysis ↗</a>
+          <a href="./DESIGN.md">Study design ↗</a>
+          <a href="./RUNNING_PAID.md">Run it yourself ↗</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="section-shell">
+      <p>MIT licensed. Built to be rerun, challenged, and extended.</p>
+      <p id="generated-at">Aggregate generated 2026-08-24</p>
+    </footer>
+
+    <noscript>
+      <div class="noscript">
+        JavaScript is only used to render the checked aggregate JSON. The full
+        result remains available in <a href="./DECISION_REPORT.md">the report</a>.
+      </div>
+    </noscript>
+  </body>
+</html>

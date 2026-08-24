@@ -1,0 +1,26 @@
+#!/bin/sh
+set -eu
+
+test -f docs/index.html
+test -f docs/styles.css
+test -f docs/app.js
+test -f docs/data/decision-results.json
+
+node --check docs/app.js
+node -e '
+  const fs = require("node:fs");
+  const data = JSON.parse(fs.readFileSync("docs/data/decision-results.json", "utf8"));
+  if (data.schema_version !== "1.0.0") throw new Error("unexpected aggregate schema");
+  if (data.primary.runs !== 22 || data.primary.passed !== 22) throw new Error("unexpected primary totals");
+  if (!Array.isArray(data.maturity_summaries) || data.maturity_summaries.length !== 4) {
+    throw new Error("expected four language-by-maturity summaries");
+  }
+'
+
+if grep -R -E 'sk-or-v1-[A-Za-z0-9_-]{20,}' \
+  docs/index.html docs/app.js docs/styles.css docs/data; then
+  echo "Potential OpenRouter secret found in the public site." >&2
+  exit 1
+fi
+
+echo "Public report validation passed."

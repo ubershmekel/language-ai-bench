@@ -30,7 +30,8 @@ verifier bytes, model, effort, and bash-only scaffold.
 The staged cells and stopping budget are recorded in `decision_benchmark.json`.
 Results cover two related behavioral contracts but remain exploratory—not a
 universal language ranking. Greenfield and brownfield pass rates are reported
-separately. The current findings are in [`docs/DECISION_REPORT.md`](docs/DECISION_REPORT.md).
+separately. Explore the [published decision report](https://ubershmekel.github.io/language-ai-bench/)
+or read the source in [`docs/DECISION_REPORT.md`](docs/DECISION_REPORT.md).
 
 ## Run it on Linux (or Docker Desktop's Linux engine)
 
