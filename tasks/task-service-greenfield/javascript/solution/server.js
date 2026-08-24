@@ -26,6 +26,3 @@ const server = http.createServer(async (req,res) => {
   } catch { return send(res,400,{error:"invalid json"}); }
 });
 server.listen(Number(process.env.PORT||8080),"0.0.0.0",()=>console.log("ready"));
-
-
-
