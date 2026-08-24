@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_version": "0.1.0",
+  "task_family": "optimistic-concurrency",
+  "scaffold": "mini-swe-agent/bash-only",
+  "model": "set-by-cli",
+  "model_settings": {"reasoning_effort": "set-by-cli"},
+  "step_limit": 40,
+  "timeout_seconds": 900,
+  "cells": [
+    {"language": "javascript", "typecheck_config": "none"},
+    {"language": "python", "typecheck_config": "none"},
+    {"language": "typescript", "typecheck_config": "strict"},
+    {"language": "go", "typecheck_config": "default"}
+  ]
+}
+
