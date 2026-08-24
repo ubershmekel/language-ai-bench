@@ -39,9 +39,9 @@ def build(task_dir, language, kind):
     return tag
 
 
-def wait_ready(port, timeout=20):
+def wait_ready(port, readiness_path="/tasks/1", timeout=20):
     start = time.monotonic()
-    url = f"http://127.0.0.1:{port}/tasks/1"
+    url = f"http://127.0.0.1:{port}{readiness_path}"
     while time.monotonic() - start < timeout:
         try:
             with urllib.request.urlopen(url, timeout=1):
@@ -51,7 +51,7 @@ def wait_ready(port, timeout=20):
     raise RuntimeError("readiness timeout")
 
 
-def verify(task_dir, tag, sabotage=None):
+def verify(task_dir, tag, sabotage=None, readiness_path="/tasks/1"):
     cmd = ["docker", "run", "-d", "--rm", "-P"]
     if sabotage:
         cmd += ["-e", f"LAB_SABOTAGE={sabotage}"]
@@ -69,7 +69,7 @@ def verify(task_dir, tag, sabotage=None):
                 time.sleep(0.05)
         if not port:
             raise RuntimeError("Docker did not publish port")
-        startup = wait_ready(port)
+        startup = wait_ready(port, readiness_path)
         with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as handle:
             report_path = pathlib.Path(handle.name)
         proc = run(
@@ -102,6 +102,7 @@ def main():
     parser.add_argument("--no-build", action="store_true")
     parser.add_argument("--task-dir", type=pathlib.Path, default=DEFAULT_TASK)
     parser.add_argument("--languages", nargs="+", default=list(DEFAULT_LANGUAGES))
+    parser.add_argument("--readiness-path", default="/tasks/1")
     parser.add_argument("--output", default=str(ROOT / "calibration_report.json"))
     args = parser.parse_args()
     task_dir = args.task_dir.resolve()
@@ -114,10 +115,10 @@ def main():
             baseline = build(task_dir, language, "baseline")
             reference = build(task_dir, language, "reference")
         matrix[language] = {
-            "reference": verify(task_dir, reference),
-            "null": verify(task_dir, baseline),
+            "reference": verify(task_dir, reference, readiness_path=args.readiness_path),
+            "null": verify(task_dir, baseline, readiness_path=args.readiness_path),
             "sabotages": {
-                sabotage: verify(task_dir, reference, sabotage)
+                sabotage: verify(task_dir, reference, sabotage, args.readiness_path)
                 for sabotage in SABOTAGES
             },
         }

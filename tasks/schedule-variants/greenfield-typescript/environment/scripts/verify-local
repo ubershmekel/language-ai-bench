@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+npm run build
+PORT=${PORT:-8080} node dist/server.js & pid=$!;trap 'kill $pid 2>/dev/null || true' EXIT
+python3 scripts/wait_ready.py --url "http://127.0.0.1:$PORT/jobs/1"
+python3 scripts/dev_verify.py --base-url "http://127.0.0.1:$PORT" --visibility developer
