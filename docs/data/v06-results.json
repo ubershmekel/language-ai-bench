@@ -1,0 +1,818 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_version": "0.6.0",
+  "study_id": "v0.6-clean-polyglot",
+  "study_status": "complete-prospective",
+  "generated_at": "2026-08-25T08:56:06.494034Z",
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "agent": "mini-swe-agent@2.4.6",
+  "prospective": {
+    "runs": 36,
+    "passed": 36,
+    "pass_rate": 1.0,
+    "total_cost_usd": 0.19101201,
+    "mean_agent_steps": 6.611111111111111,
+    "mean_input_tokens": 31754.305555555555,
+    "mean_cached_input_tokens": 22384.944444444445,
+    "mean_output_tokens": 2136.9166666666665,
+    "mean_cost_usd": 0.005305889166666666,
+    "mean_agent_seconds": 32.78914247222222,
+    "mean_files_changed": 2.611111111111111,
+    "mean_lines_added": 79.25,
+    "mean_lines_deleted": 16.25,
+    "mean_patch_lines": 95.5,
+    "mean_final_workspace_files": 7.75,
+    "mean_final_workspace_bytes": 12772.916666666666,
+    "dependency_manifest_changes": 0
+  },
+  "languages": [
+    {
+      "language": "go",
+      "runs": 9,
+      "passed": 9,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.05029077,
+      "mean_agent_steps": 6.888888888888889,
+      "mean_input_tokens": 36105.333333333336,
+      "mean_cached_input_tokens": 26674.0,
+      "mean_output_tokens": 2287.5555555555557,
+      "mean_cost_usd": 0.005587863333333333,
+      "mean_agent_seconds": 37.49359244444444,
+      "mean_files_changed": 2.111111111111111,
+      "mean_lines_added": 47.111111111111114,
+      "mean_lines_deleted": 5.888888888888889,
+      "mean_patch_lines": 53.0,
+      "mean_final_workspace_files": 6.666666666666667,
+      "mean_final_workspace_bytes": 11054.333333333334,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "language": "javascript",
+      "runs": 9,
+      "passed": 9,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.04785933,
+      "mean_agent_steps": 6.888888888888889,
+      "mean_input_tokens": 32257.11111111111,
+      "mean_cached_input_tokens": 22641.555555555555,
+      "mean_output_tokens": 2091.222222222222,
+      "mean_cost_usd": 0.005317703333333334,
+      "mean_agent_seconds": 29.261111444444445,
+      "mean_files_changed": 2.0,
+      "mean_lines_added": 46.55555555555556,
+      "mean_lines_deleted": 8.333333333333334,
+      "mean_patch_lines": 54.888888888888886,
+      "mean_final_workspace_files": 7.0,
+      "mean_final_workspace_bytes": 11053.777777777777,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "language": "python",
+      "runs": 9,
+      "passed": 9,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.04490959,
+      "mean_agent_steps": 6.222222222222222,
+      "mean_input_tokens": 25574.777777777777,
+      "mean_cached_input_tokens": 16803.0,
+      "mean_output_tokens": 2091.1111111111113,
+      "mean_cost_usd": 0.004989954444444444,
+      "mean_agent_seconds": 26.83673811111111,
+      "mean_files_changed": 2.0,
+      "mean_lines_added": 51.333333333333336,
+      "mean_lines_deleted": 42.0,
+      "mean_patch_lines": 93.33333333333333,
+      "mean_final_workspace_files": 5.666666666666667,
+      "mean_final_workspace_bytes": 10741.666666666666,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "language": "typescript",
+      "runs": 9,
+      "passed": 9,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.04795232,
+      "mean_agent_steps": 6.444444444444445,
+      "mean_input_tokens": 33080.0,
+      "mean_cached_input_tokens": 23421.222222222223,
+      "mean_output_tokens": 2077.777777777778,
+      "mean_cost_usd": 0.005328035555555556,
+      "mean_agent_seconds": 37.56512788888889,
+      "mean_files_changed": 4.333333333333333,
+      "mean_lines_added": 172.0,
+      "mean_lines_deleted": 8.777777777777779,
+      "mean_patch_lines": 180.77777777777777,
+      "mean_final_workspace_files": 11.666666666666666,
+      "mean_final_workspace_bytes": 18241.88888888889,
+      "dependency_manifest_changes": 0
+    }
+  ],
+  "cells": [
+    {
+      "task_family": "configuration-merge",
+      "language": "go",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.0122794,
+      "mean_agent_steps": 5.0,
+      "mean_input_tokens": 18220.666666666668,
+      "mean_cached_input_tokens": 9916.666666666666,
+      "mean_output_tokens": 1557.0,
+      "mean_cost_usd": 0.004093133333333333,
+      "mean_agent_seconds": 20.567293666666668,
+      "mean_files_changed": 2.0,
+      "mean_lines_added": 33.666666666666664,
+      "mean_lines_deleted": 3.0,
+      "mean_patch_lines": 36.666666666666664,
+      "mean_final_workspace_files": 6.0,
+      "mean_final_workspace_bytes": 10182.333333333334,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "task_family": "configuration-merge",
+      "language": "javascript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.01416136,
+      "mean_agent_steps": 6.0,
+      "mean_input_tokens": 26349.666666666668,
+      "mean_cached_input_tokens": 16942.666666666668,
+      "mean_output_tokens": 1733.0,
+      "mean_cost_usd": 0.004720453333333333,
+      "mean_agent_seconds": 24.975112,
+      "mean_files_changed": 2.0,
+      "mean_lines_added": 59.0,
+      "mean_lines_deleted": 7.666666666666667,
+      "mean_patch_lines": 66.66666666666667,
+      "mean_final_workspace_files": 5.0,
+      "mean_final_workspace_bytes": 10226.666666666666,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "task_family": "configuration-merge",
+      "language": "python",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.01232786,
+      "mean_agent_steps": 6.0,
+      "mean_input_tokens": 23295.0,
+      "mean_cached_input_tokens": 15032.666666666666,
+      "mean_output_tokens": 1494.0,
+      "mean_cost_usd": 0.0041092866666666665,
+      "mean_agent_seconds": 22.918749333333334,
+      "mean_files_changed": 2.0,
+      "mean_lines_added": 29.666666666666668,
+      "mean_lines_deleted": 5.333333333333333,
+      "mean_patch_lines": 35.0,
+      "mean_final_workspace_files": 5.0,
+      "mean_final_workspace_bytes": 9181.666666666666,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "task_family": "configuration-merge",
+      "language": "typescript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.01367608,
+      "mean_agent_steps": 6.0,
+      "mean_input_tokens": 30284.333333333332,
+      "mean_cached_input_tokens": 21168.0,
+      "mean_output_tokens": 1588.3333333333333,
+      "mean_cost_usd": 0.004558693333333333,
+      "mean_agent_seconds": 32.83848233333333,
+      "mean_files_changed": 3.0,
+      "mean_lines_added": 127.66666666666667,
+      "mean_lines_deleted": 1.0,
+      "mean_patch_lines": 128.66666666666666,
+      "mean_final_workspace_files": 9.0,
+      "mean_final_workspace_bytes": 15383.0,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "go",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.02097969,
+      "mean_agent_steps": 8.0,
+      "mean_input_tokens": 47697.0,
+      "mean_cached_input_tokens": 38159.0,
+      "mean_output_tokens": 3242.3333333333335,
+      "mean_cost_usd": 0.00699323,
+      "mean_agent_seconds": 50.750442,
+      "mean_files_changed": 2.3333333333333335,
+      "mean_lines_added": 52.666666666666664,
+      "mean_lines_deleted": 5.333333333333333,
+      "mean_patch_lines": 58.0,
+      "mean_final_workspace_files": 7.0,
+      "mean_final_workspace_bytes": 8013.666666666667,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "javascript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.01863173,
+      "mean_agent_steps": 8.0,
+      "mean_input_tokens": 35752.0,
+      "mean_cached_input_tokens": 26484.666666666668,
+      "mean_output_tokens": 2841.0,
+      "mean_cost_usd": 0.006210576666666666,
+      "mean_agent_seconds": 37.46530166666667,
+      "mean_files_changed": 2.0,
+      "mean_lines_added": 39.333333333333336,
+      "mean_lines_deleted": 7.0,
+      "mean_patch_lines": 46.333333333333336,
+      "mean_final_workspace_files": 7.0,
+      "mean_final_workspace_bytes": 7877.333333333333,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "python",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.01546599,
+      "mean_agent_steps": 6.666666666666667,
+      "mean_input_tokens": 24208.0,
+      "mean_cached_input_tokens": 16244.0,
+      "mean_output_tokens": 2403.6666666666665,
+      "mean_cost_usd": 0.00515533,
+      "mean_agent_seconds": 30.549006666666667,
+      "mean_files_changed": 2.0,
+      "mean_lines_added": 58.666666666666664,
+      "mean_lines_deleted": 34.333333333333336,
+      "mean_patch_lines": 93.0,
+      "mean_final_workspace_files": 6.0,
+      "mean_final_workspace_bytes": 7951.0,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "typescript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.01869218,
+      "mean_agent_steps": 6.666666666666667,
+      "mean_input_tokens": 29336.0,
+      "mean_cached_input_tokens": 19999.666666666668,
+      "mean_output_tokens": 2951.3333333333335,
+      "mean_cost_usd": 0.006230726666666666,
+      "mean_agent_seconds": 43.451055,
+      "mean_files_changed": 3.0,
+      "mean_lines_added": 146.0,
+      "mean_lines_deleted": 9.333333333333334,
+      "mean_patch_lines": 155.33333333333334,
+      "mean_final_workspace_files": 10.0,
+      "mean_final_workspace_bytes": 13966.666666666666,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "task_family": "schedule-variants",
+      "language": "go",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.01703168,
+      "mean_agent_steps": 7.666666666666667,
+      "mean_input_tokens": 42398.333333333336,
+      "mean_cached_input_tokens": 31946.333333333332,
+      "mean_output_tokens": 2063.3333333333335,
+      "mean_cost_usd": 0.005677226666666667,
+      "mean_agent_seconds": 41.163041666666665,
+      "mean_files_changed": 2.0,
+      "mean_lines_added": 55.0,
+      "mean_lines_deleted": 9.333333333333334,
+      "mean_patch_lines": 64.33333333333333,
+      "mean_final_workspace_files": 7.0,
+      "mean_final_workspace_bytes": 14967.0,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "task_family": "schedule-variants",
+      "language": "javascript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.01506624,
+      "mean_agent_steps": 6.666666666666667,
+      "mean_input_tokens": 34669.666666666664,
+      "mean_cached_input_tokens": 24497.333333333332,
+      "mean_output_tokens": 1699.6666666666667,
+      "mean_cost_usd": 0.005022079999999999,
+      "mean_agent_seconds": 25.342920666666668,
+      "mean_files_changed": 2.0,
+      "mean_lines_added": 41.333333333333336,
+      "mean_lines_deleted": 10.333333333333334,
+      "mean_patch_lines": 51.666666666666664,
+      "mean_final_workspace_files": 9.0,
+      "mean_final_workspace_bytes": 15057.333333333334,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "task_family": "schedule-variants",
+      "language": "python",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.01711574,
+      "mean_agent_steps": 6.0,
+      "mean_input_tokens": 29221.333333333332,
+      "mean_cached_input_tokens": 19132.333333333332,
+      "mean_output_tokens": 2375.6666666666665,
+      "mean_cost_usd": 0.005705246666666666,
+      "mean_agent_seconds": 27.042458333333332,
+      "mean_files_changed": 2.0,
+      "mean_lines_added": 65.66666666666667,
+      "mean_lines_deleted": 86.33333333333333,
+      "mean_patch_lines": 152.0,
+      "mean_final_workspace_files": 6.0,
+      "mean_final_workspace_bytes": 15092.333333333334,
+      "dependency_manifest_changes": 0
+    },
+    {
+      "task_family": "schedule-variants",
+      "language": "typescript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "total_cost_usd": 0.01558406,
+      "mean_agent_steps": 6.666666666666667,
+      "mean_input_tokens": 39619.666666666664,
+      "mean_cached_input_tokens": 29096.0,
+      "mean_output_tokens": 1693.6666666666667,
+      "mean_cost_usd": 0.005194686666666666,
+      "mean_agent_seconds": 36.40584633333333,
+      "mean_files_changed": 7.0,
+      "mean_lines_added": 242.33333333333334,
+      "mean_lines_deleted": 16.0,
+      "mean_patch_lines": 258.3333333333333,
+      "mean_final_workspace_files": 16.0,
+      "mean_final_workspace_bytes": 25376.0,
+      "dependency_manifest_changes": 0
+    }
+  ],
+  "workflow_quality": [
+    {
+      "language": "javascript",
+      "runs": 9,
+      "first_verification_observed": 9,
+      "first_verification_passed": 6,
+      "verification_before_submit": 9,
+      "passing_verification_before_submit": 9,
+      "mean_verification_attempts": 2.111111111111111,
+      "static_check_invocations": 0,
+      "malformed_actions": 0
+    },
+    {
+      "language": "typescript",
+      "runs": 9,
+      "first_verification_observed": 9,
+      "first_verification_passed": 6,
+      "verification_before_submit": 9,
+      "passing_verification_before_submit": 6,
+      "mean_verification_attempts": 2.3333333333333335,
+      "static_check_invocations": 0,
+      "malformed_actions": 0
+    },
+    {
+      "language": "python",
+      "runs": 9,
+      "first_verification_observed": 9,
+      "first_verification_passed": 9,
+      "verification_before_submit": 9,
+      "passing_verification_before_submit": 9,
+      "mean_verification_attempts": 2.3333333333333335,
+      "static_check_invocations": 0,
+      "malformed_actions": 0
+    },
+    {
+      "language": "go",
+      "runs": 9,
+      "first_verification_observed": 9,
+      "first_verification_passed": 6,
+      "verification_before_submit": 9,
+      "passing_verification_before_submit": 7,
+      "mean_verification_attempts": 2.111111111111111,
+      "static_check_invocations": 13,
+      "malformed_actions": 0
+    }
+  ],
+  "paired_contrasts": [
+    {
+      "left": "javascript",
+      "right": "typescript",
+      "direction": "left_minus_right",
+      "blocks": 9,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": 0.4444444444444444,
+          "ci95": [
+            -0.3333333333333333,
+            1.2222222222222223
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": -1.0332222222222058e-05,
+          "ci95": [
+            -0.000336938972222222,
+            0.00030622263888888866
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": 13.444444444444445,
+          "ci95": [
+            -161.44444444444446,
+            178.22222222222223
+          ]
+        },
+        "agent_seconds": {
+          "mean_difference": -8.304016444444443,
+          "ci95": [
+            -11.162201999999999,
+            -4.817807130555558
+          ]
+        },
+        "patch_lines": {
+          "mean_difference": -125.88888888888889,
+          "ci95": [
+            -166.33333333333334,
+            -87.88888888888889
+          ]
+        }
+      }
+    },
+    {
+      "left": "javascript",
+      "right": "python",
+      "direction": "left_minus_right",
+      "blocks": 9,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": 0.6666666666666666,
+          "ci95": [
+            -0.1111111111111111,
+            1.2222222222222223
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": 0.0003277488888888888,
+          "ci95": [
+            -0.0002491776111111114,
+            0.000890701111111111
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": 0.1111111111111111,
+          "ci95": [
+            -370.77777777777777,
+            361.8888888888889
+          ]
+        },
+        "agent_seconds": {
+          "mean_difference": 2.424373333333333,
+          "ci95": [
+            -1.3458631694444454,
+            6.308859572222208
+          ]
+        },
+        "patch_lines": {
+          "mean_difference": -38.44444444444444,
+          "ci95": [
+            -75.66666666666667,
+            -1.7777777777777777
+          ]
+        }
+      }
+    },
+    {
+      "left": "javascript",
+      "right": "go",
+      "direction": "left_minus_right",
+      "blocks": 9,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": 0.0,
+          "ci95": [
+            -1.0,
+            1.0
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": -0.00027016,
+          "ci95": [
+            -0.001129881277777778,
+            0.00042476333333333363
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": -196.33333333333334,
+          "ci95": [
+            -571.4722222222223,
+            115.6694444444442
+          ]
+        },
+        "agent_seconds": {
+          "mean_difference": -8.232481,
+          "ci95": [
+            -17.107175555555557,
+            -0.13534011944445073
+          ]
+        },
+        "patch_lines": {
+          "mean_difference": 1.8888888888888888,
+          "ci95": [
+            -10.777777777777779,
+            16.11111111111111
+          ]
+        }
+      }
+    },
+    {
+      "left": "typescript",
+      "right": "python",
+      "direction": "left_minus_right",
+      "blocks": 9,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": 0.2222222222222222,
+          "ci95": [
+            -0.4444444444444444,
+            0.8888888888888888
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": 0.0003380811111111109,
+          "ci95": [
+            -0.00019565900000000013,
+            0.0008793233333333329
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": -13.333333333333334,
+          "ci95": [
+            -379.1194444444444,
+            352.1111111111111
+          ]
+        },
+        "agent_seconds": {
+          "mean_difference": 10.728389777777776,
+          "ci95": [
+            7.270761230555555,
+            14.261712397222212
+          ]
+        },
+        "patch_lines": {
+          "mean_difference": 87.44444444444444,
+          "ci95": [
+            70.44444444444444,
+            106.11111111111111
+          ]
+        }
+      }
+    },
+    {
+      "left": "typescript",
+      "right": "go",
+      "direction": "left_minus_right",
+      "blocks": 9,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": -0.4444444444444444,
+          "ci95": [
+            -1.7777777777777777,
+            0.6666666666666666
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": -0.00025982777777777796,
+          "ci95": [
+            -0.001083664472222223,
+            0.0003738997777777768
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": -209.77777777777777,
+          "ci95": [
+            -469.22222222222223,
+            17.11666666666618
+          ]
+        },
+        "agent_seconds": {
+          "mean_difference": 0.07153544444444372,
+          "ci95": [
+            -8.803732666666667,
+            8.030862497222218
+          ]
+        },
+        "patch_lines": {
+          "mean_difference": 127.77777777777777,
+          "ci95": [
+            100.11111111111111,
+            160.88888888888889
+          ]
+        }
+      }
+    },
+    {
+      "left": "python",
+      "right": "go",
+      "direction": "left_minus_right",
+      "blocks": 9,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": -0.6666666666666666,
+          "ci95": [
+            -1.7777777777777777,
+            0.4444444444444444
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": -0.0005979088888888888,
+          "ci95": [
+            -0.0015944344444444442,
+            9.535111111111171e-05
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": -196.44444444444446,
+          "ci95": [
+            -640.7805555555557,
+            177.0
+          ]
+        },
+        "agent_seconds": {
+          "mean_difference": -10.656854333333335,
+          "ci95": [
+            -18.876147386111114,
+            -2.7818327777777796
+          ]
+        },
+        "patch_lines": {
+          "mean_difference": 40.333333333333336,
+          "ci95": [
+            15.444444444444445,
+            69.22222222222223
+          ]
+        }
+      }
+    }
+  ],
+  "task_topology": [
+    {
+      "task_family": "configuration-merge",
+      "language": "go",
+      "source_files": 1,
+      "source_bytes": 1259,
+      "workspace_files": 6,
+      "workspace_bytes": 7342
+    },
+    {
+      "task_family": "configuration-merge",
+      "language": "javascript",
+      "source_files": 1,
+      "source_bytes": 868,
+      "workspace_files": 5,
+      "workspace_bytes": 6852
+    },
+    {
+      "task_family": "configuration-merge",
+      "language": "python",
+      "source_files": 1,
+      "source_bytes": 626,
+      "workspace_files": 5,
+      "workspace_bytes": 6515
+    },
+    {
+      "task_family": "configuration-merge",
+      "language": "typescript",
+      "source_files": 1,
+      "source_bytes": 1111,
+      "workspace_files": 8,
+      "workspace_bytes": 9127
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "go",
+      "source_files": 1,
+      "source_bytes": 2070,
+      "workspace_files": 7,
+      "workspace_bytes": 4784
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "javascript",
+      "source_files": 1,
+      "source_bytes": 2094,
+      "workspace_files": 7,
+      "workspace_bytes": 4670
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "python",
+      "source_files": 1,
+      "source_bytes": 2436,
+      "workspace_files": 6,
+      "workspace_bytes": 4815
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "typescript",
+      "source_files": 1,
+      "source_bytes": 2286,
+      "workspace_files": 9,
+      "workspace_bytes": 6712
+    },
+    {
+      "task_family": "schedule-variants",
+      "language": "go",
+      "source_files": 1,
+      "source_bytes": 3815,
+      "workspace_files": 7,
+      "workspace_bytes": 11595
+    },
+    {
+      "task_family": "schedule-variants",
+      "language": "javascript",
+      "source_files": 3,
+      "source_bytes": 4109,
+      "workspace_files": 9,
+      "workspace_bytes": 11754
+    },
+    {
+      "task_family": "schedule-variants",
+      "language": "python",
+      "source_files": 1,
+      "source_bytes": 4908,
+      "workspace_files": 6,
+      "workspace_bytes": 12353
+    },
+    {
+      "task_family": "schedule-variants",
+      "language": "typescript",
+      "source_files": 4,
+      "source_bytes": 4790,
+      "workspace_files": 12,
+      "workspace_bytes": 14303
+    }
+  ],
+  "excluded_infrastructure": [],
+  "infrastructure_note": "No infrastructure failures occurred in the prospective v0.6 cohort.",
+  "review_findings": {
+    "available": false,
+    "reason": "No independent patch-review instrument was specified or run."
+  },
+  "historical_boundary": "Earlier v0.4/v0.5 results remain published as historical evidence; their efficiency estimates are not pooled with prospective v0.6 estimates.",
+  "publication_boundary": "Aggregate results only; no secrets, prompts, commands, patches, job identifiers, result paths, or private ledger data."
+}

@@ -29,7 +29,7 @@ function updateLanguageSummary(data) {
   if (!body) return;
 
   const languageOrder = { javascript: 0, typescript: 1, python: 2, go: 3 };
-  const source = data.polyglot_languages || data.language_summaries;
+  const source = data.languages || data.polyglot_languages || data.language_summaries;
   const summaries = [...source].sort(
     (a, b) => languageOrder[a.language] - languageOrder[b.language],
   );
@@ -40,10 +40,13 @@ function updateLanguageSummary(data) {
       if (summary.interpretation === "illustrative_single_run") {
         row.classList.add("illustrative-row");
       }
+      const isProspective = Array.isArray(data.languages);
       const isPolyglot = Array.isArray(data.polyglot_languages);
       const isBalanced = summary.interpretation === "balanced_primary";
-      const evidence = isPolyglot
-        ? summary.runs + " runs · 2 existing tasks"
+      const evidence = isProspective
+        ? summary.runs + " runs · 3 existing tasks"
+        : isPolyglot
+          ? summary.runs + " runs · 2 existing tasks"
         : isBalanced
           ? summary.runs + " runs · new + existing"
           : summary.runs + " example · existing";
@@ -76,7 +79,7 @@ function updateOverview(data) {
 }
 
 function updateDetails(data) {
-  const published = data.all_published;
+  const published = data.prospective || data.all_published;
   const fields = {
     "#detail-runs": published.runs,
     "#detail-passed": published.passed,
@@ -93,8 +96,10 @@ function updateDetails(data) {
   if (!body) return;
 
   const languageOrder = { javascript: 0, typescript: 1, python: 2, go: 3 };
-  const summaries = data.polyglot_languages
-    ? [...data.polyglot_languages].sort((a, b) => languageOrder[a.language] - languageOrder[b.language])
+  const summaries = data.languages
+    ? [...data.languages].sort((a, b) => languageOrder[a.language] - languageOrder[b.language])
+    : data.polyglot_languages
+      ? [...data.polyglot_languages].sort((a, b) => languageOrder[a.language] - languageOrder[b.language])
     : [...data.maturity_summaries, ...data.polyglot_examples].sort(
         (a, b) =>
           (a.project_maturity === "brownfield" ? 0 : 1) -
@@ -106,7 +111,7 @@ function updateDetails(data) {
     ...summaries.map((summary) => {
       const row = document.createElement("tr");
       const values = [
-        displayCondition(summary),
+        data.languages ? "3 existing tasks" : displayCondition(summary),
         languageLabels[summary.language],
         `${summary.passed}/${summary.runs}`,
         formatMoney(summary.mean_cost_usd),
@@ -125,16 +130,16 @@ function updateDetails(data) {
 }
 
 async function loadResults() {
-  const response = await fetch("./data/polyglot-results.json", { cache: "no-cache" });
+  const response = await fetch("./data/v06-results.json", { cache: "no-cache" });
   if (!response.ok) throw new Error(`Aggregate request failed (${response.status})`);
 
   const data = await response.json();
   if (
     data.schema_version !== "1.0.0" ||
-    !data.all_published ||
-    !data.balanced_polyglot ||
-    !Array.isArray(data.polyglot_languages) ||
-    !Array.isArray(data.polyglot_cells)
+    !data.prospective ||
+    !Array.isArray(data.languages) ||
+    !Array.isArray(data.cells) ||
+    !Array.isArray(data.paired_contrasts)
   ) {
     throw new Error("Unsupported aggregate schema");
   }

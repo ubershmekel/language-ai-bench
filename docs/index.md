@@ -7,12 +7,13 @@ title: Language AI Bench
 
 Language AI Bench gives a coding agent equivalent software-engineering tasks in
 different programming languages and grades the final behavior with a shared
-verifier. The latest interim report contains a balanced four-language brownfield cohort: five valid runs per language across two matched task families. The earlier JavaScript/TypeScript greenfield extension remains published separately. The cohort predates the task-source integrity gate, so its correctness results remain useful but its cross-language efficiency differences are explicitly treated as confounded historical telemetry.
+verifier. The latest report contains a prospective, source-audited four-language brownfield cohort: nine runs per language across three matched task families. All 36 attempts passed. Paired efficiency estimates use only this v0.6 cohort; older studies remain historical and are not pooled.
 
 - [Open the report overview](index.html)
-- [Read the cross-language report](POLYGLOT_REPORT.md)
+- [Read the prospective v0.6 report](V06_REPORT.md)
+- [Read the historical v0.5 report](POLYGLOT_REPORT.md)
 - [View technical details](details.html)
-- [Download aggregate JSON](data/polyglot-results.json)
+- [Download v0.6 aggregate JSON](data/v06-results.json)
 - [Read the experimental design](DESIGN.md)
 
 Raw Pier trajectories and secrets are intentionally excluded from this site.

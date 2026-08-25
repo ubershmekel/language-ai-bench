@@ -8,6 +8,8 @@ test -f docs/app.js
 test -f docs/data/decision-results.json
 test -f docs/data/polyglot-results.json
 test -f docs/POLYGLOT_REPORT.md
+test -f docs/data/v06-results.json
+test -f docs/V06_REPORT.md
 
 node --check docs/app.js
 node -e '
@@ -60,10 +62,22 @@ node -e '
   }
   if (data.excluded_infrastructure.length !== 1) throw new Error("expected one infrastructure exclusion");
 '
+node -e '
+  const fs = require("node:fs");
+  const data = JSON.parse(fs.readFileSync("docs/data/v06-results.json", "utf8"));
+  if (data.study_status !== "complete-prospective") throw new Error("unexpected v0.6 status");
+  if (data.prospective.runs !== 36 || data.prospective.passed !== 36) throw new Error("unexpected v0.6 totals");
+  if (data.languages.length !== 4 || data.languages.some((row) => row.runs !== 9)) throw new Error("expected nine v0.6 runs per language");
+  if (data.cells.length !== 12 || data.cells.some((row) => row.runs !== 3)) throw new Error("expected twelve complete v0.6 cells");
+  if (data.paired_contrasts.length !== 6 || data.paired_contrasts.some((row) => row.blocks !== 9)) throw new Error("unexpected paired contrasts");
+  if (data.task_topology.length !== 12) throw new Error("unexpected topology rows");
+  if (data.excluded_infrastructure.length !== 0) throw new Error("unexpected v0.6 infrastructure exclusions");
+'
+
 grep -q 'What this benchmark is' docs/index.html
-grep -q 'All 20 valid attempts passed' docs/index.html
-grep -q '5 runs · 2 existing tasks' docs/index.html
-grep -q '32 valid completions' docs/index.html
+grep -q 'All 36 prospective attempts passed' docs/index.html
+grep -q '9 runs · 3 existing tasks' docs/index.html
+grep -q 'Older studies remain historical' docs/index.html
 grep -q 'Correctness was perfect; historical efficiency telemetry varied' docs/index.html
 grep -q 'Same correctness, different path' docs/index.html
 grep -q '"workflow_quality"' docs/data/decision-results.json
@@ -71,7 +85,7 @@ grep -q 'What does “6/6 passed” mean?' docs/index.html
 grep -q 'Python and Go also completed' docs/index.html
 grep -q 'Published data at a glance' docs/index.html
 grep -q 'Input tokens' docs/index.html
-grep -q 'Technical details and operational telemetry' docs/details.html
+grep -q 'Technical details and paired uncertainty' docs/details.html
 
 if grep -R -E 'sk-or-v1-[A-Za-z0-9_-]{20,}' \
   docs/index.html docs/details.html docs/app.js docs/styles.css docs/data; then
