@@ -123,7 +123,7 @@ def main() -> int:
     if args.output:
         output = pathlib.Path(args.output)
         output.parent.mkdir(parents=True, exist_ok=True)
-        output.write_text(text, encoding="utf-8")
+        output.write_bytes(text.encode("utf-8"))
     else:
         print(text, end="")
     return 1 if errors else 0
