@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "v0.7-difficulty-pilot",
+  "status": "ready",
+  "objective": "Measure the pass rate and cost of the hard money-rollup family in four languages before committing the main v0.7 cohort, because every earlier family saturated at 100 percent correctness.",
+  "languages": ["javascript", "typescript", "python", "go"],
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "model_settings": {
+    "reasoning_effort": "low",
+    "cache_control": "default_end",
+    "temperature": null,
+    "provider_routing": "openrouter-default"
+  },
+  "agent": "mini-swe-agent@2.4.6",
+  "pier": "0.3.1",
+  "scaffold": "mini-swe-agent/bash-only",
+  "prompt_revision": "mini-swe-agent-1.1",
+  "randomization_seed": 20260826,
+  "attempts_per_cell": 2,
+  "per_rollout_cost_limit_usd": 0.35,
+  "study_cost_limit_usd": 1.0,
+  "pilot_mean_cost_usd": 0.05,
+  "quality_outcomes": [
+    "hidden_test_pass",
+    "agent_steps",
+    "cost_usd"
+  ],
+  "task_families": [
+    {
+      "id": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "status": "ready",
+      "paths": {
+        "javascript": "tasks/money-rollup/javascript",
+        "typescript": "tasks/money-rollup/typescript",
+        "python": "tasks/money-rollup/python",
+        "go": "tasks/money-rollup/go"
+      }
+    }
+  ],
+  "analysis": {
+    "primary_estimand": "hidden verifier pass rate per language on one hard task family",
+    "co_primary_outcomes": ["hidden_test_pass", "agent_steps"],
+    "uncertainty": "descriptive only; this pilot sizes the main cohort and is not pooled with it",
+    "stopping_rule": "Pilot ends after eight rollouts regardless of outcome."
+  }
+}

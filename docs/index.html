@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="description" content="Measured error rates, agent effort, time, tokens, and cost across equivalent programming tasks in JavaScript, TypeScript, Python, and Go." />
-  <meta property="og:title" content="Comparing AI performance with different programming languages" />
+  <meta property="og:title" content="JavaScript, TypeScript, Python, or Go: does the language change how well AI codes?" />
   <meta property="og:description" content="Measured error rates, agent effort, time, tokens, and cost across equivalent programming tasks." />
-  <title>Comparing AI performance with different programming languages · Language AI Bench</title>
+  <title>JavaScript, TypeScript, Python, or Go · Language AI Bench</title>
   <link rel="stylesheet" href="./styles.css" />
   <script src="./app.js" defer></script>
 </head>
@@ -22,8 +22,8 @@
   <main id="top">
     <section class="hero section-shell">
       <div class="hero-copy-block">
-        <h1>Comparing AI performance with different programming languages</h1>
-        <p class="hero-copy">Language AI Bench measures whether programming language changes an AI coding agent's error rate and the amount of work it takes to reach a correct solution.</p>
+        <h1>JavaScript, TypeScript, Python, or Go: does the language change how well AI codes?</h1>
+        <p class="hero-copy">Language AI Bench gives one coding agent the same task in four languages and measures how often it succeeds and how much work it takes. On a task hard enough to fail, success rates stayed close, but Go consistently cost the agent more steps.</p>
       </div>
       <aside class="question-card" aria-label="Core benchmark question">
         <p class="small-label">The question</p>
@@ -38,7 +38,7 @@
           <p class="kicker">Current study</p>
           <h2 id="glance-title">Results across four languages</h2>
         </div>
-        <p>Each language was tested nine times across three equivalent existing-project tasks. Pass rate measures errors. Steps, tokens, time, and cost measure the work required to reach a correct result.</p>
+        <p>Each language was tested twelve times on one deliberately hard existing-project task, using the strongest model rung. Pass rate measures errors. Steps, tokens, time, and cost measure the work required to reach a correct result.</p>
       </div>
       <div class="table-wrap glance-table-wrap">
         <table class="glance-table">
@@ -55,14 +55,14 @@
             </tr>
           </thead>
           <tbody id="language-summary-results">
-            <tr><td>JavaScript</td><td>9 runs · 3 existing tasks</td><td>9/9</td><td>$0.005318</td><td>32,257</td><td>2,091</td><td>6.89</td><td>29.26s</td></tr>
-            <tr><td>TypeScript</td><td>9 runs · 3 existing tasks</td><td>9/9</td><td>$0.005328</td><td>33,080</td><td>2,078</td><td>6.44</td><td>37.57s</td></tr>
-            <tr><td>Python</td><td>9 runs · 3 existing tasks</td><td>9/9</td><td>$0.004990</td><td>25,575</td><td>2,091</td><td>6.22</td><td>26.84s</td></tr>
-            <tr><td>Go</td><td>9 runs · 3 existing tasks</td><td>9/9</td><td>$0.005588</td><td>36,105</td><td>2,288</td><td>6.89</td><td>37.49s</td></tr>
+            <tr><td>JavaScript</td><td>12 runs &middot; hard existing task</td><td>10/12</td><td>$0.005879</td><td>35,247</td><td>3,202</td><td>6.92</td><td>38.2s</td></tr>
+            <tr><td>TypeScript</td><td>12 runs &middot; hard existing task</td><td>11/12</td><td>$0.006125</td><td>40,988</td><td>3,109</td><td>6.92</td><td>48.6s</td></tr>
+            <tr><td>Python</td><td>12 runs &middot; hard existing task</td><td>12/12</td><td>$0.005520</td><td>31,032</td><td>2,969</td><td>6.58</td><td>37.2s</td></tr>
+            <tr><td>Go</td><td>12 runs &middot; hard existing task</td><td>9/12</td><td>$0.006978</td><td>49,119</td><td>3,710</td><td>8.25</td><td>48.5s</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="glance-note"><strong>Current finding:</strong> all 36 attempts passed, so this study found no observed error-rate difference. The productivity measures varied, but every paired agent-step confidence interval included zero. See <a href="./V06_REPORT.md">the full report</a> or <a href="./details.html">technical details</a>.</p>
+      <p class="glance-note"><strong>Current finding:</strong> 42 of 48 attempts passed, so the ceiling that made earlier studies unreadable is gone. Pass rates still differ too little to call &mdash; no interval excludes zero &mdash; but Go needed 1.3 to 1.7 more agent steps than each other language, and all three of those intervals exclude zero. On a weaker model the same task is a cliff that no language rescues. See <a href="./V07_REPORT.md">the full report</a> or <a href="./details.html">technical details</a>.</p>
     </section>
 
     <section id="about" class="about section-shell" aria-labelledby="about-title">

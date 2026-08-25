@@ -10,6 +10,8 @@ test -f docs/data/polyglot-results.json
 test -f docs/POLYGLOT_REPORT.md
 test -f docs/data/v06-results.json
 test -f docs/V06_REPORT.md
+test -f docs/data/v07-results.json
+test -f docs/V07_REPORT.md
 
 node --check docs/app.js
 node -e '
@@ -75,10 +77,22 @@ node -e '
 '
 
 grep -q 'Results across four languages' docs/index.html
-grep -q 'no observed error-rate difference' docs/index.html
+grep -q 'more agent steps than each other language' docs/index.html
+
+node -e '
+  const fs = require("node:fs");
+  const data = JSON.parse(fs.readFileSync("docs/data/v07-results.json", "utf8"));
+  if (data.study_status !== "complete-prospective") throw new Error("unexpected v0.7 status");
+  const strong = data.rungs.find((rung) => rung.rung === "strong");
+  if (!strong) throw new Error("missing strong rung");
+  if (strong.runs !== 48) throw new Error("expected 48 strong-rung runs");
+  if (strong.passed === strong.runs) throw new Error("strong rung saturated again; the family no longer discriminates");
+  if (strong.languages.length !== 4) throw new Error("expected four v0.7 languages");
+  if (strong.paired_contrasts.length !== 6) throw new Error("unexpected v0.7 paired contrasts");
+'
 grep -q 'Measure productivity and errors under controlled conditions' docs/index.html
 grep -q 'Example task' docs/index.html
-grep -q '9 runs · 3 existing tasks' docs/index.html
+grep -q '12 runs &middot; hard existing task' docs/index.html
 grep -q 'Input tokens' docs/index.html
 grep -q 'Technical details and paired uncertainty' docs/details.html
 grep -q '"workflow_quality"' docs/data/decision-results.json

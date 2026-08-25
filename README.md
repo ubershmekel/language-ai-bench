@@ -28,14 +28,30 @@ JavaScript with TypeScript, using identical runtime versions, task wording,
 verifier bytes, model, effort, and bash-only scaffold.
 
 The prior staged cells and stopping budget are recorded in `decision_benchmark.json`.
-The prospective v0.6 study balances JavaScript, TypeScript, Python, and Go at
-nine brownfield runs each across three calibrated task families. All 36 passed;
-paired step intervals include zero for every language contrast. Older cohorts
-remain historical and their efficiency estimates are not pooled with v0.6.
-Explore the [published report](https://ubershmekel.github.io/language-ai-bench/)
-or read [docs/V06_REPORT.md](docs/V06_REPORT.md). The historical
-[docs/POLYGLOT_REPORT.md](docs/POLYGLOT_REPORT.md) and
-[docs/DECISION_REPORT.md](docs/DECISION_REPORT.md) preserve the prior reports.
+The prospective v0.6 study balanced JavaScript, TypeScript, Python, and Go at
+nine brownfield runs each across three calibrated task families. All 36 passed:
+a ceiling, and a benchmark whose tasks are all solved cannot answer whether the
+language matters.
+
+## v0.7: a task hard enough to fail
+
+`tasks/money-rollup` exists to break that ceiling. It is a four-file brownfield
+refactor that replaces floating-point money handling with exact rational
+arithmetic, adds shortest-path currency conversion with ambiguity rejection,
+adds ancestor rollups, and adds a large rejection surface. Its four starters all
+fail the identical eight verifier cases, and four sabotages fail with identical
+case sets in all four languages.
+
+On the strong rung the family passes 42/48 instead of everything, so contrasts
+are finally estimable. Correctness differences remain small and no pass-rate
+interval excludes zero, but Go needed 1.3 to 1.7 more agent steps than each
+other language, with all three intervals excluding zero. On a weaker model the
+same task is a cliff that no language rescues. Read
+[docs/V07_REPORT.md](docs/V07_REPORT.md); the historical
+[docs/V06_REPORT.md](docs/V06_REPORT.md),
+[docs/POLYGLOT_REPORT.md](docs/POLYGLOT_REPORT.md), and
+[docs/DECISION_REPORT.md](docs/DECISION_REPORT.md) preserve the prior reports,
+and older cohorts are never pooled with v0.7 estimates.
 
 ## Run it on Linux (or Docker Desktop's Linux engine)
 

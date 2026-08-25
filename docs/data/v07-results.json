@@ -1,0 +1,951 @@
+{
+  "schema_version": "2.0.0",
+  "benchmark_version": "0.7.0",
+  "study_id": "v0.7-money-rollup",
+  "study_status": "complete-prospective",
+  "generated_at": "2026-08-25T18:43:35.470808Z",
+  "agent": "mini-swe-agent@2.4.6",
+  "task_family": "money-rollup",
+  "overall": {
+    "runs": 73,
+    "passed": 42,
+    "pass_rate": 0.5753424657534246,
+    "pass_rate_ci95": [
+      0.46099380375187643,
+      0.6821580853473754
+    ],
+    "total_cost_usd": 0.70954969,
+    "mean_agent_steps": 10.58904109589041,
+    "mean_input_tokens": 67793.06849315068,
+    "mean_output_tokens": 3715.821917808219,
+    "mean_cost_usd": 0.009719858767123288,
+    "mean_agent_seconds": 55.17670376712329,
+    "mean_agent_steps_when_passed": 6.9523809523809526,
+    "mean_files_changed": 5.3561643835616435,
+    "mean_lines_added": 148.16438356164383,
+    "mean_lines_deleted": 65.4931506849315,
+    "mean_patch_lines": 213.65753424657535
+  },
+  "rungs": [
+    {
+      "rung": "strong",
+      "study_id": "v0.7-money-rollup-strong",
+      "model": "openrouter/openai/gpt-5.6-luna",
+      "runs": 48,
+      "passed": 42,
+      "pass_rate": 0.875,
+      "pass_rate_ci95": [
+        0.7529954159822886,
+        0.9414294859563513
+      ],
+      "total_cost_usd": 0.29401434,
+      "mean_agent_steps": 7.166666666666667,
+      "mean_input_tokens": 39096.8125,
+      "mean_output_tokens": 3247.3958333333335,
+      "mean_cost_usd": 0.006125298749999998,
+      "mean_agent_seconds": 43.141287687500004,
+      "mean_agent_steps_when_passed": 6.9523809523809526,
+      "mean_files_changed": 5.9375,
+      "mean_lines_added": 164.875,
+      "mean_lines_deleted": 93.0,
+      "mean_patch_lines": 257.875,
+      "languages": [
+        {
+          "language": "go",
+          "runs": 12,
+          "passed": 9,
+          "pass_rate": 0.75,
+          "pass_rate_ci95": [
+            0.4676946629183366,
+            0.9110583323051143
+          ],
+          "total_cost_usd": 0.08373945,
+          "mean_agent_steps": 8.25,
+          "mean_input_tokens": 49119.25,
+          "mean_output_tokens": 3710.0833333333335,
+          "mean_cost_usd": 0.0069782875,
+          "mean_agent_seconds": 48.51682341666666,
+          "mean_agent_steps_when_passed": 7.555555555555555,
+          "mean_files_changed": 4.75,
+          "mean_lines_added": 268.6666666666667,
+          "mean_lines_deleted": 102.5,
+          "mean_patch_lines": 371.1666666666667
+        },
+        {
+          "language": "javascript",
+          "runs": 12,
+          "passed": 10,
+          "pass_rate": 0.8333333333333334,
+          "pass_rate_ci95": [
+            0.5519691353881888,
+            0.9530348582430792
+          ],
+          "total_cost_usd": 0.07054412,
+          "mean_agent_steps": 6.916666666666667,
+          "mean_input_tokens": 35247.416666666664,
+          "mean_output_tokens": 3202.25,
+          "mean_cost_usd": 0.0058786766666666665,
+          "mean_agent_seconds": 38.2179215,
+          "mean_agent_steps_when_passed": 6.9,
+          "mean_files_changed": 5.0,
+          "mean_lines_added": 67.75,
+          "mean_lines_deleted": 100.66666666666667,
+          "mean_patch_lines": 168.41666666666666
+        },
+        {
+          "language": "python",
+          "runs": 12,
+          "passed": 12,
+          "pass_rate": 1.0,
+          "pass_rate_ci95": [
+            0.7575059904469021,
+            1.0
+          ],
+          "total_cost_usd": 0.06623673,
+          "mean_agent_steps": 6.583333333333333,
+          "mean_input_tokens": 31032.333333333332,
+          "mean_output_tokens": 2968.6666666666665,
+          "mean_cost_usd": 0.005519727499999999,
+          "mean_agent_seconds": 37.200012083333334,
+          "mean_agent_steps_when_passed": 6.583333333333333,
+          "mean_files_changed": 5.0,
+          "mean_lines_added": 101.75,
+          "mean_lines_deleted": 60.25,
+          "mean_patch_lines": 162.0
+        },
+        {
+          "language": "typescript",
+          "runs": 12,
+          "passed": 11,
+          "pass_rate": 0.9166666666666666,
+          "pass_rate_ci95": [
+            0.6461200862787544,
+            0.9851349057603305
+          ],
+          "total_cost_usd": 0.07349404,
+          "mean_agent_steps": 6.916666666666667,
+          "mean_input_tokens": 40988.25,
+          "mean_output_tokens": 3108.5833333333335,
+          "mean_cost_usd": 0.006124503333333333,
+          "mean_agent_seconds": 48.630393749999996,
+          "mean_agent_steps_when_passed": 6.909090909090909,
+          "mean_files_changed": 9.0,
+          "mean_lines_added": 221.33333333333334,
+          "mean_lines_deleted": 108.58333333333333,
+          "mean_patch_lines": 329.9166666666667
+        }
+      ],
+      "paired_contrasts": [
+        {
+          "left": "javascript",
+          "right": "typescript",
+          "direction": "left_minus_right",
+          "blocks": 12,
+          "estimates": {
+            "hidden_test_pass": {
+              "mean_difference": -0.08333333333333333,
+              "ci95": [
+                -0.3333333333333333,
+                0.16666666666666666
+              ]
+            },
+            "agent_steps": {
+              "mean_difference": 0.0,
+              "ci95": [
+                -0.5833333333333334,
+                0.6666666666666666
+              ]
+            },
+            "cost_usd": {
+              "mean_difference": -0.0002458266666666663,
+              "ci95": [
+                -0.000682683333333333,
+                0.00019742852083333366
+              ]
+            },
+            "output_tokens": {
+              "mean_difference": 93.66666666666667,
+              "ci95": [
+                -142.00208333333333,
+                342.8437499999991
+              ]
+            },
+            "agent_seconds": {
+              "mean_difference": -10.412472249999999,
+              "ci95": [
+                -16.971474991666668,
+                -4.914647412500007
+              ]
+            }
+          }
+        },
+        {
+          "left": "javascript",
+          "right": "python",
+          "direction": "left_minus_right",
+          "blocks": 12,
+          "estimates": {
+            "hidden_test_pass": {
+              "mean_difference": -0.16666666666666666,
+              "ci95": [
+                -0.4166666666666667,
+                0.0
+              ]
+            },
+            "agent_steps": {
+              "mean_difference": 0.3333333333333333,
+              "ci95": [
+                -0.5833333333333334,
+                1.25
+              ]
+            },
+            "cost_usd": {
+              "mean_difference": 0.00035894916666666664,
+              "ci95": [
+                -0.00022107270833333337,
+                0.00096889275
+              ]
+            },
+            "output_tokens": {
+              "mean_difference": 233.58333333333334,
+              "ci95": [
+                15.914583333333335,
+                485.3354166666665
+              ]
+            },
+            "agent_seconds": {
+              "mean_difference": 1.017909416666667,
+              "ci95": [
+                -4.0174851020833335,
+                6.059739981249996
+              ]
+            }
+          }
+        },
+        {
+          "left": "javascript",
+          "right": "go",
+          "direction": "left_minus_right",
+          "blocks": 12,
+          "estimates": {
+            "hidden_test_pass": {
+              "mean_difference": 0.08333333333333333,
+              "ci95": [
+                -0.25,
+                0.4166666666666667
+              ]
+            },
+            "agent_steps": {
+              "mean_difference": -1.3333333333333333,
+              "ci95": [
+                -2.25,
+                -0.4166666666666667
+              ]
+            },
+            "cost_usd": {
+              "mean_difference": -0.0010996108333333331,
+              "ci95": [
+                -0.0016236182083333333,
+                -0.00065833125
+              ]
+            },
+            "output_tokens": {
+              "mean_difference": -507.8333333333333,
+              "ci95": [
+                -757.1708333333333,
+                -293.9166666666667
+              ]
+            },
+            "agent_seconds": {
+              "mean_difference": -10.298901916666667,
+              "ci95": [
+                -14.913737547916671,
+                -6.200558889583333
+              ]
+            }
+          }
+        },
+        {
+          "left": "typescript",
+          "right": "python",
+          "direction": "left_minus_right",
+          "blocks": 12,
+          "estimates": {
+            "hidden_test_pass": {
+              "mean_difference": -0.08333333333333333,
+              "ci95": [
+                -0.25,
+                0.0
+              ]
+            },
+            "agent_steps": {
+              "mean_difference": 0.3333333333333333,
+              "ci95": [
+                -0.3333333333333333,
+                1.0
+              ]
+            },
+            "cost_usd": {
+              "mean_difference": 0.0006047758333333329,
+              "ci95": [
+                9.91033333333327e-05,
+                0.0011482196458333326
+              ]
+            },
+            "output_tokens": {
+              "mean_difference": 139.91666666666666,
+              "ci95": [
+                -118.41875,
+                406.25208333333313
+              ]
+            },
+            "agent_seconds": {
+              "mean_difference": 11.430381666666667,
+              "ci95": [
+                4.424709395833333,
+                18.93765131041665
+              ]
+            }
+          }
+        },
+        {
+          "left": "typescript",
+          "right": "go",
+          "direction": "left_minus_right",
+          "blocks": 12,
+          "estimates": {
+            "hidden_test_pass": {
+              "mean_difference": 0.16666666666666666,
+              "ci95": [
+                -0.16666666666666666,
+                0.5
+              ]
+            },
+            "agent_steps": {
+              "mean_difference": -1.3333333333333333,
+              "ci95": [
+                -2.4166666666666665,
+                -0.4166666666666667
+              ]
+            },
+            "cost_usd": {
+              "mean_difference": -0.0008537841666666667,
+              "ci95": [
+                -0.0016326844791666668,
+                -0.0001874564791666681
+              ]
+            },
+            "output_tokens": {
+              "mean_difference": -601.5,
+              "ci95": [
+                -957.0,
+                -300.74791666666687
+              ]
+            },
+            "agent_seconds": {
+              "mean_difference": 0.11357033333333295,
+              "ci95": [
+                -6.880771327083332,
+                7.811115629166658
+              ]
+            }
+          }
+        },
+        {
+          "left": "python",
+          "right": "go",
+          "direction": "left_minus_right",
+          "blocks": 12,
+          "estimates": {
+            "hidden_test_pass": {
+              "mean_difference": 0.25,
+              "ci95": [
+                0.0,
+                0.5
+              ]
+            },
+            "agent_steps": {
+              "mean_difference": -1.6666666666666667,
+              "ci95": [
+                -2.9166666666666665,
+                -0.5
+              ]
+            },
+            "cost_usd": {
+              "mean_difference": -0.00145856,
+              "ci95": [
+                -0.002241878354166666,
+                -0.0007083287708333334
+              ]
+            },
+            "output_tokens": {
+              "mean_difference": -741.4166666666666,
+              "ci95": [
+                -1024.925,
+                -488.24791666666687
+              ]
+            },
+            "agent_seconds": {
+              "mean_difference": -11.316811333333334,
+              "ci95": [
+                -15.584870875000004,
+                -7.530750306250003
+              ]
+            }
+          }
+        }
+      ],
+      "failure_profile": [
+        {
+          "language": "go",
+          "failed_cases": {
+            "rejects-invalid": 2,
+            "half-even-ties": 1,
+            "zero-and-negative-formatting": 1
+          }
+        },
+        {
+          "language": "javascript",
+          "failed_cases": {
+            "rejects-invalid": 1,
+            "half-even-ties": 1,
+            "zero-and-negative-formatting": 1
+          }
+        },
+        {
+          "language": "typescript",
+          "failed_cases": {
+            "rejects-invalid": 1
+          }
+        }
+      ],
+      "excluded_infrastructure": []
+    },
+    {
+      "rung": "mid",
+      "study_id": "v0.7-money-rollup-mid",
+      "model": "openrouter/openai/gpt-5-mini",
+      "runs": 25,
+      "passed": 0,
+      "pass_rate": 0.0,
+      "pass_rate_ci95": [
+        0.0,
+        0.13319225276039096
+      ],
+      "total_cost_usd": 0.41553535,
+      "mean_agent_steps": 17.16,
+      "mean_input_tokens": 122889.88,
+      "mean_output_tokens": 4615.2,
+      "mean_cost_usd": 0.016621413999999998,
+      "mean_agent_seconds": 78.28470264,
+      "mean_agent_steps_when_passed": null,
+      "mean_files_changed": 4.24,
+      "mean_lines_added": 116.08,
+      "mean_lines_deleted": 12.68,
+      "mean_patch_lines": 128.76,
+      "languages": [
+        {
+          "language": "go",
+          "runs": 6,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "pass_rate_ci95": [
+            0.0,
+            0.39033429165637346
+          ],
+          "total_cost_usd": 0.06269815,
+          "mean_agent_steps": 13.166666666666666,
+          "mean_input_tokens": 76550.5,
+          "mean_output_tokens": 2680.8333333333335,
+          "mean_cost_usd": 0.010449691666666669,
+          "mean_agent_seconds": 51.15890516666667,
+          "mean_agent_steps_when_passed": null,
+          "mean_files_changed": 2.0,
+          "mean_lines_added": 31.0,
+          "mean_lines_deleted": 5.0,
+          "mean_patch_lines": 36.0
+        },
+        {
+          "language": "javascript",
+          "runs": 6,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "pass_rate_ci95": [
+            0.0,
+            0.39033429165637346
+          ],
+          "total_cost_usd": 0.0805261,
+          "mean_agent_steps": 16.666666666666668,
+          "mean_input_tokens": 102852.33333333333,
+          "mean_output_tokens": 3833.1666666666665,
+          "mean_cost_usd": 0.013421016666666665,
+          "mean_agent_seconds": 64.19295,
+          "mean_agent_steps_when_passed": null,
+          "mean_files_changed": 3.3333333333333335,
+          "mean_lines_added": 61.666666666666664,
+          "mean_lines_deleted": 7.333333333333333,
+          "mean_patch_lines": 69.0
+        },
+        {
+          "language": "python",
+          "runs": 7,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "pass_rate_ci95": [
+            0.0,
+            0.35433043867586833
+          ],
+          "total_cost_usd": 0.1521551,
+          "mean_agent_steps": 18.571428571428573,
+          "mean_input_tokens": 139192.85714285713,
+          "mean_output_tokens": 6311.857142857143,
+          "mean_cost_usd": 0.02173644285714286,
+          "mean_agent_seconds": 99.15093614285715,
+          "mean_agent_steps_when_passed": null,
+          "mean_files_changed": 4.571428571428571,
+          "mean_lines_added": 144.0,
+          "mean_lines_deleted": 17.571428571428573,
+          "mean_patch_lines": 161.57142857142858
+        },
+        {
+          "language": "typescript",
+          "runs": 6,
+          "passed": 0,
+          "pass_rate": 0.0,
+          "pass_rate_ci95": [
+            0.0,
+            0.39033429165637346
+          ],
+          "total_cost_usd": 0.120156,
+          "mean_agent_steps": 20.0,
+          "mean_input_tokens": 170246.66666666666,
+          "mean_output_tokens": 5352.166666666667,
+          "mean_cost_usd": 0.020026,
+          "mean_agent_seconds": 95.15831366666669,
+          "mean_agent_steps_when_passed": null,
+          "mean_files_changed": 7.0,
+          "mean_lines_added": 223.0,
+          "mean_lines_deleted": 20.0,
+          "mean_patch_lines": 243.0
+        }
+      ],
+      "paired_contrasts": [
+        {
+          "left": "javascript",
+          "right": "typescript",
+          "direction": "left_minus_right",
+          "blocks": 6,
+          "estimates": {
+            "hidden_test_pass": {
+              "mean_difference": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "agent_steps": {
+              "mean_difference": -3.3333333333333335,
+              "ci95": [
+                -12.666666666666666,
+                6.0
+              ]
+            },
+            "cost_usd": {
+              "mean_difference": -0.006604983333333332,
+              "ci95": [
+                -0.023163516666666665,
+                0.009573466666666667
+              ]
+            },
+            "output_tokens": {
+              "mean_difference": -1519.0,
+              "ci95": [
+                -6265.633333333331,
+                3153.8333333333335
+              ]
+            },
+            "agent_seconds": {
+              "mean_difference": -30.965363666666672,
+              "ci95": [
+                -97.12941733333334,
+                31.985699999999998
+              ]
+            }
+          }
+        },
+        {
+          "left": "javascript",
+          "right": "python",
+          "direction": "left_minus_right",
+          "blocks": 6,
+          "estimates": {
+            "hidden_test_pass": {
+              "mean_difference": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "agent_steps": {
+              "mean_difference": -2.1666666666666665,
+              "ci95": [
+                -10.666666666666666,
+                7.166666666666667
+              ]
+            },
+            "cost_usd": {
+              "mean_difference": -0.008602133333333333,
+              "ci95": [
+                -0.022707124999999998,
+                0.006464441666666429
+              ]
+            },
+            "output_tokens": {
+              "mean_difference": -2417.5,
+              "ci95": [
+                -6169.666666666667,
+                1548.0
+              ]
+            },
+            "agent_seconds": {
+              "mean_difference": -35.8436855,
+              "ci95": [
+                -92.20469183333334,
+                23.600900037498818
+              ]
+            }
+          }
+        },
+        {
+          "left": "javascript",
+          "right": "go",
+          "direction": "left_minus_right",
+          "blocks": 6,
+          "estimates": {
+            "hidden_test_pass": {
+              "mean_difference": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "agent_steps": {
+              "mean_difference": 3.5,
+              "ci95": [
+                -2.1666666666666665,
+                9.666666666666666
+              ]
+            },
+            "cost_usd": {
+              "mean_difference": 0.002971325,
+              "ci95": [
+                -0.005243266666666665,
+                0.012247841666666667
+              ]
+            },
+            "output_tokens": {
+              "mean_difference": 1152.3333333333333,
+              "ci95": [
+                -1206.0,
+                4035.1666666666665
+              ]
+            },
+            "agent_seconds": {
+              "mean_difference": 13.034044833333333,
+              "ci95": [
+                -16.8331795,
+                48.1129
+              ]
+            }
+          }
+        },
+        {
+          "left": "typescript",
+          "right": "python",
+          "direction": "left_minus_right",
+          "blocks": 6,
+          "estimates": {
+            "hidden_test_pass": {
+              "mean_difference": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "agent_steps": {
+              "mean_difference": 1.1666666666666667,
+              "ci95": [
+                -4.0,
+                5.666666666666667
+              ]
+            },
+            "cost_usd": {
+              "mean_difference": -0.0019971500000000005,
+              "ci95": [
+                -0.011187016666666666,
+                0.007192716666666665
+              ]
+            },
+            "output_tokens": {
+              "mean_difference": -898.5,
+              "ci95": [
+                -3664.1666666666665,
+                1814.6666666666667
+              ]
+            },
+            "agent_seconds": {
+              "mean_difference": -4.878321833333332,
+              "ci95": [
+                -44.13504066666667,
+                34.78820166666666
+              ]
+            }
+          }
+        },
+        {
+          "left": "typescript",
+          "right": "go",
+          "direction": "left_minus_right",
+          "blocks": 6,
+          "estimates": {
+            "hidden_test_pass": {
+              "mean_difference": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "agent_steps": {
+              "mean_difference": 6.833333333333333,
+              "ci95": [
+                -0.6666666666666666,
+                14.5
+              ]
+            },
+            "cost_usd": {
+              "mean_difference": 0.009576308333333334,
+              "ci95": [
+                -0.0023578666666666664,
+                0.02238146666666667
+              ]
+            },
+            "output_tokens": {
+              "mean_difference": 2671.3333333333335,
+              "ci95": [
+                -869.0708333333331,
+                6344.333333333333
+              ]
+            },
+            "agent_seconds": {
+              "mean_difference": 43.999408499999994,
+              "ci95": [
+                -8.419730816666656,
+                97.91224616666666
+              ]
+            }
+          }
+        },
+        {
+          "left": "python",
+          "right": "go",
+          "direction": "left_minus_right",
+          "blocks": 6,
+          "estimates": {
+            "hidden_test_pass": {
+              "mean_difference": 0.0,
+              "ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "agent_steps": {
+              "mean_difference": 5.666666666666667,
+              "ci95": [
+                0.0,
+                10.666666666666666
+              ]
+            },
+            "cost_usd": {
+              "mean_difference": 0.011573458333333333,
+              "ci95": [
+                0.0032447749999999984,
+                0.01871453333333333
+              ]
+            },
+            "output_tokens": {
+              "mean_difference": 3569.8333333333335,
+              "ci95": [
+                1050.1666666666667,
+                5345.666666666667
+              ]
+            },
+            "agent_seconds": {
+              "mean_difference": 48.87773033333334,
+              "ci95": [
+                8.357117000000006,
+                80.6007565
+              ]
+            }
+          }
+        }
+      ],
+      "failure_profile": [
+        {
+          "language": "go",
+          "failed_cases": {
+            "chained-conversion": 6,
+            "half-even-ties": 6,
+            "exact-large-magnitude": 6,
+            "rejects-invalid": 6
+          }
+        },
+        {
+          "language": "javascript",
+          "failed_cases": {
+            "rejects-invalid": 6,
+            "chained-conversion": 4,
+            "half-even-ties": 4,
+            "exact-large-magnitude": 4,
+            "shortest-path-preferred": 1,
+            "rejects-bad-paths": 1,
+            "ancestor-rollup": 1,
+            "per-entry-rounding": 1,
+            "zero-and-negative-formatting": 1,
+            "prefix-sorting": 1
+          }
+        },
+        {
+          "language": "python",
+          "failed_cases": {
+            "rejects-invalid": 7,
+            "chained-conversion": 2,
+            "half-even-ties": 2,
+            "exact-large-magnitude": 2,
+            "shortest-path-preferred": 1,
+            "per-entry-rounding": 1,
+            "zero-and-negative-formatting": 1
+          }
+        },
+        {
+          "language": "typescript",
+          "failed_cases": {
+            "half-even-ties": 6,
+            "rejects-invalid": 6,
+            "chained-conversion": 4,
+            "exact-large-magnitude": 4,
+            "shortest-path-preferred": 1,
+            "regression-flat-accounts": 1,
+            "ancestor-rollup": 1,
+            "per-entry-rounding": 1,
+            "zero-and-negative-formatting": 1,
+            "prefix-sorting": 1
+          }
+        }
+      ],
+      "excluded_infrastructure": [
+        {
+          "order_index": 26,
+          "language": "go",
+          "attempt": 7,
+          "exception_type": "NonZeroAgentExitCodeError"
+        }
+      ]
+    }
+  ],
+  "pooled_languages": [
+    {
+      "language": "go",
+      "runs": 18,
+      "passed": 9,
+      "pass_rate": 0.5,
+      "pass_rate_ci95": [
+        0.2903102136885988,
+        0.7096897863114012
+      ],
+      "total_cost_usd": 0.1464376,
+      "mean_agent_steps": 9.88888888888889,
+      "mean_input_tokens": 58263.0,
+      "mean_output_tokens": 3367.0,
+      "mean_cost_usd": 0.008135422222222223,
+      "mean_agent_seconds": 49.39751733333333,
+      "mean_agent_steps_when_passed": 7.555555555555555,
+      "mean_files_changed": 3.8333333333333335,
+      "mean_lines_added": 189.44444444444446,
+      "mean_lines_deleted": 70.0,
+      "mean_patch_lines": 259.44444444444446
+    },
+    {
+      "language": "javascript",
+      "runs": 18,
+      "passed": 10,
+      "pass_rate": 0.5555555555555556,
+      "pass_rate_ci95": [
+        0.3371641549342691,
+        0.7544048199620327
+      ],
+      "total_cost_usd": 0.15107022,
+      "mean_agent_steps": 10.166666666666666,
+      "mean_input_tokens": 57782.38888888889,
+      "mean_output_tokens": 3412.5555555555557,
+      "mean_cost_usd": 0.00839279,
+      "mean_agent_seconds": 46.87626433333333,
+      "mean_agent_steps_when_passed": 6.9,
+      "mean_files_changed": 4.444444444444445,
+      "mean_lines_added": 65.72222222222223,
+      "mean_lines_deleted": 69.55555555555556,
+      "mean_patch_lines": 135.27777777777777
+    },
+    {
+      "language": "python",
+      "runs": 19,
+      "passed": 12,
+      "pass_rate": 0.631578947368421,
+      "pass_rate_ci95": [
+        0.4103953300354444,
+        0.8085048735804599
+      ],
+      "total_cost_usd": 0.21839183,
+      "mean_agent_steps": 11.0,
+      "mean_input_tokens": 70880.94736842105,
+      "mean_output_tokens": 4200.368421052632,
+      "mean_cost_usd": 0.011494306842105263,
+      "mean_agent_seconds": 60.024036736842106,
+      "mean_agent_steps_when_passed": 6.583333333333333,
+      "mean_files_changed": 4.842105263157895,
+      "mean_lines_added": 117.3157894736842,
+      "mean_lines_deleted": 44.526315789473685,
+      "mean_patch_lines": 161.8421052631579
+    },
+    {
+      "language": "typescript",
+      "runs": 18,
+      "passed": 11,
+      "pass_rate": 0.6111111111111112,
+      "pass_rate_ci95": [
+        0.38619041442114627,
+        0.7969475353714572
+      ],
+      "total_cost_usd": 0.19365004,
+      "mean_agent_steps": 11.277777777777779,
+      "mean_input_tokens": 84074.38888888889,
+      "mean_output_tokens": 3856.4444444444443,
+      "mean_cost_usd": 0.010758335555555557,
+      "mean_agent_seconds": 64.1397003888889,
+      "mean_agent_steps_when_passed": 6.909090909090909,
+      "mean_files_changed": 8.333333333333334,
+      "mean_lines_added": 221.88888888888889,
+      "mean_lines_deleted": 79.05555555555556,
+      "mean_patch_lines": 300.94444444444446
+    }
+  ],
+  "excluded_infrastructure": [
+    {
+      "order_index": 26,
+      "language": "go",
+      "attempt": 7,
+      "exception_type": "NonZeroAgentExitCodeError",
+      "rung": "mid"
+    }
+  ],
+  "publication_boundary": "Aggregate results only; no secrets, prompts, commands, patches, job identifiers, result paths, or private ledger data."
+}

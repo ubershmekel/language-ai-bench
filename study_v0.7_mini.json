@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "v0.7-money-rollup-mid",
+  "status": "ready",
+  "objective": "Estimate per-language hidden-verifier pass rate and agent effort on one hard brownfield family at a fixed model rung, so that the language contrast is measured where the task is not saturated.",
+  "languages": [
+    "javascript",
+    "typescript",
+    "python",
+    "go"
+  ],
+  "model": "openrouter/openai/gpt-5-mini",
+  "model_settings": {
+    "reasoning_effort": "low",
+    "cache_control": "default_end",
+    "temperature": null,
+    "provider_routing": "openrouter-default"
+  },
+  "agent": "mini-swe-agent@2.4.6",
+  "pier": "0.3.1",
+  "scaffold": "mini-swe-agent/bash-only",
+  "prompt_revision": "mini-swe-agent-1.1",
+  "randomization_seed": 20260829,
+  "attempts_per_cell": 12,
+  "per_rollout_cost_limit_usd": 0.35,
+  "study_cost_limit_usd": 1.5,
+  "pilot_mean_cost_usd": 0.02,
+  "quality_outcomes": [
+    "hidden_test_pass",
+    "agent_steps",
+    "cost_usd"
+  ],
+  "task_families": [
+    {
+      "id": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "status": "ready",
+      "paths": {
+        "javascript": "tasks/money-rollup/javascript",
+        "typescript": "tasks/money-rollup/typescript",
+        "python": "tasks/money-rollup/python",
+        "go": "tasks/money-rollup/go"
+      }
+    }
+  ],
+  "analysis": {
+    "primary_estimand": "per-language hidden-verifier pass rate at this model rung",
+    "co_primary_outcomes": [
+      "hidden_test_pass",
+      "agent_steps"
+    ],
+    "uncertainty": "Wilson intervals per language; paired bootstrap over attempt blocks",
+    "stopping_rule": "Fixed at 48 rollouts; no interim stopping on outcome."
+  },
+  "model_rung": "mid"
+}

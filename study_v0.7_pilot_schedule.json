@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "v0.7-difficulty-pilot",
+  "study_sha256": "bc61dcd2e3c687330ea523931d888e50042015308243f92bac97caa2e8eb6cd7",
+  "repo_revision": "931961ffe7b5f02757a348b39255f8d993c9519b",
+  "launch_ready": true,
+  "validation_errors": [],
+  "planned_rollouts": 8,
+  "projected_cost_usd": 0.4,
+  "schedule": [
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/money-rollup/go",
+      "attempt": 1,
+      "sample_seed": 1003047301,
+      "order_index": 1
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/money-rollup/javascript",
+      "attempt": 1,
+      "sample_seed": 2485054544,
+      "order_index": 2
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/money-rollup/typescript",
+      "attempt": 1,
+      "sample_seed": 3476474899,
+      "order_index": 3
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/money-rollup/python",
+      "attempt": 1,
+      "sample_seed": 1705303529,
+      "order_index": 4
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/money-rollup/go",
+      "attempt": 2,
+      "sample_seed": 2667551118,
+      "order_index": 5
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/money-rollup/python",
+      "attempt": 2,
+      "sample_seed": 3168976012,
+      "order_index": 6
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/money-rollup/typescript",
+      "attempt": 2,
+      "sample_seed": 2908855208,
+      "order_index": 7
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/money-rollup/javascript",
+      "attempt": 2,
+      "sample_seed": 3240084373,
+      "order_index": 8
+    }
+  ]
+}
