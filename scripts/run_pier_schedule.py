@@ -120,6 +120,16 @@ def main() -> int:
     )
     parser.add_argument("--max-spend-usd", type=float, required=True)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--max-exceptions",
+        type=int,
+        default=0,
+        help=(
+            "tolerate this many isolated Pier exceptions before stopping. "
+            "Exceptional rollouts are still recorded in the ledger and are excluded "
+            "from analysis rather than scored."
+        ),
+    )
     args = parser.parse_args()
 
     study = read_json(args.study)
@@ -142,6 +152,7 @@ def main() -> int:
         }
     )
     completed = {item["order_index"] for item in ledger["runs"]}
+    exceptions = sum(1 for item in ledger["runs"] if item.get("exception_type"))
     pending = [
         row for row in receipt["schedule"] if row["order_index"] not in completed
     ]
@@ -194,10 +205,18 @@ def main() -> int:
         if ledger["spent_usd"] > args.max_spend_usd:
             raise SystemExit("study spend ceiling crossed")
         if measurement["exception_type"]:
-            raise SystemExit(
+            exceptions += 1
+            print(
                 f"Pier exception: {measurement['exception_type']} "
-                f"(order {row['order_index']})"
+                f"(order {row['order_index']}); {exceptions} of "
+                f"{args.max_exceptions} tolerated"
             )
+            if exceptions > args.max_exceptions:
+                raise SystemExit(
+                    f"Pier exception: {measurement['exception_type']} "
+                    f"(order {row['order_index']})"
+                )
+            continue
         if not measurement["workspace_artifact_captured"]:
             raise SystemExit(
                 f"workspace artifact missing for order {row['order_index']}"
