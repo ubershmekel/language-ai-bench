@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "v0.6-clean-polyglot",
+  "status": "ready",
+  "objective": "Estimate correctness, agent effort, and workflow differences across three calibrated four-language brownfield task families after source-integrity normalization.",
+  "languages": ["javascript", "typescript", "python", "go"],
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "model_settings": {
+    "reasoning_effort": "low",
+    "cache_control": "default_end",
+    "temperature": null,
+    "provider_routing": "openrouter-default"
+  },
+  "agent": "mini-swe-agent@2.4.6",
+  "pier": "0.3.1",
+  "scaffold": "mini-swe-agent/bash-only",
+  "prompt_revision": "mini-swe-agent-1.1",
+  "randomization_seed": 20260825,
+  "attempts_per_cell": 3,
+  "per_rollout_cost_limit_usd": 0.10,
+  "study_cost_limit_usd": 0.75,
+  "pilot_mean_cost_usd": 0.00586597,
+  "source_integrity_gate": {
+    "minimum_revision": "cf1529b",
+    "command": "python scripts/audit_task_integrity.py",
+    "max_source_line_length": 140,
+    "environment_source_must_match": true,
+    "matched_prompts_and_verifiers": true
+  },
+  "publication": {
+    "preserve_private_raw_jobs": true,
+    "publish_aggregate_only": true,
+    "refuse_secret_like_content": true,
+    "historical_directory": "docs/studies/v0.6-clean-polyglot"
+  },
+  "quality_outcomes": [
+    "hidden_test_pass",
+    "regression_pass",
+    "agent_steps",
+    "first_developer_verification_pass",
+    "developer_verification_before_submit",
+    "verification_attempts",
+    "static_check_invocations",
+    "malformed_actions",
+    "files_changed",
+    "lines_added",
+    "lines_deleted",
+    "dependency_manifest_changed",
+    "review_findings"
+  ],
+  "task_families": [
+    {
+      "id": "optimistic-concurrency",
+      "category": "feature-addition",
+      "project_maturity": "brownfield",
+      "status": "ready",
+      "paths": {
+        "javascript": "tasks/optimistic-concurrency/javascript",
+        "typescript": "tasks/optimistic-concurrency/typescript",
+        "python": "tasks/optimistic-concurrency/python",
+        "go": "tasks/optimistic-concurrency/go"
+      }
+    },
+    {
+      "id": "schedule-variants",
+      "category": "data-model-change",
+      "project_maturity": "brownfield",
+      "status": "ready",
+      "paths": {
+        "javascript": "tasks/schedule-variants/brownfield-javascript",
+        "typescript": "tasks/schedule-variants/brownfield-typescript",
+        "python": "tasks/schedule-variants/brownfield-python",
+        "go": "tasks/schedule-variants/brownfield-go"
+      }
+    },
+    {
+      "id": "configuration-merge",
+      "category": "bug-investigation-and-repair",
+      "project_maturity": "brownfield",
+      "status": "ready",
+      "paths": {
+        "javascript": "tasks/configuration-merge/javascript",
+        "typescript": "tasks/configuration-merge/typescript",
+        "python": "tasks/configuration-merge/python",
+        "go": "tasks/configuration-merge/go"
+      }
+    }
+  ],
+  "launch_gates": [
+    "three_ready_task_families",
+    "all_four_languages_per_family",
+    "reference_null_and_sabotage_calibration_green",
+    "task_source_integrity_green",
+    "full_workspace_artifact_capture_verified",
+    "quality_extraction_tests_green",
+    "projected_cost_below_study_limit",
+    "provider_hard_cap_confirmed",
+    "clean_git_revision_recorded"
+  ],
+  "analysis": {
+    "primary_estimand": "paired language contrasts in agent steps within task-family and attempt block, conditional on correctness",
+    "co_primary_outcomes": ["hidden_test_pass", "agent_steps"],
+    "secondary_outcomes": ["first_developer_verification_pass", "verification_attempts", "cost_usd", "output_tokens", "agent_seconds", "patch_size", "review_findings"],
+    "uncertainty": "paired bootstrap over task-family and attempt blocks",
+    "task_topology": "record and disclose source-file count and bytes by task cell; do not interpret topology-mediated differences as syntax-only effects",
+    "stopping_rule": "All-pass correctness does not stop the study; efficiency and workflow outcomes remain informative."
+  }
+}
