@@ -371,6 +371,102 @@
       "mean_agent_seconds": 40.29
     }
   ],
+  "language_summaries": [
+    {
+      "language": "javascript",
+      "typecheck_config": "none",
+      "conditions": [
+        "brownfield",
+        "greenfield"
+      ],
+      "interpretation": "balanced_primary",
+      "runs": 11,
+      "passed": 11,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.741167,
+        1.0
+      ],
+      "total_cost_usd": 0.05957791,
+      "mean_cost_usd": 0.00541617,
+      "mean_input_tokens": 29797.64,
+      "mean_cached_input_tokens": 21320.27,
+      "cache_hit_rate": 0.715502,
+      "mean_output_tokens": 2433.73,
+      "mean_agent_steps": 6.73,
+      "mean_agent_seconds": 34.83
+    },
+    {
+      "language": "typescript",
+      "typecheck_config": "strict",
+      "conditions": [
+        "brownfield",
+        "greenfield"
+      ],
+      "interpretation": "balanced_primary",
+      "runs": 11,
+      "passed": 11,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.741167,
+        1.0
+      ],
+      "total_cost_usd": 0.05874584,
+      "mean_cost_usd": 0.00534053,
+      "mean_input_tokens": 30010.09,
+      "mean_cached_input_tokens": 21154.27,
+      "cache_hit_rate": 0.704905,
+      "mean_output_tokens": 2294.55,
+      "mean_agent_steps": 6.18,
+      "mean_agent_seconds": 46.95
+    },
+    {
+      "language": "python",
+      "typecheck_config": "none",
+      "conditions": [
+        "brownfield"
+      ],
+      "interpretation": "illustrative_single_run",
+      "runs": 1,
+      "passed": 1,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.206549,
+        1.0
+      ],
+      "total_cost_usd": 0.00689721,
+      "mean_cost_usd": 0.00689721,
+      "mean_input_tokens": 45043,
+      "mean_cached_input_tokens": 35768,
+      "cache_hit_rate": 0.794086,
+      "mean_output_tokens": 3257,
+      "mean_agent_steps": 9,
+      "mean_agent_seconds": 40.29
+    },
+    {
+      "language": "go",
+      "typecheck_config": "default",
+      "conditions": [
+        "brownfield"
+      ],
+      "interpretation": "illustrative_single_run",
+      "runs": 1,
+      "passed": 1,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.206549,
+        1.0
+      ],
+      "total_cost_usd": 0.00586095,
+      "mean_cost_usd": 0.00586095,
+      "mean_input_tokens": 26856,
+      "mean_cached_input_tokens": 18915,
+      "cache_hit_rate": 0.704312,
+      "mean_output_tokens": 2952,
+      "mean_agent_steps": 6,
+      "mean_agent_seconds": 40.53
+    }
+  ],
   "finding": "All 22 balanced JavaScript/TypeScript primary runs and both single Python/Go examples passed. No language winner is detectable; the Python and Go results demonstrate end-to-end feasibility only.",
   "excluded": [
     "One earlier TypeScript cost-pilot pass was excluded because it was not part of a balanced JS/TS phase.",

@@ -190,6 +190,28 @@ def build_report(rows: list[dict]) -> dict:
             }
         )
 
+    language_summaries = []
+    for language in ("javascript", "typescript", "python", "go"):
+        source_rows = (
+            primary_rows
+            if language in ("javascript", "typescript")
+            else example_rows
+        )
+        items = [row for row in source_rows if row["language"] == language]
+        language_summaries.append(
+            {
+                "language": language,
+                "typecheck_config": TYPECHECK_CONFIG[language],
+                "conditions": sorted({row["project_maturity"] for row in items}),
+                "interpretation": (
+                    "balanced_primary"
+                    if language in ("javascript", "typescript")
+                    else "illustrative_single_run"
+                ),
+                **aggregate(items),
+            }
+        )
+
     primary_summary = aggregate(primary_rows)
     published_summary = aggregate(rows)
 
@@ -214,6 +236,7 @@ def build_report(rows: list[dict]) -> dict:
         "maturity_summaries": maturity_summaries,
         "contrasts": contrasts,
         "polyglot_examples": polyglot_examples,
+        "language_summaries": language_summaries,
         "finding": f"All {primary_summary['passed']} balanced JavaScript/TypeScript primary runs and both single Python/Go examples passed. No language winner is detectable; the Python and Go results demonstrate end-to-end feasibility only.",
         "excluded": [
             "One earlier TypeScript cost-pilot pass was excluded because it was not part of a balanced JS/TS phase.",

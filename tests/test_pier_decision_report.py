@@ -48,6 +48,15 @@ class PierDecisionReportTests(unittest.TestCase):
             all(row["interpretation"] == "illustrative_single_run" for row in examples.values())
         )
 
+        languages = {row["language"]: row for row in report["language_summaries"]}
+        self.assertEqual(4, len(languages))
+        self.assertEqual("balanced_primary", languages["javascript"]["interpretation"])
+        self.assertEqual(
+            ["brownfield", "greenfield"], languages["typescript"]["conditions"]
+        )
+        self.assertEqual("illustrative_single_run", languages["python"]["interpretation"])
+        self.assertEqual(["brownfield"], languages["go"]["conditions"])
+
         markdown = render_markdown(report)
         self.assertIn("All 6 published attempts passed", markdown)
         self.assertIn("Python and Go examples", markdown)

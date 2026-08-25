@@ -62,7 +62,7 @@ nav a:hover { color: var(--ink); }
   grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
   gap: clamp(50px, 8vw, 110px);
   align-items: end;
-  min-height: 690px;
+  min-height: 590px;
   padding: 104px 0 92px;
 }
 .eyebrow, .kicker, .small-label {
@@ -391,4 +391,40 @@ th { color: var(--muted); font-size: 0.68rem; font-weight: 650; text-transform: 
 .example-result-grid span { color: var(--muted); font-size: 0.68rem; }
 @media (max-width: 700px) {
   .example-results { grid-template-columns: 1fr; }
+}
+
+.at-a-glance {
+  padding: 62px 0 86px;
+  border-top: 1px solid var(--line);
+}
+.glance-heading {
+  display: grid;
+  grid-template-columns: 1fr 0.72fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 30px;
+}
+.glance-heading h2 {
+  max-width: 740px;
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-weight: 520;
+  letter-spacing: -0.052em;
+  line-height: 1.05;
+}
+.glance-heading > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+.glance-table-wrap { border: 1px solid var(--line); }
+.glance-table th, .glance-table td { padding: 16px; }
+.glance-table td:first-child { color: var(--ink); font-weight: 700; }
+.glance-table td:nth-child(2) { color: var(--muted); }
+.glance-table tbody tr:last-child td { border-bottom: 0; }
+.glance-table .illustrative-row { background: rgba(255, 209, 102, 0.025); }
+.glance-note { margin: 17px 0 0; color: var(--muted); font-size: 0.76rem; }
+.glance-note a { color: var(--accent); }
+@media (max-width: 760px) {
+  .glance-heading { grid-template-columns: 1fr; gap: 16px; }
 }

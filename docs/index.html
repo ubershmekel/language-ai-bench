@@ -37,6 +37,39 @@
       </aside>
     </section>
 
+    <section class="at-a-glance section-shell" aria-labelledby="glance-title">
+      <div class="glance-heading">
+        <div>
+          <p class="kicker">Published data at a glance</p>
+          <h2 id="glance-title">What each language run cost and consumed</h2>
+        </div>
+        <p>Values are means per attempt. JavaScript and TypeScript summarize balanced new + existing project runs. Python and Go are single existing-project examples.</p>
+      </div>
+      <div class="table-wrap glance-table-wrap">
+        <table class="glance-table">
+          <thead>
+            <tr>
+              <th>Language</th>
+              <th>Evidence</th>
+              <th>Passed</th>
+              <th>Mean cost</th>
+              <th>Input tokens</th>
+              <th>Output tokens</th>
+              <th>Agent steps</th>
+              <th>Agent time</th>
+            </tr>
+          </thead>
+          <tbody id="language-summary-results">
+            <tr><td>JavaScript</td><td>11 runs · new + existing</td><td>11/11</td><td>$0.005416</td><td>29,798</td><td>2,434</td><td>6.73</td><td>34.83s</td></tr>
+            <tr><td>TypeScript</td><td>11 runs · new + existing</td><td>11/11</td><td>$0.005341</td><td>30,010</td><td>2,295</td><td>6.18</td><td>46.95s</td></tr>
+            <tr class="illustrative-row"><td>Python</td><td>1 example · existing</td><td>1/1</td><td>$0.006897</td><td>45,043</td><td>3,257</td><td>9.00</td><td>40.29s</td></tr>
+            <tr class="illustrative-row"><td>Go</td><td>1 example · existing</td><td>1/1</td><td>$0.005861</td><td>26,856</td><td>2,952</td><td>6.00</td><td>40.53s</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="glance-note">“Agent time” measures the model/agent execution window, not the full container job runtime. Operational definitions and confidence intervals are in <a href="./details.html">technical details →</a></p>
+    </section>
+
     <section id="about" class="about section-shell" aria-labelledby="about-title">
       <div class="section-heading">
         <p class="kicker">What this benchmark is</p>

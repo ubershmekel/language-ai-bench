@@ -19,6 +19,22 @@ node -e '
   if (!Array.isArray(data.maturity_summaries) || data.maturity_summaries.length !== 4) {
     throw new Error("expected four JS/TS maturity summaries");
   }
+  if (!Array.isArray(data.language_summaries) || data.language_summaries.length !== 4) {
+    throw new Error("expected four language summaries");
+  }
+  const languages = new Map(data.language_summaries.map((row) => [row.language, row]));
+  for (const language of ["javascript", "typescript"]) {
+    const row = languages.get(language);
+    if (!row || row.runs !== 11 || row.passed !== 11 || row.interpretation !== "balanced_primary") {
+      throw new Error("unexpected primary summary for " + language);
+    }
+  }
+  for (const language of ["python", "go"]) {
+    const row = languages.get(language);
+    if (!row || row.runs !== 1 || row.passed !== 1 || row.interpretation !== "illustrative_single_run") {
+      throw new Error("unexpected example summary for " + language);
+    }
+  }
   const examples = new Map(data.polyglot_examples.map((row) => [row.language, row]));
   for (const language of ["python", "go"]) {
     const row = examples.get(language);
@@ -32,6 +48,8 @@ grep -q 'What this benchmark is' docs/index.html
 grep -q 'The study found no winner' docs/index.html
 grep -q 'What does “6/6 passed” mean?' docs/index.html
 grep -q 'Python and Go also completed' docs/index.html
+grep -q 'Published data at a glance' docs/index.html
+grep -q 'Input tokens' docs/index.html
 grep -q 'Technical details and operational telemetry' docs/details.html
 
 if grep -R -E 'sk-or-v1-[A-Za-z0-9_-]{20,}' \
