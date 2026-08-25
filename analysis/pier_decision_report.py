@@ -11,6 +11,11 @@ import pathlib
 import statistics
 from collections import defaultdict
 
+try:
+    from analysis.pier_quality import extract as extract_quality
+except ModuleNotFoundError:
+    from pier_quality import extract as extract_quality
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCES = (
     ("decision-brownfield-rung1", "optimistic-concurrency", "brownfield", "simple", "primary"),
@@ -62,6 +67,14 @@ def read_rows(jobs_dir: pathlib.Path) -> list[dict]:
             agent = result["agent_result"]
             started = parse_time(result["agent_execution"]["started_at"])
             finished = parse_time(result["agent_execution"]["finished_at"])
+            trajectory_path = trial_dir / "agent" / "trajectory.json"
+            quality = (
+                extract_quality(
+                    json.loads(trajectory_path.read_text(encoding="utf-8")), result
+                )
+                if trajectory_path.is_file()
+                else None
+            )
             rows.append(
                 {
                     "cohort": cohort,
@@ -78,6 +91,7 @@ def read_rows(jobs_dir: pathlib.Path) -> list[dict]:
                     "finished_at": result["finished_at"],
                     "agent_version": result["agent_info"]["version"],
                     "model": result["config"]["agent"]["model_name"],
+                    "quality": quality,
                 }
             )
     return rows
@@ -104,6 +118,26 @@ def aggregate(rows: list[dict]) -> dict:
         "mean_agent_steps": round(statistics.mean(row["agent_steps"] for row in rows), 2),
         "mean_agent_seconds": round(statistics.mean(row["agent_seconds"] for row in rows), 2),
     }
+
+
+def aggregate_quality(rows: list[dict]) -> dict:
+    values = [row["quality"] for row in rows if row.get("quality")]
+    first_known = [value["first_developer_verification_pass"] for value in values if value["first_developer_verification_pass"] is not None]
+    return {
+        "runs": len(values),
+        "first_verification_observed": len(first_known),
+        "first_verification_passed": sum(first_known),
+        "first_verification_pass_rate": round(sum(first_known) / len(first_known), 6) if first_known else None,
+        "verified_before_submit": sum(value["developer_verification_before_submit"] for value in values),
+        "passing_verification_before_submit": sum(value["passing_developer_verification_before_submit"] for value in values),
+        "mean_verification_attempts": round(statistics.mean(value["verification_attempts"] for value in values), 2) if values else None,
+        "mean_static_check_invocations": round(statistics.mean(value["static_check_invocations"] for value in values), 2) if values else None,
+        "malformed_actions": sum(value["malformed_actions"] for value in values),
+        "patch_metrics_available": all(value["patch_statistics"]["files_changed"] is not None for value in values) if values else False,
+    }
+
+def format_optional_mean(value: float | None) -> str:
+    return "n/a" if value is None else f"{value:.2f}"
 
 
 def relative_delta(other_value: float, base_value: float) -> float:
@@ -214,6 +248,15 @@ def build_report(rows: list[dict]) -> dict:
 
     primary_summary = aggregate(primary_rows)
     published_summary = aggregate(rows)
+    workflow_quality = [
+        {
+            "language": language,
+            **aggregate_quality(
+                [row for row in primary_rows if row["language"] == language]
+            ),
+        }
+        for language in ("javascript", "typescript")
+    ]
 
     return {
         "schema_version": "1.0.0",
@@ -237,7 +280,8 @@ def build_report(rows: list[dict]) -> dict:
         "contrasts": contrasts,
         "polyglot_examples": polyglot_examples,
         "language_summaries": language_summaries,
-        "finding": f"All {primary_summary['passed']} balanced JavaScript/TypeScript primary runs and both single Python/Go examples passed. No language winner is detectable; the Python and Go results demonstrate end-to-end feasibility only.",
+        "workflow_quality": workflow_quality,
+        "finding": f"All {primary_summary['passed']} balanced JavaScript/TypeScript primary runs and both single Python/Go examples passed. Observed correctness tied; efficiency differences remain measurable, while Python and Go demonstrate end-to-end feasibility only.",
         "excluded": [
             "One earlier TypeScript cost-pilot pass was excluded because it was not part of a balanced JS/TS phase.",
             "One pre-model Windows proxy infrastructure failure was excluded and recorded no usage or cost.",
@@ -258,7 +302,7 @@ def render_markdown(report: dict) -> str:
         "",
         "## Bottom line",
         "",
-        f"**All {report['all_published']['runs']} published attempts passed; no language winner is detectable.**",
+        f"**All {report['all_published']['runs']} published attempts passed. Correctness tied; workflow efficiency remains measurable.**",
         "",
         f"The balanced primary study contains {report['primary']['runs']} JavaScript/TypeScript attempts across new and existing Node projects. Python and Go each add one illustrative run of the existing optimistic-concurrency task. Those two 1/1 results prove that the calibrated four-language pipeline works end to end; they do not estimate Python or Go success rates and should not be compared as if they were equally sampled benchmark cells.",
         "",
@@ -288,7 +332,18 @@ def render_markdown(report: dict) -> str:
         )
     lines += [
         "",
-        "Every balanced cell reached 100%, so the task hit a ceiling. The study cannot estimate an accuracy advantage or establish equivalence.",
+        "Every balanced cell reached 100%, so the observed accuracy difference is zero. This does not erase the comparison: TypeScript used fewer output tokens and steps but took longer wall-clock agent time. These continuous outcomes are descriptive estimates from a small set of related tasks, not yet a general language verdict.",
+        "",
+        "## Workflow quality among the 22 balanced runs",
+        "",
+        "| Language | First verifier pass | Mean verifier invocations | Passing verification before submit | Malformed actions |",
+        "|---|---:|---:|---:|---:|",
+        *[
+            f"| {item['language'].replace('javascript', 'JavaScript').replace('typescript', 'TypeScript')} | {item['first_verification_passed']}/{item['first_verification_observed']} | {format_optional_mean(item['mean_verification_attempts'])} | {item['passing_verification_before_submit']}/{item['runs']} | {item['malformed_actions']} |"
+            for item in report["workflow_quality"]
+        ],
+        "",
+        "These trajectory-derived measures compare how the agent reached a correct result. They count explicit `scripts/verify-local` commands; checks performed inside that script are not separately visible. Patch-size and review metrics are unavailable because these Pier jobs did not retain final workspaces.",
         "",
         "## Python and Go examples",
         "",

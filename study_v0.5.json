@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "v0.5-polyglot-quality",
+  "status": "design",
+  "objective": "Estimate language-associated differences across matched task families while measuring correctness, regressions, first-pass behavior, and agent workflow.",
+  "languages": ["javascript", "typescript", "python", "go"],
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "model_settings": {
+    "reasoning_effort": "low",
+    "cache_control": "default_end",
+    "temperature": null,
+    "provider_routing": "openrouter-default"
+  },
+  "agent": "mini-swe-agent@2.4.6",
+  "pier": "0.3.1",
+  "scaffold": "mini-swe-agent/bash-only",
+  "prompt_revision": "mini-swe-agent-1.1",
+  "randomization_seed": 20260901,
+  "attempts_per_cell": 5,
+  "per_rollout_cost_limit_usd": 0.10,
+  "study_cost_limit_usd": 4.00,
+  "pilot_mean_cost_usd": 0.00586597,
+  "publication": {
+    "preserve_private_raw_jobs": true,
+    "publish_aggregate_only": true,
+    "refuse_secret_like_content": true,
+    "historical_directory": "docs/studies/v0.5-polyglot-quality"
+  },
+  "quality_outcomes": [
+    "hidden_test_pass",
+    "regression_pass",
+    "first_developer_verification_pass",
+    "developer_verification_before_submit",
+    "verification_attempts",
+    "static_check_invocations",
+    "malformed_actions",
+    "files_changed",
+    "lines_added",
+    "lines_deleted",
+    "dependency_manifest_changed",
+    "review_findings"
+  ],
+  "task_families": [
+    {
+      "id": "optimistic-concurrency",
+      "category": "feature-addition",
+      "project_maturity": "brownfield",
+      "status": "ready",
+      "paths": {
+        "javascript": "tasks/optimistic-concurrency/javascript",
+        "typescript": "tasks/optimistic-concurrency/typescript",
+        "python": "tasks/optimistic-concurrency/python",
+        "go": "tasks/optimistic-concurrency/go"
+      }
+    },
+    {
+      "id": "schedule-variants",
+      "category": "cross-file-data-model-change",
+      "project_maturity": "brownfield",
+      "status": "needs-python-go",
+      "paths": {
+        "javascript": "tasks/schedule-variants/brownfield-javascript",
+        "typescript": "tasks/schedule-variants/brownfield-typescript"
+      }
+    },
+    {
+      "id": "dependency-api-migration",
+      "category": "dependency-api-migration",
+      "project_maturity": "brownfield",
+      "status": "planned",
+      "paths": {}
+    },
+    {
+      "id": "configuration-merge",
+      "category": "bug-investigation-and-repair",
+      "project_maturity": "brownfield",
+      "status": "planned",
+      "paths": {}
+    }
+  ],
+  "launch_gates": [
+    "at_least_three_ready_task_families",
+    "every_ready_family_has_all_four_languages",
+    "reference_null_and_sabotage_calibration_green",
+    "patch_artifact_capture_verified",
+    "quality_extraction_tests_green",
+    "projected_cost_below_study_limit",
+    "provider_hard_cap_confirmed",
+    "clean_git_revision_recorded"
+  ],
+  "analysis": {
+    "primary_estimand": "paired language contrasts in correctness and agent steps within task-family and seed block",
+    "co_primary_outcomes": ["hidden_test_pass", "agent_steps"],
+    "secondary_outcomes": ["first_developer_verification_pass", "verification_attempts", "cost_usd", "output_tokens", "agent_seconds", "review_findings"],
+    "uncertainty": "paired bootstrap over task-family and seed blocks",
+    "stopping_rule": "An all-pass result does not stop the study: continue estimating efficiency and workflow outcomes. Add task families to improve external validity, not merely to manufacture failures."
+  }
+}

@@ -467,7 +467,35 @@
       "mean_agent_seconds": 40.53
     }
   ],
-  "finding": "All 22 balanced JavaScript/TypeScript primary runs and both single Python/Go examples passed. No language winner is detectable; the Python and Go results demonstrate end-to-end feasibility only.",
+  "workflow_quality": [
+    {
+      "language": "javascript",
+      "runs": 11,
+      "first_verification_observed": 11,
+      "first_verification_passed": 8,
+      "first_verification_pass_rate": 0.727273,
+      "verified_before_submit": 11,
+      "passing_verification_before_submit": 10,
+      "mean_verification_attempts": 2.45,
+      "mean_static_check_invocations": 0,
+      "malformed_actions": 0,
+      "patch_metrics_available": false
+    },
+    {
+      "language": "typescript",
+      "runs": 11,
+      "first_verification_observed": 11,
+      "first_verification_passed": 7,
+      "first_verification_pass_rate": 0.636364,
+      "verified_before_submit": 11,
+      "passing_verification_before_submit": 9,
+      "mean_verification_attempts": 2.09,
+      "mean_static_check_invocations": 0,
+      "malformed_actions": 0,
+      "patch_metrics_available": false
+    }
+  ],
+  "finding": "All 22 balanced JavaScript/TypeScript primary runs and both single Python/Go examples passed. Observed correctness tied; efficiency differences remain measurable, while Python and Go demonstrate end-to-end feasibility only.",
   "excluded": [
     "One earlier TypeScript cost-pilot pass was excluded because it was not part of a balanced JS/TS phase.",
     "One pre-model Windows proxy infrastructure failure was excluded and recorded no usage or cost."

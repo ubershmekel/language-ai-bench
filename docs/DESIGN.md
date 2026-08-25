@@ -82,7 +82,7 @@ cost dial. Reject rungs with non-trivial malformed actions; stop at the cheapest
 clean 40–60% rung. Difficulty may change only within plausible maintainer
 tickets. The cheapest rung, GPT-5.6 Luna at low effort, completed all 22 balanced runs
 without command-format exceptions. The original and hardened task families both
-hit a ceiling, so stronger rungs were not run; `model_selection_ladder.json`
+reached 100% correctness. Stronger model rungs were not run because model`nselection was complete; continuous efficiency and workflow outcomes remain`ninformative. `model_selection_ladder.json`
 records that stopping decision.
 
 ## Threats and next families

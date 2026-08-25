@@ -45,7 +45,9 @@ node -e '
 '
 
 grep -q 'What this benchmark is' docs/index.html
-grep -q 'The study found no winner' docs/index.html
+grep -q 'Correctness was perfect; efficiency still differed' docs/index.html
+grep -q 'Same correctness, different path' docs/index.html
+grep -q '"workflow_quality"' docs/data/decision-results.json
 grep -q 'What does “6/6 passed” mean?' docs/index.html
 grep -q 'Python and Go also completed' docs/index.html
 grep -q 'Published data at a glance' docs/index.html

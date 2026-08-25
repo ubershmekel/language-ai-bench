@@ -122,7 +122,7 @@ as new result directories; do not overwrite existing runs. See
 - All original and decision-study task variants build and run in Linux containers.
 - Reference 100%, null parity, and four-sabotage parity are green.
 - Passing and plausible-failing mock runs exist with non-empty events.
-- The balanced paid JS/TS study completed 22/22 with no exceptions; pass-rate cells hit a ceiling.
+- The balanced paid JS/TS study completed 22/22 with no exceptions. Observed correctness tied; steps, tokens, cost, and time remain comparative outcomes.
 - One paid Python example and one paid Go example also passed the shared hidden verifier; these 1/1 results demonstrate the pipeline, not comparative success rates.
 - TypeScript used modestly fewer output tokens/steps but longer agent wall time; see the decision report.
 - DeepSWE's public corpus pilot remains incomplete because some published

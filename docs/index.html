@@ -126,8 +126,8 @@
     <section id="results" class="results section-shell" aria-labelledby="results-title">
       <div class="result-headline">
         <p class="kicker">First paid comparison · JavaScript vs TypeScript</p>
-        <h2 id="results-title">The study found no winner.</h2>
-        <p>All <strong id="primary-total">22</strong> balanced attempts passed. That is good news for the agent, but weak evidence for comparing the languages: the task hit a ceiling and could not separate them.</p>
+        <h2 id="results-title">Correctness was perfect; efficiency still differed.</h2>
+        <p>All <strong id="primary-total">22</strong> balanced attempts passed, so the observed correctness result is a tie. That does not end the comparison: turns, tokens, cost, elapsed time, retries, and change quality can reveal how effectively the agent reaches the same correct result.</p>
       </div>
       <div class="notation-explainer">
         <strong>What does “6/6 passed” mean?</strong>
@@ -138,6 +138,10 @@
         <article><p>Existing project</p><h3>TypeScript</h3><strong data-result="brownfield-typescript">5/5</strong><span>attempts passed</span></article>
         <article><p>New project</p><h3>JavaScript</h3><strong data-result="greenfield-javascript">6/6</strong><span>attempts passed</span></article>
         <article><p>New project</p><h3>TypeScript</h3><strong data-result="greenfield-typescript">6/6</strong><span>attempts passed</span></article>
+      </div>
+      <div class="notation-explainer">
+        <strong>Same correctness, different path</strong>
+        <p>Across 11 balanced attempts per language, TypeScript averaged 2.09 explicit developer-verifier invocations versus JavaScript's 2.45. The first verifier invocation passed in 7/11 TypeScript runs and 8/11 JavaScript runs. These workflow measures are comparative signals even though every hidden verifier ultimately passed.</p>
       </div>
       <div class="example-results">
         <div>
@@ -152,7 +156,7 @@
       </div>
       <div class="interpretation-grid">
         <article class="finding-card"><p class="small-label">What we can say</p><h3>TypeScript did not stop the agent from finishing.</h3><p>Strict typing imposed no observed completion penalty in these new or existing Node projects. JavaScript also completed every attempt.</p></article>
-        <article class="finding-card caution"><p class="small-label">What we cannot say</p><h3>We did not show that TypeScript makes agents more successful.</h3><p>With 100% in every cell, there is no measured accuracy advantage to explain. Small differences in steps, tokens, cost, and time are descriptive telemetry, not a verdict.</p></article>
+        <article class="finding-card caution"><p class="small-label">What we cannot say</p><h3>We did not establish an overall language winner.</h3><p>The balanced sample shows equal observed correctness. TypeScript used fewer steps and output tokens but more elapsed agent time; those are real measured outcomes, though still estimates from a small set of related tasks.</p></article>
       </div>
       <div class="details-link">
         <div><strong>Looking for cost, tokens, cache rate, agent steps, or confidence intervals?</strong><p>Those are useful for auditing and replication, so they live on a separate technical page.</p></div>
@@ -175,7 +179,7 @@
     </section>
 
     <section class="next section-shell" aria-labelledby="next-title">
-      <div><p class="kicker">What comes next</p><h2 id="next-title">Make the benchmark harder before making the claim louder.</h2></div>
+      <div><p class="kicker">What comes next</p><h2 id="next-title">Broaden the tasks before making the claim louder.</h2></div>
       <ul>
         <li>Repeat Python and Go with enough independent attempts to estimate success rates.</li>
         <li>Add task families where type feedback might actually prevent subtle defects.</li>

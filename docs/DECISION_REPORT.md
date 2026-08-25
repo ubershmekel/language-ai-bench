@@ -2,7 +2,7 @@
 
 ## Bottom line
 
-**All 24 published attempts passed; no language winner is detectable.**
+**All 24 published attempts passed. Correctness tied; workflow efficiency remains measurable.**
 
 The balanced primary study contains 22 JavaScript/TypeScript attempts across new and existing Node projects. Python and Go each add one illustrative run of the existing optimistic-concurrency task. Those two 1/1 results prove that the calibrated four-language pipeline works end to end; they do not estimate Python or Go success rates and should not be compared as if they were equally sampled benchmark cells.
 
@@ -26,7 +26,16 @@ Descriptive TypeScript-versus-JavaScript differences:
 - **Brownfield:** pass-rate difference 0 points; output tokens -7.39%, steps -5.71%, cost -0.32%, agent time +45.96%.
 - **Greenfield:** pass-rate difference 0 points; output tokens -4.46%, steps -10.31%, cost -2.32%, agent time +26.03%.
 
-Every balanced cell reached 100%, so the task hit a ceiling. The study cannot estimate an accuracy advantage or establish equivalence.
+Every balanced cell reached 100%, so the observed accuracy difference is zero. This does not erase the comparison: TypeScript used fewer output tokens and steps but took longer wall-clock agent time. These continuous outcomes are descriptive estimates from a small set of related tasks, not yet a general language verdict.
+
+## Workflow quality among the 22 balanced runs
+
+| Language | First verifier pass | Mean verifier invocations | Passing verification before submit | Malformed actions |
+|---|---:|---:|---:|---:|
+| JavaScript | 8/11 | 2.45 | 10/11 | 0 |
+| TypeScript | 7/11 | 2.09 | 9/11 | 0 |
+
+These trajectory-derived measures compare how the agent reached a correct result. They count explicit `scripts/verify-local` commands; checks performed inside that script are not separately visible. Patch-size and review metrics are unavailable because these Pier jobs did not retain final workspaces.
 
 ## Python and Go examples
 
