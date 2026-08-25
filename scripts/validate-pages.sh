@@ -64,20 +64,9 @@ node -e '
   }
   if (data.excluded_infrastructure.length !== 1) throw new Error("expected one infrastructure exclusion");
 '
-node -e '
-  const fs = require("node:fs");
-  const data = JSON.parse(fs.readFileSync("docs/data/v06-results.json", "utf8"));
-  if (data.study_status !== "complete-prospective") throw new Error("unexpected v0.6 status");
-  if (data.prospective.runs !== 36 || data.prospective.passed !== 36) throw new Error("unexpected v0.6 totals");
-  if (data.languages.length !== 4 || data.languages.some((row) => row.runs !== 9)) throw new Error("expected nine v0.6 runs per language");
-  if (data.cells.length !== 12 || data.cells.some((row) => row.runs !== 3)) throw new Error("expected twelve complete v0.6 cells");
-  if (data.paired_contrasts.length !== 6 || data.paired_contrasts.some((row) => row.blocks !== 9)) throw new Error("unexpected paired contrasts");
-  if (data.task_topology.length !== 12) throw new Error("unexpected topology rows");
-  if (data.excluded_infrastructure.length !== 0) throw new Error("unexpected v0.6 infrastructure exclusions");
-'
 
 grep -q 'Results across four languages' docs/index.html
-grep -q 'more agent steps than each other language' docs/index.html
+grep -q 'more agent steps than' docs/index.html
 
 node -e '
   const fs = require("node:fs");
@@ -90,10 +79,17 @@ node -e '
   if (strong.languages.length !== 4) throw new Error("expected four v0.7 languages");
   if (strong.paired_contrasts.length !== 6) throw new Error("unexpected v0.7 paired contrasts");
 '
-grep -q 'Measure productivity and errors under controlled conditions' docs/index.html
-grep -q 'Example task' docs/index.html
-grep -q '12 runs &middot; hard existing task' docs/index.html
-grep -q 'Input tokens' docs/index.html
+grep -q 'result-chart' docs/index.html
+grep -q 'footer-columns' docs/index.html
+grep -q 'x.com/ubershmekel' docs/index.html
+grep -q 'github.com/ubershmekel/language-ai-bench' docs/index.html
+
+# The site loads v0.7 aggregates at runtime; stale study numbers must not linger in markup.
+if grep -q '9/9' docs/index.html docs/details.html; then
+  echo "Stale v0.6 per-language totals still present in the site markup." >&2
+  exit 1
+fi
+grep -q 'Input tokens' docs/details.html
 grep -q 'Technical details and paired uncertainty' docs/details.html
 grep -q '"workflow_quality"' docs/data/decision-results.json
 

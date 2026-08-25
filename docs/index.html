@@ -15,7 +15,7 @@
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Language AI Bench home"><span class="brand-mark">L/AB</span><span>Language AI Bench</span></a>
     <nav aria-label="Report navigation">
-      <a href="#latest">Results</a><a href="#about">Method</a><a href="#study">Example task</a><a href="#roadmap">Languages</a><a href="./details.html">Technical details</a>
+      <a href="#idea">The idea</a><a href="#latest">Results</a><a href="#reading">What it means</a><a href="./details.html">Technical details</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub</a>
     </nav>
   </header>
 
@@ -23,13 +23,38 @@
     <section class="hero section-shell">
       <div class="hero-copy-block">
         <h1>Does your programming language change how well AI codes?</h1>
-        <p class="hero-copy">Language AI Bench gives one coding agent the same task in four languages and measures how often it succeeds and how much work it takes. On a task hard enough to fail, success rates stayed close, but Go consistently cost the agent more steps.</p>
+        <p class="hero-copy">One coding agent, one hard task, four languages, and a hidden verifier that grades only behavior. Success rates came out close enough that none of the differences can be called. The work it took did differ: Go cost the agent noticeably more steps than JavaScript, TypeScript, or Python.</p>
       </div>
       <aside class="question-card" aria-label="Core benchmark question">
         <p class="small-label">The question</p>
-        <p>If the task, tests, model, and agent stay fixed, does changing the programming language change whether the agent succeeds or how it gets there?</p>
+        <p>If the task, tests, model, and agent all stay fixed, does changing the programming language change whether the agent succeeds, or how much work it takes to get there?</p>
         <div class="language-pills"><span>JavaScript</span><span>TypeScript</span><span>Python</span><span>Go</span></div>
       </aside>
+    </section>
+
+    <section id="idea" class="about section-shell" aria-labelledby="about-title">
+      <div class="section-heading">
+        <p class="kicker">The idea</p>
+        <h2 id="about-title">Give one agent the same job in four languages and see what changes.</h2>
+        <p class="section-intro">Each language gets a repository that starts in the same broken state and must end in the same working state. Same instructions, same model, same agent scaffold, same budget, fresh context every time. Only the language differs, so anything that moves is attributable to the language and its toolchain.</p>
+      </div>
+      <div class="principles-grid">
+        <article><span class="index">01</span><h3>Same job</h3><p>Byte-identical instructions in every language, and one shared verifier that tests behavior rather than style.</p></article>
+        <article><span class="index">02</span><h3>Hard enough to fail</h3><p>Earlier rounds were too easy: every language passed everything, which answers nothing. The current task fails often enough to compare.</p></article>
+        <article><span class="index">03</span><h3>Calibrated before launch</h3><p>Correct solutions pass, untouched starters fail the identical checks in all four languages, and deliberately broken solutions get caught.</p></article>
+      </div>
+      <div class="task-note">
+        <p><strong>The current task.</strong> A four-file command-line reporting tool has to stop doing money math in floating point. The agent must switch to exact arithmetic, convert currencies along the shortest rate path and reject ambiguous ones, total every parent account, round half-to-even per entry, and reject roughly thirty kinds of malformed input. The starter code fails eight of the twelve hidden checks in every language.</p>
+        <div class="source-strip">
+          <span>Read the actual task:</span>
+          <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/instruction.md">Full instructions &#8599;</a>
+          <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/javascript">JavaScript &#8599;</a>
+          <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/typescript">TypeScript &#8599;</a>
+          <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/python">Python &#8599;</a>
+          <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/go">Go &#8599;</a>
+          <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/verifier/verify.py">Shared verifier &#8599;</a>
+        </div>
+      </div>
     </section>
 
     <section id="latest" class="at-a-glance section-shell" aria-labelledby="glance-title">
@@ -38,114 +63,102 @@
           <p class="kicker">Current study</p>
           <h2 id="glance-title">Results across four languages</h2>
         </div>
-        <p>Each language was tested twelve times on one deliberately hard existing-project task, using the strongest model rung. Pass rate measures errors. Steps, tokens, time, and cost measure the work required to reach a correct result.</p>
+        <p>Every language ran the same hard task <span id="stat-runs">12</span> times on the strongest model rung. <strong id="stat-passed">42/48</strong> attempts passed overall, so the results have room to differ instead of being pinned at a perfect score.</p>
       </div>
+
+      <div id="result-chart" class="chart-grid">
+        <figure class="chart-panel">
+          <figcaption><strong>Did it succeed?</strong><span>Share of attempts passing the hidden verifier.</span></figcaption>
+          <p class="chart-fallback">JavaScript 10/12 &middot; TypeScript 11/12 &middot; Python 12/12 &middot; Go 9/12</p>
+        </figure>
+        <figure class="chart-panel">
+          <figcaption><strong>How much work did it take?</strong><span>Mean agent steps per attempt.</span></figcaption>
+          <p class="chart-fallback">JavaScript 6.92 &middot; TypeScript 6.92 &middot; Python 6.58 &middot; Go 8.25</p>
+        </figure>
+      </div>
+
       <div class="table-wrap glance-table-wrap">
         <table class="glance-table">
           <thead>
             <tr>
               <th>Language</th>
-              <th>Evidence</th>
+              <th>Type checking</th>
               <th>Passed</th>
-              <th>Mean cost</th>
-              <th>Input tokens</th>
-              <th>Output tokens</th>
               <th>Agent steps</th>
+              <th>Output tokens</th>
               <th>Agent time</th>
+              <th>Mean cost</th>
             </tr>
           </thead>
           <tbody id="language-summary-results">
-            <tr><td>JavaScript</td><td>12 runs &middot; hard existing task</td><td>10/12</td><td>$0.005879</td><td>35,247</td><td>3,202</td><td>6.92</td><td>38.2s</td></tr>
-            <tr><td>TypeScript</td><td>12 runs &middot; hard existing task</td><td>11/12</td><td>$0.006125</td><td>40,988</td><td>3,109</td><td>6.92</td><td>48.6s</td></tr>
-            <tr><td>Python</td><td>12 runs &middot; hard existing task</td><td>12/12</td><td>$0.005520</td><td>31,032</td><td>2,969</td><td>6.58</td><td>37.2s</td></tr>
-            <tr><td>Go</td><td>12 runs &middot; hard existing task</td><td>9/12</td><td>$0.006978</td><td>49,119</td><td>3,710</td><td>8.25</td><td>48.5s</td></tr>
+            <tr><td>JavaScript</td><td>None</td><td>10/12</td><td>6.92</td><td>3,202</td><td>38.2s</td><td>$0.005879</td></tr>
+            <tr><td>TypeScript</td><td>Strict</td><td>11/12</td><td>6.92</td><td>3,109</td><td>48.6s</td><td>$0.006125</td></tr>
+            <tr><td>Python</td><td>None</td><td>12/12</td><td>6.58</td><td>2,969</td><td>37.2s</td><td>$0.005520</td></tr>
+            <tr><td>Go</td><td>Compiler</td><td>9/12</td><td>8.25</td><td>3,710</td><td>48.5s</td><td>$0.006978</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="glance-note"><strong>Current finding:</strong> 42 of 48 attempts passed, so the ceiling that made earlier studies unreadable is gone. Pass rates still differ too little to call &mdash; no interval excludes zero &mdash; but Go needed 1.3 to 1.7 more agent steps than each other language, and all three of those intervals exclude zero. On a weaker model the same task is a cliff that no language rescues. See <a href="./V07_REPORT.md">the full report</a> or <a href="./details.html">technical details</a>.</p>
+      <p class="glance-note">Pass rate measures errors. Steps, tokens, time, and cost measure the work required to reach a correct result. Total measured spend for this study was <span id="stat-spend">$0.71</span>.</p>
     </section>
 
-    <section id="about" class="about section-shell" aria-labelledby="about-title">
+    <section id="reading" class="study section-shell" aria-labelledby="reading-title">
       <div class="section-heading">
-        <p class="kicker">Method</p>
-        <h2 id="about-title">Measure productivity and errors under controlled conditions.</h2>
-        <p class="section-intro">The benchmark gives one agent equivalent repositories and the same behavioral requirements in each language. That makes success rate and work-to-solution comparable without reducing the task to a syntax quiz.</p>
+        <p class="kicker">What the data says</p>
+        <h2 id="reading-title">Success barely moved. Effort did.</h2>
       </div>
-      <div class="principles-grid">
-        <article><span class="index">01</span><h3>Same job</h3><p>The task wording and required behavior stay aligned across languages.</p></article>
-        <article><span class="index">02</span><h3>Real repository</h3><p>The agent reads code, edits multiple files, runs commands, and deals with tooling feedback.</p></article>
-        <article><span class="index">03</span><h3>Shared behavioral check</h3><p>One language-neutral verifier tests the running service instead of grading code style.</p></article>
-      </div>
-    </section>
-
-    <section id="study" class="study section-shell" aria-labelledby="study-title">
-      <div class="section-heading split-heading">
-        <div><p class="kicker">Example task</p><h2 id="study-title">Prevent concurrent writers from overwriting each other.</h2></div>
-        <p class="section-intro">One of the three current task families is a backend change involving state, HTTP rules, error handling, and a race condition.</p>
-      </div>
-      <div class="task-explainer">
-        <article class="prompt-card">
-          <div class="card-header"><span>Prompt excerpt</span><a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/optimistic-concurrency/instruction.md">Full prompt ↗</a></div>
-          <blockquote>“Add HTTP optimistic concurrency control. GET responses include a stable quoted ETag. Writes require If-Match. Two writes using the same tag must not both succeed.”</blockquote>
-          <p>The existing-project version begins with a working CRUD service. The new-project version asks the agent to build the service and concurrency behavior from a minimal scaffold.</p>
+      <div class="reading-grid">
+        <article>
+          <h3>Nobody wins on correctness</h3>
+          <p>Python passed every attempt and Go passed the fewest, but the gap is inside the noise: no pass-rate comparison has a confidence interval that excludes zero. Python versus Go is the closest call and it still touches zero. On this evidence, picking a language to raise your odds of a working result is not supported.</p>
         </article>
-        <article class="http-card" aria-label="Simplified example of the required behavior">
-          <div class="card-header"><span>Simplified behavior</span><span>HTTP</span></div>
-          <div class="http-line"><code>GET /tasks/1</code><span>→</span><code>200 · ETag "v7"</code></div>
-          <div class="http-line"><code>PATCH · If-Match "v7"</code><span>→</span><code class="success">200 · now "v8"</code></div>
-          <div class="http-line"><code>PATCH · If-Match "v7"</code><span>→</span><code class="failure">412 · stale</code></div>
-          <div class="http-line"><code>PATCH · no If-Match</code><span>→</span><code class="failure">428 · required</code></div>
-          <p>Hidden checks also cover concurrent writes, deletion, stable tags, ordinary CRUD behavior, and regressions.</p>
+        <article>
+          <h3>Go costs more steps</h3>
+          <p>Go needed 1.3 to 1.7 more agent steps than each of the other three languages, and all three of those intervals exclude zero. It also burned the most tokens and the most money per attempt. The likely mechanism is the compile-edit-rerun loop rather than anything about the syntax.</p>
+        </article>
+        <article>
+          <h3>A weaker model fails everywhere</h3>
+          <p>The same task run on a weaker model rung passed <span id="weak-rung-result">0/25</span> attempts, in every language. No language rescued it. Whether a language matters at all seems to depend on the agent already being strong enough to be in the game.</p>
+        </article>
+        <article>
+          <h3>What would change this</h3>
+          <p>This is one task family, one model snapshot, and one bash-only agent scaffold. The language is a bundle that also includes its toolchain, file layout, and ecosystem, so none of this is a claim about syntax. A different hard task could easily rank the languages differently.</p>
         </article>
       </div>
-      <div class="source-strip">
-        <span>Inspect the actual task:</span>
-        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/optimistic-concurrency/javascript">JavaScript repo ↗</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/optimistic-concurrency/typescript">TypeScript repo ↗</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/optimistic-concurrency/python">Python repo ↗</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/optimistic-concurrency/go">Go repo ↗</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/optimistic-concurrency/verifier/verify.py">Shared verifier ↗</a>
-      </div>
-    </section>
-
-    <section class="run-explainer section-shell" aria-labelledby="run-title">
-      <div class="section-heading"><p class="kicker">What happens in one run</p><h2 id="run-title">One fresh agent gets one repository and one chance.</h2></div>
-      <ol class="run-flow">
-        <li><span>1</span><strong>Fresh context</strong><p>No memory from another language or attempt.</p></li>
-        <li><span>2</span><strong>Agent works</strong><p>It reads, edits, runs tests, and responds to compiler or runtime feedback.</p></li>
-        <li><span>3</span><strong>Hidden verifier</strong><p>The same external HTTP checks exercise every language implementation.</p></li>
-        <li><span>4</span><strong>Pass or fail</strong><p>A pass means the completed service satisfied the required behavior.</p></li>
-      </ol>
-    </section>
-
-    <section id="roadmap" class="roadmap section-shell" aria-labelledby="roadmap-title">
-      <div class="section-heading split-heading">
-        <div><p class="kicker">Current coverage</p><h2 id="roadmap-title">Four language arms.</h2></div>
-        <p class="section-intro">The current study compares JavaScript, TypeScript, Python, and Go. Each language has nine prospective runs across the same three behavioral task families.</p>
-      </div>
-      <div class="language-status">
-        <article><div><span class="language-dot js"></span><h3>JavaScript</h3></div><p>No static type checker.</p><strong class="status published">9/9 prospective runs passed</strong></article>
-        <article><div><span class="language-dot ts"></span><h3>TypeScript</h3></div><p>Strict structural typing.</p><strong class="status published">9/9 prospective runs passed</strong></article>
-        <article><div><span class="language-dot py"></span><h3>Python</h3></div><p>No checker in the first arm.</p><strong class="status published">9/9 prospective runs passed</strong></article>
-        <article><div><span class="language-dot go"></span><h3>Go</h3></div><p>Compiler-enforced nominal typing.</p><strong class="status published">9/9 prospective runs passed</strong></article>
-      </div>
-      <p class="calibration-note">Known-good solutions pass, untouched projects fail, and seeded broken solutions are caught across all four languages. The schedule was fixed before launch and every task passed the source-integrity gate.</p>
-    </section>
-
-    <section class="next section-shell" aria-labelledby="next-title">
-      <div><p class="kicker">What comes next</p><h2 id="next-title">Build enough evidence to detect real language effects.</h2></div>
-      <ul>
-        <li>Add dependency migration, debugging, refactoring, and non-HTTP task families.</li>
-        <li>Add task families where type feedback might actually prevent subtle defects.</li>
-        <li>Repeat across models and richer coding-agent scaffolds.</li>
-        <li>Measure maintenance edits, migrations, and regressions in addition to first completion.</li>
-      </ul>
+      <p class="calibration-note">Intervals are 95% percentile intervals from a fixed-seed 20,000-resample paired bootstrap over matched attempt blocks. The full method, the paired contrasts for every pair, and the per-case failure breakdown are in the <a href="./V07_REPORT.md">written report</a>.</p>
     </section>
   </main>
 
   <footer class="section-shell">
-    <div><strong>Language AI Bench</strong><p>MIT licensed. Built to be rerun, challenged, and extended.</p></div>
-    <div class="footer-links"><a href="./V06_REPORT.md">Latest report</a><a href="./POLYGLOT_REPORT.md">Historical report</a><a href="./DESIGN.md">Design</a><a href="./data/v06-results.json">Latest aggregate data</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub</a></div>
+    <div>
+      <strong>Language AI Bench</strong>
+      <p>MIT licensed. Built to be rerun, challenged, and extended. Aggregate results only; private trajectories and secrets are never published.</p>
+      <p class="footer-byline">By <a href="https://x.com/ubershmekel">@ubershmekel</a></p>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-group">
+        <span class="footer-heading">Dig in</span>
+        <a href="https://github.com/ubershmekel/language-ai-bench">Source code &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/instruction.md">The task &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/verifier/verify.py">The verifier &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/issues">Questions and issues &#8599;</a>
+      </div>
+      <div class="footer-group">
+        <span class="footer-heading">Language starters</span>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/javascript">JavaScript &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/typescript">TypeScript &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/python">Python &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/go">Go &#8599;</a>
+      </div>
+      <div class="footer-group">
+        <span class="footer-heading">Results and history</span>
+        <a href="./V07_REPORT.md">Current report (v0.7)</a>
+        <a href="./data/v07-results.json">Aggregate data (JSON)</a>
+        <a href="./details.html">Technical details</a>
+        <a href="./V06_REPORT.md">Previous study (v0.6)</a>
+        <a href="./POLYGLOT_REPORT.md">Earlier study (v0.5)</a>
+        <a href="./DESIGN.md">Experimental design</a>
+      </div>
+    </div>
   </footer>
 </body>
 </html>

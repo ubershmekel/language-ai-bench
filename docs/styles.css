@@ -302,6 +302,68 @@ footer p { margin: 5px 0 0; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
 .footer-links a:hover { color: var(--ink); }
 
+/* Result chart, reading grid, and expanded footer */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+  margin: 34px 0 40px;
+}
+.chart-panel {
+  margin: 0;
+  padding: 24px 26px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.chart-panel figcaption { display: flex; flex-direction: column; gap: 5px; margin-bottom: 18px; }
+.chart-panel figcaption strong { font-size: 1.02rem; letter-spacing: -0.02em; }
+.chart-panel figcaption span { color: var(--muted); font-size: 0.81rem; max-width: 46ch; }
+.chart-panel svg { display: block; overflow: visible; }
+.chart-fallback { margin: 0; color: var(--muted); font-size: 0.85rem; }
+
+.task-note {
+  margin-top: 42px;
+  padding: 26px 28px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.task-note > p { margin: 0 0 18px; color: #c9d0cd; font-size: 0.9rem; max-width: 88ch; }
+.task-note strong { color: var(--ink); }
+
+.reading-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin-top: 38px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.reading-grid article { padding: 28px 30px; background: var(--bg); }
+.reading-grid h3 { margin: 0 0 10px; font-size: 1.1rem; letter-spacing: -0.02em; }
+.reading-grid p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+
+.footer-columns { display: flex; flex-wrap: wrap; gap: 46px; }
+.footer-group { display: flex; flex-direction: column; gap: 8px; }
+.footer-heading {
+  color: var(--ink);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+.footer-group a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.footer-byline a { color: var(--accent); }
+.footer-byline a:hover { text-decoration: underline; text-underline-offset: 3px; }
+footer > div:first-child { max-width: 40ch; }
+
+@media (max-width: 900px) {
+  .chart-grid, .reading-grid { grid-template-columns: 1fr; }
+  .footer-columns { gap: 28px; }
+}
+
 /* Technical details */
 .details-hero { padding: 95px 0 72px; }
 .details-hero h1 { max-width: 900px; }
