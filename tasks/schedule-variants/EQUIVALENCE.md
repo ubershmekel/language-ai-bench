@@ -21,3 +21,8 @@ JavaScript has the same modules and behavior without compiler diagnostics.
 Greenfield starts from the same minimal runnable behavior in both languages.
 Package/compiler metadata is intentionally part of the language treatment.
 Pass rates are never pooled across maturity conditions or task families.
+v0.5 adds brownfield Python and Go variants with the same prompt and byte-identical
+HTTP verifier. Python uses its standard-library HTTP server without a static
+checker; Go uses the pinned compiler. The four brownfield references, untouched
+baselines, and four seeded sabotage modes have identical pass/failure sets in
+`schedule_polyglot_calibration_report.json`.

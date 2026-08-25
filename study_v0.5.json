@@ -57,10 +57,12 @@
       "id": "schedule-variants",
       "category": "cross-file-data-model-change",
       "project_maturity": "brownfield",
-      "status": "needs-python-go",
+      "status": "ready",
       "paths": {
         "javascript": "tasks/schedule-variants/brownfield-javascript",
-        "typescript": "tasks/schedule-variants/brownfield-typescript"
+        "typescript": "tasks/schedule-variants/brownfield-typescript",
+        "python": "tasks/schedule-variants/brownfield-python",
+        "go": "tasks/schedule-variants/brownfield-go"
       }
     },
     {
