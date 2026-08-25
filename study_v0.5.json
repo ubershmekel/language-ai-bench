@@ -76,8 +76,13 @@
       "id": "configuration-merge",
       "category": "bug-investigation-and-repair",
       "project_maturity": "brownfield",
-      "status": "planned",
-      "paths": {}
+      "status": "ready",
+      "paths": {
+        "javascript": "tasks/configuration-merge/javascript",
+        "typescript": "tasks/configuration-merge/typescript",
+        "python": "tasks/configuration-merge/python",
+        "go": "tasks/configuration-merge/go"
+      }
     }
   ],
   "launch_gates": [

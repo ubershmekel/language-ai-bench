@@ -15,7 +15,7 @@ def test_design_is_valid_but_not_launch_ready():
     assert validate(value) == []
     errors = validate(value, require_launch_ready=True)
     assert "study status is not ready" in errors
-    assert "launch requires at least three ready task families" in errors
+    assert "launch requires at least three ready task families" not in errors
 
 
 def test_schedule_is_deterministic_and_balanced():

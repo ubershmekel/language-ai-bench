@@ -14,7 +14,7 @@ import urllib.request
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 DEFAULT_TASK = ROOT / "tasks" / "optimistic-concurrency"
 DEFAULT_LANGUAGES = ("javascript", "typescript", "python", "go")
-SABOTAGES = (
+DEFAULT_SABOTAGES = (
     "off-by-one",
     "missing-error-branch",
     "wrong-status-code",
@@ -51,7 +51,7 @@ def wait_ready(port, readiness_path="/tasks/1", timeout=20):
     raise RuntimeError("readiness timeout")
 
 
-def verify(task_dir, tag, sabotage=None, readiness_path="/tasks/1"):
+def verify_http(task_dir, tag, sabotage=None, readiness_path="/tasks/1"):
     cmd = ["docker", "run", "-d", "--rm", "-P"]
     if sabotage:
         cmd += ["-e", f"LAB_SABOTAGE={sabotage}"]
@@ -93,6 +93,24 @@ def verify(task_dir, tag, sabotage=None, readiness_path="/tasks/1"):
         run(["docker", "rm", "-f", cid], check=False, capture=True)
 
 
+def verify_command(task_dir, tag, sabotage=None):
+    cmd = [
+        sys.executable,
+        str(task_dir / "verifier" / "verify.py"),
+        "--docker-image",
+        tag,
+    ]
+    if sabotage:
+        cmd += ["--sabotage", sabotage]
+    with tempfile.NamedTemporaryFile(suffix=".json", delete=False) as handle:
+        report_path = pathlib.Path(handle.name)
+    proc = run(cmd + ["--output", str(report_path)], check=False, capture=True)
+    report = json.loads(report_path.read_text())
+    report_path.unlink(missing_ok=True)
+    report["verifier_exit_status"] = proc.returncode
+    return report
+
+
 def failed(report):
     return sorted(item["case_id"] for item in report["case_results"] if not item["passed"])
 
@@ -106,6 +124,16 @@ def main():
     parser.add_argument("--output", default=str(ROOT / "calibration_report.json"))
     args = parser.parse_args()
     task_dir = args.task_dir.resolve()
+    calibration_config_path = task_dir / "calibration" / "config.json"
+    calibration_config = (
+        json.loads(calibration_config_path.read_text())
+        if calibration_config_path.exists()
+        else {"mode": "http", "sabotages": list(DEFAULT_SABOTAGES)}
+    )
+    mode = calibration_config.get("mode", "http")
+    sabotages = tuple(calibration_config.get("sabotages", DEFAULT_SABOTAGES))
+    if mode not in ("http", "command"):
+        raise SystemExit(f"unsupported calibration mode: {mode}")
     matrix = {}
 
     for language in args.languages:
@@ -114,12 +142,14 @@ def main():
         if not args.no_build:
             baseline = build(task_dir, language, "baseline")
             reference = build(task_dir, language, "reference")
+        verify = verify_command if mode == "command" else verify_http
+        verify_kwargs = {} if mode == "command" else {"readiness_path": args.readiness_path}
         matrix[language] = {
-            "reference": verify(task_dir, reference, readiness_path=args.readiness_path),
-            "null": verify(task_dir, baseline, readiness_path=args.readiness_path),
+            "reference": verify(task_dir, reference, **verify_kwargs),
+            "null": verify(task_dir, baseline, **verify_kwargs),
             "sabotages": {
-                sabotage: verify(task_dir, reference, sabotage, args.readiness_path)
-                for sabotage in SABOTAGES
+                sabotage: verify(task_dir, reference, sabotage, **verify_kwargs)
+                for sabotage in sabotages
             },
         }
 
@@ -134,7 +164,7 @@ def main():
             key: failed(value["sabotages"][sabotage])
             for key, value in matrix.items()
         }
-        for sabotage in SABOTAGES
+        for sabotage in sabotages
     }
     sabotage_parity = all(
         len({tuple(value) for value in languages.values()}) == 1
@@ -145,6 +175,7 @@ def main():
         "schema_version": "1.0.0",
         "benchmark_version": "0.2.0",
         "task_family": task_dir.name,
+        "mode": mode,
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "green": reference_green and null_parity and sabotage_parity,
         "checks": {
