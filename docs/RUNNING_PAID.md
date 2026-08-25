@@ -114,4 +114,4 @@ The exporter allowlists aggregate fields; it never copies events, prompts,
 commands, environment variables, file contents, or trajectories. Review the
 generated diff before committing. Raw public trajectories, if the research
 release eventually requires them, should be a deliberate separately audited
-artifact—not an automatic Pages input.
+artifact, not an automatic Pages input.

@@ -74,18 +74,24 @@ node -e '
   if (data.excluded_infrastructure.length !== 0) throw new Error("unexpected v0.6 infrastructure exclusions");
 '
 
-grep -q 'What this benchmark is' docs/index.html
-grep -q 'All 36 prospective attempts passed' docs/index.html
+grep -q 'Results across four languages' docs/index.html
+grep -q 'no observed error-rate difference' docs/index.html
+grep -q 'Measure productivity and errors under controlled conditions' docs/index.html
+grep -q 'Example task' docs/index.html
 grep -q '9 runs · 3 existing tasks' docs/index.html
-grep -q 'Older studies remain historical' docs/index.html
-grep -q 'Correctness was perfect; historical efficiency telemetry varied' docs/index.html
-grep -q 'Same correctness, different path' docs/index.html
-grep -q '"workflow_quality"' docs/data/decision-results.json
-grep -q 'What does “6/6 passed” mean?' docs/index.html
-grep -q 'Python and Go also completed' docs/index.html
-grep -q 'Published data at a glance' docs/index.html
 grep -q 'Input tokens' docs/index.html
 grep -q 'Technical details and paired uncertainty' docs/details.html
+grep -q '"workflow_quality"' docs/data/decision-results.json
+
+if grep -E -q 'hero-actions|Historical extension|What each language run cost' docs/index.html; then
+  echo "Landing page contains removed or historical-first content." >&2
+  exit 1
+fi
+
+if grep -R -q '—' README.md docs; then
+  echo "Em dash found in public-facing copy." >&2
+  exit 1
+fi
 
 if grep -R -E 'sk-or-v1-[A-Za-z0-9_-]{20,}' \
   docs/index.html docs/details.html docs/app.js docs/styles.css docs/data; then

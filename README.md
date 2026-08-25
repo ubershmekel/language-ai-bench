@@ -84,7 +84,7 @@ pier run -p tasks/optimistic-concurrency/typescript \
   --agent mini-swe-agent --model YOUR_PROVIDER/YOUR_MODEL
 ```
 
-Pier—not this repository—owns sandboxing, model calls, network allowlists,
+Pier, not this repository, owns sandboxing, model calls, network allowlists,
 timeouts, and trajectories. Its current command surface should be checked with
 `pier run --help`; this artifact intentionally does not wrap or reimplement it.
 The mock runner proves schemas and controls locally but does not claim to be a

@@ -15,35 +15,30 @@
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Language AI Bench home"><span class="brand-mark">L/AB</span><span>Language AI Bench</span></a>
     <nav aria-label="Report navigation">
-      <a href="#about">What it is</a><a href="#study">Tasks</a><a href="#latest">Latest results</a><a href="#roadmap">Languages</a><a href="./details.html">Technical details</a>
+      <a href="#latest">Results</a><a href="#about">Method</a><a href="#study">Example task</a><a href="#roadmap">Languages</a><a href="./details.html">Technical details</a>
     </nav>
   </header>
 
   <main id="top">
     <section class="hero section-shell">
       <div class="hero-copy-block">
-        <p class="eyebrow">Open coding-agent experiment</p>
         <h1>Does language choice change how well an AI agent codes?</h1>
-        <p class="hero-copy">Language AI Bench gives an autonomous coding agent the same software-engineering job in equivalent projects, then checks each result against the same behavioral contract.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="#latest">See the latest results</a>
-          <a class="button ghost" href="https://github.com/ubershmekel/language-ai-bench">View the source ↗</a>
-        </div>
+        <p class="hero-copy">Language AI Bench measures whether programming language changes an AI coding agent's error rate and the amount of work it takes to reach a correct solution.</p>
       </div>
       <aside class="question-card" aria-label="Core benchmark question">
         <p class="small-label">The question</p>
-        <p>If the task, tests, model, and agent stay fixed, does changing the programming language change whether the agent succeeds—or how it gets there?</p>
+        <p>If the task, tests, model, and agent stay fixed, does changing the programming language change whether the agent succeeds or how it gets there?</p>
         <div class="language-pills"><span>JavaScript</span><span>TypeScript</span><span>Python</span><span>Go</span></div>
       </aside>
     </section>
 
-    <section class="at-a-glance section-shell" aria-labelledby="glance-title">
+    <section id="latest" class="at-a-glance section-shell" aria-labelledby="glance-title">
       <div class="glance-heading">
         <div>
-          <p class="kicker">Published data at a glance</p>
-          <h2 id="glance-title">What each language run cost and consumed</h2>
+          <p class="kicker">Current study</p>
+          <h2 id="glance-title">Results across four languages</h2>
         </div>
-        <p>Values are means across the prospective three-family existing-project comparison: nine attempts per language.</p>
+        <p>Each language was tested nine times across three equivalent existing-project tasks. Pass rate measures errors. Steps, tokens, time, and cost measure the work required to reach a correct result.</p>
       </div>
       <div class="table-wrap glance-table-wrap">
         <table class="glance-table">
@@ -67,14 +62,14 @@
           </tbody>
         </table>
       </div>
-      <p class="glance-note">“Agent time” measures the model/agent execution window, not the full container job runtime. Operational definitions and confidence intervals are in <a href="./details.html">technical details →</a></p>
+      <p class="glance-note"><strong>Current finding:</strong> all 36 attempts passed, so this study found no observed error-rate difference. The productivity measures varied, but every paired agent-step confidence interval included zero. See <a href="./V06_REPORT.md">the full report</a> or <a href="./details.html">technical details</a>.</p>
     </section>
 
     <section id="about" class="about section-shell" aria-labelledby="about-title">
       <div class="section-heading">
-        <p class="kicker">What this benchmark is</p>
-        <h2 id="about-title">A controlled comparison, not a language leaderboard.</h2>
-        <p class="section-intro">A fair language study needs more than asking a model to write four unrelated snippets. This project builds equivalent repositories and asks an agent to do realistic work inside each one.</p>
+        <p class="kicker">Method</p>
+        <h2 id="about-title">Measure productivity and errors under controlled conditions.</h2>
+        <p class="section-intro">The benchmark gives one agent equivalent repositories and the same behavioral requirements in each language. That makes success rate and work-to-solution comparable without reducing the task to a syntax quiz.</p>
       </div>
       <div class="principles-grid">
         <article><span class="index">01</span><h3>Same job</h3><p>The task wording and required behavior stay aligned across languages.</p></article>
@@ -85,8 +80,8 @@
 
     <section id="study" class="study section-shell" aria-labelledby="study-title">
       <div class="section-heading split-heading">
-        <div><p class="kicker">Experiment 01 · optimistic concurrency</p><h2 id="study-title">The agent had to prevent two writers from overwriting each other.</h2></div>
-        <p class="section-intro">This is a small backend task with state, HTTP rules, error handling, and a race condition—not a toy function or syntax quiz.</p>
+        <div><p class="kicker">Example task</p><h2 id="study-title">Prevent concurrent writers from overwriting each other.</h2></div>
+        <p class="section-intro">One of the three current task families is a backend change involving state, HTTP rules, error handling, and a race condition.</p>
       </div>
       <div class="task-explainer">
         <article class="prompt-card">
@@ -123,86 +118,27 @@
       </ol>
     </section>
 
-    <section id="latest" class="results section-shell" aria-labelledby="latest-title">
-      <div class="result-headline">
-        <p class="kicker">Prospective v0.6 · three tasks · four languages</p>
-        <h2 id="latest-title">All 36 prospective attempts passed.</h2>
-        <p>Each language has nine runs across three source-audited existing-project tasks. Correctness tied; paired agent-step intervals over nine matched blocks all include zero.</p>
-      </div>
-      <div class="result-grid" aria-label="Balanced polyglot pass counts">
-        <article><p>Three task families</p><h3>JavaScript</h3><strong>9/9</strong><span>attempts passed</span></article>
-        <article><p>Three task families</p><h3>TypeScript</h3><strong>9/9</strong><span>attempts passed</span></article>
-        <article><p>Three task families</p><h3>Python</h3><strong>9/9</strong><span>attempts passed</span></article>
-        <article><p>Three task families</p><h3>Go</h3><strong>9/9</strong><span>attempts passed</span></article>
-      </div>
-      <div class="interpretation-grid">
-        <article class="finding-card caution"><p class="small-label">Paired uncertainty</p><h3>No step contrast separated cleanly.</h3><p>The largest mean difference was 0.67 agent steps per matched block; every paired 95% bootstrap interval crossed zero.</p></article>
-        <article class="finding-card caution"><p class="small-label">Topology disclosure</p><h3>Language remains a treatment bundle.</h3><p>Starter file counts, bytes, compilers, and ecosystem feedback differ. The report publishes topology and patch metrics rather than calling the result a syntax-only effect.</p></article>
-      </div>
-      <div class="details-link"><div><strong>Older studies remain historical.</strong><p>The v0.4/v0.5 reports are preserved, but their efficiency estimates are never pooled with the prospective v0.6 cohort.</p></div><a class="button ghost" href="./V06_REPORT.md">Read the v0.6 report →</a></div>
-    </section>
-    <section id="results" class="results section-shell" aria-labelledby="results-title">
-      <div class="result-headline">
-        <p class="kicker">Historical extension · JavaScript vs TypeScript</p>
-        <h2 id="results-title">Correctness was perfect; historical efficiency telemetry varied.</h2>
-        <p>All <strong id="primary-total">22</strong> balanced attempts passed, so the observed correctness result is a tie. That does not end the comparison: turns, tokens, cost, elapsed time, retries, and change quality can reveal how effectively the agent reaches the same correct result.</p>
-      </div>
-      <div class="notation-explainer">
-        <strong>What does “6/6 passed” mean?</strong>
-        <p>Six independent agent attempts were run in that condition, and all six completed the full task. It does <em>not</em> mean there were six test cases.</p>
-      </div>
-      <div class="result-grid" aria-label="Pass counts by condition">
-        <article><p>Existing project</p><h3>JavaScript</h3><strong data-result="brownfield-javascript">5/5</strong><span>attempts passed</span></article>
-        <article><p>Existing project</p><h3>TypeScript</h3><strong data-result="brownfield-typescript">5/5</strong><span>attempts passed</span></article>
-        <article><p>New project</p><h3>JavaScript</h3><strong data-result="greenfield-javascript">6/6</strong><span>attempts passed</span></article>
-        <article><p>New project</p><h3>TypeScript</h3><strong data-result="greenfield-typescript">6/6</strong><span>attempts passed</span></article>
-      </div>
-      <div class="notation-explainer">
-        <strong>Same correctness, different path</strong>
-        <p>Across 11 attempts per language, the recorded verifier counts differed. These runs predate the source-integrity gate, so the values remain available for auditability but are not clean language comparisons.</p>
-      </div>
-      <div class="example-results">
-        <div>
-          <p class="small-label">Cross-language pipeline examples</p>
-          <h3>Python and Go also completed the existing-project task once.</h3>
-          <p>These are single end-to-end examples under the same model and verifier. A 1/1 result shows that the pipeline worked and the agent solved this instance; it does not estimate either language's success rate.</p>
-        </div>
-        <div class="example-result-grid">
-          <article><h4>Python</h4><strong data-result="brownfield-python">1/1</strong><span>illustrative run passed</span></article>
-          <article><h4>Go</h4><strong data-result="brownfield-go">1/1</strong><span>illustrative run passed</span></article>
-        </div>
-      </div>
-      <div class="interpretation-grid">
-        <article class="finding-card"><p class="small-label">What we can say</p><h3>TypeScript did not stop the agent from finishing.</h3><p>Strict typing imposed no observed completion penalty in these new or existing Node projects. JavaScript also completed every attempt.</p></article>
-        <article class="finding-card caution"><p class="small-label">What we cannot say</p><h3>We did not establish an overall language winner.</h3><p>The balanced sample shows equal observed correctness. It does not establish a winner, and its historical efficiency differences cannot be isolated from the pre-audit fixture formatting and topology.</p></article>
-      </div>
-      <div class="details-link">
-        <div><strong>Looking for cost, tokens, cache rate, agent steps, or confidence intervals?</strong><p>Those are useful for auditing and replication, so they live on a separate technical page.</p></div>
-        <a class="button ghost" href="./details.html">Open technical details →</a>
-      </div>
-    </section>
-
     <section id="roadmap" class="roadmap section-shell" aria-labelledby="roadmap-title">
       <div class="section-heading split-heading">
-        <div><p class="kicker">The benchmark is broader than experiment 01</p><h2 id="roadmap-title">Four language arms, at different stages.</h2></div>
-        <p class="section-intro">JavaScript and TypeScript are the closest ecosystem pair, though the historical cohort also had a source-formatting confound. Python and Go broaden the question and introduce additional ecosystem and compiler differences.</p>
+        <div><p class="kicker">Current coverage</p><h2 id="roadmap-title">Four language arms.</h2></div>
+        <p class="section-intro">The current study compares JavaScript, TypeScript, Python, and Go. Each language has nine prospective runs across the same three behavioral task families.</p>
       </div>
       <div class="language-status">
-        <article><div><span class="language-dot js"></span><h3>JavaScript</h3></div><p>No static type checker.</p><strong class="status published">Agent results published</strong></article>
-        <article><div><span class="language-dot ts"></span><h3>TypeScript</h3></div><p>Strict structural typing.</p><strong class="status published">Agent results published</strong></article>
+        <article><div><span class="language-dot js"></span><h3>JavaScript</h3></div><p>No static type checker.</p><strong class="status published">9/9 prospective runs passed</strong></article>
+        <article><div><span class="language-dot ts"></span><h3>TypeScript</h3></div><p>Strict structural typing.</p><strong class="status published">9/9 prospective runs passed</strong></article>
         <article><div><span class="language-dot py"></span><h3>Python</h3></div><p>No checker in the first arm.</p><strong class="status published">9/9 prospective runs passed</strong></article>
         <article><div><span class="language-dot go"></span><h3>Go</h3></div><p>Compiler-enforced nominal typing.</p><strong class="status published">9/9 prospective runs passed</strong></article>
       </div>
-      <p class="calibration-note">All four arms remain calibration-green: known-good solutions pass, untouched projects fail on the same behaviors, and seeded broken solutions are caught consistently. The prospective brownfield comparison has nine attempts per language across three task families, with a fixed randomized schedule and source-integrity gate.</p>
+      <p class="calibration-note">Known-good solutions pass, untouched projects fail, and seeded broken solutions are caught across all four languages. The schedule was fixed before launch and every task passed the source-integrity gate.</p>
     </section>
 
     <section class="next section-shell" aria-labelledby="next-title">
-      <div><p class="kicker">What comes next</p><h2 id="next-title">Broaden the tasks before making the claim louder.</h2></div>
+      <div><p class="kicker">What comes next</p><h2 id="next-title">Build enough evidence to detect real language effects.</h2></div>
       <ul>
         <li>Add dependency migration, debugging, refactoring, and non-HTTP task families.</li>
         <li>Add task families where type feedback might actually prevent subtle defects.</li>
         <li>Repeat across models and richer coding-agent scaffolds.</li>
-        <li>Measure maintenance edits, migrations, and regressions—not only first completion.</li>
+        <li>Measure maintenance edits, migrations, and regressions in addition to first completion.</li>
       </ul>
     </section>
   </main>
