@@ -26,7 +26,7 @@ Descriptive TypeScript-versus-JavaScript differences:
 - **Brownfield:** pass-rate difference 0 points; output tokens -7.39%, steps -5.71%, cost -0.32%, agent time +45.96%.
 - **Greenfield:** pass-rate difference 0 points; output tokens -4.46%, steps -10.31%, cost -2.32%, agent time +26.03%.
 
-Every balanced cell reached 100%, so the observed accuracy difference is zero. This does not erase the comparison: TypeScript used fewer output tokens and steps but took longer wall-clock agent time. These continuous outcomes are descriptive estimates from a small set of related tasks, not yet a general language verdict.
+Every balanced cell reached 100%, so the observed accuracy difference is zero. The recorded token, step, and wall-time values are retained for auditability, but this cohort predates source-integrity checks and used inconsistently formatted fixtures. Treat those efficiency contrasts as confounded historical telemetry, not language effects.
 
 ## Workflow quality among the 22 balanced runs
 

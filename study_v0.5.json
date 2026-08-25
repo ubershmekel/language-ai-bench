@@ -55,7 +55,7 @@
     },
     {
       "id": "schedule-variants",
-      "category": "cross-file-data-model-change",
+      "category": "data-model-change",
       "project_maturity": "brownfield",
       "status": "ready",
       "paths": {

@@ -8,7 +8,9 @@ import sys
 import time
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--visibility", choices=("developer", "hidden", "all"), default="all")
+parser.add_argument(
+    "--visibility", choices=("developer", "hidden", "all"), default="all"
+)
 parser.add_argument("--output")
 parser.add_argument("--docker-image")
 parser.add_argument("--sabotage")
@@ -39,7 +41,7 @@ def invoke(value, expect_success=True):
     if process.returncode != 0:
         raise AssertionError(f"exit {process.returncode}: {process.stderr[-500:]}")
     try:
-        return json.loads(process.stdout) 
+        return json.loads(process.stdout)
     except json.JSONDecodeError as exc:
         raise AssertionError(f"invalid JSON output: {process.stdout[-500:]}") from exc
 
@@ -54,7 +56,9 @@ def envelope(defaults=None, file=None, env=None, cli=None):
 
 
 def regression_flat():
-    actual = invoke(envelope({"host": "localhost", "port": 80}, {"port": 8080}, cli={"debug": True}))
+    actual = invoke(
+        envelope({"host": "localhost", "port": 80}, {"port": 8080}, cli={"debug": True})
+    )
     return actual == {"host": "localhost", "port": 8080, "debug": True}
 
 
@@ -78,12 +82,20 @@ def nested_precedence():
 
 
 def deletes_nested_leaf():
-    actual = invoke(envelope({"db": {"host": "db", "password": "secret"}}, {"db": {"password": None}}))
+    actual = invoke(
+        envelope(
+            {"db": {"host": "db", "password": "secret"}}, {"db": {"password": None}}
+        )
+    )
     return actual == {"db": {"host": "db"}}
 
 
 def deletes_whole_object():
-    actual = invoke(envelope({"cache": {"host": "cache", "ttl": 30}, "keep": 1}, env={"cache": None}))
+    actual = invoke(
+        envelope(
+            {"cache": {"host": "cache", "ttl": 30}, "keep": 1}, env={"cache": None}
+        )
+    )
     return actual == {"keep": 1}
 
 
@@ -99,12 +111,24 @@ def delete_then_readd():
 
 
 def arrays_replace():
-    actual = invoke(envelope({"ports": [80, 443], "nested": {"tags": ["a"]}}, {"ports": [8080]}, cli={"nested": {"tags": ["b", "c"]}}))
+    actual = invoke(
+        envelope(
+            {"ports": [80, 443], "nested": {"tags": ["a"]}},
+            {"ports": [8080]},
+            cli={"nested": {"tags": ["b", "c"]}},
+        )
+    )
     return actual == {"ports": [8080], "nested": {"tags": ["b", "c"]}}
 
 
 def type_transitions():
-    actual = invoke(envelope({"value": 1, "other": {"x": 1}}, {"value": {"x": 2}, "other": "flat"}, env={"value": {"y": 3}}))
+    actual = invoke(
+        envelope(
+            {"value": 1, "other": {"x": 1}},
+            {"value": {"x": 2}, "other": "flat"},
+            env={"value": {"y": 3}},
+        )
+    )
     return actual == {"value": {"x": 2, "y": 3}, "other": "flat"}
 
 

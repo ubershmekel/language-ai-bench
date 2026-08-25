@@ -1,0 +1,28 @@
+name: Benchmark integrity
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - "tasks/**"
+      - "scripts/audit_task_integrity.py"
+      - "scripts/audit_publication.py"
+      - "tests/**"
+      - ".github/workflows/integrity.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: python -m pip install pytest==8.3.5
+      - run: python scripts/audit_task_integrity.py
+      - run: python scripts/audit_publication.py
+      - run: python -m pytest -q

@@ -64,7 +64,7 @@ grep -q 'What this benchmark is' docs/index.html
 grep -q 'All 20 valid attempts passed' docs/index.html
 grep -q '5 runs · 2 existing tasks' docs/index.html
 grep -q '32 valid completions' docs/index.html
-grep -q 'Correctness was perfect; efficiency still differed' docs/index.html
+grep -q 'Correctness was perfect; historical efficiency telemetry varied' docs/index.html
 grep -q 'Same correctness, different path' docs/index.html
 grep -q '"workflow_quality"' docs/data/decision-results.json
 grep -q 'What does “6/6 passed” mean?' docs/index.html

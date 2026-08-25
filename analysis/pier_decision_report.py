@@ -18,11 +18,35 @@ except ModuleNotFoundError:
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCES = (
-    ("decision-brownfield-rung1", "optimistic-concurrency", "brownfield", "simple", "primary"),
-    ("decision-greenfield-rung1", "task-service-greenfield", "greenfield", "simple", "primary"),
+    (
+        "decision-brownfield-rung1",
+        "optimistic-concurrency",
+        "brownfield",
+        "simple",
+        "primary",
+    ),
+    (
+        "decision-greenfield-rung1",
+        "task-service-greenfield",
+        "greenfield",
+        "simple",
+        "primary",
+    ),
     ("decision-schedule-rung1", "schedule-variants", None, "prefixed", "primary"),
-    ("decision-python-example", "optimistic-concurrency", "brownfield", "simple", "example"),
-    ("decision-go-example", "optimistic-concurrency", "brownfield", "simple", "example"),
+    (
+        "decision-python-example",
+        "optimistic-concurrency",
+        "brownfield",
+        "simple",
+        "example",
+    ),
+    (
+        "decision-go-example",
+        "optimistic-concurrency",
+        "brownfield",
+        "simple",
+        "example",
+    ),
 )
 TYPECHECK_CONFIG = {
     "javascript": "none",
@@ -36,9 +60,11 @@ def wilson(passed: int, total: int, z: float = 1.959963984540054) -> list[float]
     proportion = passed / total
     denominator = 1 + z * z / total
     center = (proportion + z * z / (2 * total)) / denominator
-    margin = z * math.sqrt(
-        proportion * (1 - proportion) / total + z * z / (4 * total * total)
-    ) / denominator
+    margin = (
+        z
+        * math.sqrt(proportion * (1 - proportion) / total + z * z / (4 * total * total))
+        / denominator
+    )
     return [round(center - margin, 6), round(center + margin, 6)]
 
 
@@ -109,32 +135,71 @@ def aggregate(rows: list[dict]) -> dict:
         "pass_rate_wilson_95": wilson(passed, total),
         "total_cost_usd": round(sum(row["cost_usd"] for row in rows), 8),
         "mean_cost_usd": round(statistics.mean(row["cost_usd"] for row in rows), 8),
-        "mean_input_tokens": round(statistics.mean(row["input_tokens"] for row in rows), 2),
+        "mean_input_tokens": round(
+            statistics.mean(row["input_tokens"] for row in rows), 2
+        ),
         "mean_cached_input_tokens": round(
             statistics.mean(row["cached_input_tokens"] for row in rows), 2
         ),
         "cache_hit_rate": round(cached / input_tokens, 6),
-        "mean_output_tokens": round(statistics.mean(row["output_tokens"] for row in rows), 2),
-        "mean_agent_steps": round(statistics.mean(row["agent_steps"] for row in rows), 2),
-        "mean_agent_seconds": round(statistics.mean(row["agent_seconds"] for row in rows), 2),
+        "mean_output_tokens": round(
+            statistics.mean(row["output_tokens"] for row in rows), 2
+        ),
+        "mean_agent_steps": round(
+            statistics.mean(row["agent_steps"] for row in rows), 2
+        ),
+        "mean_agent_seconds": round(
+            statistics.mean(row["agent_seconds"] for row in rows), 2
+        ),
     }
 
 
 def aggregate_quality(rows: list[dict]) -> dict:
     values = [row["quality"] for row in rows if row.get("quality")]
-    first_known = [value["first_developer_verification_pass"] for value in values if value["first_developer_verification_pass"] is not None]
+    first_known = [
+        value["first_developer_verification_pass"]
+        for value in values
+        if value["first_developer_verification_pass"] is not None
+    ]
     return {
         "runs": len(values),
         "first_verification_observed": len(first_known),
         "first_verification_passed": sum(first_known),
-        "first_verification_pass_rate": round(sum(first_known) / len(first_known), 6) if first_known else None,
-        "verified_before_submit": sum(value["developer_verification_before_submit"] for value in values),
-        "passing_verification_before_submit": sum(value["passing_developer_verification_before_submit"] for value in values),
-        "mean_verification_attempts": round(statistics.mean(value["verification_attempts"] for value in values), 2) if values else None,
-        "mean_static_check_invocations": round(statistics.mean(value["static_check_invocations"] for value in values), 2) if values else None,
+        "first_verification_pass_rate": (
+            round(sum(first_known) / len(first_known), 6) if first_known else None
+        ),
+        "verified_before_submit": sum(
+            value["developer_verification_before_submit"] for value in values
+        ),
+        "passing_verification_before_submit": sum(
+            value["passing_developer_verification_before_submit"] for value in values
+        ),
+        "mean_verification_attempts": (
+            round(
+                statistics.mean(value["verification_attempts"] for value in values), 2
+            )
+            if values
+            else None
+        ),
+        "mean_static_check_invocations": (
+            round(
+                statistics.mean(value["static_check_invocations"] for value in values),
+                2,
+            )
+            if values
+            else None
+        ),
         "malformed_actions": sum(value["malformed_actions"] for value in values),
-        "patch_metrics_available": all(value["patch_statistics"]["files_changed"] is not None for value in values) if values else False,
+        "patch_metrics_available": (
+            all(
+                value["patch_statistics"]["files_changed"] is not None
+                for value in values
+            )
+            if values
+            else False
+        ),
     }
+
 
 def format_optional_mean(value: float | None) -> str:
     return "n/a" if value is None else f"{value:.2f}"
@@ -151,7 +216,9 @@ def build_report(rows: list[dict]) -> dict:
     cells = []
     grouped = defaultdict(list)
     for row in primary_rows:
-        grouped[(row["task_family"], row["project_maturity"], row["language"])].append(row)
+        grouped[(row["task_family"], row["project_maturity"], row["language"])].append(
+            row
+        )
     for key, items in sorted(grouped.items()):
         cells.append(
             {
@@ -211,7 +278,9 @@ def build_report(rows: list[dict]) -> dict:
     polyglot_examples = []
     example_groups = defaultdict(list)
     for row in example_rows:
-        example_groups[(row["task_family"], row["project_maturity"], row["language"])].append(row)
+        example_groups[
+            (row["task_family"], row["project_maturity"], row["language"])
+        ].append(row)
     for key, items in sorted(example_groups.items()):
         polyglot_examples.append(
             {
@@ -227,9 +296,7 @@ def build_report(rows: list[dict]) -> dict:
     language_summaries = []
     for language in ("javascript", "typescript", "python", "go"):
         source_rows = (
-            primary_rows
-            if language in ("javascript", "typescript")
-            else example_rows
+            primary_rows if language in ("javascript", "typescript") else example_rows
         )
         items = [row for row in source_rows if row["language"] == language]
         language_summaries.append(
@@ -281,7 +348,7 @@ def build_report(rows: list[dict]) -> dict:
         "polyglot_examples": polyglot_examples,
         "language_summaries": language_summaries,
         "workflow_quality": workflow_quality,
-        "finding": f"All {primary_summary['passed']} balanced JavaScript/TypeScript primary runs and both single Python/Go examples passed. Observed correctness tied; efficiency differences remain measurable, while Python and Go demonstrate end-to-end feasibility only.",
+        "finding": f"All {primary_summary['passed']} balanced JavaScript/TypeScript primary runs and both single Python/Go examples passed. Correctness is valid for the tested contracts; pre-audit efficiency differences are confounded by inconsistent fixture formatting.",
         "excluded": [
             "One earlier TypeScript cost-pilot pass was excluded because it was not part of a balanced JS/TS phase.",
             "One pre-model Windows proxy infrastructure failure was excluded and recorded no usage or cost.",
@@ -332,7 +399,7 @@ def render_markdown(report: dict) -> str:
         )
     lines += [
         "",
-        "Every balanced cell reached 100%, so the observed accuracy difference is zero. This does not erase the comparison: TypeScript used fewer output tokens and steps but took longer wall-clock agent time. These continuous outcomes are descriptive estimates from a small set of related tasks, not yet a general language verdict.",
+        "Every balanced cell reached 100%, so the observed accuracy difference is zero. The recorded token, step, and wall-time values are retained for auditability, but this cohort predates source-integrity checks and used inconsistently formatted fixtures. Treat those efficiency contrasts as confounded historical telemetry, not language effects.",
         "",
         "## Workflow quality among the 22 balanced runs",
         "",

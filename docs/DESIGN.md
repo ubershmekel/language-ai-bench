@@ -82,7 +82,7 @@ cost dial. Reject rungs with non-trivial malformed actions; stop at the cheapest
 clean 40–60% rung. Difficulty may change only within plausible maintainer
 tickets. The cheapest rung, GPT-5.6 Luna at low effort, completed all 22 balanced runs
 without command-format exceptions. The original and hardened task families both
-reached 100% correctness. Stronger model rungs were not run because model`nselection was complete; continuous efficiency and workflow outcomes remain`ninformative. `model_selection_ladder.json`
+reached 100% correctness. Stronger model rungs were not run because model selection was complete; continuous efficiency and workflow outcomes remain informative. `model_selection_ladder.json`
 records that stopping decision.
 
 ## Threats and next families
@@ -90,6 +90,7 @@ records that stopping decision.
 - Task representativeness: two related backend HTTP contracts are not a language ecosystem.
 - Scaffold mediation: bash choice/invocation behavior can mask type benefits.
 - Runtime/ecosystem/pretraining confounding outside the JS/TS matched pair.
+- The 2026-08-24 cohort predates source-format and topology audits; its efficiency telemetry is historical and confounded. Correctness remains valid for the tested contracts.
 - Calibration sabotage modes are deliberate fault injections, not empirical
   frequencies of real agent mistakes.
 - Mock runs prove plumbing only and contain no performance evidence.

@@ -127,7 +127,7 @@
       <div class="result-headline">
         <p class="kicker">Latest balanced comparison · two tasks · four languages</p>
         <h2 id="latest-title">All 20 valid attempts passed. The paths to success differed.</h2>
-        <p>Each language has five valid existing-project runs: two optimistic-concurrency attempts and three schedule-data-model attempts. Correctness tied, but Python was fastest on average, TypeScript used the fewest steps and output tokens, and Go used the most steps, tokens, and cost in this small cohort.</p>
+        <p>Each language has five valid existing-project runs. Correctness tied. This cohort predates the source-integrity gate, so its step, token, time, and cost differences are historical telemetry—not clean language effects.</p>
       </div>
       <div class="result-grid" aria-label="Balanced polyglot pass counts">
         <article><p>Two task families</p><h3>JavaScript</h3><strong>5/5</strong><span>valid attempts passed</span></article>
@@ -136,7 +136,7 @@
         <article><p>Two task families</p><h3>Go</h3><strong>5/5</strong><span>valid attempts passed</span></article>
       </div>
       <div class="interpretation-grid">
-        <article class="finding-card"><p class="small-label">Efficiency signal</p><h3>Different languages favored different measurements.</h3><p>Python averaged 31.32 seconds. TypeScript averaged 6.60 steps and 2,132 output tokens. JavaScript sat near the middle. Go averaged 8.20 steps, 2,695 output tokens, and the highest cost.</p></article>
+        <article class="finding-card caution"><p class="small-label">Comparability warning</p><h3>The old efficiency contrast is confounded.</h3><p>Several starters used inconsistent formatting, and the schedule task used different source-file topology across languages. The recorded telemetry remains available, but a clean rerun must supersede it.</p></article>
         <article class="finding-card caution"><p class="small-label">Workflow signal</p><h3>First verification behavior also differed.</h3><p>First explicit verifier invocations passed in 5/5 Python runs, 4/5 JavaScript and TypeScript runs, and 1/4 observed Go runs. Every valid final submission still passed the hidden verifier.</p></article>
       </div>
       <div class="details-link"><div><strong>The earlier 24-run report is preserved.</strong><p>The full history now has 32 valid completions. Twelve JS/TS greenfield runs remain a separate extension and are not pooled into this four-language comparison.</p></div><a class="button ghost" href="./POLYGLOT_REPORT.md">Read the new report →</a></div>
@@ -144,7 +144,7 @@
     <section id="results" class="results section-shell" aria-labelledby="results-title">
       <div class="result-headline">
         <p class="kicker">Earlier extension · JavaScript vs TypeScript</p>
-        <h2 id="results-title">Correctness was perfect; efficiency still differed.</h2>
+        <h2 id="results-title">Correctness was perfect; historical efficiency telemetry varied.</h2>
         <p>All <strong id="primary-total">22</strong> balanced attempts passed, so the observed correctness result is a tie. That does not end the comparison: turns, tokens, cost, elapsed time, retries, and change quality can reveal how effectively the agent reaches the same correct result.</p>
       </div>
       <div class="notation-explainer">
@@ -159,7 +159,7 @@
       </div>
       <div class="notation-explainer">
         <strong>Same correctness, different path</strong>
-        <p>Across 11 balanced attempts per language, TypeScript averaged 2.09 explicit developer-verifier invocations versus JavaScript's 2.45. The first verifier invocation passed in 7/11 TypeScript runs and 8/11 JavaScript runs. These workflow measures are comparative signals even though every hidden verifier ultimately passed.</p>
+        <p>Across 11 attempts per language, the recorded verifier counts differed. These runs predate the source-integrity gate, so the values remain available for auditability but are not clean language comparisons.</p>
       </div>
       <div class="example-results">
         <div>
@@ -174,7 +174,7 @@
       </div>
       <div class="interpretation-grid">
         <article class="finding-card"><p class="small-label">What we can say</p><h3>TypeScript did not stop the agent from finishing.</h3><p>Strict typing imposed no observed completion penalty in these new or existing Node projects. JavaScript also completed every attempt.</p></article>
-        <article class="finding-card caution"><p class="small-label">What we cannot say</p><h3>We did not establish an overall language winner.</h3><p>The balanced sample shows equal observed correctness. TypeScript used fewer steps and output tokens but more elapsed agent time; those are real measured outcomes, though still estimates from a small set of related tasks.</p></article>
+        <article class="finding-card caution"><p class="small-label">What we cannot say</p><h3>We did not establish an overall language winner.</h3><p>The balanced sample shows equal observed correctness. It does not establish a winner, and its historical efficiency differences cannot be isolated from the pre-audit fixture formatting and topology.</p></article>
       </div>
       <div class="details-link">
         <div><strong>Looking for cost, tokens, cache rate, agent steps, or confidence intervals?</strong><p>Those are useful for auditing and replication, so they live on a separate technical page.</p></div>
@@ -185,7 +185,7 @@
     <section id="roadmap" class="roadmap section-shell" aria-labelledby="roadmap-title">
       <div class="section-heading split-heading">
         <div><p class="kicker">The benchmark is broader than experiment 01</p><h2 id="roadmap-title">Four language arms, at different stages.</h2></div>
-        <p class="section-intro">JavaScript and TypeScript are the cleanest matched pair. Python and Go broaden the question, but also introduce ecosystem and compiler confounds.</p>
+        <p class="section-intro">JavaScript and TypeScript are the closest ecosystem pair, though the historical cohort also had a source-formatting confound. Python and Go broaden the question and introduce additional ecosystem and compiler differences.</p>
       </div>
       <div class="language-status">
         <article><div><span class="language-dot js"></span><h3>JavaScript</h3></div><p>No static type checker.</p><strong class="status published">Agent results published</strong></article>

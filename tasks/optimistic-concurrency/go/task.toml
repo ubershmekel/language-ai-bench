@@ -2,6 +2,7 @@ schema_version = "1.4"
 [metadata]
 task_family = "optimistic-concurrency"
 language = "go"
+project_maturity = "brownfield"
 typecheck_config = "default"
 [verifier]
 timeout_sec = 120.0

@@ -26,3 +26,11 @@ HTTP verifier. Python uses its standard-library HTTP server without a static
 checker; Go uses the pinned compiler. The four brownfield references, untouched
 baselines, and four seeded sabotage modes have identical pass/failure sets in
 `schedule_polyglot_calibration_report.json`.
+## Retrospective comparability note
+
+The 2026-08-24 Python and Go extensions used language-native monolithic
+implementations while JavaScript and TypeScript used multiple modules. This is
+a disclosed project-topology confound for historical workflow and efficiency
+metrics. The task category is therefore “data-model change,” not “cross-file
+data-model change.” Behavioral correctness remains comparable through the
+shared verifier.

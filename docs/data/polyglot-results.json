@@ -344,6 +344,7 @@
     "v05-occ-python-balance",
     "v05-occ-go-balance"
   ],
-  "finding": "All 20 valid attempts in the balanced four-language, two-family brownfield cohort passed. Correctness tied; cost, steps, tokens, time, and workflow behavior differed descriptively.",
+  "finding": "All 20 valid attempts passed. Correctness is valid for the tested contracts; historical cross-language efficiency contrasts are exploratory because the pre-audit fixtures had inconsistent formatting and project topology.",
+  "comparability_note": "The 2026-08-24 cohort predates the source-integrity gate. Several TypeScript, Go, and Python starters were unusually compressed, and schedule-variants used different source-file topology across languages.",
   "publication_boundary": "Aggregate result and trajectory-derived counts only; no prompts, commands, patches, trial IDs, or environment variables."
 }

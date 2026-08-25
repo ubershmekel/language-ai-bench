@@ -3,7 +3,7 @@
   "benchmark_version": "0.2.0",
   "task_family": "configuration-merge",
   "mode": "command",
-  "generated_at": "2026-08-25T07:01:44Z",
+  "generated_at": "2026-08-25T07:28:32Z",
   "green": true,
   "checks": {
     "reference_100_percent": true,
@@ -147,17 +147,17 @@
           {
             "case_id": "regression-flat",
             "passed": true,
-            "duration_ms": 1312.0
+            "duration_ms": 1140.0
           },
           {
             "case_id": "nested-precedence",
             "passed": true,
-            "duration_ms": 1141.0
+            "duration_ms": 1078.0
           },
           {
             "case_id": "deletes-nested-leaf",
             "passed": true,
-            "duration_ms": 1109.0
+            "duration_ms": 1047.0
           },
           {
             "case_id": "deletes-whole-object",
@@ -167,22 +167,22 @@
           {
             "case_id": "delete-then-readd",
             "passed": true,
-            "duration_ms": 1172.0
+            "duration_ms": 1141.0
           },
           {
             "case_id": "arrays-replace",
             "passed": true,
-            "duration_ms": 1172.0
+            "duration_ms": 1015.0
           },
           {
             "case_id": "type-transitions",
             "passed": true,
-            "duration_ms": 1500.0
+            "duration_ms": 1032.0
           },
           {
             "case_id": "rejects-invalid",
             "passed": true,
-            "duration_ms": 5609.0
+            "duration_ms": 5375.0
           }
         ],
         "verifier_exit_status": 0
@@ -194,22 +194,22 @@
           {
             "case_id": "regression-flat",
             "passed": true,
-            "duration_ms": 1125.0
+            "duration_ms": 1078.0
           },
           {
             "case_id": "nested-precedence",
             "passed": false,
-            "duration_ms": 1188.0
+            "duration_ms": 1109.0
           },
           {
             "case_id": "deletes-nested-leaf",
             "passed": false,
-            "duration_ms": 1656.0
+            "duration_ms": 1000.0
           },
           {
             "case_id": "deletes-whole-object",
             "passed": false,
-            "duration_ms": 1063.0
+            "duration_ms": 1407.0
           },
           {
             "case_id": "delete-then-readd",
@@ -219,17 +219,17 @@
           {
             "case_id": "arrays-replace",
             "passed": true,
-            "duration_ms": 1031.0
+            "duration_ms": 1188.0
           },
           {
             "case_id": "type-transitions",
             "passed": false,
-            "duration_ms": 1047.0
+            "duration_ms": 1031.0
           },
           {
             "case_id": "rejects-invalid",
             "passed": true,
-            "duration_ms": 5250.0
+            "duration_ms": 5719.0
           }
         ],
         "verifier_exit_status": 1
@@ -242,42 +242,42 @@
             {
               "case_id": "regression-flat",
               "passed": true,
-              "duration_ms": 1078.0
+              "duration_ms": 1032.0
             },
             {
               "case_id": "nested-precedence",
               "passed": false,
-              "duration_ms": 1109.0
+              "duration_ms": 984.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": false,
-              "duration_ms": 1203.0
+              "duration_ms": 1094.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": true,
-              "duration_ms": 1688.0
+              "duration_ms": 1125.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": false,
-              "duration_ms": 1047.0
+              "duration_ms": 968.0
             },
             {
               "case_id": "arrays-replace",
               "passed": true,
-              "duration_ms": 1109.0
+              "duration_ms": 1110.0
             },
             {
               "case_id": "type-transitions",
               "passed": false,
-              "duration_ms": 1109.0
+              "duration_ms": 1031.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 6063.0
+              "duration_ms": 5984.0
             }
           ],
           "verifier_exit_status": 1
@@ -289,42 +289,42 @@
             {
               "case_id": "regression-flat",
               "passed": true,
-              "duration_ms": 1015.0
+              "duration_ms": 1062.0
             },
             {
               "case_id": "nested-precedence",
               "passed": true,
-              "duration_ms": 1141.0
+              "duration_ms": 1547.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": false,
-              "duration_ms": 1156.0
+              "duration_ms": 1078.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": false,
-              "duration_ms": 1156.0
+              "duration_ms": 1031.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": true,
-              "duration_ms": 1141.0
+              "duration_ms": 1313.0
             },
             {
               "case_id": "arrays-replace",
               "passed": true,
-              "duration_ms": 1109.0
+              "duration_ms": 1375.0
             },
             {
               "case_id": "type-transitions",
               "passed": true,
-              "duration_ms": 1235.0
+              "duration_ms": 1125.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 5625.0
+              "duration_ms": 5750.0
             }
           ],
           "verifier_exit_status": 1
@@ -336,42 +336,42 @@
             {
               "case_id": "regression-flat",
               "passed": false,
-              "duration_ms": 3718.0
+              "duration_ms": 1094.0
             },
             {
               "case_id": "nested-precedence",
               "passed": false,
-              "duration_ms": 1125.0
+              "duration_ms": 1109.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": false,
-              "duration_ms": 1219.0
+              "duration_ms": 1188.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": false,
-              "duration_ms": 1172.0
+              "duration_ms": 1375.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": false,
-              "duration_ms": 1125.0
+              "duration_ms": 1546.0
             },
             {
               "case_id": "arrays-replace",
               "passed": false,
-              "duration_ms": 1078.0
+              "duration_ms": 1235.0
             },
             {
               "case_id": "type-transitions",
               "passed": false,
-              "duration_ms": 1094.0
+              "duration_ms": 1140.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 6016.0
+              "duration_ms": 6204.0
             }
           ],
           "verifier_exit_status": 1
@@ -383,42 +383,42 @@
             {
               "case_id": "regression-flat",
               "passed": true,
-              "duration_ms": 1047.0
+              "duration_ms": 2531.0
             },
             {
               "case_id": "nested-precedence",
               "passed": true,
-              "duration_ms": 1125.0
+              "duration_ms": 1375.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": true,
-              "duration_ms": 1234.0
+              "duration_ms": 1172.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": true,
-              "duration_ms": 1125.0
+              "duration_ms": 1156.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": true,
-              "duration_ms": 1078.0
+              "duration_ms": 1094.0
             },
             {
               "case_id": "arrays-replace",
               "passed": false,
-              "duration_ms": 1078.0
+              "duration_ms": 1062.0
             },
             {
               "case_id": "type-transitions",
               "passed": true,
-              "duration_ms": 1094.0
+              "duration_ms": 1203.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 5891.0
+              "duration_ms": 5782.0
             }
           ],
           "verifier_exit_status": 1
@@ -433,42 +433,42 @@
           {
             "case_id": "regression-flat",
             "passed": true,
-            "duration_ms": 1219.0
+            "duration_ms": 1234.0
           },
           {
             "case_id": "nested-precedence",
             "passed": true,
-            "duration_ms": 1156.0
+            "duration_ms": 1110.0
           },
           {
             "case_id": "deletes-nested-leaf",
             "passed": true,
-            "duration_ms": 1172.0
+            "duration_ms": 1156.0
           },
           {
             "case_id": "deletes-whole-object",
             "passed": true,
-            "duration_ms": 1297.0
+            "duration_ms": 1062.0
           },
           {
             "case_id": "delete-then-readd",
             "passed": true,
-            "duration_ms": 1437.0
+            "duration_ms": 1078.0
           },
           {
             "case_id": "arrays-replace",
             "passed": true,
-            "duration_ms": 1047.0
+            "duration_ms": 1063.0
           },
           {
             "case_id": "type-transitions",
             "passed": true,
-            "duration_ms": 1110.0
+            "duration_ms": 1078.0
           },
           {
             "case_id": "rejects-invalid",
             "passed": true,
-            "duration_ms": 6390.0
+            "duration_ms": 5891.0
           }
         ],
         "verifier_exit_status": 0
@@ -480,42 +480,42 @@
           {
             "case_id": "regression-flat",
             "passed": true,
-            "duration_ms": 1109.0
+            "duration_ms": 1094.0
           },
           {
             "case_id": "nested-precedence",
             "passed": false,
-            "duration_ms": 1125.0
+            "duration_ms": 1047.0
           },
           {
             "case_id": "deletes-nested-leaf",
             "passed": false,
-            "duration_ms": 1156.0
+            "duration_ms": 1093.0
           },
           {
             "case_id": "deletes-whole-object",
             "passed": false,
-            "duration_ms": 1141.0
+            "duration_ms": 1735.0
           },
           {
             "case_id": "delete-then-readd",
             "passed": false,
-            "duration_ms": 1172.0
+            "duration_ms": 1219.0
           },
           {
             "case_id": "arrays-replace",
             "passed": true,
-            "duration_ms": 1234.0
+            "duration_ms": 1218.0
           },
           {
             "case_id": "type-transitions",
             "passed": false,
-            "duration_ms": 1188.0
+            "duration_ms": 1110.0
           },
           {
             "case_id": "rejects-invalid",
             "passed": true,
-            "duration_ms": 5421.0
+            "duration_ms": 5859.0
           }
         ],
         "verifier_exit_status": 1
@@ -528,42 +528,42 @@
             {
               "case_id": "regression-flat",
               "passed": true,
-              "duration_ms": 1250.0
+              "duration_ms": 1047.0
             },
             {
               "case_id": "nested-precedence",
               "passed": false,
-              "duration_ms": 1578.0
+              "duration_ms": 1047.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": false,
-              "duration_ms": 1891.0
+              "duration_ms": 1047.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": true,
-              "duration_ms": 1094.0
+              "duration_ms": 1047.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": false,
-              "duration_ms": 1156.0
+              "duration_ms": 1015.0
             },
             {
               "case_id": "arrays-replace",
               "passed": true,
-              "duration_ms": 1156.0
+              "duration_ms": 1016.0
             },
             {
               "case_id": "type-transitions",
               "passed": false,
-              "duration_ms": 1110.0
+              "duration_ms": 1016.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 6265.0
+              "duration_ms": 5906.0
             }
           ],
           "verifier_exit_status": 1
@@ -580,37 +580,37 @@
             {
               "case_id": "nested-precedence",
               "passed": true,
-              "duration_ms": 1156.0
+              "duration_ms": 1218.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": false,
-              "duration_ms": 1125.0
+              "duration_ms": 1735.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": false,
-              "duration_ms": 1063.0
+              "duration_ms": 1265.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": true,
-              "duration_ms": 1156.0
+              "duration_ms": 1110.0
             },
             {
               "case_id": "arrays-replace",
               "passed": true,
-              "duration_ms": 1203.0
+              "duration_ms": 1187.0
             },
             {
               "case_id": "type-transitions",
               "passed": true,
-              "duration_ms": 1125.0
+              "duration_ms": 1407.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 5797.0
+              "duration_ms": 5500.0
             }
           ],
           "verifier_exit_status": 1
@@ -622,42 +622,42 @@
             {
               "case_id": "regression-flat",
               "passed": false,
-              "duration_ms": 1078.0
+              "duration_ms": 1219.0
             },
             {
               "case_id": "nested-precedence",
               "passed": false,
-              "duration_ms": 1234.0
+              "duration_ms": 1125.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": false,
-              "duration_ms": 1203.0
+              "duration_ms": 1218.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": false,
-              "duration_ms": 1141.0
+              "duration_ms": 1172.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": false,
-              "duration_ms": 1187.0
+              "duration_ms": 1094.0
             },
             {
               "case_id": "arrays-replace",
               "passed": false,
-              "duration_ms": 1594.0
+              "duration_ms": 1453.0
             },
             {
               "case_id": "type-transitions",
               "passed": false,
-              "duration_ms": 1281.0
+              "duration_ms": 1016.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 6063.0
+              "duration_ms": 5781.0
             }
           ],
           "verifier_exit_status": 1
@@ -669,42 +669,42 @@
             {
               "case_id": "regression-flat",
               "passed": true,
-              "duration_ms": 1063.0
+              "duration_ms": 1031.0
             },
             {
               "case_id": "nested-precedence",
               "passed": true,
-              "duration_ms": 1109.0
+              "duration_ms": 1094.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": true,
-              "duration_ms": 1141.0
+              "duration_ms": 1078.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": true,
-              "duration_ms": 1094.0
+              "duration_ms": 1031.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": true,
-              "duration_ms": 1171.0
+              "duration_ms": 1062.0
             },
             {
               "case_id": "arrays-replace",
               "passed": false,
-              "duration_ms": 1047.0
+              "duration_ms": 1079.0
             },
             {
               "case_id": "type-transitions",
               "passed": true,
-              "duration_ms": 1703.0
+              "duration_ms": 1140.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 5938.0
+              "duration_ms": 5391.0
             }
           ],
           "verifier_exit_status": 1
@@ -719,42 +719,42 @@
           {
             "case_id": "regression-flat",
             "passed": true,
-            "duration_ms": 1282.0
+            "duration_ms": 1235.0
           },
           {
             "case_id": "nested-precedence",
             "passed": true,
-            "duration_ms": 1281.0
+            "duration_ms": 1140.0
           },
           {
             "case_id": "deletes-nested-leaf",
             "passed": true,
-            "duration_ms": 1203.0
+            "duration_ms": 1188.0
           },
           {
             "case_id": "deletes-whole-object",
             "passed": true,
-            "duration_ms": 1266.0
+            "duration_ms": 1234.0
           },
           {
             "case_id": "delete-then-readd",
             "passed": true,
-            "duration_ms": 1234.0
+            "duration_ms": 3110.0
           },
           {
             "case_id": "arrays-replace",
             "passed": true,
-            "duration_ms": 1156.0
+            "duration_ms": 1171.0
           },
           {
             "case_id": "type-transitions",
             "passed": true,
-            "duration_ms": 1266.0
+            "duration_ms": 1204.0
           },
           {
             "case_id": "rejects-invalid",
             "passed": true,
-            "duration_ms": 6828.0
+            "duration_ms": 5937.0
           }
         ],
         "verifier_exit_status": 0
@@ -766,42 +766,42 @@
           {
             "case_id": "regression-flat",
             "passed": true,
-            "duration_ms": 1110.0
+            "duration_ms": 1172.0
           },
           {
             "case_id": "nested-precedence",
             "passed": false,
-            "duration_ms": 1218.0
+            "duration_ms": 1094.0
           },
           {
             "case_id": "deletes-nested-leaf",
             "passed": false,
-            "duration_ms": 1578.0
+            "duration_ms": 1172.0
           },
           {
             "case_id": "deletes-whole-object",
             "passed": false,
-            "duration_ms": 1063.0
+            "duration_ms": 1297.0
           },
           {
             "case_id": "delete-then-readd",
             "passed": false,
-            "duration_ms": 1109.0
+            "duration_ms": 1578.0
           },
           {
             "case_id": "arrays-replace",
             "passed": true,
-            "duration_ms": 1188.0
+            "duration_ms": 1094.0
           },
           {
             "case_id": "type-transitions",
             "passed": false,
-            "duration_ms": 1172.0
+            "duration_ms": 1312.0
           },
           {
             "case_id": "rejects-invalid",
             "passed": true,
-            "duration_ms": 6922.0
+            "duration_ms": 5969.0
           }
         ],
         "verifier_exit_status": 1
@@ -814,42 +814,42 @@
             {
               "case_id": "regression-flat",
               "passed": true,
-              "duration_ms": 1500.0
+              "duration_ms": 1094.0
             },
             {
               "case_id": "nested-precedence",
               "passed": false,
-              "duration_ms": 1359.0
+              "duration_ms": 1047.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": false,
-              "duration_ms": 1563.0
+              "duration_ms": 1234.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": true,
-              "duration_ms": 2062.0
+              "duration_ms": 1094.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": false,
-              "duration_ms": 1156.0
+              "duration_ms": 1500.0
             },
             {
               "case_id": "arrays-replace",
               "passed": true,
-              "duration_ms": 2641.0
+              "duration_ms": 1344.0
             },
             {
               "case_id": "type-transitions",
               "passed": false,
-              "duration_ms": 1391.0
+              "duration_ms": 1078.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 7296.0
+              "duration_ms": 5875.0
             }
           ],
           "verifier_exit_status": 1
@@ -861,42 +861,42 @@
             {
               "case_id": "regression-flat",
               "passed": true,
-              "duration_ms": 1140.0
+              "duration_ms": 1344.0
             },
             {
               "case_id": "nested-precedence",
               "passed": true,
-              "duration_ms": 1188.0
+              "duration_ms": 1578.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": false,
-              "duration_ms": 1062.0
+              "duration_ms": 1390.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": false,
-              "duration_ms": 1360.0
+              "duration_ms": 1563.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": true,
-              "duration_ms": 1140.0
+              "duration_ms": 1109.0
             },
             {
               "case_id": "arrays-replace",
               "passed": true,
-              "duration_ms": 1157.0
+              "duration_ms": 1141.0
             },
             {
               "case_id": "type-transitions",
               "passed": true,
-              "duration_ms": 1765.0
+              "duration_ms": 1172.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 7141.0
+              "duration_ms": 6297.0
             }
           ],
           "verifier_exit_status": 1
@@ -908,42 +908,42 @@
             {
               "case_id": "regression-flat",
               "passed": false,
-              "duration_ms": 1344.0
+              "duration_ms": 1140.0
             },
             {
               "case_id": "nested-precedence",
               "passed": false,
-              "duration_ms": 1188.0
+              "duration_ms": 1235.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": false,
-              "duration_ms": 1062.0
+              "duration_ms": 1296.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": false,
-              "duration_ms": 1078.0
+              "duration_ms": 1188.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": false,
-              "duration_ms": 1141.0
+              "duration_ms": 1203.0
             },
             {
               "case_id": "arrays-replace",
               "passed": false,
-              "duration_ms": 1109.0
+              "duration_ms": 1156.0
             },
             {
               "case_id": "type-transitions",
               "passed": false,
-              "duration_ms": 1563.0
+              "duration_ms": 1188.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 6750.0
+              "duration_ms": 6578.0
             }
           ],
           "verifier_exit_status": 1
@@ -955,42 +955,42 @@
             {
               "case_id": "regression-flat",
               "passed": true,
-              "duration_ms": 1187.0
+              "duration_ms": 1703.0
             },
             {
               "case_id": "nested-precedence",
               "passed": true,
-              "duration_ms": 1141.0
+              "duration_ms": 1188.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": true,
-              "duration_ms": 1203.0
+              "duration_ms": 1765.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": true,
-              "duration_ms": 2000.0
+              "duration_ms": 1485.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": true,
-              "duration_ms": 1594.0
+              "duration_ms": 1344.0
             },
             {
               "case_id": "arrays-replace",
               "passed": false,
-              "duration_ms": 1172.0
+              "duration_ms": 1203.0
             },
             {
               "case_id": "type-transitions",
               "passed": true,
-              "duration_ms": 1312.0
+              "duration_ms": 1234.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 5985.0
+              "duration_ms": 7359.0
             }
           ],
           "verifier_exit_status": 1
@@ -1005,42 +1005,42 @@
           {
             "case_id": "regression-flat",
             "passed": true,
-            "duration_ms": 1188.0
+            "duration_ms": 1204.0
           },
           {
             "case_id": "nested-precedence",
             "passed": true,
-            "duration_ms": 1031.0
+            "duration_ms": 1156.0
           },
           {
             "case_id": "deletes-nested-leaf",
             "passed": true,
-            "duration_ms": 1156.0
+            "duration_ms": 1094.0
           },
           {
             "case_id": "deletes-whole-object",
             "passed": true,
-            "duration_ms": 1063.0
+            "duration_ms": 1046.0
           },
           {
             "case_id": "delete-then-readd",
             "passed": true,
-            "duration_ms": 1234.0
+            "duration_ms": 1110.0
           },
           {
             "case_id": "arrays-replace",
             "passed": true,
-            "duration_ms": 1328.0
+            "duration_ms": 1047.0
           },
           {
             "case_id": "type-transitions",
             "passed": true,
-            "duration_ms": 1094.0
+            "duration_ms": 1078.0
           },
           {
             "case_id": "rejects-invalid",
             "passed": true,
-            "duration_ms": 6094.0
+            "duration_ms": 5531.0
           }
         ],
         "verifier_exit_status": 0
@@ -1052,42 +1052,42 @@
           {
             "case_id": "regression-flat",
             "passed": true,
-            "duration_ms": 1140.0
+            "duration_ms": 1094.0
           },
           {
             "case_id": "nested-precedence",
             "passed": false,
-            "duration_ms": 1172.0
+            "duration_ms": 1156.0
           },
           {
             "case_id": "deletes-nested-leaf",
             "passed": false,
-            "duration_ms": 1172.0
+            "duration_ms": 1406.0
           },
           {
             "case_id": "deletes-whole-object",
             "passed": false,
-            "duration_ms": 1094.0
+            "duration_ms": 1016.0
           },
           {
             "case_id": "delete-then-readd",
             "passed": false,
-            "duration_ms": 1391.0
+            "duration_ms": 1453.0
           },
           {
             "case_id": "arrays-replace",
             "passed": true,
-            "duration_ms": 1187.0
+            "duration_ms": 1031.0
           },
           {
             "case_id": "type-transitions",
             "passed": false,
-            "duration_ms": 1234.0
+            "duration_ms": 1172.0
           },
           {
             "case_id": "rejects-invalid",
             "passed": true,
-            "duration_ms": 5813.0
+            "duration_ms": 5110.0
           }
         ],
         "verifier_exit_status": 1
@@ -1100,7 +1100,7 @@
             {
               "case_id": "regression-flat",
               "passed": true,
-              "duration_ms": 1516.0
+              "duration_ms": 985.0
             },
             {
               "case_id": "nested-precedence",
@@ -1110,32 +1110,32 @@
             {
               "case_id": "deletes-nested-leaf",
               "passed": false,
-              "duration_ms": 1078.0
+              "duration_ms": 1047.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": true,
-              "duration_ms": 1094.0
+              "duration_ms": 1172.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": false,
-              "duration_ms": 1062.0
+              "duration_ms": 1125.0
             },
             {
               "case_id": "arrays-replace",
               "passed": true,
-              "duration_ms": 1078.0
+              "duration_ms": 1203.0
             },
             {
               "case_id": "type-transitions",
               "passed": false,
-              "duration_ms": 1375.0
+              "duration_ms": 1062.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 5266.0
+              "duration_ms": 5547.0
             }
           ],
           "verifier_exit_status": 1
@@ -1147,42 +1147,42 @@
             {
               "case_id": "regression-flat",
               "passed": true,
-              "duration_ms": 1141.0
+              "duration_ms": 1406.0
             },
             {
               "case_id": "nested-precedence",
               "passed": true,
-              "duration_ms": 1094.0
+              "duration_ms": 1063.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": false,
-              "duration_ms": 1109.0
+              "duration_ms": 1984.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": false,
-              "duration_ms": 1172.0
+              "duration_ms": 1313.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": true,
-              "duration_ms": 1094.0
+              "duration_ms": 1156.0
             },
             {
               "case_id": "arrays-replace",
               "passed": true,
-              "duration_ms": 1218.0
+              "duration_ms": 1062.0
             },
             {
               "case_id": "type-transitions",
               "passed": true,
-              "duration_ms": 1204.0
+              "duration_ms": 1188.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 6750.0
+              "duration_ms": 6109.0
             }
           ],
           "verifier_exit_status": 1
@@ -1194,42 +1194,42 @@
             {
               "case_id": "regression-flat",
               "passed": false,
-              "duration_ms": 1813.0
+              "duration_ms": 1141.0
             },
             {
               "case_id": "nested-precedence",
               "passed": false,
-              "duration_ms": 1375.0
+              "duration_ms": 1125.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": false,
-              "duration_ms": 1187.0
+              "duration_ms": 1250.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": false,
-              "duration_ms": 1156.0
+              "duration_ms": 1515.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": false,
-              "duration_ms": 1110.0
+              "duration_ms": 1219.0
             },
             {
               "case_id": "arrays-replace",
               "passed": false,
-              "duration_ms": 1125.0
+              "duration_ms": 1297.0
             },
             {
               "case_id": "type-transitions",
               "passed": false,
-              "duration_ms": 1125.0
+              "duration_ms": 1203.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 5609.0
+              "duration_ms": 6625.0
             }
           ],
           "verifier_exit_status": 1
@@ -1241,42 +1241,42 @@
             {
               "case_id": "regression-flat",
               "passed": true,
-              "duration_ms": 1047.0
+              "duration_ms": 1031.0
             },
             {
               "case_id": "nested-precedence",
               "passed": true,
-              "duration_ms": 1750.0
+              "duration_ms": 1094.0
             },
             {
               "case_id": "deletes-nested-leaf",
               "passed": true,
-              "duration_ms": 1047.0
+              "duration_ms": 1234.0
             },
             {
               "case_id": "deletes-whole-object",
               "passed": true,
-              "duration_ms": 1063.0
+              "duration_ms": 1235.0
             },
             {
               "case_id": "delete-then-readd",
               "passed": true,
-              "duration_ms": 1078.0
+              "duration_ms": 1125.0
             },
             {
               "case_id": "arrays-replace",
               "passed": false,
-              "duration_ms": 1156.0
+              "duration_ms": 1172.0
             },
             {
               "case_id": "type-transitions",
               "passed": true,
-              "duration_ms": 1172.0
+              "duration_ms": 1156.0
             },
             {
               "case_id": "rejects-invalid",
               "passed": true,
-              "duration_ms": 5875.0
+              "duration_ms": 5640.0
             }
           ],
           "verifier_exit_status": 1

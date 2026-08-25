@@ -7,13 +7,18 @@ function isObject(value) {
 function validate(input) {
   const keys = ["defaults", "file", "env", "cli"];
   if (!isObject(input)) throw new Error("invalid input");
-  if (Object.keys(input).sort().join(",") !== keys.slice().sort().join(",")) throw new Error("invalid layers");
-  for (const key of keys) if (!isObject(input[key])) throw new Error("invalid layer");
+  if (Object.keys(input).sort().join(",") !== keys.slice().sort().join(","))
+    throw new Error("invalid layers");
+  for (const key of keys)
+    if (!isObject(input[key])) throw new Error("invalid layer");
 }
 
 function clone(value) {
   if (Array.isArray(value)) return value.map(clone);
-  if (isObject(value)) return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, clone(item)]));
+  if (isObject(value))
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, clone(item)]),
+    );
   return value;
 }
 
@@ -24,7 +29,11 @@ function mergeInto(target, layer, sabotage) {
     } else if (isObject(value) && sabotage !== "shallow-merge") {
       const base = isObject(target[key]) ? target[key] : {};
       target[key] = mergeInto(clone(base), value, sabotage);
-    } else if (Array.isArray(value) && sabotage === "merge-arrays" && Array.isArray(target[key])) {
+    } else if (
+      Array.isArray(value) &&
+      sabotage === "merge-arrays" &&
+      Array.isArray(target[key])
+    ) {
       target[key] = [...target[key], ...clone(value)];
     } else {
       target[key] = clone(value);
@@ -38,7 +47,10 @@ function merge(input) {
   const sabotage = process.env.LAB_SABOTAGE || "";
   const layers = [input.defaults, input.file, input.env, input.cli];
   if (sabotage === "reverse-precedence") layers.reverse();
-  return layers.reduce((result, layer) => mergeInto(result, layer, sabotage), {});
+  return layers.reduce(
+    (result, layer) => mergeInto(result, layer, sabotage),
+    {},
+  );
 }
 
 try {

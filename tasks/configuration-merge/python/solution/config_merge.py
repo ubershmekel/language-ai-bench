@@ -18,8 +18,14 @@ def merge_into(target, layer, sabotage):
             target.pop(key, None)
         elif isinstance(value, dict) and sabotage != "shallow-merge":
             base = target.get(key)
-            target[key] = merge_into(copy.deepcopy(base) if isinstance(base, dict) else {}, value, sabotage)
-        elif isinstance(value, list) and sabotage == "merge-arrays" and isinstance(target.get(key), list):
+            target[key] = merge_into(
+                copy.deepcopy(base) if isinstance(base, dict) else {}, value, sabotage
+            )
+        elif (
+            isinstance(value, list)
+            and sabotage == "merge-arrays"
+            and isinstance(target.get(key), list)
+        ):
             target[key] = copy.deepcopy(target[key]) + copy.deepcopy(value)
         else:
             target[key] = copy.deepcopy(value)

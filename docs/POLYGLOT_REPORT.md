@@ -6,6 +6,8 @@
 
 The full public history now contains 32 valid completions, including the earlier JavaScript/TypeScript greenfield study. The new comparative cohort uses two matched existing-project task families with five runs per language: two optimistic-concurrency attempts and three schedule-data-model attempts.
 
+**Comparability warning:** this cohort predates the task-source integrity gate. Some TypeScript, Go, and Python starters were unusually compressed, and schedule-variants used different project topology across languages. The correctness results remain valid for the tested contracts; do not treat the recorded step, token, cost, or time differences as clean language effects.
+
 ## Balanced results
 
 | Language | Optimistic concurrency | Schedule variants | Total | Mean cost | Mean output | Mean steps | Mean agent time |
@@ -24,7 +26,7 @@ The full public history now contains 32 valid completions, including the earlier
 | Python | 5/5 | 2.60 | 5/5 | 0 |
 | Go | 1/4 | 2.80 | 3/5 | 0 |
 
-These are descriptive estimates from five runs per language, not a general language ranking. Agent steps count model actions; agent time excludes container setup. Explicit verifier counts come from trajectories and do not split out checks performed inside `scripts/verify-local`.
+These historical telemetry values describe the recorded runs, but fixture formatting and topology confound cross-language efficiency comparisons. Agent steps count model actions; agent time excludes container setup. Explicit verifier counts come from trajectories and do not split out checks performed inside scripts/verify-local.
 
 ## Infrastructure exclusion and spend
 
@@ -32,6 +34,6 @@ One additional Go trial was excluded before submission because Pier's egress pro
 
 ## Scope
 
-The 20-run comparison is balanced retrospectively across languages but was assembled in stages rather than launched as one prospective randomized batch. It still covers only two related backend task families, one model, one effort level, and one bash-only agent scaffold. The earlier 12 JavaScript/TypeScript greenfield runs remain published as a separate extension and are not pooled into the four-language estimator.
+The 20-run comparison is balanced retrospectively across languages but was assembled in stages, before source-format and topology checks existed. It covers only two related backend task families, one model, one effort level, and one bash-only agent scaffold. The earlier 12 JavaScript/TypeScript greenfield runs remain published separately. A clean prospective rerun will supersede these efficiency estimates.
 
 See `data/polyglot-results.json` for machine-readable aggregates and `DECISION_REPORT.md` for the earlier report.

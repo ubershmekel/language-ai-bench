@@ -11,7 +11,9 @@ import urllib.request
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--base-url", required=True)
-parser.add_argument("--visibility", choices=("developer", "hidden", "all"), default="all")
+parser.add_argument(
+    "--visibility", choices=("developer", "hidden", "all"), default="all"
+)
 parser.add_argument("--output")
 args = parser.parse_args()
 base = args.base_url.rstrip("/")
@@ -76,7 +78,10 @@ def interval_next():
         ("2032-01-01T00:00:00Z", "2032-01-01T00:15:00.000Z"),
         ("2032-01-01T00:16:00Z", "2032-01-01T00:30:00.000Z"),
     )
-    return all(next_run(job["id"], after) == (200, {"nextRun": expected}) for after, expected in checks)
+    return all(
+        next_run(job["id"], after) == (200, {"nextRun": expected})
+        for after, expected in checks
+    )
 
 
 def rejects_invalid_variants():
@@ -88,7 +93,10 @@ def rejects_invalid_variants():
         {"kind": "interval", "startAt": "2030-01-01T00:00:00Z", "everyMinutes": 1.5},
         {"kind": "later", "at": "2030-01-01T00:00:00Z"},
     )
-    return all(request("POST", "/jobs", {"name": "bad", "schedule": value})[0] == 400 for value in invalid)
+    return all(
+        request("POST", "/jobs", {"name": "bad", "schedule": value})[0] == 400
+        for value in invalid
+    )
 
 
 def patch_switches_kind():
@@ -179,7 +187,11 @@ for case_id, visibility, function in CASES:
     if error:
         result["error"] = error
     results.append(result)
-report = {"schema_version": "1.0.0", "passed": all(x["passed"] for x in results), "case_results": results}
+report = {
+    "schema_version": "1.0.0",
+    "passed": all(x["passed"] for x in results),
+    "case_results": results,
+}
 text = json.dumps(report, indent=2)
 print(text)
 if args.output:

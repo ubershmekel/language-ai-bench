@@ -495,7 +495,7 @@
       "patch_metrics_available": false
     }
   ],
-  "finding": "All 22 balanced JavaScript/TypeScript primary runs and both single Python/Go examples passed. Observed correctness tied; efficiency differences remain measurable, while Python and Go demonstrate end-to-end feasibility only.",
+  "finding": "All 22 balanced JavaScript/TypeScript primary runs and both single Python/Go examples passed. Correctness is valid for the tested contracts; pre-audit efficiency differences are confounded by inconsistent fixture formatting.",
   "excluded": [
     "One earlier TypeScript cost-pilot pass was excluded because it was not part of a balanced JS/TS phase.",
     "One pre-model Windows proxy infrastructure failure was excluded and recorded no usage or cost."
