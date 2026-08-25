@@ -15,7 +15,7 @@
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Language AI Bench home"><span class="brand-mark">L/AB</span><span>Language AI Bench</span></a>
     <nav aria-label="Report navigation">
-      <a href="#about">What it is</a><a href="#study">First study</a><a href="#results">Results</a><a href="#roadmap">Languages</a><a href="./details.html">Technical details</a>
+      <a href="#about">What it is</a><a href="#study">Tasks</a><a href="#latest">Latest results</a><a href="#roadmap">Languages</a><a href="./details.html">Technical details</a>
     </nav>
   </header>
 
@@ -26,7 +26,7 @@
         <h1>Does language choice change how well an AI agent codes?</h1>
         <p class="hero-copy">Language AI Bench gives an autonomous coding agent the same software-engineering job in equivalent projects, then checks each result against the same behavioral contract.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#study">See the first experiment</a>
+          <a class="button primary" href="#latest">See the latest results</a>
           <a class="button ghost" href="https://github.com/ubershmekel/language-ai-bench">View the source ↗</a>
         </div>
       </div>
@@ -43,7 +43,7 @@
           <p class="kicker">Published data at a glance</p>
           <h2 id="glance-title">What each language run cost and consumed</h2>
         </div>
-        <p>Values are means per attempt. JavaScript and TypeScript summarize balanced new + existing project runs. Python and Go are single existing-project examples.</p>
+        <p>Values are means across the balanced two-family existing-project comparison: five valid attempts per language.</p>
       </div>
       <div class="table-wrap glance-table-wrap">
         <table class="glance-table">
@@ -60,10 +60,10 @@
             </tr>
           </thead>
           <tbody id="language-summary-results">
-            <tr><td>JavaScript</td><td>11 runs · new + existing</td><td>11/11</td><td>$0.005416</td><td>29,798</td><td>2,434</td><td>6.73</td><td>34.83s</td></tr>
-            <tr><td>TypeScript</td><td>11 runs · new + existing</td><td>11/11</td><td>$0.005341</td><td>30,010</td><td>2,295</td><td>6.18</td><td>46.95s</td></tr>
-            <tr class="illustrative-row"><td>Python</td><td>1 example · existing</td><td>1/1</td><td>$0.006897</td><td>45,043</td><td>3,257</td><td>9.00</td><td>40.29s</td></tr>
-            <tr class="illustrative-row"><td>Go</td><td>1 example · existing</td><td>1/1</td><td>$0.005861</td><td>26,856</td><td>2,952</td><td>6.00</td><td>40.53s</td></tr>
+            <tr><td>JavaScript</td><td>5 runs · 2 existing tasks</td><td>5/5</td><td>$0.005514</td><td>33,511</td><td>2,302</td><td>7.00</td><td>33.66s</td></tr>
+            <tr><td>TypeScript</td><td>5 runs · 2 existing tasks</td><td>5/5</td><td>$0.005496</td><td>34,054</td><td>2,132</td><td>6.60</td><td>49.13s</td></tr>
+            <tr><td>Python</td><td>5 runs · 2 existing tasks</td><td>5/5</td><td>$0.005698</td><td>32,011</td><td>2,536</td><td>6.80</td><td>31.32s</td></tr>
+            <tr><td>Go</td><td>5 runs · 2 existing tasks</td><td>5/5</td><td>$0.006450</td><td>48,412</td><td>2,695</td><td>8.20</td><td>45.96s</td></tr>
           </tbody>
         </table>
       </div>
@@ -123,9 +123,27 @@
       </ol>
     </section>
 
+    <section id="latest" class="results section-shell" aria-labelledby="latest-title">
+      <div class="result-headline">
+        <p class="kicker">Latest balanced comparison · two tasks · four languages</p>
+        <h2 id="latest-title">All 20 valid attempts passed. The paths to success differed.</h2>
+        <p>Each language has five valid existing-project runs: two optimistic-concurrency attempts and three schedule-data-model attempts. Correctness tied, but Python was fastest on average, TypeScript used the fewest steps and output tokens, and Go used the most steps, tokens, and cost in this small cohort.</p>
+      </div>
+      <div class="result-grid" aria-label="Balanced polyglot pass counts">
+        <article><p>Two task families</p><h3>JavaScript</h3><strong>5/5</strong><span>valid attempts passed</span></article>
+        <article><p>Two task families</p><h3>TypeScript</h3><strong>5/5</strong><span>valid attempts passed</span></article>
+        <article><p>Two task families</p><h3>Python</h3><strong>5/5</strong><span>valid attempts passed</span></article>
+        <article><p>Two task families</p><h3>Go</h3><strong>5/5</strong><span>valid attempts passed</span></article>
+      </div>
+      <div class="interpretation-grid">
+        <article class="finding-card"><p class="small-label">Efficiency signal</p><h3>Different languages favored different measurements.</h3><p>Python averaged 31.32 seconds. TypeScript averaged 6.60 steps and 2,132 output tokens. JavaScript sat near the middle. Go averaged 8.20 steps, 2,695 output tokens, and the highest cost.</p></article>
+        <article class="finding-card caution"><p class="small-label">Workflow signal</p><h3>First verification behavior also differed.</h3><p>First explicit verifier invocations passed in 5/5 Python runs, 4/5 JavaScript and TypeScript runs, and 1/4 observed Go runs. Every valid final submission still passed the hidden verifier.</p></article>
+      </div>
+      <div class="details-link"><div><strong>The earlier 24-run report is preserved.</strong><p>The full history now has 32 valid completions. Twelve JS/TS greenfield runs remain a separate extension and are not pooled into this four-language comparison.</p></div><a class="button ghost" href="./POLYGLOT_REPORT.md">Read the new report →</a></div>
+    </section>
     <section id="results" class="results section-shell" aria-labelledby="results-title">
       <div class="result-headline">
-        <p class="kicker">First paid comparison · JavaScript vs TypeScript</p>
+        <p class="kicker">Earlier extension · JavaScript vs TypeScript</p>
         <h2 id="results-title">Correctness was perfect; efficiency still differed.</h2>
         <p>All <strong id="primary-total">22</strong> balanced attempts passed, so the observed correctness result is a tie. That does not end the comparison: turns, tokens, cost, elapsed time, retries, and change quality can reveal how effectively the agent reaches the same correct result.</p>
       </div>
@@ -172,16 +190,16 @@
       <div class="language-status">
         <article><div><span class="language-dot js"></span><h3>JavaScript</h3></div><p>No static type checker.</p><strong class="status published">Agent results published</strong></article>
         <article><div><span class="language-dot ts"></span><h3>TypeScript</h3></div><p>Strict structural typing.</p><strong class="status published">Agent results published</strong></article>
-        <article><div><span class="language-dot py"></span><h3>Python</h3></div><p>No checker in the first arm.</p><strong class="status ready">1 illustrative run passed</strong></article>
-        <article><div><span class="language-dot go"></span><h3>Go</h3></div><p>Compiler-enforced nominal typing.</p><strong class="status ready">1 illustrative run passed</strong></article>
+        <article><div><span class="language-dot py"></span><h3>Python</h3></div><p>No checker in the first arm.</p><strong class="status published">5/5 balanced runs passed</strong></article>
+        <article><div><span class="language-dot go"></span><h3>Go</h3></div><p>Compiler-enforced nominal typing.</p><strong class="status published">5/5 balanced runs passed</strong></article>
       </div>
-      <p class="calibration-note">All four arms remain calibration-green: known-good solutions pass, untouched projects fail on the same behaviors, and seeded broken solutions are caught consistently. Python and Go now also have one paid agent pass each, but still need repeated attempts before comparative interpretation.</p>
+      <p class="calibration-note">All four arms remain calibration-green: known-good solutions pass, untouched projects fail on the same behaviors, and seeded broken solutions are caught consistently. The latest brownfield comparison is balanced at five valid attempts per language across two task families.</p>
     </section>
 
     <section class="next section-shell" aria-labelledby="next-title">
       <div><p class="kicker">What comes next</p><h2 id="next-title">Broaden the tasks before making the claim louder.</h2></div>
       <ul>
-        <li>Repeat Python and Go with enough independent attempts to estimate success rates.</li>
+        <li>Add dependency migration, debugging, refactoring, and non-HTTP task families.</li>
         <li>Add task families where type feedback might actually prevent subtle defects.</li>
         <li>Repeat across models and richer coding-agent scaffolds.</li>
         <li>Measure maintenance edits, migrations, and regressions—not only first completion.</li>
@@ -191,7 +209,7 @@
 
   <footer class="section-shell">
     <div><strong>Language AI Bench</strong><p>MIT licensed. Built to be rerun, challenged, and extended.</p></div>
-    <div class="footer-links"><a href="./DECISION_REPORT.md">Written report</a><a href="./DESIGN.md">Design</a><a href="./data/decision-results.json">Aggregate data</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub</a></div>
+    <div class="footer-links"><a href="./POLYGLOT_REPORT.md">Latest report</a><a href="./DESIGN.md">Design</a><a href="./data/polyglot-results.json">Latest aggregate data</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub</a></div>
   </footer>
 </body>
 </html>

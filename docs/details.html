@@ -12,7 +12,7 @@
 <body>
   <header class="site-header">
     <a class="brand" href="./"><span class="brand-mark">L/AB</span><span>Language AI Bench</span></a>
-    <nav><a href="./">Overview</a><a href="./#study">First study</a><a href="./data/decision-results.json">Raw aggregates</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub ↗</a></nav>
+    <nav><a href="./">Overview</a><a href="./#study">First study</a><a href="./data/polyglot-results.json">Latest aggregates</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub ↗</a></nav>
   </header>
 
   <main>
@@ -46,46 +46,44 @@
     </section>
 
     <section class="details-section section-shell">
-      <h2>Results by project condition</h2>
+      <h2>Balanced four-language brownfield results</h2>
       <div class="table-wrap">
         <table>
           <thead>
             <tr><th>Condition</th><th>Language</th><th>Passed</th><th>Mean cost</th><th>Output tokens</th><th>Agent steps</th><th>Agent time</th></tr>
           </thead>
           <tbody id="details-results">
-            <tr><td>Existing</td><td>JavaScript</td><td>5/5</td><td>$0.005514</td><td>2,302</td><td>7.00</td><td>33.66s</td></tr>
-            <tr><td>Existing</td><td>TypeScript</td><td>5/5</td><td>$0.005496</td><td>2,132</td><td>6.60</td><td>49.13s</td></tr>
-            <tr><td>New</td><td>JavaScript</td><td>6/6</td><td>$0.005335</td><td>2,543</td><td>6.50</td><td>35.81s</td></tr>
-            <tr><td>New</td><td>TypeScript</td><td>6/6</td><td>$0.005211</td><td>2,430</td><td>5.83</td><td>45.13s</td></tr>
-            <tr><td>Existing · example</td><td>Python</td><td>1/1</td><td>$0.006897</td><td>3,257</td><td>9.00</td><td>40.29s</td></tr>
-            <tr><td>Existing · example</td><td>Go</td><td>1/1</td><td>$0.005861</td><td>2,952</td><td>6.00</td><td>40.53s</td></tr>
+            <tr><td>2 existing tasks</td><td>JavaScript</td><td>5/5</td><td>$0.005514</td><td>2,302</td><td>7.00</td><td>33.66s</td></tr>
+            <tr><td>2 existing tasks</td><td>TypeScript</td><td>5/5</td><td>$0.005496</td><td>2,132</td><td>6.60</td><td>49.13s</td></tr>
+            <tr><td>2 existing tasks</td><td>Python</td><td>5/5</td><td>$0.005698</td><td>2,536</td><td>6.80</td><td>31.32s</td></tr>
+            <tr><td>2 existing tasks</td><td>Go</td><td>5/5</td><td>$0.006450</td><td>2,695</td><td>8.20</td><td>45.96s</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="details-note"><strong>Interpretation:</strong> every published run passed, so these operational differences are descriptive. The balanced comparison exists only for JavaScript and TypeScript. Python and Go each have one illustrative run and must not be read as equally sampled cells or as a ranking.</p>
+      <p class="details-note"><strong>Interpretation:</strong> all 20 valid balanced attempts passed. Continuous outcomes are comparative but still descriptive at five runs per language and two related task families. The 12 earlier JS/TS greenfield runs remain published separately.</p>
     </section>
 
     <section class="details-section section-shell">
       <h2>Spend and confidence</h2>
       <div class="config-grid">
-        <div><span>Published attempts</span><strong id="detail-runs">24</strong></div>
-        <div><span>Passed</span><strong id="detail-passed">24</strong></div>
-        <div><span>Total API spend</span><strong id="detail-cost">$0.131082</strong></div>
-        <div><span>Mean agent time</span><strong id="detail-time">40.85s</strong></div>
+        <div><span>Published attempts</span><strong id="detail-runs">32</strong></div>
+        <div><span>Passed</span><strong id="detail-passed">32</strong></div>
+        <div><span>Total API spend</span><strong id="detail-cost">$0.179747</strong></div>
+        <div><span>Mean agent time</span><strong id="detail-time">40.19s</strong></div>
       </div>
-      <p class="details-note">A perfect observed pass rate does not imply a perfect underlying success rate. The 95% Wilson lower bound is about 57% for 5/5, 61% for 6/6, and only 21% for 1/1. The all-pass result prevents estimating a difference in observed accuracy, but it does not prevent comparing continuous outcomes such as steps, tokens, cost, and time. The single Python and Go runs still provide no stable comparative estimate.</p>
+      <p class="details-note">A perfect observed pass rate does not imply a perfect underlying success rate. The 95% Wilson lower bound is about 57% for 5/5, 61% for 6/6, and only 21% for 1/1. The all-pass result prevents estimating a difference in observed accuracy, but it does not prevent comparing continuous outcomes such as steps, tokens, cost, and time. Five runs per language across two related tasks provide descriptive comparative estimates, but still leave wide uncertainty and limited external validity.</p>
     </section>
 
     <section class="details-section section-shell">
       <h2>Known limitations</h2>
-      <p class="details-note">This is one model snapshot, one bash-only agent scaffold, related backend contracts, and a small number of attempts. It does not test long-term maintenance, React or browser applications, editor/LSP feedback, dependency migrations, or human review. Python and Go now demonstrate one successful agent run each, but repeated comparable runs are still pending.</p>
+      <p class="details-note">This is one model snapshot, one bash-only agent scaffold, related backend contracts, and a small number of attempts. It does not test long-term maintenance, React or browser applications, editor/LSP feedback, dependency migrations, or human review. The balanced cohort now includes five valid runs per language across two brownfield tasks; broader task categories and more repetitions remain pending.</p>
       <p><a class="back-link" href="./">← Return to the experiment overview</a></p>
     </section>
   </main>
 
   <footer class="section-shell">
     <div><strong>Language AI Bench</strong><p>Aggregate results only; private prompts, trajectories, patches, and environment variables are not published.</p></div>
-    <div class="footer-links"><a href="./data/decision-results.json">Aggregate JSON</a><a href="./DECISION_REPORT.md">Written report</a><a href="./DESIGN.md">Design</a></div>
+    <div class="footer-links"><a href="./data/polyglot-results.json">Latest aggregate JSON</a><a href="./POLYGLOT_REPORT.md">Latest written report</a><a href="./DESIGN.md">Design</a></div>
   </footer>
 </body>
 </html>

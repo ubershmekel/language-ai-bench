@@ -6,6 +6,8 @@ test -f docs/details.html
 test -f docs/styles.css
 test -f docs/app.js
 test -f docs/data/decision-results.json
+test -f docs/data/polyglot-results.json
+test -f docs/POLYGLOT_REPORT.md
 
 node --check docs/app.js
 node -e '
@@ -44,7 +46,24 @@ node -e '
   }
 '
 
+node -e '
+  const fs = require("node:fs");
+  const data = JSON.parse(fs.readFileSync("docs/data/polyglot-results.json", "utf8"));
+  if (data.balanced_polyglot.runs !== 20 || data.balanced_polyglot.passed !== 20) {
+    throw new Error("unexpected balanced polyglot totals");
+  }
+  if (data.all_published.runs !== 32 || data.all_published.passed !== 32) {
+    throw new Error("unexpected full-history totals");
+  }
+  if (data.polyglot_languages.length !== 4 || data.polyglot_languages.some((row) => row.runs !== 5)) {
+    throw new Error("expected five balanced runs per language");
+  }
+  if (data.excluded_infrastructure.length !== 1) throw new Error("expected one infrastructure exclusion");
+'
 grep -q 'What this benchmark is' docs/index.html
+grep -q 'All 20 valid attempts passed' docs/index.html
+grep -q '5 runs · 2 existing tasks' docs/index.html
+grep -q '32 valid completions' docs/index.html
 grep -q 'Correctness was perfect; efficiency still differed' docs/index.html
 grep -q 'Same correctness, different path' docs/index.html
 grep -q '"workflow_quality"' docs/data/decision-results.json

@@ -27,12 +27,13 @@ and builds the same observable service contract. Each condition compares only
 JavaScript with TypeScript, using identical runtime versions, task wording,
 verifier bytes, model, effort, and bash-only scaffold.
 
-The staged cells and stopping budget are recorded in `decision_benchmark.json`.
-Results cover two related behavioral contracts but remain exploratory—not a
-universal language ranking. The primary JS/TS cells are balanced; Python and Go
-each contribute one explicitly illustrative existing-project run. Explore the [published decision report](https://ubershmekel.github.io/language-ai-bench/)
-or read the source in [`docs/DECISION_REPORT.md`](docs/DECISION_REPORT.md).
-
+The prior staged cells and stopping budget are recorded in `decision_benchmark.json`.
+The latest interim extension balances JavaScript, TypeScript, Python, and Go at
+five valid brownfield runs each across optimistic concurrency and schedule
+schema evolution. The earlier 12 JS/TS greenfield runs remain a separate
+extension. Explore the [published report](https://ubershmekel.github.io/language-ai-bench/)
+or read [`docs/POLYGLOT_REPORT.md`](docs/POLYGLOT_REPORT.md);
+[`docs/DECISION_REPORT.md`](docs/DECISION_REPORT.md) preserves the prior report.
 ## Run it on Linux (or Docker Desktop's Linux engine)
 
 Requirements: Docker and Python 3.11+. No language toolchains are needed on the
@@ -102,9 +103,10 @@ rollout = sum(step_prefix_tokens × effective_input_rate)
 matrix  = rollout × 4 languages × seeds × task_families
 ```
 
-The two-rollout cost pilot averaged `$0.00586597`. The balanced primary study
-completed 22 runs for `$0.11832375`. One Python and one Go example brought the
-published total to 24 runs and `$0.13108191`; every run reported usage metadata.
+The two-rollout cost pilot averaged `$0.00586597`. The public history now has
+32 valid completions. Total measured spend is `$0.17974737`, including
+`$0.00068230` from one excluded pre-submission egress-DNS failure; every paid
+trial reported usage metadata.
 `cost_pilot.json` stores the pilot. Provider spend remains the hard backstop,
 with Pier runs serialized and a native `$0.10` per-rollout agent cost limit.
 
@@ -123,7 +125,7 @@ as new result directories; do not overwrite existing runs. See
 - Reference 100%, null parity, and four-sabotage parity are green.
 - Passing and plausible-failing mock runs exist with non-empty events.
 - The balanced paid JS/TS study completed 22/22 with no exceptions. Observed correctness tied; steps, tokens, cost, and time remain comparative outcomes.
-- One paid Python example and one paid Go example also passed the shared hidden verifier; these 1/1 results demonstrate the pipeline, not comparative success rates.
-- TypeScript used modestly fewer output tokens/steps but longer agent wall time; see the decision report.
+- The interim brownfield cohort is balanced at 5/5 valid passes per language across two task families; one additional Go trial was excluded for a pre-submission egress-DNS failure.
+- Python was fastest; TypeScript used the fewest output tokens/steps; Go used the most steps, tokens, and cost. These are descriptive estimates from five runs per language.
 - DeepSWE's public corpus pilot remains incomplete because some published
   trajectory URLs are currently inaccessible (a [documented 403 issue](https://github.com/datacurve-ai/deep-swe/issues/59)); it cannot substitute for this matched family anyway.

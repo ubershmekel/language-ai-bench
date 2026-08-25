@@ -1,0 +1,349 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_version": "0.5.0-interim",
+  "study_status": "balanced-retrospective-extension",
+  "generated_at": "2026-08-25T06:25:36.914656Z",
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "agent": "mini-swe-agent@2.4.6",
+  "all_published": {
+    "runs": 32,
+    "passed": 32,
+    "pass_rate": 1.0,
+    "pass_rate_wilson_95": [
+      0.892821,
+      1.0
+    ],
+    "total_cost_usd": 0.17906507,
+    "mean_cost_usd": 0.00559578,
+    "mean_input_tokens": 33124.94,
+    "mean_cached_input_tokens": 24205.03,
+    "cache_hit_rate": 0.730719,
+    "mean_output_tokens": 2442.69,
+    "mean_agent_steps": 6.78,
+    "mean_agent_seconds": 40.19
+  },
+  "total_measured_spend_usd": 0.17974737,
+  "balanced_polyglot": {
+    "runs": 20,
+    "passed": 20,
+    "pass_rate": 1.0,
+    "pass_rate_wilson_95": [
+      0.838875,
+      1.0
+    ],
+    "total_cost_usd": 0.11579307,
+    "mean_cost_usd": 0.00578965,
+    "mean_input_tokens": 36996.95,
+    "mean_cached_input_tokens": 27438.55,
+    "cache_hit_rate": 0.741644,
+    "mean_output_tokens": 2416.4,
+    "mean_agent_steps": 7.15,
+    "mean_agent_seconds": 40.02
+  },
+  "polyglot_cells": [
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "go",
+      "runs": 2,
+      "passed": 2,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.34238,
+        1.0
+      ],
+      "total_cost_usd": 0.01160112,
+      "mean_cost_usd": 0.00580056,
+      "mean_input_tokens": 24774.5,
+      "mean_cached_input_tokens": 17585.5,
+      "cache_hit_rate": 0.709823,
+      "mean_output_tokens": 3080.5,
+      "mean_agent_steps": 6.5,
+      "mean_agent_seconds": 43.09
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "javascript",
+      "runs": 2,
+      "passed": 2,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.34238,
+        1.0
+      ],
+      "total_cost_usd": 0.0126857,
+      "mean_cost_usd": 0.00634285,
+      "mean_input_tokens": 31480.5,
+      "mean_cached_input_tokens": 22720,
+      "cache_hit_rate": 0.721717,
+      "mean_output_tokens": 3119.5,
+      "mean_agent_steps": 7,
+      "mean_agent_seconds": 40.14
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "python",
+      "runs": 2,
+      "passed": 2,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.34238,
+        1.0
+      ],
+      "total_cost_usd": 0.01239904,
+      "mean_cost_usd": 0.00619952,
+      "mean_input_tokens": 38765,
+      "mean_cached_input_tokens": 30133.5,
+      "cache_hit_rate": 0.777338,
+      "mean_output_tokens": 2903.5,
+      "mean_agent_steps": 8.5,
+      "mean_agent_seconds": 37.92
+    },
+    {
+      "task_family": "optimistic-concurrency",
+      "language": "typescript",
+      "runs": 2,
+      "passed": 2,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.34238,
+        1.0
+      ],
+      "total_cost_usd": 0.01129163,
+      "mean_cost_usd": 0.00564582,
+      "mean_input_tokens": 27333.5,
+      "mean_cached_input_tokens": 18564.5,
+      "cache_hit_rate": 0.679185,
+      "mean_output_tokens": 2606,
+      "mean_agent_steps": 6.5,
+      "mean_agent_seconds": 59.79
+    },
+    {
+      "task_family": "schedule-variants",
+      "language": "go",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.438503,
+        1.0
+      ],
+      "total_cost_usd": 0.02064869,
+      "mean_cost_usd": 0.0068829,
+      "mean_input_tokens": 64169.67,
+      "mean_cached_input_tokens": 52319,
+      "cache_hit_rate": 0.815323,
+      "mean_output_tokens": 2437.33,
+      "mean_agent_steps": 9.33,
+      "mean_agent_seconds": 47.87
+    },
+    {
+      "task_family": "schedule-variants",
+      "language": "javascript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.438503,
+        1.0
+      ],
+      "total_cost_usd": 0.01488476,
+      "mean_cost_usd": 0.00496159,
+      "mean_input_tokens": 34864.33,
+      "mean_cached_input_tokens": 25274.33,
+      "cache_hit_rate": 0.724934,
+      "mean_output_tokens": 1757.67,
+      "mean_agent_steps": 7,
+      "mean_agent_seconds": 29.34
+    },
+    {
+      "task_family": "schedule-variants",
+      "language": "python",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.438503,
+        1.0
+      ],
+      "total_cost_usd": 0.01609247,
+      "mean_cost_usd": 0.00536416,
+      "mean_input_tokens": 27508.33,
+      "mean_cached_input_tokens": 18315.33,
+      "cache_hit_rate": 0.66581,
+      "mean_output_tokens": 2291.67,
+      "mean_agent_steps": 5.67,
+      "mean_agent_seconds": 26.93
+    },
+    {
+      "task_family": "schedule-variants",
+      "language": "typescript",
+      "runs": 3,
+      "passed": 3,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.438503,
+        1.0
+      ],
+      "total_cost_usd": 0.01618966,
+      "mean_cost_usd": 0.00539655,
+      "mean_input_tokens": 38535,
+      "mean_cached_input_tokens": 27679.33,
+      "cache_hit_rate": 0.718291,
+      "mean_output_tokens": 1816.33,
+      "mean_agent_steps": 6.67,
+      "mean_agent_seconds": 42.02
+    }
+  ],
+  "polyglot_languages": [
+    {
+      "language": "go",
+      "runs": 5,
+      "passed": 5,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.565518,
+        1.0
+      ],
+      "total_cost_usd": 0.03224981,
+      "mean_cost_usd": 0.00644996,
+      "mean_input_tokens": 48411.6,
+      "mean_cached_input_tokens": 38425.6,
+      "cache_hit_rate": 0.793727,
+      "mean_output_tokens": 2694.6,
+      "mean_agent_steps": 8.2,
+      "mean_agent_seconds": 45.96
+    },
+    {
+      "language": "javascript",
+      "runs": 5,
+      "passed": 5,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.565518,
+        1.0
+      ],
+      "total_cost_usd": 0.02757046,
+      "mean_cost_usd": 0.00551409,
+      "mean_input_tokens": 33510.8,
+      "mean_cached_input_tokens": 24252.6,
+      "cache_hit_rate": 0.723725,
+      "mean_output_tokens": 2302.4,
+      "mean_agent_steps": 7,
+      "mean_agent_seconds": 33.66
+    },
+    {
+      "language": "python",
+      "runs": 5,
+      "passed": 5,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.565518,
+        1.0
+      ],
+      "total_cost_usd": 0.02849151,
+      "mean_cost_usd": 0.0056983,
+      "mean_input_tokens": 32011,
+      "mean_cached_input_tokens": 23042.6,
+      "cache_hit_rate": 0.719834,
+      "mean_output_tokens": 2536.4,
+      "mean_agent_steps": 6.8,
+      "mean_agent_seconds": 31.32
+    },
+    {
+      "language": "typescript",
+      "runs": 5,
+      "passed": 5,
+      "pass_rate": 1.0,
+      "pass_rate_wilson_95": [
+        0.565518,
+        1.0
+      ],
+      "total_cost_usd": 0.02748129,
+      "mean_cost_usd": 0.00549626,
+      "mean_input_tokens": 34054.4,
+      "mean_cached_input_tokens": 24033.4,
+      "cache_hit_rate": 0.705736,
+      "mean_output_tokens": 2132.2,
+      "mean_agent_steps": 6.6,
+      "mean_agent_seconds": 49.13
+    }
+  ],
+  "workflow_quality": [
+    {
+      "language": "javascript",
+      "runs": 5,
+      "first_verification_observed": 5,
+      "first_verification_passed": 4,
+      "first_verification_pass_rate": 0.8,
+      "verified_before_submit": 5,
+      "passing_verification_before_submit": 4,
+      "mean_verification_attempts": 2.6,
+      "mean_static_check_invocations": 0,
+      "malformed_actions": 0,
+      "patch_metrics_available": false
+    },
+    {
+      "language": "typescript",
+      "runs": 5,
+      "first_verification_observed": 5,
+      "first_verification_passed": 4,
+      "first_verification_pass_rate": 0.8,
+      "verified_before_submit": 5,
+      "passing_verification_before_submit": 4,
+      "mean_verification_attempts": 1.8,
+      "mean_static_check_invocations": 0,
+      "malformed_actions": 0,
+      "patch_metrics_available": false
+    },
+    {
+      "language": "python",
+      "runs": 5,
+      "first_verification_observed": 5,
+      "first_verification_passed": 5,
+      "first_verification_pass_rate": 1.0,
+      "verified_before_submit": 5,
+      "passing_verification_before_submit": 5,
+      "mean_verification_attempts": 2.6,
+      "mean_static_check_invocations": 0,
+      "malformed_actions": 0,
+      "patch_metrics_available": false
+    },
+    {
+      "language": "go",
+      "runs": 5,
+      "first_verification_observed": 4,
+      "first_verification_passed": 1,
+      "first_verification_pass_rate": 0.25,
+      "verified_before_submit": 4,
+      "passing_verification_before_submit": 3,
+      "mean_verification_attempts": 2.8,
+      "mean_static_check_invocations": 2,
+      "malformed_actions": 0,
+      "patch_metrics_available": false
+    }
+  ],
+  "excluded_infrastructure": [
+    {
+      "job": "v05-schedule-go",
+      "task_family": "schedule-variants",
+      "language": "go",
+      "reason": "NonZeroAgentExitCodeError",
+      "classification": "pre-submission-infrastructure",
+      "cost_usd": 0.0006823
+    }
+  ],
+  "source_jobs": [
+    "decision-brownfield-rung1",
+    "decision-greenfield-rung1",
+    "decision-schedule-rung1",
+    "decision-python-example",
+    "decision-go-example",
+    "v05-schedule-python",
+    "v05-schedule-go",
+    "v05-schedule-go-replacement",
+    "v05-occ-python-balance",
+    "v05-occ-go-balance"
+  ],
+  "finding": "All 20 valid attempts in the balanced four-language, two-family brownfield cohort passed. Correctness tied; cost, steps, tokens, time, and workflow behavior differed descriptively.",
+  "publication_boundary": "Aggregate result and trajectory-derived counts only; no prompts, commands, patches, trial IDs, or environment variables."
+}
