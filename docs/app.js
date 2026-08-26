@@ -202,13 +202,13 @@ function renderChart(rung) {
   host.replaceChildren(
     barPanel(
       "Did it succeed?",
-      "Share of attempts passing the hidden verifier, with 95% intervals. The intervals overlap heavily.",
+      "Share of attempts passing the hidden verifier, with 95% intervals. Higher is better.",
       passRows,
       1,
     ),
     barPanel(
       "How much work did it take?",
-      "Mean agent steps per attempt. Go needed 1.3 to 1.7 more than every other language.",
+      "Mean agent steps per attempt: how much work the same result took. Lower is better.",
       stepRows,
       stepMaximum,
     ),
@@ -223,7 +223,9 @@ function setText(selector, value) {
 function updateHeadlineNumbers(data, rung) {
   const weak = weakestRung(data);
   setText("#stat-passed", `${rung.passed}/${rung.runs}`);
-  setText("#stat-runs", rung.runs);
+  // The copy reads "every language ran it N times", so this is per language.
+  const perLanguage = ordered(rung.languages)[0];
+  setText("#stat-runs", perLanguage ? perLanguage.runs : rung.runs);
   setText("#stat-spend", formatMoney(data.overall.total_cost_usd, 2));
   setText("#detail-runs", rung.runs);
   setText("#detail-passed", rung.passed);

@@ -23,7 +23,7 @@
     <section class="hero section-shell">
       <div class="hero-copy-block">
         <h1>Does your programming language change how well AI codes?</h1>
-        <p class="hero-copy">One coding agent, one hard task, four languages, and a hidden verifier that grades only behavior. Success rates came out close enough that none of the differences can be called. The work it took did differ: Go cost the agent noticeably more steps than JavaScript, TypeScript, or Python.</p>
+        <p class="hero-copy">One coding agent, one hard task, four languages, and a hidden verifier that grades only behavior. Python finished every attempt; JavaScript failed a quarter of them. The gaps in effort were wider still, with Go needing about 1.5 more steps per attempt than Python or JavaScript.</p>
       </div>
       <aside class="question-card" aria-label="Core benchmark question">
         <p class="small-label">The question</p>
@@ -63,17 +63,17 @@
           <p class="kicker">Current study</p>
           <h2 id="glance-title">Results across four languages</h2>
         </div>
-        <p>Every language ran the same hard task <span id="stat-runs">12</span> times on the strongest model rung. <strong id="stat-passed">42/48</strong> attempts passed overall, so the results have room to differ instead of being pinned at a perfect score.</p>
+        <p>Every language ran the same hard task <span id="stat-runs">24</span> times on the strongest model rung. <strong id="stat-passed">84/96</strong> attempts passed overall, so the results have room to differ instead of being pinned at a perfect score.</p>
       </div>
 
       <div id="result-chart" class="chart-grid">
         <figure class="chart-panel">
           <figcaption><strong>Did it succeed?</strong><span>Share of attempts passing the hidden verifier.</span></figcaption>
-          <p class="chart-fallback">JavaScript 10/12 &middot; TypeScript 11/12 &middot; Python 12/12 &middot; Go 9/12</p>
+          <p class="chart-fallback">JavaScript 18/24 &middot; TypeScript 22/24 &middot; Python 24/24 &middot; Go 20/24</p>
         </figure>
         <figure class="chart-panel">
           <figcaption><strong>How much work did it take?</strong><span>Mean agent steps per attempt.</span></figcaption>
-          <p class="chart-fallback">JavaScript 6.92 &middot; TypeScript 6.92 &middot; Python 6.58 &middot; Go 8.25</p>
+          <p class="chart-fallback">JavaScript 6.50 &middot; TypeScript 7.17 &middot; Python 6.46 &middot; Go 8.00</p>
         </figure>
       </div>
 
@@ -91,14 +91,14 @@
             </tr>
           </thead>
           <tbody id="language-summary-results">
-            <tr><td>JavaScript</td><td>None</td><td>10/12</td><td>6.92</td><td>3,202</td><td>38.2s</td><td>$0.005879</td></tr>
-            <tr><td>TypeScript</td><td>Strict</td><td>11/12</td><td>6.92</td><td>3,109</td><td>48.6s</td><td>$0.006125</td></tr>
-            <tr><td>Python</td><td>None</td><td>12/12</td><td>6.58</td><td>2,969</td><td>37.2s</td><td>$0.005520</td></tr>
-            <tr><td>Go</td><td>Compiler</td><td>9/12</td><td>8.25</td><td>3,710</td><td>48.5s</td><td>$0.006978</td></tr>
+            <tr><td>JavaScript</td><td>None</td><td>18/24</td><td>6.50</td><td>3,124</td><td>37.1s</td><td>$0.005668</td></tr>
+            <tr><td>TypeScript</td><td>Strict</td><td>22/24</td><td>7.17</td><td>3,201</td><td>50.5s</td><td>$0.006356</td></tr>
+            <tr><td>Python</td><td>None</td><td>24/24</td><td>6.46</td><td>2,925</td><td>36.4s</td><td>$0.005462</td></tr>
+            <tr><td>Go</td><td>Compiler</td><td>20/24</td><td>8.00</td><td>3,750</td><td>49.5s</td><td>$0.007030</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="glance-note">Pass rate measures errors. Steps, tokens, time, and cost measure the work required to reach a correct result. Total measured spend for this study was <span id="stat-spend">$0.71</span>.</p>
+      <p class="glance-note">Pass rate measures errors. Steps, tokens, time, and cost measure the work required to reach a correct result. Total measured spend for this study was <span id="stat-spend">$1.00</span>.</p>
     </section>
 
     <section id="reading" class="study section-shell" aria-labelledby="reading-title">
@@ -108,12 +108,12 @@
       </div>
       <div class="reading-grid">
         <article>
-          <h3>Nobody wins on correctness</h3>
-          <p>Python passed every attempt and Go passed the fewest, but the gap is inside the noise: no pass-rate comparison has a confidence interval that excludes zero. Python versus Go is the closest call and it still touches zero. On this evidence, picking a language to raise your odds of a working result is not supported.</p>
+          <h3>Python finished everything</h3>
+          <p>Python passed all 24 attempts. JavaScript passed 18, and that gap is real: the interval for the difference excludes zero, as does the smaller gap between Python and Go. TypeScript at 22 sits between them without separating from either. So there is a correctness signal here, and it is not the one a type checker would predict.</p>
         </article>
         <article>
-          <h3>Go costs more steps</h3>
-          <p>Go needed 1.3 to 1.7 more agent steps than each of the other three languages, and all three of those intervals exclude zero. It also burned the most tokens and the most money per attempt. The likely mechanism is the compile-edit-rerun loop rather than anything about the syntax.</p>
+          <h3>Go and TypeScript cost more steps</h3>
+          <p>Go needed about 1.5 more agent steps than Python or JavaScript, and TypeScript needed about 0.7 more than either. Both effects have intervals clear of zero, and both languages cost the most tokens and money per attempt. The compile step is the obvious suspect: the two compiled languages are the two expensive ones.</p>
         </article>
         <article>
           <h3>A weaker model fails everywhere</h3>
@@ -121,7 +121,7 @@
         </article>
         <article>
           <h3>What would change this</h3>
-          <p>This is one task family, one model snapshot, and one bash-only agent scaffold. The language is a bundle that also includes its toolchain, file layout, and ecosystem, so none of this is a claim about syntax. A different hard task could easily rank the languages differently.</p>
+          <p>This is one task family, one model snapshot, and one bash-only agent scaffold. The language is a bundle that also includes its toolchain, file layout, and ecosystem, so none of this is a claim about syntax. The first half of this cohort ranked Go worst on correctness and the second half did not, which is a fair warning about how far twelve attempts can be trusted.</p>
         </article>
       </div>
       <p class="calibration-note">Intervals are 95% percentile intervals from a fixed-seed 20,000-resample paired bootstrap over matched attempt blocks. The full method, the paired contrasts for every pair, and the per-case failure breakdown are in the <a href="./V07_REPORT.md">written report</a>.</p>

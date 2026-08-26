@@ -42,11 +42,19 @@ adds ancestor rollups, and adds a large rejection surface. Its four starters all
 fail the identical eight verifier cases, and four sabotages fail with identical
 case sets in all four languages.
 
-On the strong rung the family passes 42/48 instead of everything, so contrasts
-are finally estimable. Correctness differences remain small and no pass-rate
-interval excludes zero, but Go needed 1.3 to 1.7 more agent steps than each
-other language, with all three intervals excluding zero. On a weaker model the
-same task is a cliff that no language rescues. Read
+On the strong rung the family passes 84/96 instead of everything, so contrasts
+are finally estimable. Python passed all 24 of its attempts, JavaScript 18, Go
+20, and TypeScript 22; the Python advantage over JavaScript and over Go has
+intervals clear of zero. Effort separates further: Go needed about 1.5 more
+agent steps than Python or JavaScript, and TypeScript about 0.7 more, so the two
+compiled languages are also the two most expensive per attempt. On a weaker
+model the same task is a cliff that no language rescues.
+
+The strong rung was collected in two batches of 48. The second was run because
+the first left the Python versus Go interval touching zero, which makes the
+continuation outcome-dependent; the report says so, and the first batch ranked
+Go worst on correctness while the second did not. Twelve attempts per language
+is not many. Read
 [docs/V07_REPORT.md](docs/V07_REPORT.md); the historical
 [docs/V06_REPORT.md](docs/V06_REPORT.md),
 [docs/POLYGLOT_REPORT.md](docs/POLYGLOT_REPORT.md), and

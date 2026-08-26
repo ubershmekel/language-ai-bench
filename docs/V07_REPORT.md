@@ -6,44 +6,44 @@ Every earlier cohort saturated. In v0.6 all 36 attempts passed, so the measured 
 
 v0.7 changes two things. It adds `money-rollup`, a four-file brownfield refactor that replaces floating-point money handling with exact rational arithmetic, adds shortest-path currency conversion with ambiguity rejection, adds ancestor rollups, and adds a large rejection surface. And it runs that one family at more than one model strength, because whether the language matters may itself depend on how capable the agent is.
 
-Across the whole cohort, **42/73 attempts passed**.
+Across the whole cohort, **84/121 attempts passed**.
 
 ## Bottom line
 
-The ceiling is broken. On the `openrouter/openai/gpt-5.6-luna` rung the hard family passed 42/48 rather than everything, so language contrasts are now estimable. Correctness still barely moves: no pass-rate contrast has an interval excluding zero. Effort does move: Go needed 1.33 more agent steps than JavaScript (95% CI [-2.25, -0.42]); Go needed 1.33 more agent steps than TypeScript (95% CI [-2.42, -0.42]); Go needed 1.67 more agent steps than Python (95% CI [-2.92, -0.50]). On the weaker `openrouter/openai/gpt-5-mini` rung the same task is a cliff: 0/25 passed in every language, so no language rescues a weaker agent.
+The ceiling is broken. On the `openrouter/openai/gpt-5.6-luna` rung the hard family passed 84/96 rather than everything, so language contrasts are now estimable. Correctness moves: JavaScript passed 0.250 less often than Python (95% CI [0.083, 0.417]); Go passed 0.167 less often than Python (95% CI [0.042, 0.333]). Effort moves further: TypeScript needed 0.67 more agent steps than JavaScript (95% CI [0.12, 1.25]); Go needed 1.50 more agent steps than JavaScript (95% CI [0.83, 2.21]); TypeScript needed 0.71 more agent steps than Python (95% CI [0.25, 1.21]); Go needed 0.83 more agent steps than TypeScript (95% CI [0.04, 1.67]); Go needed 1.54 more agent steps than Python (95% CI [0.75, 2.38]). On the weaker `openrouter/openai/gpt-5-mini` rung the same task is a cliff: 0/25 passed in every language, so no language rescues a weaker agent.
 
 ## Results by model rung
 
 ### Strong rung: `openrouter/openai/gpt-5.6-luna`
 
-42/48 passed overall (0.88, 95% CI [0.75, 0.94]).
+84/96 passed overall (0.88, 95% CI [0.79, 0.93]).
 
 | Language | Passed | Pass rate (95% CI) | Mean steps | Mean output tokens | Mean agent time | Mean cost |
 |---|---:|---:|---:|---:|---:|---:|
-| JavaScript | 10/12 | 0.83 [0.55, 0.95] | 6.92 | 3202 | 38.2s | $0.005879 |
-| TypeScript | 11/12 | 0.92 [0.65, 0.99] | 6.92 | 3109 | 48.6s | $0.006125 |
-| Python | 12/12 | 1.00 [0.76, 1.00] | 6.58 | 2969 | 37.2s | $0.005520 |
-| Go | 9/12 | 0.75 [0.47, 0.91] | 8.25 | 3710 | 48.5s | $0.006978 |
+| JavaScript | 18/24 | 0.75 [0.55, 0.88] | 6.50 | 3124 | 37.1s | $0.005668 |
+| TypeScript | 22/24 | 0.92 [0.74, 0.98] | 7.17 | 3201 | 50.5s | $0.006356 |
+| Python | 24/24 | 1.00 [0.86, 1.00] | 6.46 | 2925 | 36.4s | $0.005462 |
+| Go | 20/24 | 0.83 [0.64, 0.93] | 8.00 | 3750 | 49.5s | $0.007030 |
 
 Paired differences within matched attempt blocks, with 95% percentile intervals from a fixed-seed 20,000-resample paired bootstrap:
 
 | Contrast | Pass-rate difference (95% CI) | Agent-step difference (95% CI) |
 |---|---:|---:|
-| JavaScript minus TypeScript | -0.083 [-0.333, 0.167] | 0.00 [-0.58, 0.67] |
-| JavaScript minus Python | -0.167 [-0.417, 0.000] | 0.33 [-0.58, 1.25] |
-| JavaScript minus Go | 0.083 [-0.250, 0.417] | -1.33 [-2.25, -0.42] |
-| TypeScript minus Python | -0.083 [-0.250, 0.000] | 0.33 [-0.33, 1.00] |
-| TypeScript minus Go | 0.167 [-0.167, 0.500] | -1.33 [-2.42, -0.42] |
-| Python minus Go | 0.250 [0.000, 0.500] | -1.67 [-2.92, -0.50] |
+| JavaScript minus TypeScript | -0.167 [-0.375, 0.000] | -0.67 [-1.25, -0.12] |
+| JavaScript minus Python | -0.250 [-0.417, -0.083] | 0.04 [-0.46, 0.58] |
+| JavaScript minus Go | -0.083 [-0.333, 0.167] | -1.50 [-2.21, -0.83] |
+| TypeScript minus Python | -0.083 [-0.208, 0.000] | 0.71 [0.25, 1.21] |
+| TypeScript minus Go | 0.083 [-0.125, 0.292] | -0.83 [-1.67, -0.04] |
+| Python minus Go | 0.167 [0.042, 0.333] | -1.54 [-2.38, -0.75] |
 
 Failing verifier cases, counted across all runs of that language:
 
 | Language | Failing cases |
 |---|---|
-| JavaScript | rejects-invalid x1, half-even-ties x1, zero-and-negative-formatting x1 |
-| TypeScript | rejects-invalid x1 |
+| JavaScript | rejects-invalid x4, half-even-ties x3, zero-and-negative-formatting x3, chained-conversion x1, shortest-path-preferred x1, per-entry-rounding x1, exact-large-magnitude x1 |
+| TypeScript | rejects-invalid x1, shortest-path-preferred x1 |
 | Python | none |
-| Go | rejects-invalid x2, half-even-ties x1, zero-and-negative-formatting x1 |
+| Go | rejects-invalid x3, half-even-ties x1, zero-and-negative-formatting x1 |
 
 ### Mid rung: `openrouter/openai/gpt-5-mini`
 
@@ -80,15 +80,19 @@ Failing verifier cases, counted across all runs of that language:
 
 | Language | Passed | Pass rate (95% CI) | Mean steps | Mean cost |
 |---|---:|---:|---:|---:|
-| JavaScript | 10/18 | 0.56 [0.34, 0.75] | 10.17 | $0.008393 |
-| TypeScript | 11/18 | 0.61 [0.39, 0.80] | 11.28 | $0.010758 |
-| Python | 12/19 | 0.63 [0.41, 0.81] | 11.00 | $0.011494 |
-| Go | 9/18 | 0.50 [0.29, 0.71] | 9.89 | $0.008135 |
+| JavaScript | 18/30 | 0.60 [0.42, 0.75] | 8.53 | $0.007218 |
+| TypeScript | 22/30 | 0.73 [0.56, 0.86] | 9.73 | $0.009090 |
+| Python | 24/31 | 0.77 [0.60, 0.89] | 9.19 | $0.009137 |
+| Go | 20/30 | 0.67 [0.49, 0.81] | 9.03 | $0.007714 |
 
 Pooling mixes model rungs and is descriptive only; the rung tables above are the estimates to read.
 
 ## Scope
 
-One hard brownfield family, four languages, 2 model rungs, one low-effort bash-only scaffold (mini-swe-agent@2.4.6). Measured provider spend for this cohort was **$0.70954969**.
+One hard brownfield family, four languages, 2 model rungs, one low-effort bash-only scaffold (mini-swe-agent@2.4.6). Measured provider spend for this cohort was **$1.00391751**.
 
 Topology is part of the treatment bundle: starter file counts, toolchains, and ecosystems differ by language, so any difference must not be read as a syntax-only effect. Task difficulty is part of the bundle too: this is one family, and a different hard task could rank languages differently.
+
+## How the cohort was collected
+
+The strong rung was collected in 2 batches of equal size. The first batch was planned and run before any result was seen. The decision to run the second was made after reading the first, specifically because the Python versus Go pass-rate interval touched zero, so the continuation was outcome-dependent even though the batch size was fixed in advance and no batch was stopped early on a result. Readers who want a contrast free of that dependency should treat the second batch alone as the confirmatory sample. Attempt blocks are namespaced per batch, so pairing never mixes attempts across batches.

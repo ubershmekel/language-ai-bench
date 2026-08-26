@@ -46,6 +46,7 @@ def read_rows(
     ledger_path: pathlib.Path,
     schedule_path: pathlib.Path,
     excluded: list[dict] | None = None,
+    batch: str = "1",
 ) -> list[dict]:
     """Excluded infrastructure failures are appended to `excluded`, not scored."""
     excluded = [] if excluded is None else excluded
@@ -85,6 +86,7 @@ def read_rows(
                     key: planned[key]
                     for key in ("order_index", "task_family", "language", "attempt")
                 },
+                "batch": batch,
                 "hidden_test_pass": result["verifier_result"]["rewards"]["reward"] == 1.0,
                 "agent_steps": agent["n_agent_steps"],
                 "input_tokens": agent["n_input_tokens"],
@@ -167,7 +169,7 @@ def paired_contrasts(
     """Paired bootstrap over complete task-family x attempt blocks."""
     by_block: dict[tuple, dict] = defaultdict(dict)
     for row in rows:
-        by_block[(row["task_family"], row["attempt"])][row["language"]] = row
+        by_block[(row["batch"], row["task_family"], row["attempt"])][row["language"]] = row
     blocks = [
         by_block[key] for key in sorted(by_block) if set(by_block[key]) == set(LANGUAGES)
     ]
@@ -256,25 +258,35 @@ def build_report(cohorts: list[dict]) -> dict:
     all_rows: list[dict] = []
     rungs = []
     excluded: list[dict] = []
+    by_rung: dict[str, dict] = {}
     for cohort in cohorts:
+        rung_name = cohort["rung"]
+        group = by_rung.setdefault(rung_name, {"rows": [], "studies": [], "excluded": []})
+        batch = str(len(group["studies"]) + 1)
         cohort_excluded: list[dict] = []
-        rows = read_rows(cohort["ledger"], cohort["schedule"], cohort_excluded)
+        rows = read_rows(cohort["ledger"], cohort["schedule"], cohort_excluded, batch)
         for item in cohort_excluded:
-            excluded.append({**item, "rung": cohort["rung"]})
+            excluded.append({**item, "rung": rung_name})
         attach_failed_cases(rows, cohort["ledger"])
         for row in rows:
-            row["rung"] = cohort["rung"]
-        receipt = load(cohort["schedule"])
+            row["rung"] = rung_name
+        group["rows"].extend(rows)
+        group["studies"].append(load(cohort["schedule"])["study_id"])
+        group["excluded"].extend(cohort_excluded)
+
+    for rung_name, group in by_rung.items():
+        rows = group["rows"]
         rungs.append(
             {
-                "rung": cohort["rung"],
-                "study_id": receipt["study_id"],
+                "rung": rung_name,
+                "study_ids": group["studies"],
+                "batches": len(group["studies"]),
                 "model": rows[0]["model"],
                 **summarize(rows),
                 "languages": grouped(rows, ("language",)),
                 "paired_contrasts": paired_contrasts(rows),
                 "failure_profile": failure_profile(rows),
-                "excluded_infrastructure": cohort_excluded,
+                "excluded_infrastructure": group["excluded"],
             }
         )
         all_rows.extend(rows)
@@ -295,21 +307,34 @@ def build_report(cohorts: list[dict]) -> dict:
 
 
 def decisive(rung: dict, metric: str) -> list[str]:
-    """Contrasts whose bootstrap interval excludes zero, rendered as sentences."""
+    """Contrasts whose bootstrap interval excludes zero, rendered as sentences.
+
+    Each sentence names the language that came off worse. For agent steps a
+    larger value is worse; for pass rate a larger value is better. The interval
+    is restated as the size of that disadvantage, so its sign can never
+    contradict the sentence.
+    """
     findings = []
     for item in rung["paired_contrasts"]:
         low, high = item["estimates"][metric]["ci95"]
         difference = item["estimates"][metric]["mean_difference"]
-        if low > 0 or high < 0:
-            faster, slower = item["left"], item["right"]
-            if difference > 0:
-                faster, slower = slower, faster
+        if not (low > 0 or high < 0):
+            continue
+        # Flip to the direction of the larger value, so the gap is positive.
+        if difference < 0:
+            leader, trailer = item["right"], item["left"]
+            low, high, difference = -high, -low, -difference
+        else:
+            leader, trailer = item["left"], item["right"]
+        if metric == "agent_steps":
             findings.append(
-                f"{LABELS[slower]} needed {abs(difference):.2f} more agent steps than "
-                f"{LABELS[faster]} (95% CI [{low:.2f}, {high:.2f}])"
-                if metric == "agent_steps"
-                else f"{LABELS[slower]} passed {abs(difference):.2f} less often than "
-                f"{LABELS[faster]} (95% CI [{low:.3f}, {high:.3f}])"
+                f"{LABELS[leader]} needed {difference:.2f} more agent steps than "
+                f"{LABELS[trailer]} (95% CI [{low:.2f}, {high:.2f}])"
+            )
+        else:
+            findings.append(
+                f"{LABELS[trailer]} passed {difference:.3f} less often than "
+                f"{LABELS[leader]} (95% CI [{low:.3f}, {high:.3f}])"
             )
     return findings
 
@@ -324,14 +349,14 @@ def render_markdown(report: dict) -> str:
         f"{strongest['passed']}/{strongest['runs']} rather than everything, so language contrasts are now estimable.",
     ]
     parts.append(
-        "Correctness still barely moves: "
-        + ("; ".join(pass_findings) + "." if pass_findings else
-           "no pass-rate contrast has an interval excluding zero.")
+        ("Correctness moves: " + "; ".join(pass_findings) + ".")
+        if pass_findings
+        else "Correctness does not move: no pass-rate contrast has an interval excluding zero."
     )
     parts.append(
-        "Effort does move: "
-        + ("; ".join(step_findings) + "." if step_findings else
-           "no agent-step contrast has an interval excluding zero.")
+        ("Effort moves further: " + "; ".join(step_findings) + ".")
+        if step_findings
+        else "Effort does not move: no agent-step contrast has an interval excluding zero."
     )
     weakest = min(report["rungs"], key=lambda rung: rung["pass_rate"])
     if weakest is not strongest:
@@ -340,6 +365,20 @@ def render_markdown(report: dict) -> str:
             f"{weakest['passed']}/{weakest['runs']} passed in every language, so no language rescues a weaker agent."
         )
     BOTTOM_LINE = " ".join(parts)
+    strong_batches = strongest.get("batches", 1)
+    BATCH_NOTE = (
+        f"The {strongest['rung']} rung was collected in {strong_batches} batches of equal size. "
+        "The first batch was planned and run before any result was seen. The decision to run the "
+        "second was made after reading the first, specifically because the Python versus Go "
+        "pass-rate interval touched zero, so the continuation was outcome-dependent even though "
+        "the batch size was fixed in advance and no batch was stopped early on a result. Readers "
+        "who want a contrast free of that dependency should treat the second batch alone as the "
+        "confirmatory sample. Attempt blocks are namespaced per batch, so pairing never mixes "
+        "attempts across batches."
+        if strong_batches > 1
+        else "This rung was collected in a single prespecified batch."
+    )
+
     lines = [
         "# Language AI Bench v0.7: one hard task, four languages, two model rungs",
         "",
@@ -435,6 +474,10 @@ def render_markdown(report: dict) -> str:
         f"One hard brownfield family, four languages, {len(report['rungs'])} model rungs, one low-effort bash-only scaffold ({report['agent']}). Measured provider spend for this cohort was **${overall['total_cost_usd']:.8f}**.",
         "",
         "Topology is part of the treatment bundle: starter file counts, toolchains, and ecosystems differ by language, so any difference must not be read as a syntax-only effect. Task difficulty is part of the bundle too: this is one family, and a different hard task could rank languages differently.",
+        "",
+        "## How the cohort was collected",
+        "",
+        BATCH_NOTE,
     ]
     return "\n".join(lines) + "\n"
 

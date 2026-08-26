@@ -74,7 +74,10 @@ node -e '
   if (data.study_status !== "complete-prospective") throw new Error("unexpected v0.7 status");
   const strong = data.rungs.find((rung) => rung.rung === "strong");
   if (!strong) throw new Error("missing strong rung");
-  if (strong.runs !== 48) throw new Error("expected 48 strong-rung runs");
+  if (strong.runs % 48 !== 0) throw new Error("expected whole strong-rung batches of 48");
+  if (strong.languages.some((row) => row.runs !== strong.runs / 4)) {
+    throw new Error("strong rung is unbalanced across languages");
+  }
   if (strong.passed === strong.runs) throw new Error("strong rung saturated again; the family no longer discriminates");
   if (strong.languages.length !== 4) throw new Error("expected four v0.7 languages");
   if (strong.paired_contrasts.length !== 6) throw new Error("unexpected v0.7 paired contrasts");
