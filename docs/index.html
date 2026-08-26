@@ -15,7 +15,7 @@
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Language AI Bench home"><span class="brand-mark">L/AB</span><span>Language AI Bench</span></a>
     <nav aria-label="Report navigation">
-      <a href="#idea">The idea</a><a href="#latest">Results</a><a href="#reading">What it means</a><a href="./details.html">Technical details</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub</a>
+      <a href="#latest">Results</a><a href="#reading">What it shows</a><a href="#notes">Method</a><a href="./details.html">Technical details</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub</a>
     </nav>
   </header>
 
@@ -23,38 +23,14 @@
     <section class="hero section-shell">
       <div class="hero-copy-block">
         <h1>Does your programming language change how well AI codes?</h1>
-        <p class="hero-copy">One coding agent, one hard task, four languages, and a hidden verifier that grades only behavior. Python finished every attempt; JavaScript failed a quarter of them. The gaps in effort were wider still, with Go needing about 1.5 more steps per attempt than Python or JavaScript.</p>
+        <p class="hero-copy">Same task, same model, same agent, fresh context every run. Only the language changes. Over <span id="stat-runs">24</span> runs per language on one hard refactor, Python passed every attempt and JavaScript failed a quarter of them, while Go spent about 1.5 more agent steps per attempt than either.</p>
       </div>
-      <aside class="question-card" aria-label="Core benchmark question">
-        <p class="small-label">The question</p>
-        <p>If the task, tests, model, and agent all stay fixed, does changing the programming language change whether the agent succeeds, or how much work it takes to get there?</p>
-        <div class="language-pills"><span>JavaScript</span><span>TypeScript</span><span>Python</span><span>Go</span></div>
-      </aside>
-    </section>
-
-    <section id="idea" class="about section-shell" aria-labelledby="about-title">
-      <div class="section-heading">
-        <p class="kicker">The idea</p>
-        <h2 id="about-title">Give one agent the same job in four languages and see what changes.</h2>
-        <p class="section-intro">Each language gets a repository that starts in the same broken state and must end in the same working state. Same instructions, same model, same agent scaffold, same budget, fresh context every time. Only the language differs, so anything that moves is attributable to the language and its toolchain.</p>
-      </div>
-      <div class="principles-grid">
-        <article><span class="index">01</span><h3>Same job</h3><p>Byte-identical instructions in every language, and one shared verifier that tests behavior rather than style.</p></article>
-        <article><span class="index">02</span><h3>Hard enough to fail</h3><p>Earlier rounds were too easy: every language passed everything, which answers nothing. The current task fails often enough to compare.</p></article>
-        <article><span class="index">03</span><h3>Calibrated before launch</h3><p>Correct solutions pass, untouched starters fail the identical checks in all four languages, and deliberately broken solutions get caught.</p></article>
-      </div>
-      <div class="task-note">
-        <p><strong>The current task.</strong> A four-file command-line reporting tool has to stop doing money math in floating point. The agent must switch to exact arithmetic, convert currencies along the shortest rate path and reject ambiguous ones, total every parent account, round half-to-even per entry, and reject roughly thirty kinds of malformed input. The starter code fails eight of the twelve hidden checks in every language.</p>
-        <div class="source-strip">
-          <span>Read the actual task:</span>
-          <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/instruction.md">Full instructions &#8599;</a>
-          <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/javascript">JavaScript &#8599;</a>
-          <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/typescript">TypeScript &#8599;</a>
-          <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/python">Python &#8599;</a>
-          <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/go">Go &#8599;</a>
-          <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/verifier/verify.py">Shared verifier &#8599;</a>
-        </div>
-      </div>
+      <dl class="spec-strip" aria-label="Study configuration">
+        <div><dt>Task</dt><dd><a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/instruction.md">money-rollup &#8599;</a></dd></div>
+        <div><dt>Model</dt><dd>GPT-5.6 Luna, low effort</dd></div>
+        <div><dt>Agent</dt><dd>mini-swe-agent 2.4.6, bash only</dd></div>
+        <div><dt>Runs</dt><dd><span id="stat-passed">84/96</span> passed</dd></div>
+      </dl>
     </section>
 
     <section id="latest" class="at-a-glance section-shell" aria-labelledby="glance-title">
@@ -63,7 +39,7 @@
           <p class="kicker">Current study</p>
           <h2 id="glance-title">Results across four languages</h2>
         </div>
-        <p>Every language ran the same hard task <span id="stat-runs">24</span> times on the strongest model rung. <strong id="stat-passed">84/96</strong> attempts passed overall, so the results have room to differ instead of being pinned at a perfect score.</p>
+        <p>An <strong>agent step</strong> is one model action in the loop: read a file, run a command, apply an edit. Fewer steps means the same passing result took less work, fewer tokens, and less money.</p>
       </div>
 
       <div id="result-chart" class="chart-grid">
@@ -104,7 +80,7 @@
     <section id="reading" class="study section-shell" aria-labelledby="reading-title">
       <div class="section-heading">
         <p class="kicker">What the data says</p>
-        <h2 id="reading-title">Success barely moved. Effort did.</h2>
+        <h2 id="reading-title">What the numbers show</h2>
       </div>
       <div class="reading-grid">
         <article>
@@ -112,8 +88,8 @@
           <p>Python passed all 24 attempts. JavaScript passed 18, and that gap is real: the interval for the difference excludes zero, as does the smaller gap between Python and Go. TypeScript at 22 sits between them without separating from either. So there is a correctness signal here, and it is not the one a type checker would predict.</p>
         </article>
         <article>
-          <h3>Go and TypeScript cost more steps</h3>
-          <p>Go needed about 1.5 more agent steps than Python or JavaScript, and TypeScript needed about 0.7 more than either. Both effects have intervals clear of zero, and both languages cost the most tokens and money per attempt. The compile step is the obvious suspect: the two compiled languages are the two expensive ones.</p>
+          <h3>Compiled languages took more steps</h3>
+          <p>Go needed about 1.5 more agent steps than Python or JavaScript, and TypeScript about 0.7 more. Both intervals clear zero, and both languages also cost the most tokens, seconds, and money per attempt. The compile step is the obvious suspect: the two languages with a build are the two expensive ones.</p>
         </article>
         <article>
           <h3>A weaker model fails everywhere</h3>
@@ -124,7 +100,41 @@
           <p>This is one task family, one model snapshot, and one bash-only agent scaffold. The language is a bundle that also includes its toolchain, file layout, and ecosystem, so none of this is a claim about syntax. The first half of this cohort ranked Go worst on correctness and the second half did not, which is a fair warning about how far twelve attempts can be trusted.</p>
         </article>
       </div>
-      <p class="calibration-note">Intervals are 95% percentile intervals from a fixed-seed 20,000-resample paired bootstrap over matched attempt blocks. The full method, the paired contrasts for every pair, and the per-case failure breakdown are in the <a href="./V07_REPORT.md">written report</a>.</p>
+      <p class="calibration-note">Every paired contrast, the per-case failure breakdown, and the weaker-model cohort are in the <a href="./V07_REPORT.md">written report</a>.</p>
+    </section>
+
+    <section id="notes" class="notes section-shell" aria-labelledby="notes-title">
+      <div class="section-heading">
+        <p class="kicker">Extra notes</p>
+        <h2 id="notes-title">Method and task</h2>
+      </div>
+      <div class="notes-grid">
+        <article>
+          <h3>The task</h3>
+          <p>A four-file command-line reporting tool has to stop doing money math in floating point. The agent switches to exact arithmetic, converts currencies along the shortest rate path and rejects ambiguous ones, totals every parent account, rounds half-to-even per entry, and rejects about thirty kinds of malformed input. The starter code fails eight of the twelve hidden checks in every language.</p>
+        </article>
+        <article>
+          <h3>Why this task</h3>
+          <p>Earlier rounds were too easy. Every language passed everything, which pins each difference at exactly zero and answers nothing. This one fails often enough to compare, which is the whole point of replacing it.</p>
+        </article>
+        <article>
+          <h3>Calibration</h3>
+          <p>Before any paid run: reference solutions pass every check, the four untouched starters fail the identical eight checks, and four seeded sabotages are caught with identical failure sets in every language. Instructions are byte-identical across languages and the hidden expectations are not readable from the workspace.</p>
+        </article>
+        <article>
+          <h3>Uncertainty</h3>
+          <p>Intervals are 95% percentile intervals from a fixed-seed 20,000-resample paired bootstrap over matched attempt blocks. The strong rung was collected in two batches of 48; the second ran because the first left Python versus Go touching zero, so that continuation was outcome-dependent and the report says so.</p>
+        </article>
+      </div>
+      <div class="source-strip">
+        <span>Read the actual task:</span>
+        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/instruction.md">Full instructions &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/javascript">JavaScript &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/typescript">TypeScript &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/python">Python &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/go">Go &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/verifier/verify.py">Shared verifier &#8599;</a>
+      </div>
     </section>
   </main>
 

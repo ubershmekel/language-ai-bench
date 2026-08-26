@@ -364,6 +364,48 @@ footer > div:first-child { max-width: 40ch; }
   .footer-columns { gap: 28px; }
 }
 
+.spec-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  align-self: center;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.spec-strip > div { padding: 16px 18px; background: var(--surface); }
+.spec-strip dt {
+  color: var(--muted);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+.spec-strip dd { margin: 5px 0 0; font-size: 0.86rem; }
+.spec-strip a { color: var(--accent); }
+.spec-strip a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.notes { padding: 96px 0; border-top: 1px solid var(--line); }
+/* Secondary section: keep the heading below the weight of the result headings. */
+.notes h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); letter-spacing: -0.02em; }
+.notes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 34px 46px;
+  margin: 34px 0 30px;
+}
+.notes-grid h3 { margin: 0 0 8px; font-size: 1rem; letter-spacing: -0.01em; }
+.notes-grid p { margin: 0; color: var(--muted); font-size: 0.86rem; }
+
+@media (max-width: 900px) {
+  .notes-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .spec-strip { grid-template-columns: 1fr; }
+  .notes { padding: 88px 0; }
+}
+
 /* Technical details */
 .details-hero { padding: 95px 0 72px; }
 .details-hero h1 { max-width: 900px; }
