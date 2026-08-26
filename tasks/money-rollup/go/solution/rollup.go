@@ -5,7 +5,7 @@ import (
 	"math/big"
 	"os"
 	"regexp"
-	"sort"
+	"slices"
 	"strings"
 )
 
@@ -55,6 +55,6 @@ func rollup(items []item) ([]string, map[string]*big.Int, error) {
 	for account := range totals {
 		accounts = append(accounts, account)
 	}
-	sort.Strings(accounts)
+	slices.Sort(accounts)
 	return accounts, totals, nil
 }

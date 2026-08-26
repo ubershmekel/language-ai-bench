@@ -1,4 +1,5 @@
-import json, os
+import json
+import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 tasks = {"1": {"id": "1", "title": "calibrate", "done": False}}

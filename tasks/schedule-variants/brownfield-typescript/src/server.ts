@@ -1,7 +1,8 @@
-import http, { IncomingMessage, ServerResponse } from "node:http";
+import http, { type IncomingMessage, type ServerResponse } from "node:http";
 import { URL } from "node:url";
 import * as store from "./store";
 import { normalizeSchedule, nextRun } from "./schedule";
+
 function send(res: ServerResponse, status: number, body: unknown): void {
   const data = JSON.stringify(body);
   res.writeHead(status, {
@@ -10,6 +11,7 @@ function send(res: ServerResponse, status: number, body: unknown): void {
   });
   res.end(data);
 }
+
 function read(req: IncomingMessage): Promise<unknown> {
   return new Promise((resolve, reject) => {
     let data = "";
@@ -23,21 +25,24 @@ function read(req: IncomingMessage): Promise<unknown> {
     });
   });
 }
-function record(value: unknown): value is Record<string, unknown> {
+
+function isRecord(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === "object" && !Array.isArray(value);
 }
+
 function allowed(
   value: unknown,
   keys: string[],
 ): value is Record<string, unknown> {
-  return record(value) && Object.keys(value).every((key) => keys.includes(key));
+  return isRecord(value) && Object.keys(value).every((key) => keys.includes(key));
 }
+
 const server = http.createServer(async (req, res) => {
-  const url = new URL(req.url ?? "/", "http://localhost"),
-    match = url.pathname.match(/^\/jobs(?:\/([^/]+)(\/next)?)?$/);
+  const url = new URL(req.url ?? "/", "http://localhost");
+  const match = url.pathname.match(/^\/jobs(?:\/([^/]+)(\/next)?)?$/);
   if (!match) return send(res, 404, { error: "not found" });
-  const id = match[1],
-    next = match[2];
+  const id = match[1];
+  const next = match[2];
   try {
     if (req.method === "POST" && !id) {
       const body = await read(req);
@@ -79,6 +84,7 @@ const server = http.createServer(async (req, res) => {
     return send(res, 400, { error: "invalid json" });
   }
 });
+
 server.listen(Number(process.env.PORT || 8080), "0.0.0.0", () =>
   console.log("ready"),
 );

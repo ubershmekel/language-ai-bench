@@ -12,6 +12,11 @@ function send(res, status, body) {
   });
   res.end(data);
 }
+
+/**
+ * Read the request body as a JSON object. The current implementation trusts
+ * the shape of what it parses and validates nothing below the top level.
+ */
 function read(req) {
   return new Promise((resolve, reject) => {
     let data = "";
@@ -43,15 +48,17 @@ const server = http.createServer(async (req, res) => {
       tasks.set(task.id, task);
       return send(res, 201, task);
     }
-    if (!id || !tasks.has(id)) return send(res, 404, { error: "not found" });
-    if (req.method === "GET") return send(res, 200, tasks.get(id));
+    if (!id) return send(res, 404, { error: "not found" });
+    const existing = tasks.get(id);
+    if (!existing) return send(res, 404, { error: "not found" });
+    if (req.method === "GET") return send(res, 200, existing);
     if (req.method === "PUT" || req.method === "PATCH") {
       const body = await read(req);
-      const old = tasks.get(id);
       const task =
         req.method === "PUT"
           ? { id, title: body.title, done: !!body.done }
-          : { ...old, ...body, id };
+          : // PATCH copies the body over the stored task without checking it.
+            { ...existing, ...body, id };
       tasks.set(id, task);
       return send(res, 200, task);
     }
@@ -64,6 +71,7 @@ const server = http.createServer(async (req, res) => {
     return send(res, 400, { error: "invalid json" });
   }
 });
+
 server.listen(Number(process.env.PORT || 8080), "0.0.0.0", () =>
   console.log("ready"),
 );

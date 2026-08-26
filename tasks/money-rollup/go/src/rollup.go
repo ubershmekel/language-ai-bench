@@ -2,7 +2,7 @@ package main
 
 import (
 	"math/big"
-	"sort"
+	"slices"
 )
 
 type item struct {
@@ -10,7 +10,7 @@ type item struct {
 	minor   *big.Int
 }
 
-func rollup(items []item) ([]string, map[string]*big.Int) {
+func rollup(items []item) []item {
 	totals := map[string]*big.Int{}
 	for _, entry := range items {
 		total, present := totals[entry.account]
@@ -24,6 +24,10 @@ func rollup(items []item) ([]string, map[string]*big.Int) {
 	for name := range totals {
 		accounts = append(accounts, name)
 	}
-	sort.Strings(accounts)
-	return accounts, totals
+	slices.Sort(accounts)
+	rows := make([]item, 0, len(accounts))
+	for _, name := range accounts {
+		rows = append(rows, item{account: name, minor: totals[name]})
+	}
+	return rows
 }

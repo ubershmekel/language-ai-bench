@@ -6,14 +6,14 @@ func edgeKey(source string, target string) string {
 	return source + " " + target
 }
 
-func buildGraph(currencies map[string]int, rates []map[string]string) (map[string]float64, error) {
+func buildGraph(currencies map[string]int, rates []rate) (map[string]float64, error) {
 	edges := map[string]float64{}
-	for _, rate := range rates {
-		value, err := parseRate(rate["rate"])
+	for _, edge := range rates {
+		value, err := parseRate(edge.Rate)
 		if err != nil {
 			return nil, err
 		}
-		edges[edgeKey(rate["from"], rate["to"])] = value
+		edges[edgeKey(edge.From, edge.To)] = value
 	}
 	return edges, nil
 }

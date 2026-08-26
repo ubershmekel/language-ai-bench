@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -42,7 +43,7 @@ func send(w http.ResponseWriter, s int, v any, t string) {
 	}
 	w.WriteHeader(s)
 	if v != nil {
-		json.NewEncoder(w).Encode(v)
+		_ = json.NewEncoder(w).Encode(v)
 	}
 }
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -157,7 +158,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/tasks", handler)
 	http.HandleFunc("/tasks/", handler)
-	http.ListenAndServe(":"+env("PORT", "8080"), nil)
+	if err := http.ListenAndServe(":"+env("PORT", "8080"), nil); err != nil {
+		log.Fatal(err)
+	}
 }
 func env(k, d string) string {
 	if v := os.Getenv(k); v != "" {

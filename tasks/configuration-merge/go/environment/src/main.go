@@ -5,34 +5,36 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"maps"
 	"os"
 )
 
 var layerNames = []string{"defaults", "file", "env", "cli"}
 
-func validate(value any) (map[string]any, error) {
+func validate(value any) ([]map[string]any, error) {
 	input, ok := value.(map[string]any)
 	if !ok || len(input) != len(layerNames) {
 		return nil, errors.New("invalid input")
 	}
+	layers := make([]map[string]any, 0, len(layerNames))
 	for _, name := range layerNames {
-		if _, ok := input[name].(map[string]any); !ok {
+		layer, ok := input[name].(map[string]any)
+		if !ok {
 			return nil, errors.New("invalid layer")
 		}
+		layers = append(layers, layer)
 	}
-	return input, nil
+	return layers, nil
 }
 
 func merge(value any) (map[string]any, error) {
-	input, err := validate(value)
+	layers, err := validate(value)
 	if err != nil {
 		return nil, err
 	}
 	result := map[string]any{}
-	for _, name := range layerNames {
-		for key, item := range input[name].(map[string]any) {
-			result[key] = item
-		}
+	for _, layer := range layers {
+		maps.Copy(result, layer)
 	}
 	return result, nil
 }

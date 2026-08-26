@@ -1,8 +1,8 @@
-export function parseAmount(text: unknown, minorUnits: number): number {
+export function parseAmount(text: string, minorUnits: number): number {
   return Number(text);
 }
 
-export function parseRate(text: unknown): number {
+export function parseRate(text: string): number {
   return Number(text);
 }
 

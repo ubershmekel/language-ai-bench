@@ -4,7 +4,7 @@ import (
 	"errors"
 	"math/big"
 	"os"
-	"sort"
+	"slices"
 )
 
 type edge struct {
@@ -80,7 +80,7 @@ func factor(edges map[string]edge, source string, target string) (*big.Rat, erro
 			for key := range edges {
 				keys = append(keys, key)
 			}
-			sort.Strings(keys)
+			slices.Sort(keys)
 			for _, key := range keys {
 				item := edges[key]
 				if item.source != node {
@@ -111,7 +111,7 @@ func factor(edges map[string]edge, source string, target string) (*big.Rat, erro
 			}
 			return arrival.value, nil
 		}
-		sort.Strings(next)
+		slices.Sort(next)
 		frontier = next
 	}
 	return nil, errors.New("no conversion path")

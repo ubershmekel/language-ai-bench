@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -15,21 +16,24 @@ type Task struct {
 	Done  bool   `json:"done"`
 }
 
-var mu sync.Mutex
-var tasks = map[string]Task{"1": {ID: "1", Title: "calibrate"}}
-var next = 2
+var (
+	mu    sync.Mutex
+	tasks = map[string]Task{"1": {ID: "1", Title: "calibrate"}}
+	next  = 2
+)
 
 func send(w http.ResponseWriter, status int, v any) {
 	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(status)
 	if v != nil {
-		json.NewEncoder(w).Encode(v)
+		_ = json.NewEncoder(w).Encode(v)
 	}
 }
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(strings.Trim(r.URL.Path, "/"), "/")
 	if len(parts) < 1 || parts[0] != "tasks" || len(parts) > 2 {
-		send(w, 404, map[string]string{"error": "not found"})
+		send(w, http.StatusNotFound, map[string]string{"error": "not found"})
 		return
 	}
 	id := ""
@@ -38,46 +42,43 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 	mu.Lock()
 	defer mu.Unlock()
-	if r.Method == "GET" && id == "" {
+	if r.Method == http.MethodGet && id == "" {
 		out := []Task{}
 		for _, t := range tasks {
 			out = append(out, t)
 		}
-		send(w, 200, out)
+		send(w, http.StatusOK, out)
 		return
 	}
-	if r.Method == "POST" && id == "" {
+	if r.Method == http.MethodPost && id == "" {
+		// The body is decoded on a best-effort basis and never validated.
 		var in Task
-		json.NewDecoder(r.Body).Decode(&in)
+		_ = json.NewDecoder(r.Body).Decode(&in)
 		in.ID = strconv.Itoa(next)
 		next++
 		tasks[in.ID] = in
-		send(w, 201, in)
+		send(w, http.StatusCreated, in)
 		return
 	}
 	old, ok := tasks[id]
 	if !ok {
-		send(w, 404, map[string]string{"error": "not found"})
+		send(w, http.StatusNotFound, map[string]string{"error": "not found"})
 		return
 	}
-	if r.Method == "GET" {
-		send(w, 200, old)
-		return
-	}
-	if r.Method == "DELETE" {
+	switch r.Method {
+	case http.MethodGet:
+		send(w, http.StatusOK, old)
+	case http.MethodDelete:
 		delete(tasks, id)
-		send(w, 204, nil)
-		return
-	}
-	if r.Method == "PUT" || r.Method == "PATCH" {
-		var in Task
-		if r.Method == "PATCH" {
+		send(w, http.StatusNoContent, nil)
+	case http.MethodPut, http.MethodPatch:
+		in := old
+		if r.Method == http.MethodPatch {
 			var patch struct {
 				Title *string `json:"title"`
 				Done  *bool   `json:"done"`
 			}
-			json.NewDecoder(r.Body).Decode(&patch)
-			in = old
+			_ = json.NewDecoder(r.Body).Decode(&patch)
 			if patch.Title != nil {
 				in.Title = *patch.Title
 			}
@@ -85,23 +86,28 @@ func handler(w http.ResponseWriter, r *http.Request) {
 				in.Done = *patch.Done
 			}
 		} else {
-			json.NewDecoder(r.Body).Decode(&in)
+			in = Task{}
+			_ = json.NewDecoder(r.Body).Decode(&in)
 		}
 		in.ID = id
 		tasks[id] = in
-		send(w, 200, in)
-		return
+		send(w, http.StatusOK, in)
+	default:
+		send(w, http.StatusMethodNotAllowed, nil)
 	}
-	send(w, 405, nil)
 }
+
+func env(key string, fallback string) string {
+	if value := os.Getenv(key); value != "" {
+		return value
+	}
+	return fallback
+}
+
 func main() {
 	http.HandleFunc("/tasks", handler)
 	http.HandleFunc("/tasks/", handler)
-	http.ListenAndServe(":"+env("PORT", "8080"), nil)
-}
-func env(k, d string) string {
-	if v := os.Getenv(k); v != "" {
-		return v
+	if err := http.ListenAndServe(":"+env("PORT", "8080"), nil); err != nil {
+		log.Fatal(err)
 	}
-	return d
 }

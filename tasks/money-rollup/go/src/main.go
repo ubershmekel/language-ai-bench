@@ -13,11 +13,17 @@ type entry struct {
 	Amount   string `json:"amount"`
 }
 
+type rate struct {
+	From string `json:"from"`
+	To   string `json:"to"`
+	Rate string `json:"rate"`
+}
+
 type document struct {
-	ReportCurrency string              `json:"reportCurrency"`
-	Currencies     map[string]int      `json:"currencies"`
-	Rates          []map[string]string `json:"rates"`
-	Entries        []entry             `json:"entries"`
+	ReportCurrency string         `json:"reportCurrency"`
+	Currencies     map[string]int `json:"currencies"`
+	Rates          []rate         `json:"rates"`
+	Entries        []entry        `json:"entries"`
 }
 
 type account struct {
@@ -54,10 +60,13 @@ func buildReport(input document) (*report, error) {
 			minor:   roundAmount(amount*rate, places),
 		})
 	}
-	names, totals := rollup(items)
-	rows := make([]account, 0, len(names))
-	for _, name := range names {
-		rows = append(rows, account{Account: name, Total: formatMinor(totals[name], places)})
+	totals := rollup(items)
+	rows := make([]account, 0, len(totals))
+	for _, total := range totals {
+		rows = append(rows, account{
+			Account: total.account,
+			Total:   formatMinor(total.minor, places),
+		})
 	}
 	return &report{ReportCurrency: input.ReportCurrency, Accounts: rows}, nil
 }

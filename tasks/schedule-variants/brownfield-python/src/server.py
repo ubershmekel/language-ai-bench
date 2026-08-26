@@ -1,7 +1,8 @@
-import json, os
+import json
+import os
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlparse
+from urllib.parse import parse_qsl, urlparse
 
 jobs = {
     "1": {
@@ -86,13 +87,8 @@ class Handler(BaseHTTPRequestHandler):
             if not job:
                 return self.send(404, {"error": "not found"})
             if self.command == "GET" and is_next:
-                after = instant(
-                    dict(
-                        __import__("urllib.parse").parse.parse_qsl(
-                            urlparse(self.path).query
-                        )
-                    ).get("after")
-                )
+                query = dict(parse_qsl(urlparse(self.path).query))
+                after = instant(query.get("after"))
                 if not after:
                     return self.send(400, {"error": "invalid after"})
                 return self.send(

@@ -1,5 +1,11 @@
 import { parseRate } from "./money";
 
+export interface Rate {
+  from: string;
+  to: string;
+  rate: string;
+}
+
 export type Graph = Map<string, number>;
 
 function edgeKey(source: string, target: string): string {
@@ -8,7 +14,7 @@ function edgeKey(source: string, target: string): string {
 
 export function buildGraph(
   currencies: Record<string, number>,
-  rates: Array<Record<string, string>>
+  rates: readonly Rate[],
 ): Graph {
   const edges: Graph = new Map();
   for (const rate of rates) {

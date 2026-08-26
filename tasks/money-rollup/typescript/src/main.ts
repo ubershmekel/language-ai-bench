@@ -1,38 +1,51 @@
-import { buildGraph, factor } from "./fx";
+import { buildGraph, factor, type Rate } from "./fx";
 import { formatMinor, parseAmount, roundAmount } from "./money";
-import { rollup } from "./rollup";
+import { rollup, type Item } from "./rollup";
 
 const TOP_LEVEL = ["currencies", "entries", "rates", "reportCurrency"];
 
-interface Document {
-  reportCurrency: string;
-  currencies: Record<string, number>;
-  rates: Array<Record<string, string>>;
-  entries: Array<Record<string, string>>;
+export interface Entry {
+  account: string;
+  currency: string;
+  amount: string;
 }
 
-interface Report {
+export interface Ledger {
+  reportCurrency: string;
+  currencies: Record<string, number>;
+  rates: Rate[];
+  entries: Entry[];
+}
+
+export interface Report {
   reportCurrency: string;
   accounts: Array<{ account: string; total: string }>;
 }
 
-export function buildReport(value: unknown): Report {
-  const document = value as Document;
-  const keys = Object.keys(document ?? {})
+/**
+ * Accept the parsed input as a ledger. The current implementation checks only
+ * the top-level key set and trusts every value below it.
+ */
+function asLedger(value: unknown): Ledger {
+  const keys = Object.keys(value ?? {})
     .sort()
     .join(",");
   if (keys !== TOP_LEVEL.join(",")) {
     throw new Error("malformed document");
   }
-  const currencies = document.currencies;
-  const report = document.reportCurrency;
+  return value as Ledger;
+}
+
+export function buildReport(ledger: Ledger): Report {
+  const currencies = ledger.currencies;
+  const report = ledger.reportCurrency;
   if (!(report in currencies)) {
     throw new Error("unknown report currency");
   }
-  const edges = buildGraph(currencies, document.rates);
+  const edges = buildGraph(currencies, ledger.rates);
   const places = currencies[report];
-  const items: Array<[string, bigint]> = [];
-  for (const entry of document.entries) {
+  const items: Item[] = [];
+  for (const entry of ledger.entries) {
     const code = entry.currency;
     const amount = parseAmount(entry.amount, currencies[code]);
     const converted = amount * factor(edges, code, report);
@@ -54,9 +67,12 @@ process.stdin.on("data", (chunk: string) => {
 });
 process.stdin.on("end", () => {
   try {
-    process.stdout.write(JSON.stringify(buildReport(JSON.parse(input))) + "\n");
+    const report = buildReport(asLedger(JSON.parse(input)));
+    process.stdout.write(JSON.stringify(report) + "\n");
   } catch (error) {
-    process.stderr.write(String((error as Error).message) + "\n");
+    process.stderr.write(
+      (error instanceof Error ? error.message : String(error)) + "\n",
+    );
     process.exit(1);
   }
 });

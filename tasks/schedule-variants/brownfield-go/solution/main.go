@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"math"
 	"net/http"
 	"os"
@@ -213,7 +214,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/jobs", handler)
 	http.HandleFunc("/jobs/", handler)
-	http.ListenAndServe(":"+env("PORT", "8080"), nil)
+	if err := http.ListenAndServe(":"+env("PORT", "8080"), nil); err != nil {
+		log.Fatal(err)
+	}
 }
 func env(k, d string) string {
 	if v := os.Getenv(k); v != "" {

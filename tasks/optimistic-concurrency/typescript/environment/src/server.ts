@@ -1,11 +1,18 @@
-import http, { IncomingMessage, ServerResponse } from "node:http";
+import http, { type IncomingMessage, type ServerResponse } from "node:http";
 import { URL } from "node:url";
-type Task = { id: string; title: string; done: boolean };
+
+interface Task {
+  id: string;
+  title: string;
+  done: boolean;
+}
+
 const tasks = new Map<string, Task>([
   ["1", { id: "1", title: "calibrate", done: false }],
 ]);
 let nextId = 2;
-function send(res: ServerResponse, status: number, body?: unknown) {
+
+function send(res: ServerResponse, status: number, body?: unknown): void {
   const data = body === undefined ? "" : JSON.stringify(body);
   res.writeHead(status, {
     "content-type": "application/json",
@@ -13,47 +20,55 @@ function send(res: ServerResponse, status: number, body?: unknown) {
   });
   res.end(data);
 }
+
+/**
+ * Read the request body as a JSON object. The current implementation trusts
+ * the shape of what it parses and validates nothing below the top level.
+ */
 function read(req: IncomingMessage): Promise<Record<string, unknown>> {
   return new Promise((resolve, reject) => {
     let data = "";
-    req.on("data", (c) => (data += c));
+    req.on("data", (chunk) => (data += chunk));
     req.on("end", () => {
       try {
         resolve(data ? JSON.parse(data) : {});
-      } catch (e) {
-        reject(e);
+      } catch (error) {
+        reject(error);
       }
     });
   });
 }
+
 const server = http.createServer(async (req, res) => {
-  const url = new URL(req.url ?? "/", "http://localhost"),
-    m = url.pathname.match(/^\/tasks(?:\/([^/]+))?$/);
-  if (!m) return send(res, 404, { error: "not found" });
-  const id = m[1];
+  const url = new URL(req.url ?? "/", "http://localhost");
+  const match = url.pathname.match(/^\/tasks(?:\/([^/]+))?$/);
+  if (!match) return send(res, 404, { error: "not found" });
+  const id = match[1];
   try {
     if (req.method === "GET" && !id) return send(res, 200, [...tasks.values()]);
     if (req.method === "POST" && !id) {
-      const b = await read(req),
-        t: Task = {
-          id: String(nextId++),
-          title: String(b.title ?? ""),
-          done: Boolean(b.done),
-        };
-      tasks.set(t.id, t);
-      return send(res, 201, t);
+      const body = await read(req);
+      const task: Task = {
+        id: String(nextId++),
+        title: String(body.title ?? ""),
+        done: Boolean(body.done),
+      };
+      tasks.set(task.id, task);
+      return send(res, 201, task);
     }
-    if (!id || !tasks.has(id)) return send(res, 404, { error: "not found" });
-    if (req.method === "GET") return send(res, 200, tasks.get(id));
+    if (!id) return send(res, 404, { error: "not found" });
+    const existing = tasks.get(id);
+    if (!existing) return send(res, 404, { error: "not found" });
+    if (req.method === "GET") return send(res, 200, existing);
     if (req.method === "PUT" || req.method === "PATCH") {
-      const b = await read(req),
-        old = tasks.get(id)!;
-      const t: Task =
+      const body = await read(req);
+      const task: Task =
         req.method === "PUT"
-          ? { id, title: String(b.title ?? ""), done: Boolean(b.done) }
-          : ({ ...old, ...b, id } as Task);
-      tasks.set(id, t);
-      return send(res, 200, t);
+          ? { id, title: String(body.title ?? ""), done: Boolean(body.done) }
+          : // PATCH copies the body over the stored task without checking it.
+            ({ ...existing, ...body, id } as Task);
+      tasks.set(id, task);
+      return send(res, 200, task);
     }
     if (req.method === "DELETE") {
       tasks.delete(id);
@@ -64,6 +79,7 @@ const server = http.createServer(async (req, res) => {
     return send(res, 400, { error: "invalid json" });
   }
 });
+
 server.listen(Number(process.env.PORT || 8080), "0.0.0.0", () =>
   console.log("ready"),
 );

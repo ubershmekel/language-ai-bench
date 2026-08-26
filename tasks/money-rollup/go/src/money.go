@@ -4,6 +4,7 @@ import (
 	"math"
 	"math/big"
 	"strconv"
+	"strings"
 )
 
 func parseAmount(text string, minorUnits int) (float64, error) {
@@ -24,8 +25,8 @@ func roundAmount(value float64, places int) *big.Int {
 func formatMinor(minor *big.Int, places int) string {
 	negative := minor.Sign() < 0
 	digits := new(big.Int).Abs(minor).String()
-	for len(digits) < places+1 {
-		digits = "0" + digits
+	if pad := places + 1 - len(digits); pad > 0 {
+		digits = strings.Repeat("0", pad) + digits
 	}
 	if places > 0 {
 		split := len(digits) - places

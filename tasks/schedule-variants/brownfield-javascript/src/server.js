@@ -2,6 +2,7 @@ const http = require("node:http");
 const { URL } = require("node:url");
 const store = require("./store");
 const { normalizeSchedule, nextRun } = require("./schedule");
+
 function send(res, status, body) {
   const data = JSON.stringify(body);
   res.writeHead(status, {
@@ -10,6 +11,7 @@ function send(res, status, body) {
   });
   res.end(data);
 }
+
 function read(req) {
   return new Promise((resolve, reject) => {
     let data = "";
@@ -23,24 +25,29 @@ function read(req) {
     });
   });
 }
-function record(value) {
-  return value && typeof value === "object" && !Array.isArray(value);
+
+function isRecord(value) {
+  return !!value && typeof value === "object" && !Array.isArray(value);
 }
+
 function allowed(value, keys) {
-  return record(value) && Object.keys(value).every((key) => keys.includes(key));
+  return (
+    isRecord(value) && Object.keys(value).every((key) => keys.includes(key))
+  );
 }
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url || "/", "http://localhost");
   const match = url.pathname.match(/^\/jobs(?:\/([^/]+)(\/next)?)?$/);
   if (!match) return send(res, 404, { error: "not found" });
-  const id = match[1],
-    next = match[2];
+  const id = match[1];
+  const next = match[2];
   try {
     if (req.method === "POST" && !id) {
-      const body = await read(req),
-        schedule = allowed(body, ["name", "schedule"])
-          ? normalizeSchedule(body.schedule)
-          : null;
+      const body = await read(req);
+      const schedule = allowed(body, ["name", "schedule"])
+        ? normalizeSchedule(body.schedule)
+        : null;
       if (typeof body.name !== "string" || !body.name || !schedule)
         return send(res, 400, { error: "invalid job" });
       return send(res, 201, store.create(body.name, schedule));
@@ -76,6 +83,7 @@ const server = http.createServer(async (req, res) => {
     return send(res, 400, { error: "invalid json" });
   }
 });
+
 server.listen(Number(process.env.PORT || 8080), "0.0.0.0", () =>
   console.log("ready"),
 );

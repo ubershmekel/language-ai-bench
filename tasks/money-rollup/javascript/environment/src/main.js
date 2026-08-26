@@ -7,7 +7,9 @@ const { rollup } = require("./rollup");
 const TOP_LEVEL = ["currencies", "entries", "rates", "reportCurrency"];
 
 function buildReport(document) {
-  const keys = Object.keys(document || {}).sort().join(",");
+  const keys = Object.keys(document ?? {})
+    .sort()
+    .join(",");
   if (keys !== TOP_LEVEL.join(",")) {
     throw new Error("malformed document");
   }
