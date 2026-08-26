@@ -30,12 +30,17 @@ def run(cmd, *, check=True, capture=False):
 
 def build(task_dir, language, kind):
     folder = task_dir / language
+    reference = kind == "reference"
     dockerfile = folder / "environment" / (
-        "solution.Dockerfile" if kind == "reference" else "Dockerfile"
+        "solution.Dockerfile" if reference else "Dockerfile"
     )
+    # The baseline image is what the agent gets, so it is built from the same
+    # self-contained context Pier uses. Only the reference image may see
+    # solution/, and it needs the wider context to reach it.
+    context = folder if reference else folder / "environment"
     tag = f"language-ai-bench/{task_dir.name}-{language}:{kind}"
     print(f"building {tag}", flush=True)
-    run(["docker", "build", "-f", str(dockerfile), "-t", tag, str(folder)])
+    run(["docker", "build", "-f", str(dockerfile), "-t", tag, str(context)])
     return tag
 
 
