@@ -21,11 +21,11 @@ function rollup(items) {
       prefixes = prefixes.slice(-1);
     }
     for (const prefix of prefixes) {
-      totals.set(prefix, (totals.get(prefix) || 0n) + minor);
+      totals.set(prefix, (totals.get(prefix) ?? 0n) + minor);
     }
   }
-  return [...totals.entries()].sort((left, right) =>
-    left[0] < right[0] ? -1 : left[0] > right[0] ? 1 : 0
+  return [...totals.entries()].sort(([left], [right]) =>
+    left < right ? -1 : left > right ? 1 : 0,
   );
 }
 

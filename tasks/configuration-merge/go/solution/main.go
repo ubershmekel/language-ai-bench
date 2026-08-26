@@ -6,21 +6,25 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"slices"
 )
 
 var layerNames = []string{"defaults", "file", "env", "cli"}
 
-func validate(value any) (map[string]any, error) {
+func validate(value any) ([]map[string]any, error) {
 	input, ok := value.(map[string]any)
 	if !ok || len(input) != len(layerNames) {
 		return nil, errors.New("invalid input")
 	}
+	layers := make([]map[string]any, 0, len(layerNames))
 	for _, name := range layerNames {
-		if _, ok := input[name].(map[string]any); !ok {
+		layer, ok := input[name].(map[string]any)
+		if !ok {
 			return nil, errors.New("invalid layer")
 		}
+		layers = append(layers, layer)
 	}
-	return input, nil
+	return layers, nil
 }
 
 func clone(value any) any {
@@ -68,20 +72,17 @@ func mergeInto(target map[string]any, layer map[string]any, sabotage string) {
 }
 
 func merge(value any) (map[string]any, error) {
-	input, err := validate(value)
+	layers, err := validate(value)
 	if err != nil {
 		return nil, err
 	}
-	names := append([]string(nil), layerNames...)
 	sabotage := os.Getenv("LAB_SABOTAGE")
 	if sabotage == "reverse-precedence" {
-		for left, right := 0, len(names)-1; left < right; left, right = left+1, right-1 {
-			names[left], names[right] = names[right], names[left]
-		}
+		slices.Reverse(layers)
 	}
 	result := map[string]any{}
-	for _, name := range names {
-		mergeInto(result, input[name].(map[string]any), sabotage)
+	for _, layer := range layers {
+		mergeInto(result, layer, sabotage)
 	}
 	return result, nil
 }

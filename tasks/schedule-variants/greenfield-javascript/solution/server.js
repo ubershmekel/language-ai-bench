@@ -3,6 +3,12 @@ const { URL } = require("node:url");
 const store = require("./store");
 const { normalizeSchedule, nextRun } = require("./schedule");
 const sabotage = process.env.LAB_SABOTAGE || "";
+
+/** The status used to reject a malformed request. */
+function rejectStatus() {
+  return sabotage === "wrong-status-code" ? 422 : 400;
+}
+
 function send(res, status, body) {
   const data = JSON.stringify(body);
   res.writeHead(status, {
@@ -11,6 +17,7 @@ function send(res, status, body) {
   });
   res.end(data);
 }
+
 function read(req) {
   return new Promise((resolve, reject) => {
     let data = "";
@@ -24,28 +31,31 @@ function read(req) {
     });
   });
 }
-function record(value) {
-  return value && typeof value === "object" && !Array.isArray(value);
+
+function isRecord(value) {
+  return !!value && typeof value === "object" && !Array.isArray(value);
 }
+
 function allowed(value, keys) {
-  return record(value) && Object.keys(value).every((key) => keys.includes(key));
+  return (
+    isRecord(value) && Object.keys(value).every((key) => keys.includes(key))
+  );
 }
+
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url || "/", "http://localhost");
   const match = url.pathname.match(/^\/jobs(?:\/([^/]+)(\/next)?)?$/);
   if (!match) return send(res, 404, { error: "not found" });
-  const id = match[1],
-    next = match[2];
+  const id = match[1];
+  const next = match[2];
   try {
     if (req.method === "POST" && !id) {
-      const body = await read(req),
-        schedule = allowed(body, ["name", "schedule"])
-          ? normalizeSchedule(body.schedule)
-          : null;
+      const body = await read(req);
+      const schedule = allowed(body, ["name", "schedule"])
+        ? normalizeSchedule(body.schedule)
+        : null;
       if (typeof body.name !== "string" || !body.name || !schedule)
-        return send(res, sabotage === "wrong-status-code" ? 422 : 400, {
-          error: "invalid job",
-        });
+        return send(res, rejectStatus(), { error: "invalid job" });
       return send(res, 201, store.create(body.name, schedule));
     }
     if (!id) return send(res, 405, { error: "method not allowed" });
@@ -64,38 +74,27 @@ const server = http.createServer(async (req, res) => {
         !allowed(body, ["name", "schedule"]) ||
         Object.keys(body).length === 0
       )
-        return send(res, sabotage === "wrong-status-code" ? 422 : 400, {
-          error: "invalid patch",
-        });
+        return send(res, rejectStatus(), { error: "invalid patch" });
       const name = body.name === undefined ? job.name : body.name;
       const schedule =
         body.schedule === undefined
           ? job.schedule
           : normalizeSchedule(body.schedule);
       if (typeof name !== "string" || !name || !schedule)
-        return send(res, sabotage === "wrong-status-code" ? 422 : 400, {
-          error: "invalid patch",
-        });
-      return send(
-        res,
-        200,
-        store.replace({
-          id,
-          name,
-          schedule:
-            sabotage === "unhandled-concurrent-update"
-              ? { ...job.schedule, ...schedule }
-              : schedule,
-        }),
-      );
+        return send(res, rejectStatus(), { error: "invalid patch" });
+      // The sabotage leaves fields of the old schedule behind on a kind switch.
+      const patched =
+        sabotage === "unhandled-concurrent-update"
+          ? { ...job.schedule, ...schedule }
+          : schedule;
+      return send(res, 200, store.replace({ id, name, schedule: patched }));
     }
     return send(res, 405, { error: "method not allowed" });
   } catch {
-    return send(res, sabotage === "wrong-status-code" ? 422 : 400, {
-      error: "invalid json",
-    });
+    return send(res, rejectStatus(), { error: "invalid json" });
   }
 });
+
 server.listen(Number(process.env.PORT || 8080), "0.0.0.0", () =>
   console.log("ready"),
 );

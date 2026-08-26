@@ -1,21 +1,30 @@
-import { Schedule } from "./types";
+import type { Schedule } from "./types";
+
 const sabotage = process.env.LAB_SABOTAGE ?? "";
+
 function canonicalInstant(value: unknown): string | null {
   if (typeof value !== "string") return null;
   const date = new Date(value);
   return Number.isFinite(date.getTime()) ? date.toISOString() : null;
 }
-function record(value: unknown): value is Record<string, unknown> {
+
+function isRecord(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === "object" && !Array.isArray(value);
 }
+
+function isPositiveInteger(value: unknown): value is number {
+  return Number.isInteger(value) && (value as number) > 0;
+}
+
 function exactKeys(
   value: Record<string, unknown>,
   expected: string[],
 ): boolean {
   return Object.keys(value).sort().join(",") === [...expected].sort().join(",");
 }
+
 export function normalizeSchedule(value: unknown): Schedule | null {
-  if (!record(value)) return null;
+  if (!isRecord(value)) return null;
   if (exactKeys(value, ["kind", "at"]) && value.kind === "once") {
     const at = canonicalInstant(value.at);
     return at ? { kind: "once", at } : null;
@@ -31,16 +40,13 @@ export function normalizeSchedule(value: unknown): Schedule | null {
       sabotage === "missing-error-branch" && value.everyMinutes === undefined
         ? 1
         : value.everyMinutes;
-    if (
-      !startAt ||
-      !Number.isInteger(everyMinutes) ||
-      (everyMinutes as number) <= 0
-    )
-      return null;
-    return { kind: "interval", startAt, everyMinutes: everyMinutes as number };
+    if (!startAt || !isPositiveInteger(everyMinutes)) return null;
+    return { kind: "interval", startAt, everyMinutes };
   }
   return null;
 }
+
+/** Returns the next run, null when there is none, or undefined for a bad `after`. */
 export function nextRun(
   schedule: Schedule,
   afterValue: unknown,

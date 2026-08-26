@@ -1,9 +1,11 @@
 const sabotage = process.env.LAB_SABOTAGE || "";
+
 function canonicalInstant(value) {
   if (typeof value !== "string") return null;
   const date = new Date(value);
   return Number.isFinite(date.getTime()) ? date.toISOString() : null;
 }
+
 function exactKeys(value, expected) {
   return (
     value &&
@@ -12,6 +14,7 @@ function exactKeys(value, expected) {
     Object.keys(value).sort().join(",") === [...expected].sort().join(",")
   );
 }
+
 function normalizeSchedule(value) {
   if (exactKeys(value, ["kind", "at"]) && value.kind === "once") {
     const at = canonicalInstant(value.at);
@@ -34,6 +37,8 @@ function normalizeSchedule(value) {
   }
   return null;
 }
+
+/** Returns the next run, null when there is none, or undefined for a bad `after`. */
 function nextRun(schedule, afterValue) {
   const after = canonicalInstant(afterValue);
   if (!after) return undefined;
@@ -48,4 +53,5 @@ function nextRun(schedule, afterValue) {
     (sabotage === "off-by-one" ? 0 : 1);
   return new Date(startMs + periods * stepMs).toISOString();
 }
+
 module.exports = { normalizeSchedule, nextRun };

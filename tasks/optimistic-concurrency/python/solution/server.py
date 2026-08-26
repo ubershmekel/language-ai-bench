@@ -1,4 +1,8 @@
-import hashlib, json, os, threading, time
+import hashlib
+import json
+import os
+import threading
+import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 records = {
@@ -10,19 +14,14 @@ sabotage = os.getenv("LAB_SABOTAGE", "")
 
 
 def tag(rec):
-    return (
-        '"v' + str(rec["version"]) + '"'
-        if sabotage == "off-by-one"
-        else '"'
-        + hashlib.sha256(
-            (
-                json.dumps(rec["task"], sort_keys=True, separators=(",", ":"))
-                + ":"
-                + str(rec["version"])
-            ).encode()
-        ).hexdigest()[:16]
-        + '"'
+    if sabotage == "off-by-one":
+        return '"v' + str(rec["version"]) + '"'
+    payload = (
+        json.dumps(rec["task"], sort_keys=True, separators=(",", ":"))
+        + ":"
+        + str(rec["version"])
     )
+    return '"' + hashlib.sha256(payload.encode()).hexdigest()[:16] + '"'
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -36,16 +35,17 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(status)
         self.send_header("content-type", "application/json")
         self.send_header("content-length", str(len(data)))
-        etag and self.send_header("etag", etag)
+        if etag:
+            self.send_header("etag", etag)
         self.end_headers()
         self.wfile.write(data)
 
     def route(self):
         global next_id
         parts = self.path.split("?", 1)[0].strip("/").split("/")
-        ident = parts[1] if len(parts) == 2 and parts[0] == "tasks" else None
         if parts[0] != "tasks" or len(parts) > 2:
             return self.send(404, {"error": "not found"})
+        ident = parts[1] if len(parts) == 2 else None
         if self.command == "GET" and ident is None:
             return self.send(200, [x["task"] for x in records.values()])
         if self.command == "POST" and ident is None:

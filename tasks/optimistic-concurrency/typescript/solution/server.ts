@@ -1,105 +1,132 @@
-import http, { IncomingMessage, ServerResponse } from "node:http";
+import http, { type IncomingMessage, type ServerResponse } from "node:http";
 import { URL } from "node:url";
 import crypto from "node:crypto";
-type Task = { id: string; title: string; done: boolean };
-type Rec = { task: Task; version: number };
-const records = new Map<string, Rec>([
+
+interface Task {
+  id: string;
+  title: string;
+  done: boolean;
+}
+
+interface StoredTask {
+  task: Task;
+  version: number;
+}
+
+const records = new Map<string, StoredTask>([
   ["1", { task: { id: "1", title: "calibrate", done: false }, version: 1 }],
 ]);
 let nextId = 2;
 const sabotage = process.env.LAB_SABOTAGE ?? "";
-const tag = (r: Rec) =>
-  sabotage === "off-by-one"
-    ? `"v${r.version}"`
-    : `"${crypto
-        .createHash("sha256")
-        .update(JSON.stringify(r.task) + ":" + r.version)
-        .digest("hex")
-        .slice(0, 16)}"`;
-function send(res: ServerResponse, s: number, b?: unknown, e?: string) {
-  const d = b === undefined ? "" : JSON.stringify(b),
-    h: Record<string, string | number> = {
-      "content-type": "application/json",
-      "content-length": Buffer.byteLength(d),
-    };
-  if (e) h.etag = e;
-  res.writeHead(s, h);
-  res.end(d);
+
+function tag(record: StoredTask): string {
+  if (sabotage === "off-by-one") {
+    return `"v${record.version}"`;
+  }
+  const digest = crypto
+    .createHash("sha256")
+    .update(JSON.stringify(record.task) + ":" + record.version)
+    .digest("hex")
+    .slice(0, 16);
+  return `"${digest}"`;
 }
+
+function send(
+  res: ServerResponse,
+  status: number,
+  body?: unknown,
+  etag?: string,
+): void {
+  const data = body === undefined ? "" : JSON.stringify(body);
+  const headers: Record<string, string | number> = {
+    "content-type": "application/json",
+    "content-length": Buffer.byteLength(data),
+  };
+  if (etag) headers.etag = etag;
+  res.writeHead(status, headers);
+  res.end(data);
+}
+
+/** Read the request body as a JSON object; callers validate what they need. */
 function read(req: IncomingMessage): Promise<Record<string, unknown>> {
-  return new Promise((ok, no) => {
-    let d = "";
-    req.on("data", (c) => (d += c));
+  return new Promise((resolve, reject) => {
+    let data = "";
+    req.on("data", (chunk) => (data += chunk));
     req.on("end", () => {
       try {
-        ok(d ? JSON.parse(d) : {});
-      } catch (e) {
-        no(e);
+        resolve(data ? JSON.parse(data) : {});
+      } catch (error) {
+        reject(error);
       }
     });
   });
 }
+
 const server = http.createServer(async (req, res) => {
-  const u = new URL(req.url ?? "/", "http://localhost"),
-    m = u.pathname.match(/^\/tasks(?:\/([^/]+))?$/);
-  if (!m) return send(res, 404);
-  const id = m[1];
+  const url = new URL(req.url ?? "/", "http://localhost");
+  const match = url.pathname.match(/^\/tasks(?:\/([^/]+))?$/);
+  if (!match) return send(res, 404);
+  const id = match[1];
   try {
-    if (req.method === "GET" && !id)
+    if (req.method === "GET" && !id) {
       return send(
         res,
         200,
-        [...records.values()].map((x) => x.task),
+        [...records.values()].map((entry) => entry.task),
       );
-    if (req.method === "POST" && !id) {
-      const b = await read(req),
-        t: Task = {
-          id: String(nextId++),
-          title: String(b.title ?? ""),
-          done: Boolean(b.done),
-        },
-        r = { task: t, version: 1 };
-      records.set(t.id, r);
-      return send(res, 201, t, tag(r));
     }
-    const r = id ? records.get(id) : undefined;
-    if (!r) return send(res, 404);
-    if (req.method === "GET") return send(res, 200, r.task, tag(r));
+    if (req.method === "POST" && !id) {
+      const body = await read(req);
+      const task: Task = {
+        id: String(nextId++),
+        title: String(body.title ?? ""),
+        done: Boolean(body.done),
+      };
+      const record: StoredTask = { task, version: 1 };
+      records.set(task.id, record);
+      return send(res, 201, task, tag(record));
+    }
+    if (!id) return send(res, 404);
+    const record = records.get(id);
+    if (!record) return send(res, 404);
+    if (req.method === "GET") return send(res, 200, record.task, tag(record));
     if (["PUT", "PATCH", "DELETE"].includes(req.method ?? "")) {
-      const h = req.headers["if-match"];
-      if (!h) return send(res, 428);
-      if (h !== tag(r) && sabotage !== "missing-error-branch")
+      const ifMatch = req.headers["if-match"];
+      if (!ifMatch) return send(res, 428);
+      if (ifMatch !== tag(record) && sabotage !== "missing-error-branch")
         return send(res, sabotage === "wrong-status-code" ? 409 : 412);
     }
     if (req.method === "DELETE") {
-      records.delete(id!);
+      records.delete(id);
       return send(res, 204);
     }
     if (req.method === "PUT" || req.method === "PATCH") {
-      const before = tag(r),
-        b = await read(req);
+      const before = tag(record);
+      const body = await read(req);
       if (sabotage === "unhandled-concurrent-update")
-        await new Promise((ok) => setTimeout(ok, 80));
-      const cur = records.get(id!);
+        await new Promise((resume) => setTimeout(resume, 80));
+      const current = records.get(id);
       if (
         sabotage !== "unhandled-concurrent-update" &&
         sabotage !== "missing-error-branch" &&
-        (!cur || tag(cur) !== before)
+        (!current || tag(current) !== before)
       )
         return send(res, sabotage === "wrong-status-code" ? 409 : 412);
-      r.task =
+      record.task =
         req.method === "PUT"
-          ? { id: id!, title: String(b.title ?? ""), done: Boolean(b.done) }
-          : ({ ...r.task, ...b, id } as Task);
-      if (sabotage !== "off-by-one") r.version++;
-      records.set(id!, r);
-      return send(res, 200, r.task, tag(r));
+          ? { id, title: String(body.title ?? ""), done: Boolean(body.done) }
+          : // PATCH copies the body over the stored task without checking it.
+            ({ ...record.task, ...body, id } as Task);
+      if (sabotage !== "off-by-one") record.version++;
+      records.set(id, record);
+      return send(res, 200, record.task, tag(record));
     }
     return send(res, 405);
   } catch {
     return send(res, 400);
   }
 });
+
 server.listen(Number(process.env.PORT || 8080), "0.0.0.0", () =>
   console.log("ready"),
 );

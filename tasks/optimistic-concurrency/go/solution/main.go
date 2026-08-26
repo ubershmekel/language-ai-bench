@@ -18,109 +18,122 @@ type Task struct {
 	Title string `json:"title"`
 	Done  bool   `json:"done"`
 }
+
 type Record struct {
 	Task    Task
 	Version int
 }
 
-var mu sync.Mutex
-var records = map[string]*Record{"1": {Task: Task{ID: "1", Title: "calibrate"}, Version: 1}}
-var next = 2
-var sabotage = os.Getenv("LAB_SABOTAGE")
-
-func etag(x *Record) string {
-	if sabotage == "off-by-one" {
-		return `"v` + strconv.Itoa(x.Version) + `"`
+var (
+	mu      sync.Mutex
+	records = map[string]*Record{
+		"1": {Task: Task{ID: "1", Title: "calibrate"}, Version: 1},
 	}
-	b, _ := json.Marshal(x.Task)
-	sum := sha256.Sum256(append(b, []byte(":"+strconv.Itoa(x.Version))...))
+	next     = 2
+	sabotage = os.Getenv("LAB_SABOTAGE")
+)
+
+func etag(record *Record) string {
+	if sabotage == "off-by-one" {
+		return `"v` + strconv.Itoa(record.Version) + `"`
+	}
+	encoded, _ := json.Marshal(record.Task)
+	version := []byte(":" + strconv.Itoa(record.Version))
+	sum := sha256.Sum256(append(encoded, version...))
 	return `"` + hex.EncodeToString(sum[:])[:16] + `"`
 }
-func send(w http.ResponseWriter, s int, v any, t string) {
+
+func send(w http.ResponseWriter, status int, value any, tag string) {
 	w.Header().Set("content-type", "application/json")
-	if t != "" {
-		w.Header().Set("etag", t)
+	if tag != "" {
+		w.Header().Set("etag", tag)
 	}
-	w.WriteHeader(s)
-	if v != nil {
-		_ = json.NewEncoder(w).Encode(v)
+	w.WriteHeader(status)
+	if value != nil {
+		_ = json.NewEncoder(w).Encode(value)
 	}
 }
+
+// conflictStatus is the rejection status for a failed precondition.
+func conflictStatus() int {
+	if sabotage == "wrong-status-code" {
+		return http.StatusConflict
+	}
+	return http.StatusPreconditionFailed
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
-	p := strings.Split(strings.Trim(r.URL.Path, "/"), "/")
-	if len(p) < 1 || p[0] != "tasks" || len(p) > 2 {
-		send(w, 404, nil, "")
+	parts := strings.Split(strings.Trim(r.URL.Path, "/"), "/")
+	if len(parts) < 1 || parts[0] != "tasks" || len(parts) > 2 {
+		send(w, http.StatusNotFound, nil, "")
 		return
 	}
 	id := ""
-	if len(p) == 2 {
-		id = p[1]
+	if len(parts) == 2 {
+		id = parts[1]
 	}
-	if r.Method == "GET" && id == "" {
+	if r.Method == http.MethodGet && id == "" {
 		mu.Lock()
 		out := []Task{}
-		for _, x := range records {
-			out = append(out, x.Task)
+		for _, record := range records {
+			out = append(out, record.Task)
 		}
 		mu.Unlock()
-		send(w, 200, out, "")
+		send(w, http.StatusOK, out, "")
 		return
 	}
-	if r.Method == "POST" && id == "" {
-		var t Task
-		json.NewDecoder(r.Body).Decode(&t)
+	if r.Method == http.MethodPost && id == "" {
+		var task Task
+		_ = json.NewDecoder(r.Body).Decode(&task)
 		mu.Lock()
-		t.ID = strconv.Itoa(next)
+		task.ID = strconv.Itoa(next)
 		next++
-		x := &Record{Task: t, Version: 1}
-		records[t.ID] = x
+		record := &Record{Task: task, Version: 1}
+		records[task.ID] = record
 		mu.Unlock()
-		send(w, 201, t, etag(x))
+		send(w, http.StatusCreated, task, etag(record))
 		return
 	}
 	mu.Lock()
-	x := records[id]
+	record := records[id]
 	mu.Unlock()
-	if x == nil {
-		send(w, 404, nil, "")
+	if record == nil {
+		send(w, http.StatusNotFound, nil, "")
 		return
 	}
-	if r.Method == "GET" {
-		send(w, 200, x.Task, etag(x))
+	if r.Method == http.MethodGet {
+		send(w, http.StatusOK, record.Task, etag(record))
 		return
 	}
-	if r.Method == "PUT" || r.Method == "PATCH" || r.Method == "DELETE" {
-		h := r.Header.Get("if-match")
-		if h == "" {
-			send(w, 428, nil, "")
+	switch r.Method {
+	case http.MethodPut, http.MethodPatch, http.MethodDelete:
+		ifMatch := r.Header.Get("if-match")
+		if ifMatch == "" {
+			send(w, http.StatusPreconditionRequired, nil, "")
 			return
 		}
-		if h != etag(x) && sabotage != "missing-error-branch" {
-			s := 412
-			if sabotage == "wrong-status-code" {
-				s = 409
-			}
-			send(w, s, nil, "")
+		if ifMatch != etag(record) && sabotage != "missing-error-branch" {
+			send(w, conflictStatus(), nil, "")
 			return
 		}
 	}
-	if r.Method == "DELETE" {
+	if r.Method == http.MethodDelete {
 		mu.Lock()
 		delete(records, id)
 		mu.Unlock()
-		send(w, 204, nil, "")
+		send(w, http.StatusNoContent, nil, "")
 		return
 	}
-	if r.Method == "PUT" || r.Method == "PATCH" {
-		before := etag(x)
+	if r.Method == http.MethodPut || r.Method == http.MethodPatch {
+		before := etag(record)
 		var in Task
-		if r.Method == "PATCH" {
+		if r.Method == http.MethodPatch {
 			var patch struct {
 				Title *string `json:"title"`
 				Done  *bool   `json:"done"`
 			}
-			json.NewDecoder(r.Body).Decode(&patch)
-			in = x.Task
+			_ = json.NewDecoder(r.Body).Decode(&patch)
+			in = record.Task
 			if patch.Title != nil {
 				in.Title = *patch.Title
 			}
@@ -128,43 +141,43 @@ func handler(w http.ResponseWriter, r *http.Request) {
 				in.Done = *patch.Done
 			}
 		} else {
-			json.NewDecoder(r.Body).Decode(&in)
+			_ = json.NewDecoder(r.Body).Decode(&in)
 		}
 		if sabotage == "unhandled-concurrent-update" {
 			time.Sleep(80 * time.Millisecond)
 		}
 		mu.Lock()
 		defer mu.Unlock()
-		cur := records[id]
-		if sabotage != "unhandled-concurrent-update" && sabotage != "missing-error-branch" && (cur == nil || etag(cur) != before) {
-			s := 412
-			if sabotage == "wrong-status-code" {
-				s = 409
-			}
-			send(w, s, nil, "")
+		current := records[id]
+		stale := current == nil || etag(current) != before
+		if sabotage != "unhandled-concurrent-update" &&
+			sabotage != "missing-error-branch" && stale {
+			send(w, conflictStatus(), nil, "")
 			return
 		}
 		in.ID = id
-		x.Task = in
+		record.Task = in
 		if sabotage != "off-by-one" {
-			x.Version++
+			record.Version++
 		}
-		records[id] = x
-		send(w, 200, x.Task, etag(x))
+		records[id] = record
+		send(w, http.StatusOK, record.Task, etag(record))
 		return
 	}
-	send(w, 405, nil, "")
+	send(w, http.StatusMethodNotAllowed, nil, "")
 }
+
+func env(key string, fallback string) string {
+	if value := os.Getenv(key); value != "" {
+		return value
+	}
+	return fallback
+}
+
 func main() {
 	http.HandleFunc("/tasks", handler)
 	http.HandleFunc("/tasks/", handler)
 	if err := http.ListenAndServe(":"+env("PORT", "8080"), nil); err != nil {
 		log.Fatal(err)
 	}
-}
-func env(k, d string) string {
-	if v := os.Getenv(k); v != "" {
-		return v
-	}
-	return d
 }

@@ -9,16 +9,20 @@ const jobs = new Map([
   ],
 ]);
 let nextId = 2;
+
 function get(id) {
   return jobs.get(id);
 }
+
 function create(name, schedule) {
   const job = { id: String(nextId++), name, schedule };
   jobs.set(job.id, job);
   return job;
 }
+
 function replace(job) {
   jobs.set(job.id, job);
   return job;
 }
+
 module.exports = { get, create, replace };

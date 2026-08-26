@@ -1,4 +1,6 @@
-import json, math, os
+import json
+import math
+import os
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
@@ -60,7 +62,8 @@ def next_run(schedule, after_value):
     if not after:
         return False, None
     if schedule["kind"] == "once":
-        return True, schedule["at"] if parse_instant(schedule["at"]) > after else None
+        due = parse_instant(schedule["at"]) > after
+        return True, (schedule["at"] if due else None)
     start = parse_instant(schedule["startAt"])
     if after < start:
         return True, schedule["startAt"]
@@ -68,10 +71,8 @@ def next_run(schedule, after_value):
     periods = math.floor((after - start).total_seconds() / seconds) + (
         0 if sabotage == "off-by-one" else 1
     )
-    result = start.timestamp() + periods * seconds
-    return True, datetime.fromtimestamp(result, timezone.utc).isoformat(
-        timespec="milliseconds"
-    ).replace("+00:00", "Z")
+    moment = datetime.fromtimestamp(start.timestamp() + periods * seconds, timezone.utc)
+    return True, moment.isoformat(timespec="milliseconds").replace("+00:00", "Z")
 
 
 class Handler(BaseHTTPRequestHandler):

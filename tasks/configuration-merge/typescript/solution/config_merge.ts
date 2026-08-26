@@ -22,12 +22,19 @@ function validate(value: unknown): asserts value is Input {
     if (!isObject(value[key])) throw new Error("invalid layer");
 }
 
+function cloneArray(value: JsonValue[]): JsonValue[] {
+  return value.map(clone);
+}
+
+function cloneObject(value: JsonObject): JsonObject {
+  return Object.fromEntries(
+    Object.entries(value).map(([key, item]) => [key, clone(item)]),
+  );
+}
+
 function clone(value: JsonValue): JsonValue {
-  if (Array.isArray(value)) return value.map(clone);
-  if (isObject(value))
-    return Object.fromEntries(
-      Object.entries(value).map(([key, item]) => [key, clone(item)]),
-    );
+  if (Array.isArray(value)) return cloneArray(value);
+  if (isObject(value)) return cloneObject(value);
   return value;
 }
 
@@ -37,24 +44,21 @@ function mergeInto(
   sabotage: string,
 ): JsonObject {
   for (const [key, value] of Object.entries(layer)) {
+    const base = target[key];
     if (value === null && sabotage !== "ignore-delete") {
       delete target[key];
     } else if (isObject(value) && sabotage !== "shallow-merge") {
-      const base = target[key];
       target[key] = mergeInto(
-        isObject(base) ? (clone(base) as JsonObject) : {},
+        isObject(base) ? cloneObject(base) : {},
         value,
         sabotage,
       );
     } else if (
       Array.isArray(value) &&
       sabotage === "merge-arrays" &&
-      Array.isArray(target[key])
+      Array.isArray(base)
     ) {
-      target[key] = [
-        ...(target[key] as JsonValue[]),
-        ...(clone(value) as JsonValue[]),
-      ];
+      target[key] = [...base, ...cloneArray(value)];
     } else {
       target[key] = clone(value);
     }
