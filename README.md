@@ -160,8 +160,10 @@ reference/null/sabotage calibration, creates passing and failing zero-cost mock
 rollouts, and prints per-cell aggregation. Direct commands:
 
 ```bash
-python3 scripts/calibrate.py
+python3 scripts/calibrate.py --task-dir tasks/circuit-breaker --languages javascript typescript python python-typed go
 ```
+
+`run-local.sh` calibrates one family across all five arms as a smoke test. Each family has its own receipt at the repository root; run `calibrate.py` per family to regenerate them.
 
 ```bash
 python3 scripts/run_benchmark.py --agent mock-solve --seeds 2 --max-spend-usd 10 --dry-run

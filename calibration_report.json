@@ -3,7 +3,7 @@
   "benchmark_version": "0.2.0",
   "task_family": "optimistic-concurrency",
   "mode": "http",
-  "generated_at": "2026-08-25T07:20:07Z",
+  "generated_at": "2026-08-27T07:26:09Z",
   "green": true,
   "checks": {
     "reference_100_percent": true,
@@ -30,6 +30,15 @@
       "stale-write"
     ],
     "python": [
+      "concurrent-conflict",
+      "deleted-stale",
+      "etag-stable",
+      "if-match-required",
+      "matching-tag-changes",
+      "regression-patch-false",
+      "stale-write"
+    ],
+    "python-typed": [
       "concurrent-conflict",
       "deleted-stale",
       "etag-stable",
@@ -65,6 +74,11 @@
         "matching-tag-changes",
         "stale-write"
       ],
+      "python-typed": [
+        "concurrent-conflict",
+        "matching-tag-changes",
+        "stale-write"
+      ],
       "go": [
         "concurrent-conflict",
         "matching-tag-changes",
@@ -81,6 +95,10 @@
         "stale-write"
       ],
       "python": [
+        "concurrent-conflict",
+        "stale-write"
+      ],
+      "python-typed": [
         "concurrent-conflict",
         "stale-write"
       ],
@@ -102,6 +120,10 @@
         "concurrent-conflict",
         "stale-write"
       ],
+      "python-typed": [
+        "concurrent-conflict",
+        "stale-write"
+      ],
       "go": [
         "concurrent-conflict",
         "stale-write"
@@ -115,6 +137,9 @@
         "concurrent-conflict"
       ],
       "python": [
+        "concurrent-conflict"
+      ],
+      "python-typed": [
         "concurrent-conflict"
       ],
       "go": [
@@ -136,12 +161,12 @@
           {
             "case_id": "etag-stable",
             "passed": true,
-            "duration_ms": 15.0
+            "duration_ms": 31.0
           },
           {
             "case_id": "regression-patch-false",
             "passed": true,
-            "duration_ms": 0.0
+            "duration_ms": 15.0
           },
           {
             "case_id": "if-match-required",
@@ -166,7 +191,7 @@
           {
             "case_id": "deleted-stale",
             "passed": true,
-            "duration_ms": 0.0
+            "duration_ms": 16.0
           }
         ],
         "startup_ms": 16.0,
@@ -184,12 +209,12 @@
           {
             "case_id": "etag-stable",
             "passed": false,
-            "duration_ms": 0.0
+            "duration_ms": 15.0
           },
           {
             "case_id": "regression-patch-false",
             "passed": false,
-            "duration_ms": 31.0,
+            "duration_ms": 16.0,
             "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
           },
           {
@@ -200,29 +225,29 @@
           {
             "case_id": "matching-tag-changes",
             "passed": false,
-            "duration_ms": 16.0,
+            "duration_ms": 0.0,
             "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
           },
           {
             "case_id": "stale-write",
             "passed": false,
-            "duration_ms": 15.0,
+            "duration_ms": 16.0,
             "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
           },
           {
             "case_id": "concurrent-conflict",
             "passed": false,
-            "duration_ms": 0.0,
+            "duration_ms": 15.0,
             "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
           },
           {
             "case_id": "deleted-stale",
             "passed": false,
-            "duration_ms": 16.0,
+            "duration_ms": 0.0,
             "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
           }
         ],
-        "startup_ms": 0.0,
+        "startup_ms": 16.0,
         "verifier_exit_status": 1
       },
       "sabotages": {
@@ -238,7 +263,55 @@
             {
               "case_id": "etag-stable",
               "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
               "duration_ms": 15.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": false,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 15.0
+            }
+          ],
+          "startup_ms": 0.0,
+          "verifier_exit_status": 1
+        },
+        "missing-error-branch": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 16.0
             },
             {
               "case_id": "regression-patch-false",
@@ -252,8 +325,8 @@
             },
             {
               "case_id": "matching-tag-changes",
-              "passed": false,
-              "duration_ms": 0.0
+              "passed": true,
+              "duration_ms": 15.0
             },
             {
               "case_id": "stale-write",
@@ -274,54 +347,6 @@
           "startup_ms": 16.0,
           "verifier_exit_status": 1
         },
-        "missing-error-branch": {
-          "schema_version": "1.0.0",
-          "passed": false,
-          "case_results": [
-            {
-              "case_id": "regression-crud",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "etag-stable",
-              "passed": true,
-              "duration_ms": 31.0
-            },
-            {
-              "case_id": "regression-patch-false",
-              "passed": true,
-              "duration_ms": 0.0
-            },
-            {
-              "case_id": "if-match-required",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "matching-tag-changes",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "stale-write",
-              "passed": false,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "concurrent-conflict",
-              "passed": false,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "deleted-stale",
-              "passed": true,
-              "duration_ms": 0.0
-            }
-          ],
-          "startup_ms": 0.0,
-          "verifier_exit_status": 1
-        },
         "wrong-status-code": {
           "schema_version": "1.0.0",
           "passed": false,
@@ -329,7 +354,7 @@
             {
               "case_id": "regression-crud",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "etag-stable",
@@ -354,20 +379,20 @@
             {
               "case_id": "stale-write",
               "passed": false,
-              "duration_ms": 16.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "concurrent-conflict",
               "passed": false,
-              "duration_ms": 15.0
+              "duration_ms": 32.0
             },
             {
               "case_id": "deleted-stale",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 0.0
             }
           ],
-          "startup_ms": 0.0,
+          "startup_ms": 16.0,
           "verifier_exit_status": 1
         },
         "unhandled-concurrent-update": {
@@ -377,6 +402,159 @@
             {
               "case_id": "regression-crud",
               "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
+              "duration_ms": 93.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": true,
+              "duration_ms": 78.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": true,
+              "duration_ms": 94.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 110.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 0.0
+            }
+          ],
+          "startup_ms": 0.0,
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "typescript": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-crud",
+            "passed": true,
+            "duration_ms": 15.0
+          },
+          {
+            "case_id": "etag-stable",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "regression-patch-false",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "if-match-required",
+            "passed": true,
+            "duration_ms": 15.0
+          },
+          {
+            "case_id": "matching-tag-changes",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "stale-write",
+            "passed": true,
+            "duration_ms": 31.0
+          },
+          {
+            "case_id": "concurrent-conflict",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "deleted-stale",
+            "passed": true,
+            "duration_ms": 15.0
+          }
+        ],
+        "startup_ms": 0.0,
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-crud",
+            "passed": true,
+            "duration_ms": 15.0
+          },
+          {
+            "case_id": "etag-stable",
+            "passed": false,
+            "duration_ms": 31.0
+          },
+          {
+            "case_id": "regression-patch-false",
+            "passed": false,
+            "duration_ms": 16.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          },
+          {
+            "case_id": "if-match-required",
+            "passed": false,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "matching-tag-changes",
+            "passed": false,
+            "duration_ms": 15.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          },
+          {
+            "case_id": "stale-write",
+            "passed": false,
+            "duration_ms": 16.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          },
+          {
+            "case_id": "concurrent-conflict",
+            "passed": false,
+            "duration_ms": 0.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          },
+          {
+            "case_id": "deleted-stale",
+            "passed": false,
+            "duration_ms": 16.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          }
+        ],
+        "startup_ms": 16.0,
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "off-by-one": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
               "duration_ms": 16.0
             },
             {
@@ -387,7 +565,151 @@
             {
               "case_id": "regression-patch-false",
               "passed": true,
-              "duration_ms": 94.0
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": false,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 16.0
+            }
+          ],
+          "startup_ms": 0.0,
+          "verifier_exit_status": 1
+        },
+        "missing-error-branch": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": false,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 16.0
+            }
+          ],
+          "startup_ms": 15.0,
+          "verifier_exit_status": 1
+        },
+        "wrong-status-code": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": false,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 15.0
+            }
+          ],
+          "startup_ms": 16.0,
+          "verifier_exit_status": 1
+        },
+        "unhandled-concurrent-update": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
+              "duration_ms": 110.0
             },
             {
               "case_id": "if-match-required",
@@ -415,12 +737,12 @@
               "duration_ms": 15.0
             }
           ],
-          "startup_ms": 15.0,
+          "startup_ms": 0.0,
           "verifier_exit_status": 1
         }
       }
     },
-    "typescript": {
+    "python": {
       "reference": {
         "schema_version": "1.0.0",
         "passed": true,
@@ -433,7 +755,601 @@
           {
             "case_id": "etag-stable",
             "passed": true,
+            "duration_ms": 0.0
+          },
+          {
+            "case_id": "regression-patch-false",
+            "passed": true,
             "duration_ms": 16.0
+          },
+          {
+            "case_id": "if-match-required",
+            "passed": true,
+            "duration_ms": 15.0
+          },
+          {
+            "case_id": "matching-tag-changes",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "stale-write",
+            "passed": true,
+            "duration_ms": 0.0
+          },
+          {
+            "case_id": "concurrent-conflict",
+            "passed": true,
+            "duration_ms": 47.0
+          },
+          {
+            "case_id": "deleted-stale",
+            "passed": true,
+            "duration_ms": 31.0
+          }
+        ],
+        "startup_ms": 47.0,
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-crud",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "etag-stable",
+            "passed": false,
+            "duration_ms": 15.0
+          },
+          {
+            "case_id": "regression-patch-false",
+            "passed": false,
+            "duration_ms": 0.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          },
+          {
+            "case_id": "if-match-required",
+            "passed": false,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "matching-tag-changes",
+            "passed": false,
+            "duration_ms": 15.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          },
+          {
+            "case_id": "stale-write",
+            "passed": false,
+            "duration_ms": 0.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          },
+          {
+            "case_id": "concurrent-conflict",
+            "passed": false,
+            "duration_ms": 16.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          },
+          {
+            "case_id": "deleted-stale",
+            "passed": false,
+            "duration_ms": 0.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          }
+        ],
+        "startup_ms": 78.0,
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "off-by-one": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": false,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 32.0
+            }
+          ],
+          "startup_ms": 0.0,
+          "verifier_exit_status": 1
+        },
+        "missing-error-branch": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": false,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 31.0
+            }
+          ],
+          "startup_ms": 0.0,
+          "verifier_exit_status": 1
+        },
+        "wrong-status-code": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 16.0
+            }
+          ],
+          "startup_ms": 62.0,
+          "verifier_exit_status": 1
+        },
+        "unhandled-concurrent-update": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
+              "duration_ms": 94.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": true,
+              "duration_ms": 93.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": true,
+              "duration_ms": 94.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 94.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 0.0
+            }
+          ],
+          "startup_ms": 0.0,
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "python-typed": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-crud",
+            "passed": true,
+            "duration_ms": 15.0
+          },
+          {
+            "case_id": "etag-stable",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "regression-patch-false",
+            "passed": true,
+            "duration_ms": 0.0
+          },
+          {
+            "case_id": "if-match-required",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "matching-tag-changes",
+            "passed": true,
+            "duration_ms": 15.0
+          },
+          {
+            "case_id": "stale-write",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "concurrent-conflict",
+            "passed": true,
+            "duration_ms": 15.0
+          },
+          {
+            "case_id": "deleted-stale",
+            "passed": true,
+            "duration_ms": 16.0
+          }
+        ],
+        "startup_ms": 62.0,
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-crud",
+            "passed": true,
+            "duration_ms": 0.0
+          },
+          {
+            "case_id": "etag-stable",
+            "passed": false,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "regression-patch-false",
+            "passed": false,
+            "duration_ms": 15.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          },
+          {
+            "case_id": "if-match-required",
+            "passed": false,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "matching-tag-changes",
+            "passed": false,
+            "duration_ms": 16.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          },
+          {
+            "case_id": "stale-write",
+            "passed": false,
+            "duration_ms": 0.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          },
+          {
+            "case_id": "concurrent-conflict",
+            "passed": false,
+            "duration_ms": 0.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          },
+          {
+            "case_id": "deleted-stale",
+            "passed": false,
+            "duration_ms": 15.0,
+            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
+          }
+        ],
+        "startup_ms": 15.0,
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "off-by-one": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 32.0
+            }
+          ],
+          "startup_ms": 187.0,
+          "verifier_exit_status": 1
+        },
+        "missing-error-branch": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 16.0
+            }
+          ],
+          "startup_ms": 62.0,
+          "verifier_exit_status": 1
+        },
+        "wrong-status-code": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": false,
+              "duration_ms": 32.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 16.0
+            }
+          ],
+          "startup_ms": 125.0,
+          "verifier_exit_status": 1
+        },
+        "unhandled-concurrent-update": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-crud",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "etag-stable",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "regression-patch-false",
+              "passed": true,
+              "duration_ms": 94.0
+            },
+            {
+              "case_id": "if-match-required",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "matching-tag-changes",
+              "passed": true,
+              "duration_ms": 93.0
+            },
+            {
+              "case_id": "stale-write",
+              "passed": true,
+              "duration_ms": 94.0
+            },
+            {
+              "case_id": "concurrent-conflict",
+              "passed": false,
+              "duration_ms": 94.0
+            },
+            {
+              "case_id": "deleted-stale",
+              "passed": true,
+              "duration_ms": 16.0
+            }
+          ],
+          "startup_ms": 62.0,
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "go": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-crud",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "etag-stable",
+            "passed": true,
+            "duration_ms": 0.0
           },
           {
             "case_id": "regression-patch-false",
@@ -458,12 +1374,12 @@
           {
             "case_id": "concurrent-conflict",
             "passed": true,
-            "duration_ms": 15.0
+            "duration_ms": 0.0
           },
           {
             "case_id": "deleted-stale",
             "passed": true,
-            "duration_ms": 16.0
+            "duration_ms": 31.0
           }
         ],
         "startup_ms": 15.0,
@@ -492,18 +1408,18 @@
           {
             "case_id": "if-match-required",
             "passed": false,
-            "duration_ms": 0.0
+            "duration_ms": 15.0
           },
           {
             "case_id": "matching-tag-changes",
             "passed": false,
-            "duration_ms": 15.0,
+            "duration_ms": 0.0,
             "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
           },
           {
             "case_id": "stale-write",
             "passed": false,
-            "duration_ms": 0.0,
+            "duration_ms": 16.0,
             "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
           },
           {
@@ -530,7 +1446,7 @@
             {
               "case_id": "regression-crud",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "etag-stable",
@@ -545,12 +1461,12 @@
             {
               "case_id": "if-match-required",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "matching-tag-changes",
               "passed": false,
-              "duration_ms": 0.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "stale-write",
@@ -560,15 +1476,15 @@
             {
               "case_id": "concurrent-conflict",
               "passed": false,
-              "duration_ms": 31.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "deleted-stale",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 16.0
             }
           ],
-          "startup_ms": 16.0,
+          "startup_ms": 0.0,
           "verifier_exit_status": 1
         },
         "missing-error-branch": {
@@ -578,22 +1494,22 @@
             {
               "case_id": "regression-crud",
               "passed": true,
-              "duration_ms": 31.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "etag-stable",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 32.0
             },
             {
               "case_id": "regression-patch-false",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "if-match-required",
               "passed": true,
-              "duration_ms": 0.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "matching-tag-changes",
@@ -603,108 +1519,12 @@
             {
               "case_id": "stale-write",
               "passed": false,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "concurrent-conflict",
-              "passed": false,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "deleted-stale",
-              "passed": true,
-              "duration_ms": 31.0
-            }
-          ],
-          "startup_ms": 0.0,
-          "verifier_exit_status": 1
-        },
-        "wrong-status-code": {
-          "schema_version": "1.0.0",
-          "passed": false,
-          "case_results": [
-            {
-              "case_id": "regression-crud",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "etag-stable",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "regression-patch-false",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "if-match-required",
-              "passed": true,
-              "duration_ms": 0.0
-            },
-            {
-              "case_id": "matching-tag-changes",
-              "passed": true,
-              "duration_ms": 31.0
-            },
-            {
-              "case_id": "stale-write",
-              "passed": false,
               "duration_ms": 0.0
             },
             {
               "case_id": "concurrent-conflict",
               "passed": false,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "deleted-stale",
-              "passed": true,
-              "duration_ms": 31.0
-            }
-          ],
-          "startup_ms": 16.0,
-          "verifier_exit_status": 1
-        },
-        "unhandled-concurrent-update": {
-          "schema_version": "1.0.0",
-          "passed": false,
-          "case_results": [
-            {
-              "case_id": "regression-crud",
-              "passed": true,
               "duration_ms": 15.0
-            },
-            {
-              "case_id": "etag-stable",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "regression-patch-false",
-              "passed": true,
-              "duration_ms": 78.0
-            },
-            {
-              "case_id": "if-match-required",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "matching-tag-changes",
-              "passed": true,
-              "duration_ms": 94.0
-            },
-            {
-              "case_id": "stale-write",
-              "passed": true,
-              "duration_ms": 93.0
-            },
-            {
-              "case_id": "concurrent-conflict",
-              "passed": false,
-              "duration_ms": 78.0
             },
             {
               "case_id": "deleted-stale",
@@ -714,207 +1534,6 @@
           ],
           "startup_ms": 0.0,
           "verifier_exit_status": 1
-        }
-      }
-    },
-    "python": {
-      "reference": {
-        "schema_version": "1.0.0",
-        "passed": true,
-        "case_results": [
-          {
-            "case_id": "regression-crud",
-            "passed": true,
-            "duration_ms": 0.0
-          },
-          {
-            "case_id": "etag-stable",
-            "passed": true,
-            "duration_ms": 16.0
-          },
-          {
-            "case_id": "regression-patch-false",
-            "passed": true,
-            "duration_ms": 0.0
-          },
-          {
-            "case_id": "if-match-required",
-            "passed": true,
-            "duration_ms": 15.0
-          },
-          {
-            "case_id": "matching-tag-changes",
-            "passed": true,
-            "duration_ms": 16.0
-          },
-          {
-            "case_id": "stale-write",
-            "passed": true,
-            "duration_ms": 16.0
-          },
-          {
-            "case_id": "concurrent-conflict",
-            "passed": true,
-            "duration_ms": 15.0
-          },
-          {
-            "case_id": "deleted-stale",
-            "passed": true,
-            "duration_ms": 31.0
-          }
-        ],
-        "startup_ms": 266.0,
-        "verifier_exit_status": 0
-      },
-      "null": {
-        "schema_version": "1.0.0",
-        "passed": false,
-        "case_results": [
-          {
-            "case_id": "regression-crud",
-            "passed": true,
-            "duration_ms": 16.0
-          },
-          {
-            "case_id": "etag-stable",
-            "passed": false,
-            "duration_ms": 15.0
-          },
-          {
-            "case_id": "regression-patch-false",
-            "passed": false,
-            "duration_ms": 0.0,
-            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
-          },
-          {
-            "case_id": "if-match-required",
-            "passed": false,
-            "duration_ms": 16.0
-          },
-          {
-            "case_id": "matching-tag-changes",
-            "passed": false,
-            "duration_ms": 0.0,
-            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
-          },
-          {
-            "case_id": "stale-write",
-            "passed": false,
-            "duration_ms": 0.0,
-            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
-          },
-          {
-            "case_id": "concurrent-conflict",
-            "passed": false,
-            "duration_ms": 15.0,
-            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
-          },
-          {
-            "case_id": "deleted-stale",
-            "passed": false,
-            "duration_ms": 16.0,
-            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
-          }
-        ],
-        "startup_ms": 234.0,
-        "verifier_exit_status": 1
-      },
-      "sabotages": {
-        "off-by-one": {
-          "schema_version": "1.0.0",
-          "passed": false,
-          "case_results": [
-            {
-              "case_id": "regression-crud",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "etag-stable",
-              "passed": true,
-              "duration_ms": 0.0
-            },
-            {
-              "case_id": "regression-patch-false",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "if-match-required",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "matching-tag-changes",
-              "passed": false,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "stale-write",
-              "passed": false,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "concurrent-conflict",
-              "passed": false,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "deleted-stale",
-              "passed": true,
-              "duration_ms": 16.0
-            }
-          ],
-          "startup_ms": 219.0,
-          "verifier_exit_status": 1
-        },
-        "missing-error-branch": {
-          "schema_version": "1.0.0",
-          "passed": false,
-          "case_results": [
-            {
-              "case_id": "regression-crud",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "etag-stable",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "regression-patch-false",
-              "passed": true,
-              "duration_ms": 0.0
-            },
-            {
-              "case_id": "if-match-required",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "matching-tag-changes",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "stale-write",
-              "passed": false,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "concurrent-conflict",
-              "passed": false,
-              "duration_ms": 0.0
-            },
-            {
-              "case_id": "deleted-stale",
-              "passed": true,
-              "duration_ms": 31.0
-            }
-          ],
-          "startup_ms": 218.0,
-          "verifier_exit_status": 1
         },
         "wrong-status-code": {
           "schema_version": "1.0.0",
@@ -923,17 +1542,17 @@
             {
               "case_id": "regression-crud",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "etag-stable",
               "passed": true,
-              "duration_ms": 31.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "regression-patch-false",
               "passed": true,
-              "duration_ms": 32.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "if-match-required",
@@ -949,207 +1568,6 @@
               "case_id": "stale-write",
               "passed": false,
               "duration_ms": 16.0
-            },
-            {
-              "case_id": "concurrent-conflict",
-              "passed": false,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "deleted-stale",
-              "passed": true,
-              "duration_ms": 0.0
-            }
-          ],
-          "startup_ms": 234.0,
-          "verifier_exit_status": 1
-        },
-        "unhandled-concurrent-update": {
-          "schema_version": "1.0.0",
-          "passed": false,
-          "case_results": [
-            {
-              "case_id": "regression-crud",
-              "passed": true,
-              "duration_ms": 0.0
-            },
-            {
-              "case_id": "etag-stable",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "regression-patch-false",
-              "passed": true,
-              "duration_ms": 94.0
-            },
-            {
-              "case_id": "if-match-required",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "matching-tag-changes",
-              "passed": true,
-              "duration_ms": 78.0
-            },
-            {
-              "case_id": "stale-write",
-              "passed": true,
-              "duration_ms": 94.0
-            },
-            {
-              "case_id": "concurrent-conflict",
-              "passed": false,
-              "duration_ms": 93.0
-            },
-            {
-              "case_id": "deleted-stale",
-              "passed": true,
-              "duration_ms": 16.0
-            }
-          ],
-          "startup_ms": 203.0,
-          "verifier_exit_status": 1
-        }
-      }
-    },
-    "go": {
-      "reference": {
-        "schema_version": "1.0.0",
-        "passed": true,
-        "case_results": [
-          {
-            "case_id": "regression-crud",
-            "passed": true,
-            "duration_ms": 15.0
-          },
-          {
-            "case_id": "etag-stable",
-            "passed": true,
-            "duration_ms": 16.0
-          },
-          {
-            "case_id": "regression-patch-false",
-            "passed": true,
-            "duration_ms": 0.0
-          },
-          {
-            "case_id": "if-match-required",
-            "passed": true,
-            "duration_ms": 0.0
-          },
-          {
-            "case_id": "matching-tag-changes",
-            "passed": true,
-            "duration_ms": 15.0
-          },
-          {
-            "case_id": "stale-write",
-            "passed": true,
-            "duration_ms": 16.0
-          },
-          {
-            "case_id": "concurrent-conflict",
-            "passed": true,
-            "duration_ms": 31.0
-          },
-          {
-            "case_id": "deleted-stale",
-            "passed": true,
-            "duration_ms": 16.0
-          }
-        ],
-        "startup_ms": 0.0,
-        "verifier_exit_status": 0
-      },
-      "null": {
-        "schema_version": "1.0.0",
-        "passed": false,
-        "case_results": [
-          {
-            "case_id": "regression-crud",
-            "passed": true,
-            "duration_ms": 15.0
-          },
-          {
-            "case_id": "etag-stable",
-            "passed": false,
-            "duration_ms": 16.0
-          },
-          {
-            "case_id": "regression-patch-false",
-            "passed": false,
-            "duration_ms": 16.0,
-            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
-          },
-          {
-            "case_id": "if-match-required",
-            "passed": false,
-            "duration_ms": 15.0
-          },
-          {
-            "case_id": "matching-tag-changes",
-            "passed": false,
-            "duration_ms": 16.0,
-            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
-          },
-          {
-            "case_id": "stale-write",
-            "passed": false,
-            "duration_ms": 15.0,
-            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
-          },
-          {
-            "case_id": "concurrent-conflict",
-            "passed": false,
-            "duration_ms": 0.0,
-            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
-          },
-          {
-            "case_id": "deleted-stale",
-            "passed": false,
-            "duration_ms": 16.0,
-            "error": "TypeError: expected string or bytes-like object, got 'NoneType'"
-          }
-        ],
-        "startup_ms": 0.0,
-        "verifier_exit_status": 1
-      },
-      "sabotages": {
-        "off-by-one": {
-          "schema_version": "1.0.0",
-          "passed": false,
-          "case_results": [
-            {
-              "case_id": "regression-crud",
-              "passed": true,
-              "duration_ms": 0.0
-            },
-            {
-              "case_id": "etag-stable",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "regression-patch-false",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "if-match-required",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "matching-tag-changes",
-              "passed": false,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "stale-write",
-              "passed": false,
-              "duration_ms": 31.0
             },
             {
               "case_id": "concurrent-conflict",
@@ -1159,108 +1577,12 @@
             {
               "case_id": "deleted-stale",
               "passed": true,
-              "duration_ms": 16.0
-            }
-          ],
-          "startup_ms": 0.0,
-          "verifier_exit_status": 1
-        },
-        "missing-error-branch": {
-          "schema_version": "1.0.0",
-          "passed": false,
-          "case_results": [
-            {
-              "case_id": "regression-crud",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "etag-stable",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "regression-patch-false",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "if-match-required",
-              "passed": true,
-              "duration_ms": 0.0
-            },
-            {
-              "case_id": "matching-tag-changes",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "stale-write",
-              "passed": false,
-              "duration_ms": 0.0
-            },
-            {
-              "case_id": "concurrent-conflict",
-              "passed": false,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "deleted-stale",
-              "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 31.0
             }
           ],
           "startup_ms": 16.0,
           "verifier_exit_status": 1
         },
-        "wrong-status-code": {
-          "schema_version": "1.0.0",
-          "passed": false,
-          "case_results": [
-            {
-              "case_id": "regression-crud",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "etag-stable",
-              "passed": true,
-              "duration_ms": 0.0
-            },
-            {
-              "case_id": "regression-patch-false",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "if-match-required",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "matching-tag-changes",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "stale-write",
-              "passed": false,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "concurrent-conflict",
-              "passed": false,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "deleted-stale",
-              "passed": true,
-              "duration_ms": 16.0
-            }
-          ],
-          "startup_ms": 0.0,
-          "verifier_exit_status": 1
-        },
         "unhandled-concurrent-update": {
           "schema_version": "1.0.0",
           "passed": false,
@@ -1268,7 +1590,7 @@
             {
               "case_id": "regression-crud",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "etag-stable",
@@ -1278,12 +1600,12 @@
             {
               "case_id": "regression-patch-false",
               "passed": true,
-              "duration_ms": 94.0
+              "duration_ms": 79.0
             },
             {
               "case_id": "if-match-required",
               "passed": true,
-              "duration_ms": 0.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "matching-tag-changes",

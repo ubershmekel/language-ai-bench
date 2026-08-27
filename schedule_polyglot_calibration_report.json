@@ -3,7 +3,7 @@
   "benchmark_version": "0.2.0",
   "task_family": "schedule-variants",
   "mode": "http",
-  "generated_at": "2026-08-25T07:21:46Z",
+  "generated_at": "2026-08-27T07:27:53Z",
   "green": true,
   "checks": {
     "reference_100_percent": true,
@@ -24,6 +24,12 @@
       "patch-switches-kind"
     ],
     "brownfield-python": [
+      "interval-far-future",
+      "interval-next",
+      "invalid-patch-atomic",
+      "patch-switches-kind"
+    ],
+    "brownfield-python-typed": [
       "interval-far-future",
       "interval-next",
       "invalid-patch-atomic",
@@ -53,6 +59,11 @@
         "interval-next",
         "patch-switches-kind"
       ],
+      "brownfield-python-typed": [
+        "interval-far-future",
+        "interval-next",
+        "patch-switches-kind"
+      ],
       "brownfield-go": [
         "interval-far-future",
         "interval-next",
@@ -67,6 +78,9 @@
         "rejects-invalid-variants"
       ],
       "brownfield-python": [
+        "rejects-invalid-variants"
+      ],
+      "brownfield-python-typed": [
         "rejects-invalid-variants"
       ],
       "brownfield-go": [
@@ -89,6 +103,11 @@
         "invalid-patch-atomic",
         "rejects-invalid-variants"
       ],
+      "brownfield-python-typed": [
+        "errors-stable",
+        "invalid-patch-atomic",
+        "rejects-invalid-variants"
+      ],
       "brownfield-go": [
         "errors-stable",
         "invalid-patch-atomic",
@@ -105,6 +124,9 @@
       "brownfield-python": [
         "patch-switches-kind"
       ],
+      "brownfield-python-typed": [
+        "patch-switches-kind"
+      ],
       "brownfield-go": [
         "patch-switches-kind"
       ]
@@ -119,17 +141,17 @@
           {
             "case_id": "regression-once",
             "passed": true,
-            "duration_ms": 31.0
+            "duration_ms": 16.0
           },
           {
             "case_id": "interval-next",
             "passed": true,
-            "duration_ms": 15.0
+            "duration_ms": 31.0
           },
           {
             "case_id": "rejects-invalid-variants",
             "passed": true,
-            "duration_ms": 32.0
+            "duration_ms": 16.0
           },
           {
             "case_id": "patch-switches-kind",
@@ -144,12 +166,12 @@
           {
             "case_id": "errors-stable",
             "passed": true,
-            "duration_ms": 32.0
+            "duration_ms": 16.0
           },
           {
             "case_id": "interval-far-future",
             "passed": true,
-            "duration_ms": 0.0
+            "duration_ms": 16.0
           }
         ],
         "startup_ms": 16.0,
@@ -167,7 +189,7 @@
           {
             "case_id": "interval-next",
             "passed": false,
-            "duration_ms": 15.0,
+            "duration_ms": 0.0,
             "error": "AssertionError: (400, {'error': 'invalid job'})"
           },
           {
@@ -178,18 +200,18 @@
           {
             "case_id": "patch-switches-kind",
             "passed": false,
-            "duration_ms": 16.0
+            "duration_ms": 0.0
           },
           {
             "case_id": "invalid-patch-atomic",
             "passed": false,
-            "duration_ms": 0.0,
+            "duration_ms": 15.0,
             "error": "AssertionError: (400, {'error': 'invalid job'})"
           },
           {
             "case_id": "errors-stable",
             "passed": true,
-            "duration_ms": 15.0
+            "duration_ms": 16.0
           },
           {
             "case_id": "interval-far-future",
@@ -198,7 +220,7 @@
             "error": "AssertionError: (400, {'error': 'invalid job'})"
           }
         ],
-        "startup_ms": 0.0,
+        "startup_ms": 16.0,
         "verifier_exit_status": 1
       },
       "sabotages": {
@@ -209,17 +231,17 @@
             {
               "case_id": "regression-once",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "interval-next",
               "passed": false,
-              "duration_ms": 31.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "rejects-invalid-variants",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "patch-switches-kind",
@@ -229,12 +251,12 @@
             {
               "case_id": "invalid-patch-atomic",
               "passed": true,
-              "duration_ms": 31.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "errors-stable",
               "passed": true,
-              "duration_ms": 0.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "interval-far-future",
@@ -242,7 +264,7 @@
               "duration_ms": 16.0
             }
           ],
-          "startup_ms": 0.0,
+          "startup_ms": 16.0,
           "verifier_exit_status": 1
         },
         "missing-error-branch": {
@@ -252,7 +274,7 @@
             {
               "case_id": "regression-once",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 32.0
             },
             {
               "case_id": "interval-next",
@@ -262,64 +284,21 @@
             {
               "case_id": "rejects-invalid-variants",
               "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "patch-switches-kind",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "invalid-patch-atomic",
+              "passed": true,
               "duration_ms": 0.0
             },
             {
-              "case_id": "patch-switches-kind",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "invalid-patch-atomic",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
               "case_id": "errors-stable",
               "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "interval-far-future",
-              "passed": true,
-              "duration_ms": 32.0
-            }
-          ],
-          "startup_ms": 15.0,
-          "verifier_exit_status": 1
-        },
-        "wrong-status-code": {
-          "schema_version": "1.0.0",
-          "passed": false,
-          "case_results": [
-            {
-              "case_id": "regression-once",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "interval-next",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "rejects-invalid-variants",
-              "passed": false,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "patch-switches-kind",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "invalid-patch-atomic",
-              "passed": false,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "errors-stable",
-              "passed": false,
               "duration_ms": 31.0
             },
             {
@@ -329,6 +308,49 @@
             }
           ],
           "startup_ms": 16.0,
+          "verifier_exit_status": 1
+        },
+        "wrong-status-code": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-once",
+              "passed": true,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "interval-next",
+              "passed": true,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "rejects-invalid-variants",
+              "passed": false,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "patch-switches-kind",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "invalid-patch-atomic",
+              "passed": false,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "errors-stable",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "interval-far-future",
+              "passed": true,
+              "duration_ms": 16.0
+            }
+          ],
+          "startup_ms": 15.0,
           "verifier_exit_status": 1
         },
         "unhandled-concurrent-update": {
@@ -343,35 +365,35 @@
             {
               "case_id": "interval-next",
               "passed": true,
-              "duration_ms": 47.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "rejects-invalid-variants",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 62.0
             },
             {
               "case_id": "patch-switches-kind",
               "passed": false,
-              "duration_ms": 0.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "invalid-patch-atomic",
               "passed": true,
-              "duration_ms": 0.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "errors-stable",
               "passed": true,
-              "duration_ms": 31.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "interval-far-future",
               "passed": true,
-              "duration_ms": 0.0
+              "duration_ms": 16.0
             }
           ],
-          "startup_ms": 0.0,
+          "startup_ms": 15.0,
           "verifier_exit_status": 1
         }
       }
@@ -394,12 +416,12 @@
           {
             "case_id": "rejects-invalid-variants",
             "passed": true,
-            "duration_ms": 31.0
+            "duration_ms": 32.0
           },
           {
             "case_id": "patch-switches-kind",
             "passed": true,
-            "duration_ms": 0.0
+            "duration_ms": 15.0
           },
           {
             "case_id": "invalid-patch-atomic",
@@ -409,15 +431,15 @@
           {
             "case_id": "errors-stable",
             "passed": true,
-            "duration_ms": 0.0
+            "duration_ms": 16.0
           },
           {
             "case_id": "interval-far-future",
             "passed": true,
-            "duration_ms": 16.0
+            "duration_ms": 15.0
           }
         ],
-        "startup_ms": 0.0,
+        "startup_ms": 16.0,
         "verifier_exit_status": 0
       },
       "null": {
@@ -427,39 +449,39 @@
           {
             "case_id": "regression-once",
             "passed": true,
-            "duration_ms": 16.0
+            "duration_ms": 31.0
           },
           {
             "case_id": "interval-next",
             "passed": false,
-            "duration_ms": 15.0,
+            "duration_ms": 0.0,
             "error": "AssertionError: (400, {'error': 'invalid job'})"
           },
           {
             "case_id": "rejects-invalid-variants",
             "passed": true,
-            "duration_ms": 16.0
+            "duration_ms": 31.0
           },
           {
             "case_id": "patch-switches-kind",
             "passed": false,
-            "duration_ms": 16.0
+            "duration_ms": 0.0
           },
           {
             "case_id": "invalid-patch-atomic",
             "passed": false,
-            "duration_ms": 15.0,
+            "duration_ms": 0.0,
             "error": "AssertionError: (400, {'error': 'invalid job'})"
           },
           {
             "case_id": "errors-stable",
             "passed": true,
-            "duration_ms": 0.0
+            "duration_ms": 31.0
           },
           {
             "case_id": "interval-far-future",
             "passed": false,
-            "duration_ms": 16.0,
+            "duration_ms": 0.0,
             "error": "AssertionError: (400, {'error': 'invalid job'})"
           }
         ],
@@ -474,7 +496,7 @@
             {
               "case_id": "regression-once",
               "passed": true,
-              "duration_ms": 31.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "interval-next",
@@ -484,22 +506,22 @@
             {
               "case_id": "rejects-invalid-variants",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "patch-switches-kind",
               "passed": false,
-              "duration_ms": 15.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "invalid-patch-atomic",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "errors-stable",
               "passed": true,
-              "duration_ms": 31.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "interval-far-future",
@@ -507,7 +529,7 @@
               "duration_ms": 0.0
             }
           ],
-          "startup_ms": 0.0,
+          "startup_ms": 15.0,
           "verifier_exit_status": 1
         },
         "missing-error-branch": {
@@ -517,6 +539,49 @@
             {
               "case_id": "regression-once",
               "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "interval-next",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "rejects-invalid-variants",
+              "passed": false,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "patch-switches-kind",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "invalid-patch-atomic",
+              "passed": true,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "errors-stable",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "interval-far-future",
+              "passed": true,
+              "duration_ms": 16.0
+            }
+          ],
+          "startup_ms": 0.0,
+          "verifier_exit_status": 1
+        },
+        "wrong-status-code": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-once",
+              "passed": true,
               "duration_ms": 31.0
             },
             {
@@ -527,65 +592,22 @@
             {
               "case_id": "rejects-invalid-variants",
               "passed": false,
-              "duration_ms": 15.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "patch-switches-kind",
               "passed": true,
-              "duration_ms": 0.0
-            },
-            {
-              "case_id": "invalid-patch-atomic",
-              "passed": true,
-              "duration_ms": 32.0
-            },
-            {
-              "case_id": "errors-stable",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "interval-far-future",
-              "passed": true,
-              "duration_ms": 0.0
-            }
-          ],
-          "startup_ms": 15.0,
-          "verifier_exit_status": 1
-        },
-        "wrong-status-code": {
-          "schema_version": "1.0.0",
-          "passed": false,
-          "case_results": [
-            {
-              "case_id": "regression-once",
-              "passed": true,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "interval-next",
-              "passed": true,
-              "duration_ms": 15.0
-            },
-            {
-              "case_id": "rejects-invalid-variants",
-              "passed": false,
-              "duration_ms": 16.0
-            },
-            {
-              "case_id": "patch-switches-kind",
-              "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "invalid-patch-atomic",
               "passed": false,
-              "duration_ms": 0.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "errors-stable",
               "passed": false,
-              "duration_ms": 15.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "interval-far-future",
@@ -603,40 +625,40 @@
             {
               "case_id": "regression-once",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "interval-next",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "rejects-invalid-variants",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 32.0
             },
             {
               "case_id": "patch-switches-kind",
               "passed": false,
-              "duration_ms": 16.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "invalid-patch-atomic",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "errors-stable",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "interval-far-future",
               "passed": true,
-              "duration_ms": 0.0
+              "duration_ms": 15.0
             }
           ],
-          "startup_ms": 0.0,
+          "startup_ms": 15.0,
           "verifier_exit_status": 1
         }
       }
@@ -649,7 +671,7 @@
           {
             "case_id": "regression-once",
             "passed": true,
-            "duration_ms": 32.0
+            "duration_ms": 31.0
           },
           {
             "case_id": "interval-next",
@@ -664,25 +686,25 @@
           {
             "case_id": "patch-switches-kind",
             "passed": true,
-            "duration_ms": 15.0
+            "duration_ms": 16.0
           },
           {
             "case_id": "invalid-patch-atomic",
             "passed": true,
-            "duration_ms": 0.0
+            "duration_ms": 15.0
           },
           {
             "case_id": "errors-stable",
             "passed": true,
-            "duration_ms": 32.0
+            "duration_ms": 16.0
           },
           {
             "case_id": "interval-far-future",
             "passed": true,
-            "duration_ms": 0.0
+            "duration_ms": 16.0
           }
         ],
-        "startup_ms": 391.0,
+        "startup_ms": 46.0,
         "verifier_exit_status": 0
       },
       "null": {
@@ -692,18 +714,283 @@
           {
             "case_id": "regression-once",
             "passed": true,
-            "duration_ms": 15.0
+            "duration_ms": 31.0
           },
           {
             "case_id": "interval-next",
             "passed": false,
-            "duration_ms": 16.0,
+            "duration_ms": 0.0,
             "error": "AssertionError: (400, {'error': 'invalid job'})"
           },
           {
             "case_id": "rejects-invalid-variants",
             "passed": true,
             "duration_ms": 16.0
+          },
+          {
+            "case_id": "patch-switches-kind",
+            "passed": false,
+            "duration_ms": 15.0
+          },
+          {
+            "case_id": "invalid-patch-atomic",
+            "passed": false,
+            "duration_ms": 0.0,
+            "error": "AssertionError: (400, {'error': 'invalid job'})"
+          },
+          {
+            "case_id": "errors-stable",
+            "passed": true,
+            "duration_ms": 0.0
+          },
+          {
+            "case_id": "interval-far-future",
+            "passed": false,
+            "duration_ms": 16.0,
+            "error": "AssertionError: (400, {'error': 'invalid job'})"
+          }
+        ],
+        "startup_ms": 63.0,
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "off-by-one": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-once",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "interval-next",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "rejects-invalid-variants",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "patch-switches-kind",
+              "passed": false,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "invalid-patch-atomic",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "errors-stable",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "interval-far-future",
+              "passed": false,
+              "duration_ms": 15.0
+            }
+          ],
+          "startup_ms": 0.0,
+          "verifier_exit_status": 1
+        },
+        "missing-error-branch": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-once",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "interval-next",
+              "passed": true,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "rejects-invalid-variants",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "patch-switches-kind",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "invalid-patch-atomic",
+              "passed": true,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "errors-stable",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "interval-far-future",
+              "passed": true,
+              "duration_ms": 0.0
+            }
+          ],
+          "startup_ms": 0.0,
+          "verifier_exit_status": 1
+        },
+        "wrong-status-code": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-once",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "interval-next",
+              "passed": true,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "rejects-invalid-variants",
+              "passed": false,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "patch-switches-kind",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "invalid-patch-atomic",
+              "passed": false,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "errors-stable",
+              "passed": false,
+              "duration_ms": 15.0
+            },
+            {
+              "case_id": "interval-far-future",
+              "passed": true,
+              "duration_ms": 0.0
+            }
+          ],
+          "startup_ms": 15.0,
+          "verifier_exit_status": 1
+        },
+        "unhandled-concurrent-update": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-once",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "interval-next",
+              "passed": true,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "rejects-invalid-variants",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "patch-switches-kind",
+              "passed": false,
+              "duration_ms": 0.0
+            },
+            {
+              "case_id": "invalid-patch-atomic",
+              "passed": true,
+              "duration_ms": 31.0
+            },
+            {
+              "case_id": "errors-stable",
+              "passed": true,
+              "duration_ms": 16.0
+            },
+            {
+              "case_id": "interval-far-future",
+              "passed": true,
+              "duration_ms": 0.0
+            }
+          ],
+          "startup_ms": 0.0,
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "brownfield-python-typed": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-once",
+            "passed": true,
+            "duration_ms": 15.0
+          },
+          {
+            "case_id": "interval-next",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "rejects-invalid-variants",
+            "passed": true,
+            "duration_ms": 0.0
+          },
+          {
+            "case_id": "patch-switches-kind",
+            "passed": true,
+            "duration_ms": 15.0
+          },
+          {
+            "case_id": "invalid-patch-atomic",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "errors-stable",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "interval-far-future",
+            "passed": true,
+            "duration_ms": 15.0
+          }
+        ],
+        "startup_ms": 63.0,
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-once",
+            "passed": true,
+            "duration_ms": 16.0
+          },
+          {
+            "case_id": "interval-next",
+            "passed": false,
+            "duration_ms": 0.0,
+            "error": "AssertionError: (400, {'error': 'invalid job'})"
+          },
+          {
+            "case_id": "rejects-invalid-variants",
+            "passed": true,
+            "duration_ms": 47.0
           },
           {
             "case_id": "patch-switches-kind",
@@ -724,11 +1011,11 @@
           {
             "case_id": "interval-far-future",
             "passed": false,
-            "duration_ms": 0.0,
+            "duration_ms": 16.0,
             "error": "AssertionError: (400, {'error': 'invalid job'})"
           }
         ],
-        "startup_ms": 266.0,
+        "startup_ms": 0.0,
         "verifier_exit_status": 1
       },
       "sabotages": {
@@ -739,40 +1026,40 @@
             {
               "case_id": "regression-once",
               "passed": true,
-              "duration_ms": 47.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "interval-next",
               "passed": false,
-              "duration_ms": 0.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "rejects-invalid-variants",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "patch-switches-kind",
               "passed": false,
-              "duration_ms": 16.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "invalid-patch-atomic",
               "passed": true,
-              "duration_ms": 0.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "errors-stable",
               "passed": true,
-              "duration_ms": 31.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "interval-far-future",
               "passed": false,
-              "duration_ms": 16.0
+              "duration_ms": 0.0
             }
           ],
-          "startup_ms": 219.0,
+          "startup_ms": 0.0,
           "verifier_exit_status": 1
         },
         "missing-error-branch": {
@@ -782,12 +1069,12 @@
             {
               "case_id": "regression-once",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "interval-next",
               "passed": true,
-              "duration_ms": 32.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "rejects-invalid-variants",
@@ -797,17 +1084,17 @@
             {
               "case_id": "patch-switches-kind",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "invalid-patch-atomic",
               "passed": true,
-              "duration_ms": 0.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "errors-stable",
               "passed": true,
-              "duration_ms": 32.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "interval-far-future",
@@ -815,7 +1102,7 @@
               "duration_ms": 0.0
             }
           ],
-          "startup_ms": 219.0,
+          "startup_ms": 109.0,
           "verifier_exit_status": 1
         },
         "wrong-status-code": {
@@ -825,12 +1112,12 @@
             {
               "case_id": "regression-once",
               "passed": true,
-              "duration_ms": 31.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "interval-next",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "rejects-invalid-variants",
@@ -840,17 +1127,17 @@
             {
               "case_id": "patch-switches-kind",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "invalid-patch-atomic",
               "passed": false,
-              "duration_ms": 15.0
+              "duration_ms": 32.0
             },
             {
               "case_id": "errors-stable",
               "passed": false,
-              "duration_ms": 31.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "interval-far-future",
@@ -858,7 +1145,7 @@
               "duration_ms": 0.0
             }
           ],
-          "startup_ms": 171.0,
+          "startup_ms": 62.0,
           "verifier_exit_status": 1
         },
         "unhandled-concurrent-update": {
@@ -868,17 +1155,17 @@
             {
               "case_id": "regression-once",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "interval-next",
               "passed": true,
-              "duration_ms": 32.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "rejects-invalid-variants",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "patch-switches-kind",
@@ -888,7 +1175,7 @@
             {
               "case_id": "invalid-patch-atomic",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "errors-stable",
@@ -898,10 +1185,10 @@
             {
               "case_id": "interval-far-future",
               "passed": true,
-              "duration_ms": 0.0
+              "duration_ms": 15.0
             }
           ],
-          "startup_ms": 219.0,
+          "startup_ms": 62.0,
           "verifier_exit_status": 1
         }
       }
@@ -914,12 +1201,12 @@
           {
             "case_id": "regression-once",
             "passed": true,
-            "duration_ms": 47.0
+            "duration_ms": 31.0
           },
           {
             "case_id": "interval-next",
             "passed": true,
-            "duration_ms": 0.0
+            "duration_ms": 16.0
           },
           {
             "case_id": "rejects-invalid-variants",
@@ -929,25 +1216,25 @@
           {
             "case_id": "patch-switches-kind",
             "passed": true,
-            "duration_ms": 0.0
+            "duration_ms": 15.0
           },
           {
             "case_id": "invalid-patch-atomic",
             "passed": true,
-            "duration_ms": 16.0
+            "duration_ms": 32.0
           },
           {
             "case_id": "errors-stable",
             "passed": true,
-            "duration_ms": 0.0
+            "duration_ms": 15.0
           },
           {
             "case_id": "interval-far-future",
             "passed": true,
-            "duration_ms": 15.0
+            "duration_ms": 0.0
           }
         ],
-        "startup_ms": 0.0,
+        "startup_ms": 15.0,
         "verifier_exit_status": 0
       },
       "null": {
@@ -962,13 +1249,13 @@
           {
             "case_id": "interval-next",
             "passed": false,
-            "duration_ms": 0.0,
+            "duration_ms": 15.0,
             "error": "AssertionError: (400, {'error': 'invalid job'})"
           },
           {
             "case_id": "rejects-invalid-variants",
             "passed": true,
-            "duration_ms": 31.0
+            "duration_ms": 16.0
           },
           {
             "case_id": "patch-switches-kind",
@@ -984,12 +1271,12 @@
           {
             "case_id": "errors-stable",
             "passed": true,
-            "duration_ms": 0.0
+            "duration_ms": 15.0
           },
           {
             "case_id": "interval-far-future",
             "passed": false,
-            "duration_ms": 15.0,
+            "duration_ms": 16.0,
             "error": "AssertionError: (400, {'error': 'invalid job'})"
           }
         ],
@@ -1004,22 +1291,22 @@
             {
               "case_id": "regression-once",
               "passed": true,
-              "duration_ms": 47.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "interval-next",
               "passed": false,
-              "duration_ms": 0.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "rejects-invalid-variants",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "patch-switches-kind",
               "passed": false,
-              "duration_ms": 32.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "invalid-patch-atomic",
@@ -1029,15 +1316,15 @@
             {
               "case_id": "errors-stable",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "interval-far-future",
               "passed": false,
-              "duration_ms": 16.0
+              "duration_ms": 0.0
             }
           ],
-          "startup_ms": 0.0,
+          "startup_ms": 15.0,
           "verifier_exit_status": 1
         },
         "missing-error-branch": {
@@ -1047,12 +1334,12 @@
             {
               "case_id": "regression-once",
               "passed": true,
-              "duration_ms": 31.0
+              "duration_ms": 32.0
             },
             {
               "case_id": "interval-next",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "rejects-invalid-variants",
@@ -1062,22 +1349,22 @@
             {
               "case_id": "patch-switches-kind",
               "passed": true,
-              "duration_ms": 0.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "invalid-patch-atomic",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "errors-stable",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "interval-far-future",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 0.0
             }
           ],
           "startup_ms": 0.0,
@@ -1090,37 +1377,37 @@
             {
               "case_id": "regression-once",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "interval-next",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "rejects-invalid-variants",
               "passed": false,
-              "duration_ms": 16.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "patch-switches-kind",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "invalid-patch-atomic",
               "passed": false,
-              "duration_ms": 0.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "errors-stable",
               "passed": false,
-              "duration_ms": 32.0
+              "duration_ms": 16.0
             },
             {
               "case_id": "interval-far-future",
               "passed": true,
-              "duration_ms": 0.0
+              "duration_ms": 15.0
             }
           ],
           "startup_ms": 0.0,
@@ -1133,27 +1420,27 @@
             {
               "case_id": "regression-once",
               "passed": true,
-              "duration_ms": 32.0
+              "duration_ms": 31.0
             },
             {
               "case_id": "interval-next",
               "passed": true,
-              "duration_ms": 15.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "rejects-invalid-variants",
               "passed": true,
-              "duration_ms": 16.0
+              "duration_ms": 32.0
             },
             {
               "case_id": "patch-switches-kind",
               "passed": false,
-              "duration_ms": 15.0
+              "duration_ms": 0.0
             },
             {
               "case_id": "invalid-patch-atomic",
               "passed": true,
-              "duration_ms": 0.0
+              "duration_ms": 15.0
             },
             {
               "case_id": "errors-stable",

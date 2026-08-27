@@ -1,0 +1,2222 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_version": "0.2.0",
+  "task_family": "circuit-breaker",
+  "mode": "command",
+  "generated_at": "2026-08-27T07:24:17Z",
+  "green": true,
+  "checks": {
+    "reference_100_percent": true,
+    "null_failure_parity": true,
+    "sabotage_failure_parity": true
+  },
+  "null_failure_sets": {
+    "javascript": [
+      "cooldown-boundary",
+      "half-open-closes",
+      "half-open-limit",
+      "half-open-reopens",
+      "neutral-does-not-reset",
+      "neutral-not-counted",
+      "per-target-isolation",
+      "rejects-invalid",
+      "target-ordering"
+    ],
+    "typescript": [
+      "cooldown-boundary",
+      "half-open-closes",
+      "half-open-limit",
+      "half-open-reopens",
+      "neutral-does-not-reset",
+      "neutral-not-counted",
+      "per-target-isolation",
+      "rejects-invalid",
+      "target-ordering"
+    ],
+    "python": [
+      "cooldown-boundary",
+      "half-open-closes",
+      "half-open-limit",
+      "half-open-reopens",
+      "neutral-does-not-reset",
+      "neutral-not-counted",
+      "per-target-isolation",
+      "rejects-invalid",
+      "target-ordering"
+    ],
+    "python-typed": [
+      "cooldown-boundary",
+      "half-open-closes",
+      "half-open-limit",
+      "half-open-reopens",
+      "neutral-does-not-reset",
+      "neutral-not-counted",
+      "per-target-isolation",
+      "rejects-invalid",
+      "target-ordering"
+    ],
+    "go": [
+      "cooldown-boundary",
+      "half-open-closes",
+      "half-open-limit",
+      "half-open-reopens",
+      "neutral-does-not-reset",
+      "neutral-not-counted",
+      "per-target-isolation",
+      "rejects-invalid",
+      "target-ordering"
+    ]
+  },
+  "sabotage_failure_sets": {
+    "no-half-open-limit": {
+      "javascript": [
+        "half-open-limit"
+      ],
+      "typescript": [
+        "half-open-limit"
+      ],
+      "python": [
+        "half-open-limit"
+      ],
+      "python-typed": [
+        "half-open-limit"
+      ],
+      "go": [
+        "half-open-limit"
+      ]
+    },
+    "neutral-counts-as-success": {
+      "javascript": [
+        "half-open-limit",
+        "neutral-does-not-reset"
+      ],
+      "typescript": [
+        "half-open-limit",
+        "neutral-does-not-reset"
+      ],
+      "python": [
+        "half-open-limit",
+        "neutral-does-not-reset"
+      ],
+      "python-typed": [
+        "half-open-limit",
+        "neutral-does-not-reset"
+      ],
+      "go": [
+        "half-open-limit",
+        "neutral-does-not-reset"
+      ]
+    },
+    "cooldown-off-by-one": {
+      "javascript": [
+        "cooldown-boundary",
+        "half-open-closes",
+        "half-open-limit",
+        "half-open-reopens"
+      ],
+      "typescript": [
+        "cooldown-boundary",
+        "half-open-closes",
+        "half-open-limit",
+        "half-open-reopens"
+      ],
+      "python": [
+        "cooldown-boundary",
+        "half-open-closes",
+        "half-open-limit",
+        "half-open-reopens"
+      ],
+      "python-typed": [
+        "cooldown-boundary",
+        "half-open-closes",
+        "half-open-limit",
+        "half-open-reopens"
+      ],
+      "go": [
+        "cooldown-boundary",
+        "half-open-closes",
+        "half-open-limit",
+        "half-open-reopens"
+      ]
+    },
+    "global-state": {
+      "javascript": [
+        "half-open-closes",
+        "neutral-does-not-reset",
+        "neutral-not-counted",
+        "per-target-isolation",
+        "regression-basic-open",
+        "streak-resets",
+        "target-ordering"
+      ],
+      "typescript": [
+        "half-open-closes",
+        "neutral-does-not-reset",
+        "neutral-not-counted",
+        "per-target-isolation",
+        "regression-basic-open",
+        "streak-resets",
+        "target-ordering"
+      ],
+      "python": [
+        "half-open-closes",
+        "neutral-does-not-reset",
+        "neutral-not-counted",
+        "per-target-isolation",
+        "regression-basic-open",
+        "streak-resets",
+        "target-ordering"
+      ],
+      "python-typed": [
+        "half-open-closes",
+        "neutral-does-not-reset",
+        "neutral-not-counted",
+        "per-target-isolation",
+        "regression-basic-open",
+        "streak-resets",
+        "target-ordering"
+      ],
+      "go": [
+        "half-open-closes",
+        "neutral-does-not-reset",
+        "neutral-not-counted",
+        "per-target-isolation",
+        "regression-basic-open",
+        "streak-resets",
+        "target-ordering"
+      ]
+    }
+  },
+  "runs": {
+    "javascript": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-basic-open",
+            "passed": true,
+            "duration_ms": 2094.0
+          },
+          {
+            "case_id": "empty-calls",
+            "passed": true,
+            "duration_ms": 2719.0
+          },
+          {
+            "case_id": "per-target-isolation",
+            "passed": true,
+            "duration_ms": 1687.0
+          },
+          {
+            "case_id": "cooldown-boundary",
+            "passed": true,
+            "duration_ms": 1891.0
+          },
+          {
+            "case_id": "half-open-closes",
+            "passed": true,
+            "duration_ms": 2063.0
+          },
+          {
+            "case_id": "half-open-reopens",
+            "passed": true,
+            "duration_ms": 1640.0
+          },
+          {
+            "case_id": "half-open-limit",
+            "passed": true,
+            "duration_ms": 2000.0
+          },
+          {
+            "case_id": "neutral-not-counted",
+            "passed": true,
+            "duration_ms": 1531.0
+          },
+          {
+            "case_id": "neutral-does-not-reset",
+            "passed": true,
+            "duration_ms": 1672.0
+          },
+          {
+            "case_id": "streak-resets",
+            "passed": true,
+            "duration_ms": 1610.0
+          },
+          {
+            "case_id": "target-ordering",
+            "passed": true,
+            "duration_ms": 1593.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 45235.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-basic-open",
+            "passed": true,
+            "duration_ms": 1563.0
+          },
+          {
+            "case_id": "empty-calls",
+            "passed": true,
+            "duration_ms": 1906.0
+          },
+          {
+            "case_id": "per-target-isolation",
+            "passed": false,
+            "duration_ms": 1766.0
+          },
+          {
+            "case_id": "cooldown-boundary",
+            "passed": false,
+            "duration_ms": 1656.0
+          },
+          {
+            "case_id": "half-open-closes",
+            "passed": false,
+            "duration_ms": 1500.0
+          },
+          {
+            "case_id": "half-open-reopens",
+            "passed": false,
+            "duration_ms": 1406.0
+          },
+          {
+            "case_id": "half-open-limit",
+            "passed": false,
+            "duration_ms": 1719.0
+          },
+          {
+            "case_id": "neutral-not-counted",
+            "passed": false,
+            "duration_ms": 2016.0
+          },
+          {
+            "case_id": "neutral-does-not-reset",
+            "passed": false,
+            "duration_ms": 1703.0
+          },
+          {
+            "case_id": "streak-resets",
+            "passed": true,
+            "duration_ms": 2015.0
+          },
+          {
+            "case_id": "target-ordering",
+            "passed": false,
+            "duration_ms": 1532.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 7171.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "no-half-open-limit": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1406.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1625.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 1594.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1641.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": true,
+              "duration_ms": 1578.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 2093.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 1688.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 2062.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": true,
+              "duration_ms": 1516.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1672.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1687.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 43938.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "neutral-counts-as-success": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 2094.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1562.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 2172.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1563.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": true,
+              "duration_ms": 1609.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1719.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 1687.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1547.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": false,
+              "duration_ms": 1719.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1812.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1985.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 43812.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "cooldown-off-by-one": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1437.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1594.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 1594.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": false,
+              "duration_ms": 1531.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": false,
+              "duration_ms": 1640.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": false,
+              "duration_ms": 1938.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 1531.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1875.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": true,
+              "duration_ms": 2203.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1516.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1641.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 45718.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "global-state": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": false,
+              "duration_ms": 2343.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1610.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": false,
+              "duration_ms": 1625.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1750.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": false,
+              "duration_ms": 1812.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1578.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": true,
+              "duration_ms": 2047.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": false,
+              "duration_ms": 2250.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": false,
+              "duration_ms": 1657.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": false,
+              "duration_ms": 1609.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": false,
+              "duration_ms": 1891.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 43640.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "typescript": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-basic-open",
+            "passed": true,
+            "duration_ms": 2375.0
+          },
+          {
+            "case_id": "empty-calls",
+            "passed": true,
+            "duration_ms": 1578.0
+          },
+          {
+            "case_id": "per-target-isolation",
+            "passed": true,
+            "duration_ms": 1610.0
+          },
+          {
+            "case_id": "cooldown-boundary",
+            "passed": true,
+            "duration_ms": 1593.0
+          },
+          {
+            "case_id": "half-open-closes",
+            "passed": true,
+            "duration_ms": 1657.0
+          },
+          {
+            "case_id": "half-open-reopens",
+            "passed": true,
+            "duration_ms": 1703.0
+          },
+          {
+            "case_id": "half-open-limit",
+            "passed": true,
+            "duration_ms": 1750.0
+          },
+          {
+            "case_id": "neutral-not-counted",
+            "passed": true,
+            "duration_ms": 1562.0
+          },
+          {
+            "case_id": "neutral-does-not-reset",
+            "passed": true,
+            "duration_ms": 1813.0
+          },
+          {
+            "case_id": "streak-resets",
+            "passed": true,
+            "duration_ms": 1703.0
+          },
+          {
+            "case_id": "target-ordering",
+            "passed": true,
+            "duration_ms": 1609.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 45063.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-basic-open",
+            "passed": true,
+            "duration_ms": 1390.0
+          },
+          {
+            "case_id": "empty-calls",
+            "passed": true,
+            "duration_ms": 1610.0
+          },
+          {
+            "case_id": "per-target-isolation",
+            "passed": false,
+            "duration_ms": 2156.0
+          },
+          {
+            "case_id": "cooldown-boundary",
+            "passed": false,
+            "duration_ms": 1734.0
+          },
+          {
+            "case_id": "half-open-closes",
+            "passed": false,
+            "duration_ms": 1797.0
+          },
+          {
+            "case_id": "half-open-reopens",
+            "passed": false,
+            "duration_ms": 1891.0
+          },
+          {
+            "case_id": "half-open-limit",
+            "passed": false,
+            "duration_ms": 1531.0
+          },
+          {
+            "case_id": "neutral-not-counted",
+            "passed": false,
+            "duration_ms": 1766.0
+          },
+          {
+            "case_id": "neutral-does-not-reset",
+            "passed": false,
+            "duration_ms": 1625.0
+          },
+          {
+            "case_id": "streak-resets",
+            "passed": true,
+            "duration_ms": 1562.0
+          },
+          {
+            "case_id": "target-ordering",
+            "passed": false,
+            "duration_ms": 1860.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 7281.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "no-half-open-limit": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1985.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1656.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 1578.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1656.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": true,
+              "duration_ms": 3485.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1562.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 1563.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1984.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": true,
+              "duration_ms": 1797.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1562.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 2125.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 42391.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "neutral-counts-as-success": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1469.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1531.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 1782.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 2421.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": true,
+              "duration_ms": 1688.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1656.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 2344.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1594.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": false,
+              "duration_ms": 1500.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1812.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1797.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 48188.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "cooldown-off-by-one": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1578.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1578.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 1672.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": false,
+              "duration_ms": 1688.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": false,
+              "duration_ms": 1656.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": false,
+              "duration_ms": 1875.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 1969.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1703.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": true,
+              "duration_ms": 1890.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 2000.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1844.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 44953.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "global-state": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": false,
+              "duration_ms": 1734.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 2125.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": false,
+              "duration_ms": 1703.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1859.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": false,
+              "duration_ms": 2063.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1844.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": true,
+              "duration_ms": 1703.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": false,
+              "duration_ms": 1859.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": false,
+              "duration_ms": 2422.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": false,
+              "duration_ms": 1516.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": false,
+              "duration_ms": 1640.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 45688.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "python": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-basic-open",
+            "passed": true,
+            "duration_ms": 2219.0
+          },
+          {
+            "case_id": "empty-calls",
+            "passed": true,
+            "duration_ms": 1937.0
+          },
+          {
+            "case_id": "per-target-isolation",
+            "passed": true,
+            "duration_ms": 1813.0
+          },
+          {
+            "case_id": "cooldown-boundary",
+            "passed": true,
+            "duration_ms": 1562.0
+          },
+          {
+            "case_id": "half-open-closes",
+            "passed": true,
+            "duration_ms": 1813.0
+          },
+          {
+            "case_id": "half-open-reopens",
+            "passed": true,
+            "duration_ms": 2187.0
+          },
+          {
+            "case_id": "half-open-limit",
+            "passed": true,
+            "duration_ms": 1657.0
+          },
+          {
+            "case_id": "neutral-not-counted",
+            "passed": true,
+            "duration_ms": 2093.0
+          },
+          {
+            "case_id": "neutral-does-not-reset",
+            "passed": true,
+            "duration_ms": 1969.0
+          },
+          {
+            "case_id": "streak-resets",
+            "passed": true,
+            "duration_ms": 1641.0
+          },
+          {
+            "case_id": "target-ordering",
+            "passed": true,
+            "duration_ms": 2047.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 48890.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-basic-open",
+            "passed": true,
+            "duration_ms": 1641.0
+          },
+          {
+            "case_id": "empty-calls",
+            "passed": true,
+            "duration_ms": 1656.0
+          },
+          {
+            "case_id": "per-target-isolation",
+            "passed": false,
+            "duration_ms": 2141.0
+          },
+          {
+            "case_id": "cooldown-boundary",
+            "passed": false,
+            "duration_ms": 1750.0
+          },
+          {
+            "case_id": "half-open-closes",
+            "passed": false,
+            "duration_ms": 1640.0
+          },
+          {
+            "case_id": "half-open-reopens",
+            "passed": false,
+            "duration_ms": 1953.0
+          },
+          {
+            "case_id": "half-open-limit",
+            "passed": false,
+            "duration_ms": 2047.0
+          },
+          {
+            "case_id": "neutral-not-counted",
+            "passed": false,
+            "duration_ms": 1703.0
+          },
+          {
+            "case_id": "neutral-does-not-reset",
+            "passed": false,
+            "duration_ms": 1860.0
+          },
+          {
+            "case_id": "streak-resets",
+            "passed": true,
+            "duration_ms": 1734.0
+          },
+          {
+            "case_id": "target-ordering",
+            "passed": false,
+            "duration_ms": 1609.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 5344.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "no-half-open-limit": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1813.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1719.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 1718.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1438.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": true,
+              "duration_ms": 4672.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1875.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 1890.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1766.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": true,
+              "duration_ms": 1797.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 2172.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1906.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 46047.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "neutral-counts-as-success": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1734.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1891.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 2047.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1937.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": true,
+              "duration_ms": 1969.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1578.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 4156.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1688.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": false,
+              "duration_ms": 1734.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1828.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1828.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 45516.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "cooldown-off-by-one": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1766.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 2172.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 2390.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": false,
+              "duration_ms": 1953.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": false,
+              "duration_ms": 1391.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": false,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1343.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 2078.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 35047.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "global-state": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": false,
+              "duration_ms": 1484.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 2016.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": false,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1422.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": false,
+              "duration_ms": 1391.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1422.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": false,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": false,
+              "duration_ms": 1406.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": false,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": false,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 35422.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "python-typed": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-basic-open",
+            "passed": true,
+            "duration_ms": 1360.0
+          },
+          {
+            "case_id": "empty-calls",
+            "passed": true,
+            "duration_ms": 1468.0
+          },
+          {
+            "case_id": "per-target-isolation",
+            "passed": true,
+            "duration_ms": 1266.0
+          },
+          {
+            "case_id": "cooldown-boundary",
+            "passed": true,
+            "duration_ms": 1359.0
+          },
+          {
+            "case_id": "half-open-closes",
+            "passed": true,
+            "duration_ms": 1407.0
+          },
+          {
+            "case_id": "half-open-reopens",
+            "passed": true,
+            "duration_ms": 1281.0
+          },
+          {
+            "case_id": "half-open-limit",
+            "passed": true,
+            "duration_ms": 1266.0
+          },
+          {
+            "case_id": "neutral-not-counted",
+            "passed": true,
+            "duration_ms": 1484.0
+          },
+          {
+            "case_id": "neutral-does-not-reset",
+            "passed": true,
+            "duration_ms": 1391.0
+          },
+          {
+            "case_id": "streak-resets",
+            "passed": true,
+            "duration_ms": 1421.0
+          },
+          {
+            "case_id": "target-ordering",
+            "passed": true,
+            "duration_ms": 1735.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 37203.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-basic-open",
+            "passed": true,
+            "duration_ms": 1688.0
+          },
+          {
+            "case_id": "empty-calls",
+            "passed": true,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "per-target-isolation",
+            "passed": false,
+            "duration_ms": 1438.0
+          },
+          {
+            "case_id": "cooldown-boundary",
+            "passed": false,
+            "duration_ms": 1531.0
+          },
+          {
+            "case_id": "half-open-closes",
+            "passed": false,
+            "duration_ms": 1578.0
+          },
+          {
+            "case_id": "half-open-reopens",
+            "passed": false,
+            "duration_ms": 1312.0
+          },
+          {
+            "case_id": "half-open-limit",
+            "passed": false,
+            "duration_ms": 1282.0
+          },
+          {
+            "case_id": "neutral-not-counted",
+            "passed": false,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "neutral-does-not-reset",
+            "passed": false,
+            "duration_ms": 1156.0
+          },
+          {
+            "case_id": "streak-resets",
+            "passed": true,
+            "duration_ms": 1313.0
+          },
+          {
+            "case_id": "target-ordering",
+            "passed": false,
+            "duration_ms": 1281.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 4047.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "no-half-open-limit": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1922.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1469.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": true,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 2063.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": true,
+              "duration_ms": 1406.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 36407.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "neutral-counts-as-success": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1390.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1406.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 1469.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 3938.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": true,
+              "duration_ms": 1437.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1485.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": false,
+              "duration_ms": 1906.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 34735.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "cooldown-off-by-one": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1703.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 1422.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": false,
+              "duration_ms": 1422.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": false,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": false,
+              "duration_ms": 1672.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1406.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 35282.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "global-state": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": false,
+              "duration_ms": 1391.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1469.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": false,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": false,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": true,
+              "duration_ms": 1422.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": false,
+              "duration_ms": 1641.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": false,
+              "duration_ms": 1578.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": false,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": false,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 37313.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "go": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-basic-open",
+            "passed": true,
+            "duration_ms": 1625.0
+          },
+          {
+            "case_id": "empty-calls",
+            "passed": true,
+            "duration_ms": 1265.0
+          },
+          {
+            "case_id": "per-target-isolation",
+            "passed": true,
+            "duration_ms": 1235.0
+          },
+          {
+            "case_id": "cooldown-boundary",
+            "passed": true,
+            "duration_ms": 1609.0
+          },
+          {
+            "case_id": "half-open-closes",
+            "passed": true,
+            "duration_ms": 1250.0
+          },
+          {
+            "case_id": "half-open-reopens",
+            "passed": true,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "half-open-limit",
+            "passed": true,
+            "duration_ms": 1110.0
+          },
+          {
+            "case_id": "neutral-not-counted",
+            "passed": true,
+            "duration_ms": 1390.0
+          },
+          {
+            "case_id": "neutral-does-not-reset",
+            "passed": true,
+            "duration_ms": 1297.0
+          },
+          {
+            "case_id": "streak-resets",
+            "passed": true,
+            "duration_ms": 1313.0
+          },
+          {
+            "case_id": "target-ordering",
+            "passed": true,
+            "duration_ms": 1953.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 35187.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-basic-open",
+            "passed": true,
+            "duration_ms": 1438.0
+          },
+          {
+            "case_id": "empty-calls",
+            "passed": true,
+            "duration_ms": 1218.0
+          },
+          {
+            "case_id": "per-target-isolation",
+            "passed": false,
+            "duration_ms": 1407.0
+          },
+          {
+            "case_id": "cooldown-boundary",
+            "passed": false,
+            "duration_ms": 1296.0
+          },
+          {
+            "case_id": "half-open-closes",
+            "passed": false,
+            "duration_ms": 1235.0
+          },
+          {
+            "case_id": "half-open-reopens",
+            "passed": false,
+            "duration_ms": 1172.0
+          },
+          {
+            "case_id": "half-open-limit",
+            "passed": false,
+            "duration_ms": 1875.0
+          },
+          {
+            "case_id": "neutral-not-counted",
+            "passed": false,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "neutral-does-not-reset",
+            "passed": false,
+            "duration_ms": 1281.0
+          },
+          {
+            "case_id": "streak-resets",
+            "passed": true,
+            "duration_ms": 1344.0
+          },
+          {
+            "case_id": "target-ordering",
+            "passed": false,
+            "duration_ms": 1219.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 1265.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "no-half-open-limit": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1453.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 3109.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 32469.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "neutral-counts-as-success": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1282.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1407.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 1593.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": false,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 35125.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "cooldown-off-by-one": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": true,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": true,
+              "duration_ms": 1515.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": false,
+              "duration_ms": 1438.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": false,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": false,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": false,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 32516.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "global-state": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-basic-open",
+              "passed": false,
+              "duration_ms": 1171.0
+            },
+            {
+              "case_id": "empty-calls",
+              "passed": true,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "per-target-isolation",
+              "passed": false,
+              "duration_ms": 1125.0
+            },
+            {
+              "case_id": "cooldown-boundary",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "half-open-closes",
+              "passed": false,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "half-open-reopens",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "half-open-limit",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "neutral-not-counted",
+              "passed": false,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "neutral-does-not-reset",
+              "passed": false,
+              "duration_ms": 3719.0
+            },
+            {
+              "case_id": "streak-resets",
+              "passed": false,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "target-ordering",
+              "passed": false,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 32500.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    }
+  }
+}
