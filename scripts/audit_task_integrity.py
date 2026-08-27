@@ -10,7 +10,7 @@ import tomllib
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 TASKS = ROOT / "tasks"
 SOURCE_SUFFIXES = {".js", ".ts", ".py", ".go"}
-FORBIDDEN_PARTS = {"__pycache__", "node_modules", "dist"}
+FORBIDDEN_PARTS = {"__pycache__", ".mypy_cache", "node_modules", "dist"}
 MAX_LINE_LENGTH = 140
 
 

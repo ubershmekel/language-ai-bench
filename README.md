@@ -17,9 +17,10 @@ discover the result its author expects is not measuring anything.
 | JavaScript | `none` | none |
 | TypeScript | `strict` | structural, thorough |
 | Python | `none` | none |
+| Python (typed) | `mypy-strict` | structural, in the developer loop |
 | Go | `default` | compiler, blocking |
 
-**Do not read this as a four-language leaderboard.** JavaScript↔TypeScript is
+**Do not read this as a leaderboard.** JavaScript↔TypeScript is
 the matched pair and the analytical centerpiece: same runtime, package manager,
 test runner, ecosystem idioms, and error-message conventions, so the type layer
 is close to the only varying factor. Python and Go widen external validity but
@@ -27,11 +28,13 @@ carry confounds — different ecosystems, diagnostic quality, test-loop latency,
 and pretraining mass. A Go-versus-JavaScript difference cannot be attributed to
 *typing* rather than to compilation, tooling, or ecosystem.
 
-`typecheck_config` is a first-class run variable in the schema so that
-within-language arms can be added without a migration. That within-language
-strictness ladder — the same language with type feedback dialed up and down —
-is the principal defense against the confound above, and the highest-value
-addition on the roadmap.
+**Python and typed Python are the within-language contrast**, and the reason
+the table has five rows. Same runtime, same standard library, same file
+topology, same pretraining distribution — annotations and `mypy --strict` are
+the only difference. A cross-language comparison can never cleanly answer "does
+typing help"; it answers "does this bundle help." This pair can. `verify-local`
+runs `mypy` before the developer tests in that arm, so the type feedback is
+actually in the loop rather than merely available.
 
 ## What this contributes over DeepSWE
 
@@ -109,6 +112,7 @@ cannot make.
 | `schedule-variants` | HTTP | brownfield and greenfield, once/interval schedules |
 | `configuration-merge` | CLI | data-shape and precedence edge cases |
 | `money-rollup` | CLI | exact arithmetic, graph search, a wide rejection surface |
+| `circuit-breaker` | CLI | a state machine and an outcome union crossing module boundaries |
 
 ## History
 
@@ -255,10 +259,9 @@ that is a finding about the model, not a licence to reshape the task.
 
 In priority order, each additive and accommodated by the current schema:
 
-1. **Within-language strictness ladder** — Python with type hints and a checker;
-   JavaScript with JSDoc and `checkJs`; TypeScript non-strict. Converts a
-   fragile between-language comparison into a within-language dose–response
-   curve. Highest scientific value per dollar on this list.
+1. **More rungs on the within-language ladder** — the Python/typed-Python pair
+   ships now; JavaScript with JSDoc and `checkJs`, and TypeScript non-strict,
+   would turn the contrast into a dose–response curve.
 2. **A second scaffold arm** through a real agent, per the section above.
 3. **More task families**, per the power argument above.
 4. **A second model family**, ideally third-party contributed.

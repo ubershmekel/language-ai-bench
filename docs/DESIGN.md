@@ -15,8 +15,15 @@ The primary estimand is the paired TypeScript-strict minus JavaScript-no-types
 effect for a fixed model, effort, scaffold, task family, and seed policy.
 Python and Go are descriptive external-validity probes. In particular, a Go–JS
 difference cannot be attributed to typing rather than blocking compilation,
-ecosystem, diagnostic quality, loop latency, or pretraining mass. The deferred
-within-language strictness ladder is the main defense against that confound.
+ecosystem, diagnostic quality, loop latency, or pretraining mass.
+
+The `python-typed` arm is the within-language answer to that confound: the same
+interpreter, standard library, and file topology as `python`, differing only in
+annotations and a blocking `mypy --strict` step in the developer loop. Its
+paired contrast against `python` is the one comparison in this repo where the
+treatment is typing alone, so it carries more internal validity than any
+cross-language pair including JS/TS, which still differ in compile step and
+build tooling. It is reported as a second primary estimand, not a probe.
 
 ## Scaffold validity
 
@@ -95,11 +102,23 @@ records that stopping decision.
   frequencies of real agent mistakes.
 - Mock runs prove plumbing only and contain no performance evidence.
 
+`circuit-breaker` was added after the v0.7 failure table showed `money-rollup`
+discriminating on numeric semantics and specification breadth rather than on
+anything a checker sees: its failing cases were rounding mode, negative-zero
+formatting, and rejection coverage, and the untyped language swept it. The new
+family routes difficulty through a three-state machine and a three-variant
+outcome union consumed across module boundaries, where a missed case is silent
+in JavaScript and Python and visible to tsc, go build, and mypy. Its clock is an
+explicit `at` field on every call, so verification is deterministic without
+sleeps. A scan of DeepSWE's 113 tasks informed the shape: its hardest tasks
+combine many interacting rules rather than one hard algorithm, and its terse
+prompts over large real repos make navigation a difficulty lever this repo
+cannot use without reintroducing ecosystem confounds.
+
 Next families: schema migration with backward-compatible reads (static schema
 feedback); streaming parser recovery (sum types/error handling); dependency API
 migration (navigation and ecosystem knowledge); bounded worker queue
-(concurrency without HTTP); configuration merge semantics (data-shape and
-property-based edge cases).
+(concurrency without HTTP).
 
 ## Internally inconsistent acceptance boundary
 
