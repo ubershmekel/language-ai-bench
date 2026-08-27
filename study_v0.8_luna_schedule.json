@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
   "study_id": "v0.8-typed-python-and-circuit-breaker",
-  "study_sha256": "a47fbca59f9152dc9208a393ee1b2906eccb59e6f3df8de6f4a9990cca48ed34",
-  "repo_revision": "fe5f4b076e34788b0b4cf095dda185805ff8eb70",
+  "study_sha256": "21e2fc2f4dbc274ceb75db71af93086ae17d4bf2078d806e773abc4c3250ff17",
+  "repo_revision": "4801490615c7ec67bb5b47061ee46eeb5cae5ccb",
   "launch_ready": true,
   "validation_errors": [],
   "planned_rollouts": 120,

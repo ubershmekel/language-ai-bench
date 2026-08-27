@@ -4,9 +4,11 @@
 from __future__ import annotations
 
 import argparse
+import concurrent.futures
 import json
 import pathlib
 import subprocess
+import threading
 from typing import Any
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -121,6 +123,30 @@ def main() -> int:
     parser.add_argument("--max-spend-usd", type=float, required=True)
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument(
+        "--n-concurrent",
+        type=int,
+        default=1,
+        help=(
+            "run this many rollouts at once. Safe only for command-mode "
+            "families: HTTP families carry timing-sensitive concurrency cases "
+            "that contention can perturb. Any value above one also makes "
+            "wall-clock telemetry non-comparable, because agent time then "
+            "includes contention; correctness, steps, and cost are unaffected."
+        ),
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=0,
+        help=(
+            "stop after this many rollouts in this invocation. The ledger "
+            "resumes where it left off, so batches compose. Use it for "
+            "operational checkpoints only: continuing or stopping based on "
+            "observed pass rates is an outcome-dependent stopping rule and "
+            "breaks the study's fixed design."
+        ),
+    )
+    parser.add_argument(
         "--max-exceptions",
         type=int,
         default=0,
@@ -171,9 +197,13 @@ def main() -> int:
 
     if not (ROOT / ".env").is_file():
         raise SystemExit("missing ignored .env")
-    for row in pending:
-        if ledger["spent_usd"] >= args.max_spend_usd:
-            raise SystemExit("study spend ceiling reached")
+    if args.limit:
+        pending = pending[: args.limit]
+
+    guard = threading.Lock()
+    failures: list[str] = []
+
+    def execute(row: dict[str, Any]) -> dict[str, Any]:
         rollout_dir = args.jobs_dir / (
             f"{row['order_index']:02d}-{row['task_family']}-"
             f"{row['language']}-a{row['attempt']}"
@@ -183,44 +213,81 @@ def main() -> int:
         after = trial_results(rollout_dir)
         created = sorted(set(after) - before)
         if len(created) != 1:
-            raise SystemExit(
+            raise RuntimeError(
                 f"expected one new trial result for order {row['order_index']}, "
                 f"found {len(created)}"
             )
         measurement = measured_trial(created[0], after[created[0]])
-        entry = {**row, **measurement, "pier_exit_status": process.returncode}
-        ledger["runs"].append(entry)
-        ledger["spent_usd"] = round(
-            sum(item["cost_usd"] for item in ledger["runs"]), 10
-        )
-        write_json(args.ledger, ledger)
-        print(
-            f"{row['order_index']:02d} {row['language']} "
-            f"reward={measurement['reward']} "
-            f"cost_usd={measurement['cost_usd']:.6f} "
-            f"total_usd={ledger['spent_usd']:.6f}"
-        )
-        if measurement["cost_usd"] > study["per_rollout_cost_limit_usd"]:
-            raise SystemExit("per-rollout cost limit exceeded")
-        if ledger["spent_usd"] > args.max_spend_usd:
-            raise SystemExit("study spend ceiling crossed")
-        if measurement["exception_type"]:
-            exceptions += 1
-            print(
-                f"Pier exception: {measurement['exception_type']} "
-                f"(order {row['order_index']}); {exceptions} of "
-                f"{args.max_exceptions} tolerated"
+        return {**row, **measurement, "pier_exit_status": process.returncode}
+
+    workers = max(1, args.n_concurrent)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
+        queued: dict[concurrent.futures.Future[dict[str, Any]], dict[str, Any]] = {}
+        remaining = list(pending)
+
+        def submit_next() -> bool:
+            """Admit one rollout if the ceiling still has room for it."""
+            if not remaining or failures:
+                return False
+            with guard:
+                if ledger["spent_usd"] >= args.max_spend_usd:
+                    failures.append("study spend ceiling reached")
+                    return False
+            row = remaining.pop(0)
+            queued[pool.submit(execute, row)] = row
+            return True
+
+        for _ in range(workers):
+            submit_next()
+        while queued:
+            done, _ = concurrent.futures.wait(
+                list(queued), return_when=concurrent.futures.FIRST_COMPLETED
             )
-            if exceptions > args.max_exceptions:
-                raise SystemExit(
-                    f"Pier exception: {measurement['exception_type']} "
-                    f"(order {row['order_index']})"
+            for future in done:
+                row = queued.pop(future)
+                try:
+                    entry = future.result()
+                except Exception as error:  # noqa: BLE001
+                    failures.append(f"order {row['order_index']}: {error}")
+                    continue
+                with guard:
+                    ledger["runs"].append(entry)
+                    ledger["spent_usd"] = round(
+                        sum(item["cost_usd"] for item in ledger["runs"]), 10
+                    )
+                    write_json(args.ledger, ledger)
+                    total = ledger["spent_usd"]
+                print(
+                    f"{entry['order_index']:02d} {entry['language']} "
+                    f"reward={entry['reward']} "
+                    f"cost_usd={entry['cost_usd']:.6f} "
+                    f"total_usd={total:.6f}",
+                    flush=True,
                 )
-            continue
-        if not measurement["workspace_artifact_captured"]:
-            raise SystemExit(
-                f"workspace artifact missing for order {row['order_index']}"
-            )
+                if entry["cost_usd"] > study["per_rollout_cost_limit_usd"]:
+                    failures.append("per-rollout cost limit exceeded")
+                elif total > args.max_spend_usd:
+                    failures.append("study spend ceiling crossed")
+                elif entry["exception_type"]:
+                    exceptions += 1
+                    print(
+                        f"Pier exception: {entry['exception_type']} "
+                        f"(order {entry['order_index']}); {exceptions} of "
+                        f"{args.max_exceptions} tolerated",
+                        flush=True,
+                    )
+                    if exceptions > args.max_exceptions:
+                        failures.append(
+                            f"Pier exception: {entry['exception_type']} "
+                            f"(order {entry['order_index']})"
+                        )
+                elif not entry["workspace_artifact_captured"]:
+                    failures.append(
+                        f"workspace artifact missing for order {entry['order_index']}"
+                    )
+                submit_next()
+    if failures:
+        raise SystemExit(failures[0])
     return 0
 
 
