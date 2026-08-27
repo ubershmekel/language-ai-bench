@@ -1,8 +1,16 @@
 # Language AI Bench
 
-A minimal, MIT-licensed experiment asking whether language and tooling feedback
-change coding-agent success on the *same* software-engineering ticket. v0.1 has
-one optimistic-concurrency task family and exactly four cells:
+A minimal, MIT-licensed experiment asking one question:
+
+> **How does programming-language choice — and especially the feedback a type
+> system and its standard tooling provide — affect an autonomous coding agent's
+> ability to complete the *same* software-engineering task?**
+
+The design must be able to answer "typing hurts" and "no effect detectable at
+this sample size." Both are acceptable findings. A benchmark that can only
+discover the result its author expects is not measuring anything.
+
+## The cells
 
 | Language | `typecheck_config` | Feedback |
 |---|---|---|
@@ -11,147 +19,259 @@ one optimistic-concurrency task family and exactly four cells:
 | Python | `none` | none |
 | Go | `default` | compiler, blocking |
 
-**Do not read this as a four-language leaderboard.** JS/TS is the matched
-centerpiece. Python and Go differ in ecosystem, diagnostics, compilation,
-test-loop latency, and likely pretraining exposure. With one task family, v1 can
-support no conclusion about languages in general. Anyone reading a language
-ranking off this prototype is misreading it. Success means a fair pipeline and a green calibration report.
+**Do not read this as a four-language leaderboard.** JavaScript↔TypeScript is
+the matched pair and the analytical centerpiece: same runtime, package manager,
+test runner, ecosystem idioms, and error-message conventions, so the type layer
+is close to the only varying factor. Python and Go widen external validity but
+carry confounds — different ecosystems, diagnostic quality, test-loop latency,
+and pretraining mass. A Go-versus-JavaScript difference cannot be attributed to
+*typing* rather than to compilation, tooling, or ecosystem.
 
-## Decision study: new versus existing Node projects
+`typecheck_config` is a first-class run variable in the schema so that
+within-language arms can be added without a migration. That within-language
+strictness ladder — the same language with type feedback dialed up and down —
+is the principal defense against the confound above, and the highest-value
+addition on the roadmap.
 
-v0.4 contains a focused decision study for choosing JavaScript or strict TypeScript
-when vibe coding. The original optimistic-concurrency family is the brownfield
-condition: the agent changes an existing CRUD service. `task-service-greenfield`
-is the greenfield condition: the agent receives a minimal runnable Node scaffold
-and builds the same observable service contract. Each condition compares only
-JavaScript with TypeScript, using identical runtime versions, task wording,
-verifier bytes, model, effort, and bash-only scaffold.
+## What this contributes over DeepSWE
 
-The prior staged cells and stopping budget are recorded in `decision_benchmark.json`.
-The prospective v0.6 study balanced JavaScript, TypeScript, Python, and Go at
-nine brownfield runs each across three calibrated task families. All 36 passed:
-a ceiling, and a benchmark whose tasks are all solved cannot answer whether the
-language matters.
+[DeepSWE](https://deepswe.datacurve.ai/) covers 113 tasks across TypeScript
+(35), Python (34), Go (34), Rust (5), and JavaScript (5) — but each task comes
+from a *different real repository*. Language is fully confounded with repo,
+domain, and difficulty, so no language effect is readable from its leaderboard.
 
-## v0.7: a task hard enough to fail
+**The matched task family is the contribution here.** One behavioral contract,
+authored idiomatically in every language, verified by one language-neutral
+driver, with a blocking calibration gate proving the verifier is equally strict
+everywhere.
 
-`tasks/money-rollup` exists to break that ceiling. It is a four-file brownfield
-refactor that replaces floating-point money handling with exact rational
-arithmetic, adds shortest-path currency conversion with ambiguity rejection,
-adds ancestor rollups, and adds a large rejection surface. Its four starters all
-fail the identical eight verifier cases, and four sabotages fail with identical
-case sets in all four languages.
+Two calibration facts from that corpus are worth carrying:
 
-On the strong rung the family passes 84/96 instead of everything, so contrasts
-are finally estimable. Python passed all 24 of its attempts, JavaScript 18, Go
-20, and TypeScript 22; the Python advantage over JavaScript and over Go has
-intervals clear of zero. Effort separates further: Go needed about 1.5 more
-agent steps than Python or JavaScript, and TypeScript about 0.7 more, so the two
-compiled languages are also the two most expensive per attempt. On a weaker
-model the same task is a cliff that no language rescues.
+| | DeepSWE | this repo (`money-rollup`) |
+|---|---|---|
+| Reference solution | 844 patch lines (median) | 301 lines |
+| Instruction | 15 lines (median) | 69 lines |
+| Agent timeout | 10800s | 1800s |
+| gpt-5.6-luna, low effort | ~2% | 88% |
 
-The strong rung was collected in two batches of 48. The second was run because
-the first left the Python versus Go interval touching zero, which makes the
-continuation outcome-dependent; the report says so, and the first batch ranked
-Go worst on correctness while the second did not. Twelve attempts per language
-is not many. Read
-[docs/V07_REPORT.md](docs/V07_REPORT.md); the historical
+DeepSWE's tasks are terse prompts over large real repos: difficulty comes from
+underspecification and navigation. That lever is unavailable here, because
+navigation and convention-inference vary by ecosystem and would reintroduce the
+confound this repo exists to remove. The lever available is **specification
+breadth** — many interacting rules, each individually easy, collectively easy to
+leave one out.
+
+## Verification
+
+Verify **observable behavior only**: CLI invocation and output, HTTP
+request/response, filesystem effects, externally visible state transitions.
+Forbidden: requiring particular class or function names unless genuinely part of
+the public interface, AST inspection, requiring a specific algorithm, inspecting
+internal data structures. Verbosity and compiler-induced work are *outcomes* to
+be measured, never nuisances to normalize away — task equivalence is never
+defined by equal lines of code.
+
+The agent sees a behavior-focused prompt plus developer tests covering the happy
+path. Hidden cases cover edge conditions, error semantics, and regressions.
+
+### The calibration gate (mandatory, blocking, free)
+
+If one language's verifier is subtly stricter than another's, every downstream
+number is meaningless and nothing else in the design would reveal it. Before any
+paid run, and costing nothing:
+
+1. **Reference run** — 100% of hidden cases in every language. Below 100% is a
+   verifier or environment bug, not a finding.
+2. **Null run** — the untouched starter must fail on the *same case IDs* in
+   every language.
+3. **Sabotage runs** — seeded plausible-but-wrong patches, each caught by the
+   *same case ID* in every language.
+
+`calibration_report.json` is the receipt. No result is valid without a green one.
+
+### Feedback-to-fix is the primary mechanism metric
+
+Pass rates say whether types helped; they do not say *how*. The mechanism is
+defined mechanically: diagnostic **D** is emitted at step *t* naming location
+**L**, the agent's next edit touches **L**, and a later run of the same tool no
+longer emits **D**. Recorded per run as a count, a median step distance, and a
+rate per edit, so a language is not credited merely for emitting more
+diagnostics. This distinguishes "the compiler cost extra steps" from "the
+compiler converted a diagnostic into a fix" — a distinction step counts alone
+cannot make.
+
+## Task families
+
+| Family | Contract | What it isolates |
+|---|---|---|
+| `optimistic-concurrency` | HTTP | ETag/If-Match state transitions |
+| `task-service-greenfield` | HTTP | the same contract, built from scratch |
+| `schedule-variants` | HTTP | brownfield and greenfield, once/interval schedules |
+| `configuration-merge` | CLI | data-shape and precedence edge cases |
+| `money-rollup` | CLI | exact arithmetic, graph search, a wide rejection surface |
+
+## History
+
+v0.1 shipped one optimistic-concurrency family. v0.4 added a JavaScript/
+TypeScript decision study crossed with greenfield and brownfield starts; the
+staged cells and stopping budget are in `decision_benchmark.json`. The v0.6
+cohort balanced all four languages at nine brownfield runs each across three
+families — and all 36 passed. A benchmark whose tasks are all solved cannot
+answer whether the language matters.
+
+`tasks/money-rollup` exists to break that ceiling: a four-file brownfield
+refactor replacing floating-point money handling with exact rational arithmetic,
+adding shortest-path conversion with ambiguity rejection, ancestor rollups, and
+a large rejection surface. On the strong rung it passes 84/96 rather than
+everything, so contrasts are finally estimable. Python passed all 24 attempts,
+TypeScript 22, Go 20, JavaScript 18; the Python advantage over JavaScript and
+over Go has intervals clear of zero. Effort separates further: Go needed about
+1.5 more agent steps than Python or JavaScript, TypeScript about 0.7 more. On a
+weaker model the same task is a cliff no language rescues.
+
+Read [docs/V07_REPORT.md](docs/V07_REPORT.md). The historical
 [docs/V06_REPORT.md](docs/V06_REPORT.md),
 [docs/POLYGLOT_REPORT.md](docs/POLYGLOT_REPORT.md), and
-[docs/DECISION_REPORT.md](docs/DECISION_REPORT.md) preserve the prior reports,
-and older cohorts are never pooled with v0.7 estimates.
+[docs/DECISION_REPORT.md](docs/DECISION_REPORT.md) preserve prior reports, and
+older cohorts are never pooled with v0.7 estimates.
+
+Caveat carried from that report: the strong rung was collected in two batches of
+48, and the second was run *because* the first left the Python-versus-Go
+interval touching zero. That makes the continuation outcome-dependent. Twelve
+attempts per language is not many.
 
 ## Run it on Linux (or Docker Desktop's Linux engine)
 
-Requirements: Docker and Python 3.11+. No language toolchains are needed on the
-host. Base-image digests resolved during calibration are recorded in
+Requirements: Docker and Python 3.11+. No language toolchains on the host.
+Base-image digests resolved during calibration are recorded in
 `images.lock.json`; published runs must put their built image digest in
 `run.json`.
 
-```sh
-git clone <this-repository>
-cd language-ai-bench
+```bash
 sh scripts/run-local.sh
 ```
 
-That command builds and behaviorally exercises all four real implementations,
-runs reference/null/sabotage calibration, creates passing and failing zero-cost
-mock rollouts, and prints per-cell aggregation. The checked-in
-`calibration_report.json` is green. Direct commands:
+That builds and behaviorally exercises every real implementation, runs
+reference/null/sabotage calibration, creates passing and failing zero-cost mock
+rollouts, and prints per-cell aggregation. Direct commands:
 
-```sh
+```bash
 python3 scripts/calibrate.py
-python3 scripts/run_benchmark.py --agent mock-solve --seeds 2 \
-  --max-spend-usd 10 --dry-run
-python3 scripts/run_benchmark.py --agent mock-solve \
-  --max-spend-usd 10 --acknowledge-projection
-python3 analysis/feedback_to_fix.py path/to/events.jsonl
+```
+
+```bash
+python3 scripts/run_benchmark.py --agent mock-solve --seeds 2 --max-spend-usd 10 --dry-run
+```
+
+```bash
 python3 analysis/aggregate.py results
 ```
 
 `scripts/verify-local` in every variant starts the service, readiness-probes,
 tests, and tears down in one shell invocation. This resolves mini-swe-agent's
-non-persistent-shell asymmetry; the HTTP task was retained because its
-observable state/concurrency contract is scientifically stronger than the CLI
-fallback.
+non-persistent-shell asymmetry, which would otherwise land differentially across
+languages — `go build && ./server &` is a different experience from
+`npm run dev &`, and that asymmetry would sit directly on the dependent
+variable.
+
+## The scaffold is a treatment, not a neutral container
+
+mini-swe-agent is bash-only with a linear history: no tool-calling interface, so
+no language-specific affordances are baked into the scaffold, and the trajectory
+*is* the message list, which makes feedback-to-fix events extractable rather
+than reconstructed.
+
+But it exposes type information only when the agent *chooses* to run `tsc` or
+`go build` and read the output. A null result could therefore mean "the agent
+did not invoke the checker," not "types did not help." Two things partly defend
+the choice: CLI invocation is how most production coding agents actually obtain
+type feedback today, and any richer scaffold bakes third-party, per-language
+tool quality into the apparatus — an LSP hands TypeScript and Go far richer
+information than JavaScript and Python, which *is* the treatment, implemented by
+someone else with unmeasured fidelity.
+
+So `scaffold` is a first-class run variable. The bash-only arm licenses only
+"holding this scaffold fixed, language X differed from Y by Z." A second arm
+through a real agent would license claims about deployed scaffolds. Agreement
+across arms is robustness; disagreement would mean the scaffold *mediates* the
+language effect, which is the more interesting result. DeepSWE names this same
+fixed-harness constraint as a known limitation.
 
 ## Real agents through Pier
 
-For secret setup, the two-rollout cost pilot, and the publication boundary, follow [the paid-run guide](docs/RUNNING_PAID.md).
+For secret setup, the two-rollout cost pilot, and the publication boundary,
+follow [the paid-run guide](docs/RUNNING_PAID.md). Install
+[Pier](https://github.com/datacurve-ai/pier), then run one Harbor task directory
+with a fresh context per seed:
 
-Install [Pier](https://github.com/datacurve-ai/pier), then run one Harbor task
-directory with a fresh context per seed:
-
-```sh
-uv tool install datacurve-pier
-pier run -p tasks/optimistic-concurrency/typescript \
-  --agent mini-swe-agent --model YOUR_PROVIDER/YOUR_MODEL
+```bash
+pier run -p tasks/optimistic-concurrency/typescript --agent mini-swe-agent --model YOUR_PROVIDER/YOUR_MODEL
 ```
 
 Pier, not this repository, owns sandboxing, model calls, network allowlists,
-timeouts, and trajectories. Its current command surface should be checked with
-`pier run --help`; this artifact intentionally does not wrap or reimplement it.
-The mock runner proves schemas and controls locally but does not claim to be a
-Pier execution. Import Pier's ATIF events into `events.jsonl`, retaining raw
-fields, and populate the required `run.json` fields before analysis.
+timeouts, and trajectories. This artifact intentionally does not wrap or
+reimplement it. **Explicitly not built here:** a harness, a sandbox layer, a
+trajectory viewer, an agent framework, a results database, or a web UI. Net new
+code is task variants, one shared verifier, calibration, and analysis.
 
 ## Spend gate
 
-Use a dedicated experiment-only API key with a provider-side hard limit equal
-to planned spend plus a small margin. Never use a personal/shared key. The
-provider cap is the only control that survives concurrent sandboxes or a runner
-crash.
-
-The projection is:
+Use a dedicated experiment-only API key with a provider-side hard limit equal to
+planned spend plus a small margin. Never a personal or shared key. The provider
+cap is the only control that survives concurrent sandboxes or a runner crash.
 
 ```text
-rollout = sum(step_prefix_tokens × effective_input_rate)
-        + output_tokens × output_rate
-matrix  = rollout × 4 languages × seeds × task_families
+rollout = sum(step_prefix_tokens × effective_input_rate) + output_tokens × output_rate
+matrix  = rollout × languages × seeds × task_families
 ```
 
-The two-rollout cost pilot averaged $0.00586597. The prospective v0.6 cohort
-cost $0.19101201 for 36 valid completions, with no infrastructure exclusions;
-every paid trial reported usage metadata and retained a full-workspace artifact.
-`cost_pilot.json` stores the pilot. Provider spend remains the hard backstop,
-with Pier runs serialized and a native `$0.10` per-rollout agent cost limit.
+The two-rollout cost pilot averaged $0.00586597; the v0.6 cohort cost
+$0.19101201 for 36 valid completions; the v0.7 cohort cost $1.00391751 for 121.
+`cost_pilot.json` stores the pilot. Calibration, both mock agents, and the null
+and sabotage runs involve **no model calls** — debug the entire pipeline at zero
+cost and spend only once the gate is green.
+
+## Statistical structure
+
+Structure is task family × language × `typecheck_config` × seed. Analyze at
+family × language level and never collapse to a single benchmark score. Report
+full distributions and paired differences with intervals, not point estimates,
+and report per-family results in full even when they contradict the aggregate —
+disagreement across families is itself a finding.
+
+Past roughly five seeds per cell, **additional task families buy more
+inferential power than additional seeds**, because between-family variance
+almost certainly dominates within-family seed variance. One family supports no
+language-general conclusion.
+
+Statistical power peaks near a 50% pass rate. Ceiling and floor effects destroy
+discrimination outright at any sample size, so task difficulty and model tier
+are calibrated *jointly*, targeting the 40–60% band in the median arm. Difficulty
+may be adjusted only within the range a real maintainer would recognize as a
+plausible ticket; if no realistic task lands in the band at any affordable rung,
+that is a finding about the model, not a licence to reshape the task.
+
+## Roadmap
+
+In priority order, each additive and accommodated by the current schema:
+
+1. **Within-language strictness ladder** — Python with type hints and a checker;
+   JavaScript with JSDoc and `checkJs`; TypeScript non-strict. Converts a
+   fragile between-language comparison into a within-language dose–response
+   curve. Highest scientific value per dollar on this list.
+2. **A second scaffold arm** through a real agent, per the section above.
+3. **More task families**, per the power argument above.
+4. **A second model family**, ideally third-party contributed.
+5. **Reasoning effort as a crossed factor**, which needs its own design rather
+   than being a byproduct of the selection ladder.
 
 ## Results and contributions
 
 Runs go under `results/<model>/<date>/<run-id>/{run.json,events.jsonl}`. A
 submission is valid only with a green calibration report, exact Git revision,
-container digest, pinned tool/agent/Pier/model versions and effort, raw public
+container digest, pinned tool/agent/Pier/model versions and effort, a raw public
 trajectory, token/cache/cost metadata, and all verifier cases. Add other models
-as new result directories; do not overwrite existing runs. See
-`docs/DESIGN.md`, `tasks/optimistic-concurrency/EQUIVALENCE.md`, and the schemas.
+as new result directories; never overwrite existing runs.
 
-## Current status
-
-- All original and decision-study task variants build and run in Linux containers.
-- Reference 100%, null parity, and four-sabotage parity are green.
-- Passing and plausible-failing mock runs exist with non-empty events.
-- The balanced paid JS/TS study completed 22/22 with no exceptions. Observed correctness tied; steps, tokens, cost, and time remain comparative outcomes.
-- The prospective v0.6 brownfield cohort is balanced at 9/9 passes per language across three task families, with no infrastructure failures.
-- Python had the lowest mean steps, time, and cost; TypeScript used the fewest output tokens. Every paired agent-step 95% bootstrap interval includes zero, so these are estimates rather than rankings.
-- DeepSWE's public corpus pilot remains incomplete because some published
-  trajectory URLs are currently inaccessible (a [documented 403 issue](https://github.com/datacurve-ai/deep-swe/issues/59)); it cannot substitute for this matched family anyway.
+See [docs/DESIGN.md](docs/DESIGN.md) for the full experimental design, each
+family's `EQUIVALENCE.md` for its audit, and `schemas/` for the record formats.
