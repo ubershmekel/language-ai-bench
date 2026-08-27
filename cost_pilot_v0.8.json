@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "v0.8-typed-python-and-circuit-breaker",
+  "measured_at": "2026-08-27",
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "reasoning_effort": "low",
+  "agent": "mini-swe-agent@2.4.6",
+  "pier": "0.3.1",
+  "rollouts": [
+    {
+      "task_family": "circuit-breaker",
+      "language": "python",
+      "reward": 0.0,
+      "cost_usd": 0.00580288,
+      "agent_steps": 6,
+      "input_tokens": 28907,
+      "output_tokens": 2885,
+      "cached_input_tokens": 21239,
+      "peak_context_tokens": 7653,
+      "wall_seconds": 229
+    },
+    {
+      "task_family": "circuit-breaker",
+      "language": "python-typed",
+      "reward": 1.0,
+      "cost_usd": 0.00583649,
+      "agent_steps": 6,
+      "input_tokens": 32186,
+      "output_tokens": 2770,
+      "cached_input_tokens": 24057,
+      "peak_context_tokens": 9825,
+      "wall_seconds": 233
+    }
+  ],
+  "mean_cost_usd": 0.00581969,
+  "mean_wall_seconds": 231,
+  "notes": "Two-rollout cost pilot on the new family before committing the matrix, as the design requires. Cost came in below the 0.009 carried from v0.7. Rewards are n=1 per arm and carry no evidential weight; they are recorded only to show the task is not saturated and the pipeline scores both outcomes."
+}

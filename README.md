@@ -231,9 +231,11 @@ rollout = sum(step_prefix_tokens × effective_input_rate) + output_tokens × out
 matrix  = rollout × languages × seeds × task_families
 ```
 
-The two-rollout cost pilot averaged $0.00586597; the v0.6 cohort cost
-$0.19101201 for 36 valid completions; the v0.7 cohort cost $1.00391751 for 121.
-`cost_pilot.json` stores the pilot. Calibration, both mock agents, and the null
+The v0.6 cohort cost $0.19101201 for 36 valid completions; the v0.7 cohort cost
+$1.00391751 for 121. The v0.8 two-rollout pilot measured $0.00581969 per rollout
+at about 231 seconds each, so its 120-rollout matrix projects to $0.70 and
+roughly 7.7 hours run serially. `cost_pilot.json` and `cost_pilot_v0.8.json`
+store the pilots. Calibration, both mock agents, and the null
 and sabotage runs involve **no model calls** — debug the entire pipeline at zero
 cost and spend only once the gate is green.
 

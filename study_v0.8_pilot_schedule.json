@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "v0.8-typed-python-and-circuit-breaker",
+  "study_sha256": "26dde5a18b1dc7283643e8695620f25a12cfa7c14f1e5c41df5dcceedb540617",
+  "repo_revision": "5b60ad668ce90336c9c72dd26bf44b65bd30492a",
+  "launch_ready": true,
+  "validation_errors": [],
+  "planned_rollouts": 2,
+  "projected_cost_usd": 1.08,
+  "schedule": [
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/circuit-breaker/python",
+      "attempt": 1,
+      "sample_seed": 562120008,
+      "order_index": 4
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/circuit-breaker/python-typed",
+      "attempt": 1,
+      "sample_seed": 3345379520,
+      "order_index": 5
+    }
+  ]
+}

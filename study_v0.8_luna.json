@@ -25,7 +25,7 @@
   "attempts_per_cell": 8,
   "per_rollout_cost_limit_usd": 0.35,
   "study_cost_limit_usd": 3.0,
-  "pilot_mean_cost_usd": 0.009,
+  "pilot_mean_cost_usd": 0.00581969,
   "quality_outcomes": [
     "hidden_test_pass",
     "agent_steps",

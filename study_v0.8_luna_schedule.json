@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0.0",
   "study_id": "v0.8-typed-python-and-circuit-breaker",
-  "study_sha256": "26dde5a18b1dc7283643e8695620f25a12cfa7c14f1e5c41df5dcceedb540617",
-  "repo_revision": "5b60ad668ce90336c9c72dd26bf44b65bd30492a",
+  "study_sha256": "a47fbca59f9152dc9208a393ee1b2906eccb59e6f3df8de6f4a9990cca48ed34",
+  "repo_revision": "fe5f4b076e34788b0b4cf095dda185805ff8eb70",
   "launch_ready": true,
   "validation_errors": [],
   "planned_rollouts": 120,
-  "projected_cost_usd": 1.08,
+  "projected_cost_usd": 0.6983628,
   "schedule": [
     {
       "task_family": "circuit-breaker",
