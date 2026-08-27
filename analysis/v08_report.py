@@ -133,6 +133,57 @@ def decisive(contrasts: list[dict], metric: str) -> list[str]:
     return lines
 
 
+def oriented_primary(contrasts: list[dict]) -> dict:
+    """The primary contrast, always oriented as python-typed minus python.
+
+    `combinations` yields ("python", "python-typed"), so the stored difference
+    runs untyped minus typed. Reporting it without flipping would invert the
+    headline, so the orientation is pinned here rather than at render time.
+    """
+    item = next(entry for entry in contrasts if entry["primary"])
+    flip = item["left"] == PRIMARY[1]
+    return {
+        "left": PRIMARY[0],
+        "right": PRIMARY[1],
+        "direction": "left_minus_right",
+        "blocks": item["blocks"],
+        "estimates": {
+            metric: {
+                "mean_difference": -value["mean_difference"]
+                if flip
+                else value["mean_difference"],
+                "ci95": sorted(
+                    [-value["ci95"][0], -value["ci95"][1]]
+                    if flip
+                    else value["ci95"]
+                ),
+            }
+            for metric, value in item["estimates"].items()
+        },
+    }
+
+
+def family_rankings(report: dict) -> list[dict]:
+    """Arms ordered by pass rate within each family, best first."""
+    by_family: dict[str, list[tuple[str, int, int]]] = defaultdict(list)
+    for cell in report["by_family_and_arm"]:
+        by_family[cell["task_family"]].append(
+            (cell["language"], cell["passed"], cell["runs"])
+        )
+    result = []
+    for family, cells in sorted(by_family.items()):
+        order = sorted(cells, key=lambda item: (-item[1] / item[2], item[0]))
+        rates = [passed / runs for _, passed, runs in cells]
+        result.append(
+            {
+                "task_family": family,
+                "order": order,
+                "spread": round(max(rates) - min(rates), 6),
+            }
+        )
+    return result
+
+
 def strip_timing(cells: list[dict]) -> list[dict]:
     """Drop elapsed-time summaries; concurrency makes them uncomparable."""
     return [
@@ -148,6 +199,7 @@ def build_report(schedule: pathlib.Path, ledger: pathlib.Path) -> dict:
     contrasts = paired_contrasts(rows)
     return {
         "schema_version": "1.0.0",
+        "primary_contrast": oriented_primary(contrasts),
         "study_id": load(schedule)["study_id"],
         "repo_revision": load(schedule)["repo_revision"],
         "rollouts": len(rows),
@@ -217,9 +269,7 @@ def render_markdown(report: dict) -> str:
             f"${cell['mean_cost_usd']:.6f} |"
         )
     lines += ["", "## The primary contrast", ""]
-    primary = next(
-        (item for item in report["paired_contrasts"] if item["primary"]), None
-    )
+    primary = report["primary_contrast"]
     if primary:
         estimate = primary["estimates"]["hidden_test_pass"]
         low, high = estimate["ci95"]
@@ -248,7 +298,39 @@ def render_markdown(report: dict) -> str:
             f"{cell['passed']}/{cell['runs']} | {cell['pass_rate']:.2f} | "
             f"{cell['mean_agent_steps']:.2f} |"
         )
-    lines += ["", "## Contrasts whose interval excludes zero", ""]
+    lines += ["", "## Where the families disagree", ""]
+    ranked = family_rankings(report)
+    discriminating = [item for item in ranked if item["spread"] > 0]
+    if len(discriminating) >= 2:
+        lines += [
+            "The design says to report per-family results in full even when they",
+            "contradict the aggregate, because disagreement across families is",
+            "itself a finding. Here it is the main one.",
+            "",
+        ]
+        for item in discriminating:
+            order = " > ".join(
+                f"{LABELS[arm]} {passed}/{runs}"
+                for arm, passed, runs in item["order"]
+            )
+            lines.append(f"- **{item['task_family']}**: {order}")
+        lines += [
+            "",
+            "The two families that discriminate rank the arms in close to opposite",
+            "orders. Pooling them produces an aggregate that describes neither.",
+            "That is the concrete form of the warning this repository has carried",
+            "since v0.1: a single benchmark score across task families would have",
+            "hidden this completely.",
+            "",
+        ]
+    saturated = [item["task_family"] for item in ranked if item["spread"] == 0]
+    if saturated:
+        lines += [
+            f"{', '.join(saturated)} saturated at 100% in every arm, as expected "
+            "from v0.6, and contributes no correctness signal.",
+            "",
+        ]
+    lines += ["## Contrasts whose interval excludes zero", ""]
     decisive_lines = report["decisive_correctness"] + report["decisive_steps"]
     if decisive_lines:
         lines += [f"- {line}" for line in decisive_lines]

@@ -133,7 +133,39 @@ over Go has intervals clear of zero. Effort separates further: Go needed about
 1.5 more agent steps than Python or JavaScript, TypeScript about 0.7 more. On a
 weaker model the same task is a cliff no language rescues.
 
-Read [docs/V07_REPORT.md](docs/V07_REPORT.md). The historical
+## v0.8: the families disagree
+
+`python-typed` and `circuit-breaker` were added to answer v0.7 on its own
+terms. 120 rollouts, $0.64 measured.
+
+**The primary within-language contrast is null.** Typed Python minus untyped
+Python on pass rate is +0.042, 95% CI [-0.125, 0.208] over 24 matched blocks —
+the interval includes zero. At eight attempts per cell across three families,
+this design does not detect an effect of typing on correctness, and that is a
+result rather than a failure.
+
+**The interesting finding is that the two hard families rank the arms in nearly
+opposite orders.**
+
+| Family | Ordering |
+|---|---|
+| `circuit-breaker` | Go 7/8 > TypeScript 6/8 > JavaScript 4/8 > Python (typed) 3/8 > Python 2/8 |
+| `money-rollup` | Python 8/8 > Python (typed) 8/8 > Go 6/8 > TypeScript 6/8 > JavaScript 5/8 |
+
+Python is the best arm on one and the worst on the other. This is what the
+warning against leaderboards looks like when it actually bites: pooling these
+produces an aggregate describing neither, and a single benchmark score would
+have hidden it. It is also consistent with how the families were designed —
+`money-rollup` rewards exact-arithmetic affordances (Python's `fractions`),
+while `circuit-breaker` rewards exhaustiveness over a state machine and an
+outcome union, where the compiled and checked arms lead.
+
+Effort reproduces v0.7's direction: JavaScript needed fewer agent steps than
+TypeScript, typed Python, and Go, and Python fewer than Go — all with intervals
+clear of zero.
+
+Read [docs/V08_REPORT.md](docs/V08_REPORT.md) and
+[docs/V07_REPORT.md](docs/V07_REPORT.md). The historical
 [docs/V06_REPORT.md](docs/V06_REPORT.md),
 [docs/POLYGLOT_REPORT.md](docs/POLYGLOT_REPORT.md), and
 [docs/DECISION_REPORT.md](docs/DECISION_REPORT.md) preserve prior reports, and
