@@ -1,0 +1,1212 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "v0.8-typed-python-and-circuit-breaker",
+  "study_sha256": "26dde5a18b1dc7283643e8695620f25a12cfa7c14f1e5c41df5dcceedb540617",
+  "repo_revision": "5b60ad668ce90336c9c72dd26bf44b65bd30492a",
+  "launch_ready": true,
+  "validation_errors": [],
+  "planned_rollouts": 120,
+  "projected_cost_usd": 1.08,
+  "schedule": [
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/circuit-breaker/go",
+      "attempt": 1,
+      "sample_seed": 2152359533,
+      "order_index": 1
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/circuit-breaker/javascript",
+      "attempt": 1,
+      "sample_seed": 3650324769,
+      "order_index": 2
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/circuit-breaker/typescript",
+      "attempt": 1,
+      "sample_seed": 2355553814,
+      "order_index": 3
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/circuit-breaker/python",
+      "attempt": 1,
+      "sample_seed": 562120008,
+      "order_index": 4
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/circuit-breaker/python-typed",
+      "attempt": 1,
+      "sample_seed": 3345379520,
+      "order_index": 5
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/money-rollup/go",
+      "attempt": 1,
+      "sample_seed": 2684672364,
+      "order_index": 6
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/money-rollup/javascript",
+      "attempt": 1,
+      "sample_seed": 3864050225,
+      "order_index": 7
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/money-rollup/typescript",
+      "attempt": 1,
+      "sample_seed": 423011183,
+      "order_index": 8
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/money-rollup/python",
+      "attempt": 1,
+      "sample_seed": 4120160135,
+      "order_index": 9
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/money-rollup/python-typed",
+      "attempt": 1,
+      "sample_seed": 1423166202,
+      "order_index": 10
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/configuration-merge/go",
+      "attempt": 1,
+      "sample_seed": 4291299012,
+      "order_index": 11
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/configuration-merge/javascript",
+      "attempt": 1,
+      "sample_seed": 566650940,
+      "order_index": 12
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/configuration-merge/typescript",
+      "attempt": 1,
+      "sample_seed": 4072525689,
+      "order_index": 13
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/configuration-merge/python",
+      "attempt": 1,
+      "sample_seed": 737076109,
+      "order_index": 14
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/configuration-merge/python-typed",
+      "attempt": 1,
+      "sample_seed": 342516031,
+      "order_index": 15
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/configuration-merge/python-typed",
+      "attempt": 2,
+      "sample_seed": 86918677,
+      "order_index": 16
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/configuration-merge/python",
+      "attempt": 2,
+      "sample_seed": 578258854,
+      "order_index": 17
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/configuration-merge/typescript",
+      "attempt": 2,
+      "sample_seed": 1198247841,
+      "order_index": 18
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/configuration-merge/javascript",
+      "attempt": 2,
+      "sample_seed": 787869950,
+      "order_index": 19
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/configuration-merge/go",
+      "attempt": 2,
+      "sample_seed": 1253672556,
+      "order_index": 20
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/money-rollup/python-typed",
+      "attempt": 2,
+      "sample_seed": 1897601181,
+      "order_index": 21
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/money-rollup/python",
+      "attempt": 2,
+      "sample_seed": 4085064611,
+      "order_index": 22
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/money-rollup/typescript",
+      "attempt": 2,
+      "sample_seed": 2655473967,
+      "order_index": 23
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/money-rollup/javascript",
+      "attempt": 2,
+      "sample_seed": 376562735,
+      "order_index": 24
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/money-rollup/go",
+      "attempt": 2,
+      "sample_seed": 3837840895,
+      "order_index": 25
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/circuit-breaker/python-typed",
+      "attempt": 2,
+      "sample_seed": 2807560012,
+      "order_index": 26
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/circuit-breaker/python",
+      "attempt": 2,
+      "sample_seed": 2440482493,
+      "order_index": 27
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/circuit-breaker/typescript",
+      "attempt": 2,
+      "sample_seed": 3515816702,
+      "order_index": 28
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/circuit-breaker/javascript",
+      "attempt": 2,
+      "sample_seed": 4006400463,
+      "order_index": 29
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/circuit-breaker/go",
+      "attempt": 2,
+      "sample_seed": 2368854614,
+      "order_index": 30
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/configuration-merge/python-typed",
+      "attempt": 3,
+      "sample_seed": 614404474,
+      "order_index": 31
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/configuration-merge/python",
+      "attempt": 3,
+      "sample_seed": 1475793560,
+      "order_index": 32
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/configuration-merge/typescript",
+      "attempt": 3,
+      "sample_seed": 1477606276,
+      "order_index": 33
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/configuration-merge/javascript",
+      "attempt": 3,
+      "sample_seed": 1845297656,
+      "order_index": 34
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/configuration-merge/go",
+      "attempt": 3,
+      "sample_seed": 2179264922,
+      "order_index": 35
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/circuit-breaker/python-typed",
+      "attempt": 3,
+      "sample_seed": 3517892840,
+      "order_index": 36
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/circuit-breaker/python",
+      "attempt": 3,
+      "sample_seed": 1333854146,
+      "order_index": 37
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/circuit-breaker/typescript",
+      "attempt": 3,
+      "sample_seed": 2134677403,
+      "order_index": 38
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/circuit-breaker/javascript",
+      "attempt": 3,
+      "sample_seed": 3258641926,
+      "order_index": 39
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/circuit-breaker/go",
+      "attempt": 3,
+      "sample_seed": 1097447859,
+      "order_index": 40
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/money-rollup/python-typed",
+      "attempt": 3,
+      "sample_seed": 539852262,
+      "order_index": 41
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/money-rollup/python",
+      "attempt": 3,
+      "sample_seed": 4150285099,
+      "order_index": 42
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/money-rollup/typescript",
+      "attempt": 3,
+      "sample_seed": 2499653352,
+      "order_index": 43
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/money-rollup/javascript",
+      "attempt": 3,
+      "sample_seed": 273500906,
+      "order_index": 44
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/money-rollup/go",
+      "attempt": 3,
+      "sample_seed": 2851989533,
+      "order_index": 45
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/circuit-breaker/typescript",
+      "attempt": 4,
+      "sample_seed": 3732894404,
+      "order_index": 46
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/circuit-breaker/python",
+      "attempt": 4,
+      "sample_seed": 1175450806,
+      "order_index": 47
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/circuit-breaker/python-typed",
+      "attempt": 4,
+      "sample_seed": 4006522472,
+      "order_index": 48
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/circuit-breaker/go",
+      "attempt": 4,
+      "sample_seed": 934428918,
+      "order_index": 49
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/circuit-breaker/javascript",
+      "attempt": 4,
+      "sample_seed": 40245995,
+      "order_index": 50
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/configuration-merge/typescript",
+      "attempt": 4,
+      "sample_seed": 1168955337,
+      "order_index": 51
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/configuration-merge/python",
+      "attempt": 4,
+      "sample_seed": 1739422804,
+      "order_index": 52
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/configuration-merge/python-typed",
+      "attempt": 4,
+      "sample_seed": 1685588044,
+      "order_index": 53
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/configuration-merge/go",
+      "attempt": 4,
+      "sample_seed": 446000006,
+      "order_index": 54
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/configuration-merge/javascript",
+      "attempt": 4,
+      "sample_seed": 3793461051,
+      "order_index": 55
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/money-rollup/typescript",
+      "attempt": 4,
+      "sample_seed": 3515610015,
+      "order_index": 56
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/money-rollup/python",
+      "attempt": 4,
+      "sample_seed": 93266449,
+      "order_index": 57
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/money-rollup/python-typed",
+      "attempt": 4,
+      "sample_seed": 3981602692,
+      "order_index": 58
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/money-rollup/go",
+      "attempt": 4,
+      "sample_seed": 807672525,
+      "order_index": 59
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/money-rollup/javascript",
+      "attempt": 4,
+      "sample_seed": 3959027797,
+      "order_index": 60
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/circuit-breaker/javascript",
+      "attempt": 5,
+      "sample_seed": 3481393245,
+      "order_index": 61
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/circuit-breaker/typescript",
+      "attempt": 5,
+      "sample_seed": 2653339848,
+      "order_index": 62
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/circuit-breaker/python",
+      "attempt": 5,
+      "sample_seed": 2638954302,
+      "order_index": 63
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/circuit-breaker/python-typed",
+      "attempt": 5,
+      "sample_seed": 3406533839,
+      "order_index": 64
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/circuit-breaker/go",
+      "attempt": 5,
+      "sample_seed": 3145191107,
+      "order_index": 65
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/money-rollup/javascript",
+      "attempt": 5,
+      "sample_seed": 1034643313,
+      "order_index": 66
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/money-rollup/typescript",
+      "attempt": 5,
+      "sample_seed": 2830035281,
+      "order_index": 67
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/money-rollup/python",
+      "attempt": 5,
+      "sample_seed": 1488740621,
+      "order_index": 68
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/money-rollup/python-typed",
+      "attempt": 5,
+      "sample_seed": 2546607047,
+      "order_index": 69
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/money-rollup/go",
+      "attempt": 5,
+      "sample_seed": 3421747742,
+      "order_index": 70
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/configuration-merge/javascript",
+      "attempt": 5,
+      "sample_seed": 1008168635,
+      "order_index": 71
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/configuration-merge/typescript",
+      "attempt": 5,
+      "sample_seed": 3144629184,
+      "order_index": 72
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/configuration-merge/python",
+      "attempt": 5,
+      "sample_seed": 2181992612,
+      "order_index": 73
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/configuration-merge/python-typed",
+      "attempt": 5,
+      "sample_seed": 4133346499,
+      "order_index": 74
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/configuration-merge/go",
+      "attempt": 5,
+      "sample_seed": 195075237,
+      "order_index": 75
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/configuration-merge/python",
+      "attempt": 6,
+      "sample_seed": 2289186776,
+      "order_index": 76
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/configuration-merge/typescript",
+      "attempt": 6,
+      "sample_seed": 4232549757,
+      "order_index": 77
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/configuration-merge/javascript",
+      "attempt": 6,
+      "sample_seed": 3649458553,
+      "order_index": 78
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/configuration-merge/go",
+      "attempt": 6,
+      "sample_seed": 422608541,
+      "order_index": 79
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/configuration-merge/python-typed",
+      "attempt": 6,
+      "sample_seed": 947057184,
+      "order_index": 80
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/money-rollup/python",
+      "attempt": 6,
+      "sample_seed": 1843677877,
+      "order_index": 81
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/money-rollup/typescript",
+      "attempt": 6,
+      "sample_seed": 470460747,
+      "order_index": 82
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/money-rollup/javascript",
+      "attempt": 6,
+      "sample_seed": 3534898849,
+      "order_index": 83
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/money-rollup/go",
+      "attempt": 6,
+      "sample_seed": 3473801461,
+      "order_index": 84
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/money-rollup/python-typed",
+      "attempt": 6,
+      "sample_seed": 1874642035,
+      "order_index": 85
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/circuit-breaker/python",
+      "attempt": 6,
+      "sample_seed": 4284343649,
+      "order_index": 86
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/circuit-breaker/typescript",
+      "attempt": 6,
+      "sample_seed": 2555318424,
+      "order_index": 87
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/circuit-breaker/javascript",
+      "attempt": 6,
+      "sample_seed": 1136988331,
+      "order_index": 88
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/circuit-breaker/go",
+      "attempt": 6,
+      "sample_seed": 2335903395,
+      "order_index": 89
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/circuit-breaker/python-typed",
+      "attempt": 6,
+      "sample_seed": 631134506,
+      "order_index": 90
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/configuration-merge/python",
+      "attempt": 7,
+      "sample_seed": 2378029020,
+      "order_index": 91
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/configuration-merge/typescript",
+      "attempt": 7,
+      "sample_seed": 1351819516,
+      "order_index": 92
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/configuration-merge/javascript",
+      "attempt": 7,
+      "sample_seed": 2157752588,
+      "order_index": 93
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/configuration-merge/go",
+      "attempt": 7,
+      "sample_seed": 2112452916,
+      "order_index": 94
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/configuration-merge/python-typed",
+      "attempt": 7,
+      "sample_seed": 1619593333,
+      "order_index": 95
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/circuit-breaker/python",
+      "attempt": 7,
+      "sample_seed": 336171109,
+      "order_index": 96
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/circuit-breaker/typescript",
+      "attempt": 7,
+      "sample_seed": 3265982551,
+      "order_index": 97
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/circuit-breaker/javascript",
+      "attempt": 7,
+      "sample_seed": 1182908581,
+      "order_index": 98
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/circuit-breaker/go",
+      "attempt": 7,
+      "sample_seed": 834483624,
+      "order_index": 99
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/circuit-breaker/python-typed",
+      "attempt": 7,
+      "sample_seed": 2579626353,
+      "order_index": 100
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/money-rollup/python",
+      "attempt": 7,
+      "sample_seed": 1631993696,
+      "order_index": 101
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/money-rollup/typescript",
+      "attempt": 7,
+      "sample_seed": 2764862063,
+      "order_index": 102
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/money-rollup/javascript",
+      "attempt": 7,
+      "sample_seed": 3213428571,
+      "order_index": 103
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/money-rollup/go",
+      "attempt": 7,
+      "sample_seed": 1758904908,
+      "order_index": 104
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/money-rollup/python-typed",
+      "attempt": 7,
+      "sample_seed": 834977695,
+      "order_index": 105
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/circuit-breaker/python",
+      "attempt": 8,
+      "sample_seed": 1313503953,
+      "order_index": 106
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/circuit-breaker/python-typed",
+      "attempt": 8,
+      "sample_seed": 247153891,
+      "order_index": 107
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/circuit-breaker/go",
+      "attempt": 8,
+      "sample_seed": 1892650981,
+      "order_index": 108
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/circuit-breaker/javascript",
+      "attempt": 8,
+      "sample_seed": 2611739403,
+      "order_index": 109
+    },
+    {
+      "task_family": "circuit-breaker",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/circuit-breaker/typescript",
+      "attempt": 8,
+      "sample_seed": 271440598,
+      "order_index": 110
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/configuration-merge/python",
+      "attempt": 8,
+      "sample_seed": 2859798628,
+      "order_index": 111
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/configuration-merge/python-typed",
+      "attempt": 8,
+      "sample_seed": 3496029479,
+      "order_index": 112
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/configuration-merge/go",
+      "attempt": 8,
+      "sample_seed": 193251227,
+      "order_index": 113
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/configuration-merge/javascript",
+      "attempt": 8,
+      "sample_seed": 1561200527,
+      "order_index": 114
+    },
+    {
+      "task_family": "configuration-merge",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/configuration-merge/typescript",
+      "attempt": 8,
+      "sample_seed": 244952906,
+      "order_index": 115
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/money-rollup/python",
+      "attempt": 8,
+      "sample_seed": 3306311664,
+      "order_index": 116
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/money-rollup/python-typed",
+      "attempt": 8,
+      "sample_seed": 1254826000,
+      "order_index": 117
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/money-rollup/go",
+      "attempt": 8,
+      "sample_seed": 424412306,
+      "order_index": 118
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/money-rollup/javascript",
+      "attempt": 8,
+      "sample_seed": 232946592,
+      "order_index": 119
+    },
+    {
+      "task_family": "money-rollup",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/money-rollup/typescript",
+      "attempt": 8,
+      "sample_seed": 2480212805,
+      "order_index": 120
+    }
+  ]
+}

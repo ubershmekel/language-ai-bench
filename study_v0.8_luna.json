@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "v0.8-typed-python-and-circuit-breaker",
+  "status": "ready",
+  "objective": "Estimate the within-language effect of type feedback by pairing python against python-typed across three brownfield families, with javascript, typescript, and go carried as cross-language probes. The python/python-typed contrast is the only one here whose treatment is typing alone; every cross-language pair also differs in runtime, build step, or ecosystem.",
+  "languages": [
+    "javascript",
+    "typescript",
+    "python",
+    "python-typed",
+    "go"
+  ],
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "model_settings": {
+    "reasoning_effort": "low",
+    "cache_control": "default_end",
+    "temperature": null,
+    "provider_routing": "openrouter-default"
+  },
+  "agent": "mini-swe-agent@2.4.6",
+  "pier": "0.3.1",
+  "scaffold": "mini-swe-agent/bash-only",
+  "prompt_revision": "mini-swe-agent-1.1",
+  "randomization_seed": 20260827,
+  "attempts_per_cell": 8,
+  "per_rollout_cost_limit_usd": 0.35,
+  "study_cost_limit_usd": 3.0,
+  "pilot_mean_cost_usd": 0.009,
+  "quality_outcomes": [
+    "hidden_test_pass",
+    "agent_steps",
+    "cost_usd"
+  ],
+  "task_families": [
+    {
+      "id": "money-rollup",
+      "status": "ready",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "paths": {
+        "javascript": "tasks/money-rollup/javascript",
+        "typescript": "tasks/money-rollup/typescript",
+        "python": "tasks/money-rollup/python",
+        "python-typed": "tasks/money-rollup/python-typed",
+        "go": "tasks/money-rollup/go"
+      }
+    },
+    {
+      "id": "circuit-breaker",
+      "status": "ready",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "paths": {
+        "javascript": "tasks/circuit-breaker/javascript",
+        "typescript": "tasks/circuit-breaker/typescript",
+        "python": "tasks/circuit-breaker/python",
+        "python-typed": "tasks/circuit-breaker/python-typed",
+        "go": "tasks/circuit-breaker/go"
+      }
+    },
+    {
+      "id": "configuration-merge",
+      "status": "ready",
+      "category": "data-shape-merge",
+      "project_maturity": "brownfield",
+      "paths": {
+        "javascript": "tasks/configuration-merge/javascript",
+        "typescript": "tasks/configuration-merge/typescript",
+        "python": "tasks/configuration-merge/python",
+        "python-typed": "tasks/configuration-merge/python-typed",
+        "go": "tasks/configuration-merge/go"
+      }
+    }
+  ],
+  "analysis": {
+    "primary_estimand": "paired python-typed minus python hidden-verifier pass rate, pooled over the three families",
+    "co_primary_outcomes": [
+      "hidden_test_pass",
+      "agent_steps"
+    ],
+    "uncertainty": "Wilson intervals per arm; paired bootstrap over attempt blocks",
+    "stopping_rule": "Fixed at 120 rollouts; no interim stopping on outcome. The v0.7 continuation was outcome-dependent and this design does not repeat that."
+  },
+  "model_rung": "strong",
+  "notes": "Three families is the launch gate's minimum, and the third is included on purpose rather than to satisfy a counter. configuration-merge saturated at 100% in v0.6, so it cannot discriminate on correctness -- but agent steps and cost are co-primary outcomes, and a saturating family is exactly where a typing arm can be shown to cost effort without buying correctness. If mypy friction is real, that family is where it shows up cleanly. Two families is still below the point where between-family variance dominates, so this estimates the arms at these three tasks and supports no language-general claim. money-rollup is carried forward so v0.8 can be compared against the v0.7 cohort on that family, with the caveat that its starter bytes changed when the sources were made idiomatic."
+}

@@ -27,8 +27,10 @@ def git_revision() -> str:
 def validate(study: dict, require_launch_ready: bool = False) -> list[str]:
     errors: list[str] = []
     languages = study.get("languages", [])
-    if len(languages) != 4 or len(set(languages)) != 4:
-        errors.append("languages must contain four unique values")
+    # Arms are no longer one-per-language: python and python-typed are the
+    # within-language contrast, so the count is open and only uniqueness binds.
+    if len(languages) < 2 or len(set(languages)) != len(languages):
+        errors.append("languages must contain at least two unique values")
     if study.get("attempts_per_cell", 0) < 1:
         errors.append("attempts_per_cell must be positive")
     if study.get("per_rollout_cost_limit_usd", 0) <= 0:
