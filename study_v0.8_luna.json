@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "study_id": "v0.8-typed-python-and-circuit-breaker",
   "status": "ready",
-  "objective": "Estimate the within-language effect of type feedback by pairing python against python-typed across three brownfield families, with javascript, typescript, and go carried as cross-language probes. The python/python-typed contrast is the only one here whose treatment is typing alone; every cross-language pair also differs in runtime, build step, or ecosystem.",
+  "objective": "Estimate the effect of type feedback with the language held fixed, by pairing python against python-typed across three brownfield families. JavaScript against TypeScript is the same kind of pair and is read alongside it, but TypeScript also adds a compile step and a build toolchain, so the Python pair isolates the types more tightly. Go is carried as a cross-language probe.",
   "languages": [
     "javascript",
     "typescript",

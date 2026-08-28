@@ -28,13 +28,14 @@ carry confounds: different ecosystems, diagnostic quality, test-loop latency,
 and pretraining mass. A Go-versus-JavaScript difference cannot be attributed to
 *typing* rather than to compilation, tooling, or ecosystem.
 
-**Python and typed Python are the within-language contrast**, and the reason
-the table has five rows. Same runtime, same standard library, same file
-topology, same pretraining distribution. Annotations and `mypy --strict` are
-the only difference. A cross-language comparison can never cleanly answer "does
-typing help"; it answers "does this bundle help." This pair can. `verify-local`
-runs `mypy` before the developer tests in that arm, so the type feedback is
-actually in the loop rather than merely available.
+**Two of these pairs are the same language with and without types.**
+JavaScript and TypeScript are one such pair, and Python and typed Python are
+the other. The Python pair is the tighter of the two: TypeScript adds a compile
+step and a build toolchain on top of the types, while typed Python is the same
+interpreter running the same files, with annotations and `mypy --strict` as the
+only difference. Reading both pairs together separates "types helped" from
+"having a build step helped". `verify-local` runs `mypy` before the developer
+tests, so that feedback is actually in the loop rather than merely available.
 
 ## What this contributes over DeepSWE
 
@@ -138,11 +139,10 @@ weaker model the same task is a cliff no language rescues.
 `python-typed` and `circuit-breaker` were added to answer v0.7 on its own
 terms. 120 rollouts, $0.64 measured.
 
-**The primary within-language contrast is null.** Typed Python minus untyped
-Python on pass rate is +0.042, 95% CI [-0.125, 0.208] over 24 matched blocks.
-The interval includes zero. At eight attempts per cell across three families,
-this design does not detect an effect of typing on correctness, and that is a
-result rather than a failure.
+**Adding types to Python did not measurably help.** Typed Python passed 19 of
+24 and untyped Python 18 of 24. The gap is +0.042 with a 95% interval of
+[-0.125, 0.208], which spans zero, so at this sample size the difference is
+indistinguishable from chance. That is a real answer, not a failed experiment.
 
 **The interesting finding is that the two hard families rank the arms in nearly
 opposite orders.**

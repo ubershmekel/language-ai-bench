@@ -6,8 +6,9 @@ That comparison cannot separate typing from runtime, ecosystem, or pretraining
 mass, and its hardest family turned out to discriminate on numeric semantics
 rather than on anything a checker sees. v0.8 adds `python-typed` -- the same
 interpreter and standard library, differing only in annotations and a blocking
-`mypy --strict` step -- so the primary estimand is a paired contrast whose
-treatment is typing alone.
+`mypy --strict` step. JavaScript against TypeScript was already a same-language
+typed/untyped pair, but TypeScript also brings a compile step and a build
+toolchain; the Python pair holds those fixed, so it isolates the types alone.
 
 Agent wall time is deliberately absent. This cohort ran four rollouts at a time,
 so elapsed time includes contention and is not comparable to v0.7's serial
@@ -246,9 +247,11 @@ def render_markdown(report: dict) -> str:
         "",
         "v0.8 adds `python-typed`: the same interpreter, standard library, and",
         "file topology as `python`, differing only in annotations and a blocking",
-        "`mypy --strict` step in the developer loop. Its paired contrast against",
-        "`python` is the only comparison in this repository whose treatment is",
-        "typing alone. It also adds `circuit-breaker`, a family whose difficulty",
+        "`mypy --strict` step in the developer loop. That gives two same-language",
+        "pairs rather than one. JavaScript against TypeScript already varied types,",
+        "but TypeScript also adds a compile step and a build toolchain; the Python",
+        "pair holds both of those fixed, so reading the two together separates",
+        "types from build. It also adds `circuit-breaker`, a family whose difficulty",
         "is routed through a state machine and an outcome union crossing module",
         "boundaries, where a missed case is silent in JavaScript and Python and",
         "visible to `tsc`, `go build`, and `mypy`.",

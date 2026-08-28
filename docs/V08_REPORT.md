@@ -11,9 +11,11 @@ task is not evidence about typing.
 
 v0.8 adds `python-typed`: the same interpreter, standard library, and
 file topology as `python`, differing only in annotations and a blocking
-`mypy --strict` step in the developer loop. Its paired contrast against
-`python` is the only comparison in this repository whose treatment is
-typing alone. It also adds `circuit-breaker`, a family whose difficulty
+`mypy --strict` step in the developer loop. That gives two same-language
+pairs rather than one. JavaScript against TypeScript already varied types,
+but TypeScript also adds a compile step and a build toolchain; the Python
+pair holds both of those fixed, so reading the two together separates
+types from build. It also adds `circuit-breaker`, a family whose difficulty
 is routed through a state machine and an outcome union crossing module
 boundaries, where a missed case is silent in JavaScript and Python and
 visible to `tsc`, `go build`, and `mypy`.
