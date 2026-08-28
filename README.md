@@ -2,8 +2,8 @@
 
 A minimal, MIT-licensed experiment asking one question:
 
-> **How does programming-language choice — and especially the feedback a type
-> system and its standard tooling provide — affect an autonomous coding agent's
+> **How does programming-language choice, and especially the feedback a type
+> system and its standard tooling provide, affect an autonomous coding agent's
 > ability to complete the *same* software-engineering task?**
 
 The design must be able to answer "typing hurts" and "no effect detectable at
@@ -24,13 +24,13 @@ discover the result its author expects is not measuring anything.
 the matched pair and the analytical centerpiece: same runtime, package manager,
 test runner, ecosystem idioms, and error-message conventions, so the type layer
 is close to the only varying factor. Python and Go widen external validity but
-carry confounds — different ecosystems, diagnostic quality, test-loop latency,
+carry confounds: different ecosystems, diagnostic quality, test-loop latency,
 and pretraining mass. A Go-versus-JavaScript difference cannot be attributed to
 *typing* rather than to compilation, tooling, or ecosystem.
 
 **Python and typed Python are the within-language contrast**, and the reason
 the table has five rows. Same runtime, same standard library, same file
-topology, same pretraining distribution — annotations and `mypy --strict` are
+topology, same pretraining distribution. Annotations and `mypy --strict` are
 the only difference. A cross-language comparison can never cleanly answer "does
 typing help"; it answers "does this bundle help." This pair can. `verify-local`
 runs `mypy` before the developer tests in that arm, so the type feedback is
@@ -39,7 +39,7 @@ actually in the loop rather than merely available.
 ## What this contributes over DeepSWE
 
 [DeepSWE](https://deepswe.datacurve.ai/) covers 113 tasks across TypeScript
-(35), Python (34), Go (34), Rust (5), and JavaScript (5) — but each task comes
+(35), Python (34), Go (34), Rust (5), and JavaScript (5), but each task comes
 from a *different real repository*. Language is fully confounded with repo,
 domain, and difficulty, so no language effect is readable from its leaderboard.
 
@@ -61,7 +61,7 @@ DeepSWE's tasks are terse prompts over large real repos: difficulty comes from
 underspecification and navigation. That lever is unavailable here, because
 navigation and convention-inference vary by ecosystem and would reintroduce the
 confound this repo exists to remove. The lever available is **specification
-breadth** — many interacting rules, each individually easy, collectively easy to
+breadth**: many interacting rules, each individually easy, collectively easy to
 leave one out.
 
 ## Verification
@@ -71,7 +71,7 @@ request/response, filesystem effects, externally visible state transitions.
 Forbidden: requiring particular class or function names unless genuinely part of
 the public interface, AST inspection, requiring a specific algorithm, inspecting
 internal data structures. Verbosity and compiler-induced work are *outcomes* to
-be measured, never nuisances to normalize away — task equivalence is never
+be measured, never nuisances to normalize away. Task equivalence is never
 defined by equal lines of code.
 
 The agent sees a behavior-focused prompt plus developer tests covering the happy
@@ -83,11 +83,11 @@ If one language's verifier is subtly stricter than another's, every downstream
 number is meaningless and nothing else in the design would reveal it. Before any
 paid run, and costing nothing:
 
-1. **Reference run** — 100% of hidden cases in every language. Below 100% is a
+1. **Reference run**: 100% of hidden cases in every language. Below 100% is a
    verifier or environment bug, not a finding.
-2. **Null run** — the untouched starter must fail on the *same case IDs* in
+2. **Null run**: the untouched starter must fail on the *same case IDs* in
    every language.
-3. **Sabotage runs** — seeded plausible-but-wrong patches, each caught by the
+3. **Sabotage runs**: seeded plausible-but-wrong patches, each caught by the
    *same case ID* in every language.
 
 `calibration_report.json` is the receipt. No result is valid without a green one.
@@ -100,7 +100,7 @@ defined mechanically: diagnostic **D** is emitted at step *t* naming location
 longer emits **D**. Recorded per run as a count, a median step distance, and a
 rate per edit, so a language is not credited merely for emitting more
 diagnostics. This distinguishes "the compiler cost extra steps" from "the
-compiler converted a diagnostic into a fix" — a distinction step counts alone
+compiler converted a diagnostic into a fix", a distinction step counts alone
 cannot make.
 
 ## Task families
@@ -120,7 +120,7 @@ v0.1 shipped one optimistic-concurrency family. v0.4 added a JavaScript/
 TypeScript decision study crossed with greenfield and brownfield starts; the
 staged cells and stopping budget are in `decision_benchmark.json`. The v0.6
 cohort balanced all four languages at nine brownfield runs each across three
-families — and all 36 passed. A benchmark whose tasks are all solved cannot
+families, and all 36 passed. A benchmark whose tasks are all solved cannot
 answer whether the language matters.
 
 `tasks/money-rollup` exists to break that ceiling: a four-file brownfield
@@ -139,8 +139,8 @@ weaker model the same task is a cliff no language rescues.
 terms. 120 rollouts, $0.64 measured.
 
 **The primary within-language contrast is null.** Typed Python minus untyped
-Python on pass rate is +0.042, 95% CI [-0.125, 0.208] over 24 matched blocks —
-the interval includes zero. At eight attempts per cell across three families,
+Python on pass rate is +0.042, 95% CI [-0.125, 0.208] over 24 matched blocks.
+The interval includes zero. At eight attempts per cell across three families,
 this design does not detect an effect of typing on correctness, and that is a
 result rather than a failure.
 
@@ -155,13 +155,13 @@ opposite orders.**
 Python is the best arm on one and the worst on the other. This is what the
 warning against leaderboards looks like when it actually bites: pooling these
 produces an aggregate describing neither, and a single benchmark score would
-have hidden it. It is also consistent with how the families were designed —
+have hidden it. It is also consistent with how the families were designed:
 `money-rollup` rewards exact-arithmetic affordances (Python's `fractions`),
 while `circuit-breaker` rewards exhaustiveness over a state machine and an
 outcome union, where the compiled and checked arms lead.
 
 Effort reproduces v0.7's direction: JavaScript needed fewer agent steps than
-TypeScript, typed Python, and Go, and Python fewer than Go — all with intervals
+TypeScript, typed Python, and Go, and Python fewer than Go, all with intervals
 clear of zero.
 
 Read [docs/V08_REPORT.md](docs/V08_REPORT.md) and
@@ -208,7 +208,7 @@ python3 analysis/aggregate.py results
 `scripts/verify-local` in every variant starts the service, readiness-probes,
 tests, and tears down in one shell invocation. This resolves mini-swe-agent's
 non-persistent-shell asymmetry, which would otherwise land differentially across
-languages — `go build && ./server &` is a different experience from
+languages: `go build && ./server &` is a different experience from
 `npm run dev &`, and that asymmetry would sit directly on the dependent
 variable.
 
@@ -224,7 +224,7 @@ But it exposes type information only when the agent *chooses* to run `tsc` or
 did not invoke the checker," not "types did not help." Two things partly defend
 the choice: CLI invocation is how most production coding agents actually obtain
 type feedback today, and any richer scaffold bakes third-party, per-language
-tool quality into the apparatus — an LSP hands TypeScript and Go far richer
+tool quality into the apparatus. An LSP hands TypeScript and Go far richer
 information than JavaScript and Python, which *is* the treatment, implemented by
 someone else with unmeasured fidelity.
 
@@ -268,7 +268,7 @@ $1.00391751 for 121. The v0.8 two-rollout pilot measured $0.00581969 per rollout
 at about 231 seconds each, so its 120-rollout matrix projects to $0.70 and
 roughly 7.7 hours run serially. `cost_pilot.json` and `cost_pilot_v0.8.json`
 store the pilots. Calibration, both mock agents, and the null
-and sabotage runs involve **no model calls** — debug the entire pipeline at zero
+and sabotage runs involve **no model calls**, so debug the entire pipeline at zero
 cost and spend only once the gate is green.
 
 ## Statistical structure
@@ -276,8 +276,8 @@ cost and spend only once the gate is green.
 Structure is task family × language × `typecheck_config` × seed. Analyze at
 family × language level and never collapse to a single benchmark score. Report
 full distributions and paired differences with intervals, not point estimates,
-and report per-family results in full even when they contradict the aggregate —
-disagreement across families is itself a finding.
+and report per-family results in full even when they contradict the aggregate.
+Disagreement across families is itself a finding.
 
 Past roughly five seeds per cell, **additional task families buy more
 inferential power than additional seeds**, because between-family variance
@@ -295,7 +295,7 @@ that is a finding about the model, not a licence to reshape the task.
 
 In priority order, each additive and accommodated by the current schema:
 
-1. **More rungs on the within-language ladder** — the Python/typed-Python pair
+1. **More rungs on the within-language ladder**: the Python/typed-Python pair
    ships now; JavaScript with JSDoc and `checkJs`, and TypeScript non-strict,
    would turn the contrast into a dose–response curve.
 2. **A second scaffold arm** through a real agent, per the section above.
