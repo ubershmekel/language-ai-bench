@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "study_id": "v0.9-third-hard-family",
   "study_sha256": "74d4799ec1556723e6a53796876916bfb557e6caee9f7d9b45a830174ce5aff8",
-  "repo_revision": "faa2447c887108a8731577c2665760226c76d5d5",
+  "repo_revision": "5cb3b9def0d344a13740315ad29845534a53036f",
   "launch_ready": true,
   "validation_errors": [],
   "planned_rollouts": 120,
