@@ -64,10 +64,23 @@ repo has produced:
 |---|---|---|
 | `money-rollup` | exact arithmetic in the standard library | Python |
 | `circuit-breaker` | not dropping a case of a union that crosses files | Go, TypeScript |
-| `text-redact` | knowing what a string is at runtime | to be measured |
+| `text-redact` | knowing what a string is at runtime | nobody, it saturated |
 
 A new family that repeats an existing mechanism buys almost nothing. Past
 roughly five seeds per cell, another family is worth more than more seeds.
+
+**A green gate does not mean the task is hard.** `text-redact` passed
+calibration in all five languages, its starter failed ten of twelve checks, and
+it still passed 39 of 40 paid attempts with its intended hazard never firing
+once. Spend $0.012 on a two-rollout difficulty probe at the target rung before
+committing a 120-rollout matrix. The gate proves the scoring is fair; only a
+paid probe tells you the task discriminates.
+
+**Do not telegraph the hazard in the instruction.** `text-redact` gave its
+code point rule a paragraph of its own and added that it does not matter how
+your language indexes a string. Every arm then converted up front and the trap
+never sprang. State the contract once, plainly, and let the hidden cases do the
+catching.
 
 Copy `tasks/circuit-breaker` as the template. What makes it a good one: a
 command-line program reading one JSON document from stdin, everything

@@ -14,6 +14,8 @@ test -f docs/data/v07-results.json
 test -f docs/V07_REPORT.md
 test -f docs/data/v08-results.json
 test -f docs/V08_REPORT.md
+test -f docs/data/v09-results.json
+test -f docs/V09_REPORT.md
 
 node --check docs/app.js
 node -e '
@@ -120,6 +122,35 @@ node -e '
   if (families.size !== 3) throw new Error("expected three v0.8 families");
 '
 grep -q 'family-reversal' docs/index.html
+node -e '
+  const fs = require("node:fs");
+  const data = JSON.parse(fs.readFileSync("docs/data/v09-results.json", "utf8"));
+  if (data.schema_version !== "1.0.0") throw new Error("unexpected v0.9 schema");
+  if (data.rollouts !== 120) throw new Error("expected 120 v0.9 rollouts");
+  if (data.by_arm.length !== 5) throw new Error("expected five v0.9 arms");
+  if (data.by_arm.some((row) => row.runs !== data.rollouts / 5)) {
+    throw new Error("v0.9 cohort is unbalanced across arms");
+  }
+  if (data.by_arm.some((row) => "mean_agent_seconds" in row)) {
+    throw new Error("v0.9 ran concurrently; elapsed time must not be published");
+  }
+  const families = new Set(data.by_family_and_arm.map((row) => row.task_family));
+  if (families.size !== 3) throw new Error("expected three v0.9 families");
+  if (!families.has("text-redact")) throw new Error("v0.9 must carry the third family");
+  // The third family saturated. Publishing it as an ordering would be a lie,
+  // so the site drops any family with under two runs of separation and the
+  // report has to keep saying that out loud.
+  const spread = data.leadership.spread_runs;
+  if (spread["text-redact"] >= 2) {
+    throw new Error("text-redact now discriminates; revisit the copy calling it too easy");
+  }
+  if (data.leadership.flat_families.join() !== "text-redact") {
+    throw new Error("unexpected set of flat v0.9 families");
+  }
+  const cp = data.text_redact_code_point_failures;
+  if (cp.length !== 5) throw new Error("expected five code point rows");
+'
+grep -q 'too easy to rank anything' docs/index.html
 if grep -q 'Agent time' docs/index.html docs/details.html; then
   echo "Elapsed time is published but this cohort ran concurrently." >&2
   exit 1

@@ -12,7 +12,7 @@
 <body>
   <header class="site-header">
     <a class="brand" href="./"><span class="brand-mark">L/AB</span><span>Language AI Bench</span></a>
-    <nav><a href="./">Overview</a><a href="./#idea">The task</a><a href="./methodology.html">How scoring works</a><a href="./data/v08-results.json">Latest aggregates</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub &#8599;</a></nav>
+    <nav><a href="./">Overview</a><a href="./#idea">The task</a><a href="./methodology.html">How scoring works</a><a href="./data/v09-results.json">Latest aggregates</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub &#8599;</a></nav>
   </header>
 
   <main>
@@ -73,8 +73,8 @@
       <h2>Spend and confidence</h2>
       <div class="config-grid">
         <div><span>Attempts</span><strong id="detail-runs">120</strong></div>
-        <div><span>Passed</span><strong id="detail-passed">95</strong></div>
-        <div><span>v0.8 API spend</span><strong id="detail-cost">$0.644634</strong></div>
+        <div><span>Passed</span><strong id="detail-passed">85</strong></div>
+        <div><span>v0.9 API spend</span><strong id="detail-cost">$0.699961</strong></div>
         <div><span>Infrastructure failures</span><strong>0</strong></div>
       </div>
       <p class="details-note">Eight attempts per cell is enough to expose the reversal between families but not to resolve small differences within one. The stopping rule was fixed at 120 rollouts before the first paid call and no interim analysis informed continuation, unlike v0.7 where the second batch was run because the first left an interval touching zero. Elapsed time is not reported: this cohort ran four attempts concurrently, so wall clock includes contention. Rollouts ending in a runner exception are recorded in the ledger and excluded from scoring as infrastructure rather than counted as failures; this cohort had none.</p>
@@ -89,7 +89,7 @@
 
   <footer class="section-shell">
     <div><strong>Language AI Bench</strong><p>Aggregate results only; private prompts, trajectories, patches, and environment variables are not published.</p></div>
-    <div class="footer-links"><a href="./data/v08-results.json">Latest aggregate JSON</a><a href="./V08_REPORT.md">Latest written report</a><a href="./methodology.html">How scoring works</a><a href="./V07_REPORT.md">Previous report</a><a href="./DESIGN.md">Design</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub</a></div>
+    <div class="footer-links"><a href="./data/v09-results.json">Latest aggregate JSON</a><a href="./V09_REPORT.md">Latest written report</a><a href="./methodology.html">How scoring works</a><a href="./V08_REPORT.md">Previous report</a><a href="./DESIGN.md">Design</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub</a></div>
   </footer>
 </body>
 </html>

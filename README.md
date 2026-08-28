@@ -165,7 +165,43 @@ Effort reproduces v0.7's direction: JavaScript needed fewer agent steps than
 TypeScript, typed Python, and Go, and Python fewer than Go, all with intervals
 clear of zero.
 
-Read [docs/V08_REPORT.md](docs/V08_REPORT.md) and
+## v0.9: the third family was too easy
+
+`text-redact` was built to break the v0.8 tie. It specifies every offset and
+length in Unicode code points, which Python indexes already, JavaScript and
+TypeScript do not, and Go forces into the open as `string` against `[]rune`.
+Neither `tsc` nor `mypy` says anything about the difference, so it was the first
+family where the three checked arms had no reason to behave alike.
+
+**It did not work.** 120 rollouts, $0.70 measured. `text-redact` passed 39 of
+40, and of those 40 runs, zero failed either of the two hidden cases that catch
+offsets counted in the wrong unit. The trap never sprang. The likely cause is
+plain: the instruction states the code point rule in its own paragraph and adds
+that it does not matter how your language indexes a string, which is a loud
+warning sitting directly on the hazard. A green calibration gate proves the
+scoring is fair in every language. It does not prove the task is hard.
+
+The two carried-over families still disagree, and the cohort produced a second
+result worth more than the one it was designed for. Both were rerun with
+nothing changed but the randomization seed:
+
+| Family | Arm | v0.8 | v0.9 |
+|---|---|---:|---:|
+| `circuit-breaker` | TypeScript | 6/8 | 2/8 |
+| `circuit-breaker` | Go | 7/8 | 4/8 |
+| `circuit-breaker` | JavaScript | 4/8 | 6/8 |
+| `money-rollup` | Python | 8/8 | 6/8 |
+| `money-rollup` | Go | 6/8 | 4/8 |
+
+Eight attempts per cell does not fix a per-family ordering. What reproduces is
+the weaker and more useful claim: the families disagree, and no arm leads on
+all of them. What does not reproduce is the exact order inside either family,
+so the v0.8 orderings above should be read as one draw, not as a ranking. The
+typed-Python contrast came out at +0.125 with a 95% interval of [-0.125, 0.375],
+spanning zero again.
+
+Read [docs/V09_REPORT.md](docs/V09_REPORT.md),
+[docs/V08_REPORT.md](docs/V08_REPORT.md) and
 [docs/V07_REPORT.md](docs/V07_REPORT.md). The historical
 [docs/V06_REPORT.md](docs/V06_REPORT.md),
 [docs/POLYGLOT_REPORT.md](docs/POLYGLOT_REPORT.md), and
@@ -265,10 +301,11 @@ matrix  = rollout × languages × seeds × task_families
 ```
 
 The v0.6 cohort cost $0.19101201 for 36 valid completions; the v0.7 cohort cost
-$1.00391751 for 121. The v0.8 two-rollout pilot measured $0.00581969 per rollout
-at about 231 seconds each, so its 120-rollout matrix projects to $0.70 and
-roughly 7.7 hours run serially. `cost_pilot.json` and `cost_pilot_v0.8.json`
-store the pilots. Calibration, both mock agents, and the null
+$1.00391751 for 121. The v0.8 pilot measured $0.00581969 per rollout and its
+120-rollout matrix came in at $0.644634. The v0.9 pilot measured $0.00591306 and
+its 120-rollout matrix came in at $0.699961, four at a time in about two hours.
+`cost_pilot.json`, `cost_pilot_v0.8.json`, and `cost_pilot_v0.9.json` store the
+pilots. Calibration, both mock agents, and the null
 and sabotage runs involve **no model calls**, so debug the entire pipeline at zero
 cost and spend only once the gate is green.
 
@@ -300,9 +337,14 @@ In priority order, each additive and accommodated by the current schema:
    ships now; JavaScript with JSDoc and `checkJs`, and TypeScript non-strict,
    would turn the contrast into a dose–response curve.
 2. **A second scaffold arm** through a real agent, per the section above.
-3. **More task families**, per the power argument above.
-4. **A second model family**, ideally third-party contributed.
-5. **Reasoning effort as a crossed factor**, which needs its own design rather
+3. **More task families**, per the power argument above. v0.9 shows the free
+   gate is not enough on its own: `text-redact` passed calibration in all five
+   languages and still saturated. A cheap two-rollout difficulty probe on the
+   target rung, before committing a matrix, would have caught it for $0.012.
+4. **A revision of `text-redact`** that stops telegraphing its own hazard, so
+   the code point mechanism gets a fair test.
+5. **A second model family**, ideally third-party contributed.
+6. **Reasoning effort as a crossed factor**, which needs its own design rather
    than being a byproduct of the selection ladder.
 
 ## Results and contributions

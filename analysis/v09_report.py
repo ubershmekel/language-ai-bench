@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the v0.9 report: three hard families, and whether any language leads.
+"""Build the v0.9 report: a third hard family that turned out not to be hard.
 
 v0.8 left one result standing above the rest. Its two hard families ranked the
 five arms in nearly opposite orders, and each ordering followed from the
@@ -16,9 +16,10 @@ is `string` whichever unit you meant, while `go build` forces `string` and
 `[]rune` apart at every boundary. So this is the first family where the three
 type-checked arms have no reason to behave alike.
 
-The question this report answers is not "which language is best". It is whether
-any language leads on all three families, and if not, whether the ordering
-tracks the affordance each family rewards.
+It did not work. `text-redact` passed 39 of 40 and its code point hazard never
+fired once, so it cannot rank anything. The report says so first, then falls
+back to what the cohort can answer: whether the two carried-over families still
+disagree, and how far their orderings moved on nothing but a new seed.
 
 Agent wall time is deliberately absent. This cohort ran four rollouts at a time,
 so elapsed time includes contention. Correctness, steps, tokens, and cost are
@@ -40,7 +41,12 @@ try:
         load,
         read_rows,
     )
-    from analysis.v08_report import decisive, family_rankings, paired_contrasts
+    from analysis.v08_report import (
+        decisive,
+        family_rankings,
+        oriented_primary,
+        paired_contrasts,
+    )
 except ModuleNotFoundError:
     from v07_report import (
         attach_failed_cases,
@@ -49,7 +55,12 @@ except ModuleNotFoundError:
         load,
         read_rows,
     )
-    from v08_report import decisive, family_rankings, paired_contrasts
+    from v08_report import (
+        decisive,
+        family_rankings,
+        oriented_primary,
+        paired_contrasts,
+    )
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 ARMS = ("javascript", "typescript", "python", "python-typed", "go")
@@ -84,13 +95,28 @@ def rate_table(report: dict) -> dict[str, dict[str, float]]:
     return dict(table)
 
 
-def leadership(report: dict) -> dict:
-    """Does any arm lead, or trail, on every family that discriminates?"""
+def leadership(report: dict, minimum_spread: int = 2) -> dict:
+    """Does any arm lead, or trail, on every family that discriminates?
+
+    A family counts as discriminating only if its best and worst arms differ by
+    at least `minimum_spread` runs. One run of separation out of eight is not an
+    ordering, and treating it as one manufactures reversals out of noise.
+    """
     table = rate_table(report)
+    spread_runs = {
+        cell["task_family"]: 0 for cell in report["by_family_and_arm"]
+    }
+    for family in spread_runs:
+        counts = [
+            cell["passed"]
+            for cell in report["by_family_and_arm"]
+            if cell["task_family"] == family
+        ]
+        spread_runs[family] = max(counts) - min(counts)
     discriminating = {
         family: rates
         for family, rates in table.items()
-        if max(rates.values()) > min(rates.values())
+        if spread_runs[family] >= minimum_spread
     }
     leaders, trailers = [], []
     for rates in discriminating.values():
@@ -113,12 +139,42 @@ def leadership(report: dict) -> dict:
                         {"language": arm, "best_on": left, "worst_on": right}
                     )
     return {
+        "minimum_spread_runs": minimum_spread,
+        "spread_runs": spread_runs,
         "discriminating_families": families,
-        "saturated_or_flat_families": sorted(set(table) - set(discriminating)),
+        "flat_families": sorted(set(table) - set(discriminating)),
         "best_on_every_discriminating_family": everywhere_best,
         "worst_on_every_discriminating_family": everywhere_worst,
         "reversals": reversals,
     }
+
+
+def cohort_drift(report: dict, previous: pathlib.Path) -> list[dict]:
+    """Same family, same design, previous cohort: how much did the order move?"""
+    if not previous.is_file():
+        return []
+    before: dict[tuple[str, str], tuple[int, int]] = {
+        (cell["task_family"], cell["language"]): (cell["passed"], cell["runs"])
+        for cell in load(previous)["by_family_and_arm"]
+    }
+    drift = []
+    for cell in report["by_family_and_arm"]:
+        key = (cell["task_family"], cell["language"])
+        if key not in before:
+            continue
+        passed, runs = before[key]
+        drift.append(
+            {
+                "task_family": cell["task_family"],
+                "language": cell["language"],
+                "v08_passed": passed,
+                "v08_runs": runs,
+                "v09_passed": cell["passed"],
+                "v09_runs": cell["runs"],
+                "change_runs": cell["passed"] - passed,
+            }
+        )
+    return drift
 
 
 def code_point_failures(rows: list[dict]) -> list[dict]:
@@ -155,6 +211,9 @@ def build_report(schedule: pathlib.Path, ledger: pathlib.Path) -> dict:
     receipt = load(schedule)
     report = {
         "schema_version": "1.0.0",
+        # The site reads this field. It is the same within-language pair v0.8
+        # made primary, kept for continuity; v0.9's own estimand is per-family.
+        "primary_contrast": oriented_primary(contrasts),
         "study_id": receipt["study_id"],
         "repo_revision": receipt["repo_revision"],
         "rollouts": len(rows),
@@ -190,20 +249,34 @@ def build_report(schedule: pathlib.Path, ledger: pathlib.Path) -> dict:
         },
     }
     report["leadership"] = leadership(report)
+    report["cohort_drift"] = cohort_drift(
+        report, ROOT / "docs" / "data" / "v08-results.json"
+    )
     return report
 
 
 def render_markdown(report: dict) -> str:
     lead = report["leadership"]
+    redact_cells = [
+        item
+        for item in report["by_family_and_arm"]
+        if item["task_family"] == "text-redact"
+    ]
+    redact_passed = sum(item["passed"] for item in redact_cells)
+    redact_runs = sum(item["runs"] for item in redact_cells)
+    code_point_total = sum(
+        item["code_point_case_failures"]
+        for item in report["text_redact_code_point_failures"]
+    )
     lines = [
-        "# Language AI Bench v0.9: three hard families, and no winner",
+        "# Language AI Bench v0.9: the new family was too easy, and the old ones moved",
         "",
-        "## Why this study exists",
+        "## What this cohort was for",
         "",
-        "v0.8 ran two families hard enough to discriminate, and they ranked the",
+        "v0.8 ran two families hard enough to discriminate and they ranked the",
         "five arms in nearly opposite orders. Each ordering followed from what the",
-        "family rewards. Two families cannot tell you whether that is a pattern or",
-        "a coincidence, so v0.9 adds a third that turns on a third thing.",
+        "family rewards. Two families cannot say whether that is a pattern or a",
+        "coincidence, so v0.9 added a third that turns on a third thing.",
         "",
         "| Family | What it rewards |",
         "|---|---|",
@@ -217,41 +290,74 @@ def render_markdown(report: dict) -> str:
         "UTF-16 code units, so an emoji counts as two. Go indexes bytes, so the",
         "same emoji counts as four. `tsc` and `mypy` report nothing about the",
         "difference, because `string` is `string` whichever unit you meant, while",
-        "`go build` forces `string` and `[]rune` apart at every boundary. It is",
-        "the first family where the three type-checked arms have no reason to",
-        "behave alike.",
+        "`go build` forces `string` and `[]rune` apart at every boundary.",
         "",
         f"**{report['rollouts']} rollouts, "
         f"${report['total_cost_usd']:.6f} measured spend.**",
+        "",
+        "## Headline: it did not work",
+        "",
+        f"`text-redact` passed {redact_passed} of {redact_runs} across the five "
+        "arms, so it cannot rank them. Worse for the hypothesis it was built to "
+        "test, the code point hazard never fired: of those "
+        f"{redact_runs} runs, {code_point_total} failed either of the two hidden "
+        "cases that catch offsets counted in UTF-16 code units or bytes.",
+        "",
+        "The likely cause is a task-design mistake and it is worth naming",
+        "precisely. The instruction states the code point rule in its own",
+        "paragraph and adds that it does not matter how your language happens to",
+        "index a string. That is a loud warning sitting directly on the hazard,",
+        "so every arm converted to a code point array up front and the trap was",
+        "never sprung. The rule has to be stated somewhere, but it did not need a",
+        "paragraph of its own, and the two developer tests could have been ASCII",
+        "only with the astral cases left entirely hidden. That is the fix for a",
+        "v1.0 revision, and it is a change to the task, not to this result.",
         "",
         "## Results by family",
         "",
         "This is the estimand. The pooled table further down is not.",
         "",
-        "| Family | Ordering |",
-        "|---|---|",
+        "| Family | Spread | Ordering |",
+        "|---|---:|---|",
     ]
     for item in report["family_rankings"]:
         order = " > ".join(
             f"{LABELS[arm]} {passed}/{runs}" for arm, passed, runs in item["order"]
         )
-        lines.append(f"| `{item['task_family']}` | {order} |")
-    lines += ["", "## Does any language lead everywhere?", ""]
+        spread = lead["spread_runs"][item["task_family"]]
+        unit = "run" if spread == 1 else "runs"
+        lines.append(f"| `{item['task_family']}` | {spread} {unit} | {order} |")
+    lines += [
+        "",
+        "A family counts as discriminating here only if its best and worst arms "
+        f"differ by at least {lead['minimum_spread_runs']} runs out of eight. One "
+        "run of separation is not an ordering, and treating it as one "
+        "manufactures reversals out of noise.",
+        "",
+        "## Does any language lead everywhere?",
+        "",
+    ]
+    if lead["flat_families"]:
+        flat = ", ".join(f"`{name}`" for name in lead["flat_families"])
+        lines += [
+            f"{flat} is flat across the arms by that test and contributes no",
+            "correctness signal, so the question is answered by the two families",
+            "carried over from v0.8.",
+            "",
+        ]
     if lead["best_on_every_discriminating_family"]:
         winners = ", ".join(
             LABELS[arm] for arm in lead["best_on_every_discriminating_family"]
         )
         lines += [
-            f"Yes: {winners} is top on every family that discriminates. That is a",
-            "stronger result than v0.8 had, and it is the one case where a pooled",
-            "number would not have been misleading.",
+            f"{winners} is top on every family that discriminates in this cohort.",
             "",
         ]
     else:
         lines += [
-            "No. No language is top on every family that discriminates, and none",
-            "is bottom on every one either. The v0.8 disagreement was not a",
-            "coincidence of two tasks.",
+            "No. No language is top on both families that discriminate, and none",
+            "is bottom on both. The v0.8 disagreement reproduced in the sense that",
+            "the two families still disagree.",
             "",
         ]
     if lead["reversals"]:
@@ -262,11 +368,35 @@ def render_markdown(report: dict) -> str:
                 f"worst on `{item['worst_on']}`"
             )
         lines.append("")
-    if lead["saturated_or_flat_families"]:
-        flat = ", ".join(f"`{name}`" for name in lead["saturated_or_flat_families"])
+    if report["cohort_drift"]:
         lines += [
-            f"{flat} came out flat across the arms and contributes no correctness",
-            "signal in this cohort.",
+            "## How much the ordering moved since v0.8",
+            "",
+            "Same tasks, same model, same scaffold, same eight attempts per cell,",
+            "a different randomization seed. This is the most useful number in the",
+            "report, because it bounds how much weight any single ordering can",
+            "carry.",
+            "",
+            "| Family | Arm | v0.8 | v0.9 | Change |",
+            "|---|---|---:|---:|---:|",
+        ]
+        for item in report["cohort_drift"]:
+            lines.append(
+                f"| {item['task_family']} | {LABELS[item['language']]} | "
+                f"{item['v08_passed']}/{item['v08_runs']} | "
+                f"{item['v09_passed']}/{item['v09_runs']} | "
+                f"{item['change_runs']:+d} |"
+            )
+        biggest = max(report["cohort_drift"], key=lambda item: abs(item["change_runs"]))
+        lines += [
+            "",
+            f"The largest single move is {LABELS[biggest['language']]} on "
+            f"`{biggest['task_family']}`, {biggest['change_runs']:+d} runs out of "
+            "eight, with nothing changed but the seed. Eight attempts per cell is",
+            "not enough to fix a per-family ordering, and any reading of these",
+            "tables that treats the exact order as stable is reading noise. What",
+            "survives across both cohorts is the weaker and more useful claim:",
+            "the families disagree, and no arm leads on all of them.",
             "",
         ]
     lines += [
@@ -275,7 +405,8 @@ def render_markdown(report: dict) -> str:
         "Two `text-redact` hidden cases fail specifically when the offsets are",
         "counted in UTF-16 code units or bytes rather than code points:",
         "`code-point-offsets` and `astral-mask`. Every other failure mode leaves",
-        "them alone. This is the mechanism the family was built to expose.",
+        "them alone. This is the mechanism the family was built to expose, and it",
+        "did not appear once.",
         "",
         "| Arm | Runs | Runs failing a code point case | Rate |",
         "|---|---:|---:|---:|",
@@ -357,8 +488,12 @@ def render_markdown(report: dict) -> str:
         "",
         "`text-redact` had never been run against a model before this cohort. Its",
         "difficulty was calibrated only in the free sense: the gate is green and",
-        "the starter fails ten of the twelve checks. Where it landed is reported",
-        "as a fact about the task, not adjusted afterwards.",
+        "the starter fails ten of the twelve checks. That is not the same as",
+        "landing in the 40 to 60 percent band the design targets, and it did not.",
+        "The result is reported as it came out rather than adjusted afterwards,",
+        "and the forty rollouts it cost are the price of finding out. The design",
+        "already says difficulty and model tier have to be calibrated jointly; a",
+        "green gate is necessary and is plainly not sufficient.",
         "",
         "Agent wall time is not reported. This cohort ran four rollouts at a time,",
         "so elapsed time includes contention. All three families are command-mode,",

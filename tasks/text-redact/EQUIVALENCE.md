@@ -71,3 +71,20 @@ Deliberately absent is a sabotage that swaps code points for UTF-16 units or
 bytes. It would be a no-op in Python and so could not be caught by the same case
 ids everywhere, which is exactly what the parity gate forbids. The code point
 hazard is a hazard for the agent to fall into, not a fault the gate injects.
+
+## What happened when it was run
+
+v0.9 ran this family 8 times in each of the five languages. It passed 39 of 40,
+and across those 40 runs not one failed `code-point-offsets` or `astral-mask`,
+the two cases that catch offsets counted in UTF-16 code units or bytes. The
+mechanism above is sound, but this task does not test it, because the
+instruction gives the code point rule a paragraph of its own and adds that it
+does not matter how your language indexes a string. That warning sits directly
+on the hazard, so every arm converted to a code point array before writing any
+logic.
+
+The family is kept as it stands so the v0.9 result stays reproducible. A
+revision that gives the rule one plain sentence, keeps the developer tests
+ASCII only, and leaves every astral case hidden would test the mechanism
+properly. It would need its own calibration run and its own cohort, and it
+should not reuse this family's id.

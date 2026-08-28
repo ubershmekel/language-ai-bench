@@ -39,7 +39,13 @@ function ordered(rows) {
   );
 }
 
-/** Families ranked by arm, best first, skipping any that saturated. */
+/**
+ * Families ranked by arm, best first, skipping any too flat to rank. A single
+ * run of separation out of eight is not an ordering, so requiring two keeps
+ * saturated families from being drawn as though they said something.
+ */
+const MINIMUM_SPREAD_RUNS = 2;
+
 function discriminatingFamilies(data) {
   const families = new Map();
   for (const cell of data.by_family_and_arm) {
@@ -48,8 +54,8 @@ function discriminatingFamilies(data) {
   }
   const result = [];
   for (const [family, cells] of families) {
-    const rates = cells.map((cell) => cell.pass_rate);
-    if (Math.max(...rates) - Math.min(...rates) === 0) continue;
+    const passed = cells.map((cell) => cell.passed);
+    if (Math.max(...passed) - Math.min(...passed) < MINIMUM_SPREAD_RUNS) continue;
     result.push({
       family,
       order: [...cells].sort((a, b) => b.pass_rate - a.pass_rate),
@@ -277,7 +283,7 @@ function renderFamilyReversal(data) {
 }
 
 async function loadResults() {
-  const response = await fetch("./data/v08-results.json", { cache: "no-cache" });
+  const response = await fetch("./data/v09-results.json", { cache: "no-cache" });
   if (!response.ok) throw new Error(`Aggregate request failed (${response.status})`);
 
   const data = await response.json();
