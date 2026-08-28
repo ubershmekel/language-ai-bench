@@ -529,3 +529,16 @@ th { color: var(--muted); font-size: 0.68rem; font-weight: 650; text-transform: 
 .family-reversal code {
   font-weight: 600;
 }
+
+.details-steps {
+  margin: 0 0 1.25rem 1.1rem;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.details-steps li {
+  padding-left: 0.35rem;
+}

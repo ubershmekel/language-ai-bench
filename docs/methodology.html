@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="How a run is scored in Language AI Bench: what the agent sees, when it stops, and what a score like 2 out of 8 actually means." />
+  <title>How a run is scored · Language AI Bench</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./"><span class="brand-mark">L/AB</span><span>Language AI Bench</span></a>
+    <nav><a href="./">Overview</a><a href="./details.html">Technical details</a><a href="./data/v08-results.json">Latest aggregates</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub &#8599;</a></nav>
+  </header>
+
+  <main>
+    <section class="details-hero section-shell">
+      <p class="eyebrow">Methodology</p>
+      <h1>How a run is scored</h1>
+      <p>What the model can see while it works, when it decides to stop, and why a score like 2 out of 8 does not mean the program crashed.</p>
+    </section>
+
+    <section class="details-section section-shell">
+      <h2>What one run is</h2>
+      <p class="details-note">A run is one model, with an empty memory, given one ticket and a shell. It reads the code, edits files, runs whatever commands it likes, and stops when it believes the ticket is done. Nothing carries over between runs. Eight runs of the same task in the same language are eight independent attempts by the same model, differing only in sampling.</p>
+      <p class="details-note">So <strong>2 out of 8</strong> means the task was attempted eight times from scratch and the finished program was correct twice. It is not two test cases out of eight, and it is not a partially working program.</p>
+    </section>
+
+    <section class="details-section section-shell">
+      <h2>The model can check its work, but only partly</h2>
+      <p class="details-note">Each project ships a developer test command. Running it is the model's own choice, and most runs do. That command covers the obvious path: the basic behaviour described in the ticket, and the empty input. It is deliberately a small subset.</p>
+      <p class="details-note">Grading uses a larger hidden set that the model never sees and that only runs after it has stopped. For the circuit breaker there are twelve checks in total; two are visible to the model and ten are not. The hidden ones cover the parts of the ticket that are easy to read past: recovery after the cooldown expires, the limit on trial calls while recovering, an unlisted status code that should count as neither success nor failure, and the full list of malformed inputs that must be rejected.</p>
+      <p class="details-note">This split is why a run can end confidently and still be wrong. It mirrors the ordinary situation of a change that passes the tests someone wrote and breaks something nobody tested.</p>
+    </section>
+
+    <section class="details-section section-shell">
+      <h2>A failure, step by step</h2>
+      <p class="details-note">This is a real failing attempt at the circuit breaker in untyped Python, in six steps.</p>
+      <ol class="details-steps">
+        <li>Listed the project and read the ticket.</li>
+        <li>Read the three source files and identified the real defects out loud: one breaker shared across all targets, no cooldown, almost no validation. That diagnosis was correct.</li>
+        <li>Rewrote the code so each target has its own breaker, and added the validation the ticket asks for.</li>
+        <li>Ran the developer test command. It reported <code>"passed": true</code> on both visible checks.</li>
+        <li>Invented one extra scenario by hand and ran it. The output included a call recorded as <code>"state":"open","admitted":true</code>: the breaker was open and the call was let through anyway, which is precisely the bug. The model did not notice.</li>
+        <li>Declared the work finished.</li>
+      </ol>
+      <p class="details-note">The hidden checks then failed it on cooldown behaviour, the recovery limit, and the transitions out of recovery. Nothing crashed, nothing timed out, and the model did not run out of turns.</p>
+    </section>
+
+    <section class="details-section section-shell">
+      <h2>Failing runs are not short runs</h2>
+      <p class="details-note">A reasonable worry about this setup is that failures are really the model giving up early or hitting a limit. They are not.</p>
+      <div class="config-grid">
+        <div><span>Mean steps, runs that passed</span><strong>6.48</strong></div>
+        <div><span>Mean steps, runs that failed</span><strong>6.56</strong></div>
+        <div><span>Failing runs that stopped in 3 steps or fewer</span><strong>0</strong></div>
+        <div><span>Most steps any run used</span><strong>11</strong></div>
+      </div>
+      <p class="details-note">Failing runs did fractionally more work than passing ones, and every one of them ended because the model decided it was done. The step limit and the wall-clock budget are far above anything reached here, so neither is binding. Runs that end in a runner error are recorded separately as infrastructure and excluded from scoring rather than counted as failures; this cohort had none in 120 runs.</p>
+    </section>
+
+    <section class="details-section section-shell">
+      <h2>Why the verifier is trusted</h2>
+      <p class="details-note">Before any run costs money, the same checks are pointed at three known inputs. A correct reference implementation must pass everything in every language. The untouched starting code must fail the identical checks in every language. Then several deliberately broken versions, each with one specific fault, must be caught by the identical checks in every language.</p>
+      <p class="details-note">If a check were stricter in one language than another, that gate would catch it, and no result is published without it passing. This matters more than it sounds: a verifier that is quietly harsher on one language would produce a confident language ranking out of nothing but its own bug.</p>
+      <p><a class="back-link" href="./">&#8592; Return to the results</a></p>
+    </section>
+  </main>
+
+  <footer class="section-shell">
+    <div><strong>Language AI Bench</strong><p>Aggregate results only; private prompts, trajectories, patches, and environment variables are not published.</p></div>
+    <div class="footer-links"><a href="./data/v08-results.json">Latest aggregate JSON</a><a href="./V08_REPORT.md">Latest written report</a><a href="./details.html">Technical details</a><a href="./DESIGN.md">Design</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub</a></div>
+  </footer>
+</body>
+</html>

@@ -23,23 +23,16 @@
     <section class="hero section-shell">
       <div class="hero-copy-block">
         <h1>Does your programming language change how well AI codes?</h1>
-        <p class="hero-copy">Same task, same model, same agent, fresh context every run. Only the language changes. Across <span id="stat-runs">24</span> runs per arm on two hard refactors, the answer flipped with the task: Python passed every attempt on one and two of eight on the other, where Go led instead. A single ranking across tasks would have hidden that.</p>
+        <p class="hero-copy">Same task, same model, same agent, fresh context every run. Only the language changes.</p>
       </div>
-      <dl class="spec-strip" aria-label="Study configuration">
-        <div><dt>Tasks</dt><dd><a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/circuit-breaker/instruction.md">circuit-breaker &#8599;</a>, <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/instruction.md">money-rollup &#8599;</a></dd></div>
-        <div><dt>Model</dt><dd>GPT-5.6 Luna, low effort</dd></div>
-        <div><dt>Agent</dt><dd>mini-swe-agent 2.4.6, bash only</dd></div>
-        <div><dt>Runs</dt><dd><span id="stat-passed">84/96</span> passed</dd></div>
-      </dl>
     </section>
 
     <section id="latest" class="at-a-glance section-shell" aria-labelledby="glance-title">
       <div class="glance-heading">
         <div>
-          <p class="kicker">Current study</p>
-          <h2 id="glance-title">Results across five arms</h2>
+          <h2 id="glance-title">Results</h2>
         </div>
-        <p>An <strong>agent step</strong> is one model action in the loop: read a file, run a command, apply an edit. Fewer steps means the same passing result took less work, fewer tokens, and less money.</p>
+        <p>Each language attempted two hard refactors, <span id="stat-runs">24</span> times each. Python appears twice because one version adds type annotations and a type checker, holding everything else fixed. An <strong>agent step</strong> is one model action: read a file, run a command, apply an edit.</p>
       </div>
 
       <div id="result-chart" class="chart-grid">
@@ -57,7 +50,7 @@
         <table class="glance-table">
           <thead>
             <tr>
-              <th>Language</th>
+              <th>Setup</th>
               <th>Type checking</th>
               <th>Passed</th>
               <th>Agent steps</th>
@@ -79,7 +72,7 @@
       <div class="glance-heading">
         <div>
           <p class="kicker">The main finding</p>
-          <h2>The two hard tasks rank the arms in opposite orders</h2>
+          <h2>The two hard tasks disagree about which language wins</h2>
         </div>
         <p>Pooling these produces an average that describes neither task. This is why the project reports per task family and never as one score.</p>
       </div>
@@ -91,43 +84,45 @@
 
     <section id="reading" class="study section-shell" aria-labelledby="reading-title">
       <div class="section-heading">
-        <p class="kicker">What the data says</p>
         <h2 id="reading-title">What the numbers show</h2>
       </div>
       <div class="reading-grid">
         <article>
           <h3>The task decides the winner</h3>
-          <p>On <code>money-rollup</code>, which turns on exact decimal arithmetic, Python passed all eight attempts and JavaScript five. On <code>circuit-breaker</code>, which turns on covering every case of a state machine, Python passed two of eight and Go seven. Same model, same agent, same day. The ranking is a property of the task at least as much as of the language.</p>
+          <p>One refactor turns on exact decimal arithmetic, where Python has a library that does it correctly out of the box. The other turns on covering every branch of a state machine, where a compiler that lists the branches you missed is worth more. Nothing about the model or the agent changed between them.</p>
         </article>
         <article>
           <h3>Adding types to Python changed little</h3>
-          <p>The cleanest comparison here holds the language fixed: the same Python, differing only by annotations and a blocking <code>mypy --strict</code> step. The difference in pass rate was <span id="primary-contrast">+0.042 (95% CI -0.125 to 0.208)</span>, an interval that includes zero. At this sample size the study does not detect an effect on correctness, which is a result and not a failed experiment.</p>
+          <p>The cleanest comparison holds the language fixed: identical Python, differing only by annotations and a <code>mypy --strict</code> step that must pass before the tests run. The gap in pass rate was <span id="primary-contrast">+0.042 (95% CI -0.125 to 0.208)</span>, an interval spanning zero. At this sample size no effect on correctness is detectable, which is a legitimate answer rather than a failed experiment.</p>
         </article>
         <article>
-          <h3>Type feedback still costs work</h3>
-          <p>JavaScript needed fewer agent steps than TypeScript, typed Python, and Go, and Python fewer than Go, all with intervals clear of zero. Checking has a price in effort that shows up reliably even where its benefit to correctness does not.</p>
+          <h3>Checking still costs work</h3>
+          <p>JavaScript needed fewer agent steps than TypeScript, typed Python, and Go; plain Python needed fewer than Go. Those intervals do clear zero. The price in effort shows up reliably even where a benefit to correctness does not.</p>
         </article>
         <article>
           <h3>What would change this</h3>
-          <p>Three task families, eight attempts per cell, one model snapshot, one bash-only agent scaffold. The language is a bundle that includes its toolchain, file layout, and ecosystem, so none of this is a claim about syntax. Eight attempts is thin: the direction of the reversal is stark, but the ordering within either task is not something to lean on.</p>
+          <p>Two refactors that discriminate is not enough to break the tie between them; a third would help more than more repeats of these. Eight attempts per cell is thin, so the reversal is stark but the exact ordering inside either task is not worth leaning on. A language here is a bundle including its toolchain and ecosystem, so none of this is a claim about syntax.</p>
         </article>
       </div>
-      <p class="calibration-note">Every paired contrast, the per-case failure breakdown, and the weaker-model cohort are in the <a href="./V08_REPORT.md">written report</a>, with the earlier <a href="./V07_REPORT.md">v0.7 cohort</a> preserved.</p>
+      <p class="calibration-note">Not sure what a score like 2 out of 8 means? <a href="./methodology.html">How a run is scored</a> walks through one real failure step by step. Every paired contrast and the per-case failure breakdown are in the <a href="./V08_REPORT.md">written report</a>.</p>
     </section>
 
     <section id="notes" class="notes section-shell" aria-labelledby="notes-title">
       <div class="section-heading">
-        <p class="kicker">Extra notes</p>
-        <h2 id="notes-title">Method and task</h2>
+        <h2 id="notes-title">Method and tasks</h2>
       </div>
       <div class="notes-grid">
         <article>
-          <h3>The task</h3>
-          <p>A four-file command-line reporting tool has to stop doing money math in floating point. The agent switches to exact arithmetic, converts currencies along the shortest rate path and rejects ambiguous ones, totals every parent account, rounds half-to-even per entry, and rejects about thirty kinds of malformed input. The starter code fails eight of the twelve hidden checks in every language.</p>
+          <h3>money-rollup</h3>
+          <p>A command-line reporting tool has to stop doing money math in floating point. It switches to exact arithmetic, converts currencies along the shortest rate path and rejects ambiguous ones, totals every parent account, rounds half-to-even per entry, and rejects about thirty kinds of malformed input.</p>
         </article>
         <article>
-          <h3>Why this task</h3>
-          <p>Earlier rounds were too easy. Every language passed everything, which pins each difference at exactly zero and answers nothing. This one fails often enough to compare, which is the whole point of replacing it.</p>
+          <h3>circuit-breaker</h3>
+          <p>A simulator has to track one breaker per target through closed, open, and recovering, opening after enough consecutive failures, recovering only once a cooldown has elapsed, limiting trial calls while recovering, and treating an unlisted status code as neither success nor failure. Its starting code fails nine of twelve hidden checks in every language.</p>
+        </article>
+        <article>
+          <h3>Why these two</h3>
+          <p>Earlier rounds were too easy: everything passed, which pins every difference at zero and answers nothing. These fail often enough to compare. They were also chosen to stress different things, which is how the reversal above became visible at all.</p>
         </article>
         <article>
           <h3>Calibration</h3>
@@ -135,17 +130,22 @@
         </article>
         <article>
           <h3>Uncertainty</h3>
-          <p>Intervals are 95% percentile intervals from a fixed-seed 20,000-resample paired bootstrap over matched attempt blocks. The strong rung was collected in two batches of 48; the second ran because the first left Python versus Go touching zero, so that continuation was outcome-dependent and the report says so.</p>
+          <p>Intervals are 95% percentile intervals from a fixed-seed 20,000-resample paired bootstrap over matched attempt blocks. The number of runs was fixed at 120 before the first paid call and no interim look influenced whether to continue.</p>
         </article>
       </div>
+      <dl class="spec-strip" aria-label="Study configuration">
+        <div><dt>Model</dt><dd>GPT-5.6 Luna, low effort</dd></div>
+        <div><dt>Agent</dt><dd>mini-swe-agent 2.4.6, bash only</dd></div>
+        <div><dt>Runs</dt><dd><span id="stat-passed">95/120</span> passed</dd></div>
+        <div><dt>Cost</dt><dd>$0.64 total</dd></div>
+      </dl>
       <div class="source-strip">
-        <span>Read the actual task:</span>
-        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/instruction.md">Full instructions &#8599;</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/javascript">JavaScript &#8599;</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/typescript">TypeScript &#8599;</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/python">Python &#8599;</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/money-rollup/go">Go &#8599;</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/verifier/verify.py">Shared verifier &#8599;</a>
+        <span>Read the actual tasks:</span>
+        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/circuit-breaker/instruction.md">circuit-breaker &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/instruction.md">money-rollup &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/circuit-breaker">All five versions &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/circuit-breaker/verifier/verify.py">Shared verifier &#8599;</a>
+        <a href="./methodology.html">How a run is scored</a>
       </div>
     </section>
   </main>
@@ -160,8 +160,8 @@
       <div class="footer-group">
         <span class="footer-heading">Dig in</span>
         <a href="https://github.com/ubershmekel/language-ai-bench">Source code &#8599;</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/instruction.md">The task &#8599;</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/verifier/verify.py">The verifier &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/circuit-breaker/instruction.md">The tasks &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/circuit-breaker/verifier/verify.py">The verifier &#8599;</a>
         <a href="https://github.com/ubershmekel/language-ai-bench/issues">Questions and issues &#8599;</a>
       </div>
       <div class="footer-group">

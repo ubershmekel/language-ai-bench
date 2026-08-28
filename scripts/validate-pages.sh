@@ -67,7 +67,15 @@ node -e '
   if (data.excluded_infrastructure.length !== 1) throw new Error("expected one infrastructure exclusion");
 '
 
-grep -q 'Results across five arms' docs/index.html
+grep -q 'id="glance-title">Results<' docs/index.html
+test -f docs/methodology.html
+grep -q 'methodology.html' docs/index.html
+
+# Reader-facing copy should not lean on internal jargon.
+if grep -Ewq 'arms?' docs/index.html; then
+  echo "Internal jargon (arm/arms) found in landing page copy." >&2
+  exit 1
+fi
 # The effort contrast must still be stated in words, either direction.
 grep -q 'agent steps than' docs/index.html
 
