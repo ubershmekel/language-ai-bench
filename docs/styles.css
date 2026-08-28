@@ -509,3 +509,23 @@ th { color: var(--muted); font-size: 0.68rem; font-weight: 650; text-transform: 
 @media (max-width: 760px) {
   .glance-heading { grid-template-columns: 1fr; gap: 16px; }
 }
+
+.family-reversal {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.family-reversal li {
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.family-reversal code {
+  font-weight: 600;
+}

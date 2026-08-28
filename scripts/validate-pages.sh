@@ -12,6 +12,8 @@ test -f docs/data/v06-results.json
 test -f docs/V06_REPORT.md
 test -f docs/data/v07-results.json
 test -f docs/V07_REPORT.md
+test -f docs/data/v08-results.json
+test -f docs/V08_REPORT.md
 
 node --check docs/app.js
 node -e '
@@ -65,8 +67,9 @@ node -e '
   if (data.excluded_infrastructure.length !== 1) throw new Error("expected one infrastructure exclusion");
 '
 
-grep -q 'Results across four languages' docs/index.html
-grep -q 'more agent steps than' docs/index.html
+grep -q 'Results across five arms' docs/index.html
+# The effort contrast must still be stated in words, either direction.
+grep -q 'agent steps than' docs/index.html
 
 node -e '
   const fs = require("node:fs");
@@ -82,6 +85,38 @@ node -e '
   if (strong.languages.length !== 4) throw new Error("expected four v0.7 languages");
   if (strong.paired_contrasts.length !== 6) throw new Error("unexpected v0.7 paired contrasts");
 '
+node -e '
+  const fs = require("node:fs");
+  const data = JSON.parse(fs.readFileSync("docs/data/v08-results.json", "utf8"));
+  if (data.schema_version !== "1.0.0") throw new Error("unexpected v0.8 schema");
+  if (data.rollouts !== 120) throw new Error("expected 120 v0.8 rollouts");
+  if (data.by_arm.length !== 5) throw new Error("expected five v0.8 arms");
+  if (data.by_arm.some((row) => row.runs !== data.rollouts / 5)) {
+    throw new Error("v0.8 cohort is unbalanced across arms");
+  }
+  if (data.by_arm.some((row) => "mean_agent_seconds" in row)) {
+    throw new Error("v0.8 ran concurrently; elapsed time must not be published");
+  }
+  const primary = data.primary_contrast;
+  if (!primary || primary.left !== "python-typed" || primary.right !== "python") {
+    throw new Error("primary contrast must be oriented typed minus untyped");
+  }
+  // Guards the sign bug: the paired bootstrap stores python minus python-typed.
+  const unpaired = new Map(data.by_arm.map((row) => [row.language, row.pass_rate]));
+  const expected = unpaired.get("python-typed") - unpaired.get("python");
+  const reported = primary.estimates.hidden_test_pass.mean_difference;
+  if (Math.sign(expected) !== Math.sign(reported)) {
+    throw new Error("primary contrast sign disagrees with the arm totals");
+  }
+  const families = new Set(data.by_family_and_arm.map((row) => row.task_family));
+  if (families.size !== 3) throw new Error("expected three v0.8 families");
+'
+grep -q 'family-reversal' docs/index.html
+if grep -q 'Agent time' docs/index.html docs/details.html; then
+  echo "Elapsed time is published but this cohort ran concurrently." >&2
+  exit 1
+fi
+
 grep -q 'result-chart' docs/index.html
 grep -q 'footer-columns' docs/index.html
 grep -q 'x.com/ubershmekel' docs/index.html

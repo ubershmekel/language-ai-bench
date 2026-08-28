@@ -51,37 +51,38 @@
     </section>
 
     <section class="details-section section-shell">
-      <h2>Prospective four-language results on the strong rung</h2>
+      <h2>Prospective five-arm results</h2>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Language</th><th>Passed</th><th>Mean cost</th><th>Input tokens</th><th>Output tokens</th><th>Agent steps</th><th>Agent time</th></tr>
+            <tr><th>Arm</th><th>Passed</th><th>Mean cost</th><th>Input tokens</th><th>Output tokens</th><th>Agent steps</th></tr>
           </thead>
           <tbody id="details-results">
-            <tr><td>JavaScript</td><td>10/12</td><td>$0.005879</td><td>35,247</td><td>3,202</td><td>6.92</td><td>38.24s</td></tr>
-            <tr><td>TypeScript</td><td>11/12</td><td>$0.006125</td><td>40,988</td><td>3,109</td><td>6.92</td><td>48.63s</td></tr>
-            <tr><td>Python</td><td>12/12</td><td>$0.005520</td><td>31,032</td><td>2,969</td><td>6.58</td><td>37.16s</td></tr>
-            <tr><td>Go</td><td>9/12</td><td>$0.006978</td><td>49,119</td><td>3,710</td><td>8.25</td><td>48.53s</td></tr>
+            <tr><td>JavaScript</td><td>17/24</td><td>$0.004941</td><td>29,077</td><td>2,376</td><td>5.92</td></tr>
+            <tr><td>TypeScript</td><td>20/24</td><td>$0.005586</td><td>33,357</td><td>2,528</td><td>6.67</td></tr>
+            <tr><td>Python</td><td>18/24</td><td>$0.005132</td><td>30,201</td><td>2,400</td><td>6.29</td></tr>
+            <tr><td>Python (typed)</td><td>19/24</td><td>$0.005247</td><td>31,556</td><td>2,595</td><td>6.75</td></tr>
+            <tr><td>Go</td><td>21/24</td><td>$0.005955</td><td>34,764</td><td>2,898</td><td>6.88</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="details-note"><strong>Interpretation:</strong> no pass-rate contrast has a 95% bootstrap interval excluding zero, so no language can be called better at producing a correct result here. Three agent-step contrasts do exclude zero: Go needed 1.3 to 1.7 more steps than JavaScript, TypeScript, and Python respectively. Paired contrasts use matched attempt blocks. Per-case failure breakdowns, patch metrics, and the weaker-rung cohort are in the <a href="./V07_REPORT.md">full report</a>.</p>
+      <p class="details-note"><strong>Interpretation:</strong> no pass-rate contrast has a 95% bootstrap interval excluding zero, including the primary one between Python and typed Python, so no arm can be called better at producing a correct result across these three families. Four agent-step contrasts do exclude zero: JavaScript needed fewer steps than TypeScript, typed Python, and Go, and Python fewer than Go. These pooled figures conceal a reversal between the two hard families that is visible on the <a href="./">overview</a> and is the more important result. Paired contrasts use matched attempt blocks. Per-case failure breakdowns and patch metrics are in the <a href="./V08_REPORT.md">full report</a>.</p>
     </section>
 
     <section class="details-section section-shell">
       <h2>Spend and confidence</h2>
       <div class="config-grid">
-        <div><span>Strong-rung attempts</span><strong id="detail-runs">48</strong></div>
-        <div><span>Passed</span><strong id="detail-passed">42</strong></div>
-        <div><span>v0.7 API spend</span><strong id="detail-cost">$0.709550</strong></div>
-        <div><span>Mean agent time</span><strong id="detail-time">43.14s</strong></div>
+        <div><span>Attempts</span><strong id="detail-runs">120</strong></div>
+        <div><span>Passed</span><strong id="detail-passed">95</strong></div>
+        <div><span>v0.8 API spend</span><strong id="detail-cost">$0.644634</strong></div>
+        <div><span>Infrastructure failures</span><strong>0</strong></div>
       </div>
-      <p class="details-note">Twelve attempts per language is enough to break the ceiling but not enough to resolve small correctness differences. The Python versus Go pass-rate interval touches zero rather than clearing it, which is exactly the case that more attempts would settle. Rollouts that ended in a runner exception are recorded in the ledger and excluded from scoring as infrastructure rather than counted as failures.</p>
+      <p class="details-note">Eight attempts per cell is enough to expose the reversal between families but not to resolve small differences within one. The stopping rule was fixed at 120 rollouts before the first paid call and no interim analysis informed continuation, unlike v0.7 where the second batch was run because the first left an interval touching zero. Elapsed time is not reported: this cohort ran four attempts concurrently, so wall clock includes contention. Rollouts ending in a runner exception are recorded in the ledger and excluded from scoring as infrastructure rather than counted as failures; this cohort had none.</p>
     </section>
 
     <section class="details-section section-shell">
       <h2>Known limitations</h2>
-      <p class="details-note">This is one model snapshot, one bash-only agent scaffold, one hard task family, and twelve attempts per language on the reported rung. It does not test long-term maintenance, browser applications, dependency migrations, or human review. Language is a treatment bundle that includes file topology, toolchain, and ecosystem differences, so a step difference is not evidence about syntax. A different hard task could rank the languages differently.</p>
+      <p class="details-note">This is one model snapshot, one bash-only agent scaffold, three task families, and eight attempts per cell. It does not test long-term maintenance, browser applications, dependency migrations, or human review. Language is a treatment bundle that includes file topology, toolchain, and ecosystem differences, so a step difference is not evidence about syntax. A different hard task could rank the languages differently, and in this cohort one demonstrably did.</p>
       <p><a class="back-link" href="./">&#8592; Return to the experiment overview</a></p>
     </section>
   </main>

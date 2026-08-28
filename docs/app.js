@@ -4,19 +4,28 @@ const languageLabels = {
   javascript: "JavaScript",
   typescript: "TypeScript",
   python: "Python",
+  "python-typed": "Python (typed)",
   go: "Go",
 };
-const languageOrder = { javascript: 0, typescript: 1, python: 2, go: 3 };
+const languageOrder = {
+  javascript: 0,
+  typescript: 1,
+  python: 2,
+  "python-typed": 3,
+  go: 4,
+};
 const languageColors = {
   javascript: "var(--yellow)",
   typescript: "var(--blue)",
   python: "#6eb6dc",
+  "python-typed": "#4f9bc4",
   go: "#77d5e9",
 };
 const typeChecking = {
   javascript: "None",
   typescript: "Strict",
   python: "None",
+  "python-typed": "mypy strict",
   go: "Compiler",
 };
 
@@ -30,12 +39,23 @@ function ordered(rows) {
   );
 }
 
-function strongRung(data) {
-  return data.rungs.find((rung) => rung.rung === "strong") || data.rungs[0];
-}
-
-function weakestRung(data) {
-  return data.rungs.reduce((low, rung) => (rung.pass_rate < low.pass_rate ? rung : low));
+/** Families ranked by arm, best first, skipping any that saturated. */
+function discriminatingFamilies(data) {
+  const families = new Map();
+  for (const cell of data.by_family_and_arm) {
+    if (!families.has(cell.task_family)) families.set(cell.task_family, []);
+    families.get(cell.task_family).push(cell);
+  }
+  const result = [];
+  for (const [family, cells] of families) {
+    const rates = cells.map((cell) => cell.pass_rate);
+    if (Math.max(...rates) - Math.min(...rates) === 0) continue;
+    result.push({
+      family,
+      order: [...cells].sort((a, b) => b.pass_rate - a.pass_rate),
+    });
+  }
+  return result.sort((a, b) => a.family.localeCompare(b.family));
 }
 
 function fillRows(selector, rows, cells) {
@@ -54,27 +74,25 @@ function fillRows(selector, rows, cells) {
   );
 }
 
-function updateLanguageSummary(rung) {
-  fillRows("#language-summary-results", ordered(rung.languages), (row) => [
+function updateLanguageSummary(data) {
+  fillRows("#language-summary-results", ordered(data.by_arm), (row) => [
     languageLabels[row.language],
     typeChecking[row.language],
     `${row.passed}/${row.runs}`,
     row.mean_agent_steps.toFixed(2),
     Math.round(row.mean_output_tokens).toLocaleString("en-US"),
-    `${row.mean_agent_seconds.toFixed(1)}s`,
     formatMoney(row.mean_cost_usd),
   ]);
 }
 
-function updateDetailsTable(rung) {
-  fillRows("#details-results", ordered(rung.languages), (row) => [
+function updateDetailsTable(data) {
+  fillRows("#details-results", ordered(data.by_arm), (row) => [
     languageLabels[row.language],
     `${row.passed}/${row.runs}`,
     formatMoney(row.mean_cost_usd),
     Math.round(row.mean_input_tokens).toLocaleString("en-US"),
     Math.round(row.mean_output_tokens).toLocaleString("en-US"),
     row.mean_agent_steps.toFixed(2),
-    `${row.mean_agent_seconds.toFixed(2)}s`,
   ]);
 }
 
@@ -178,10 +196,10 @@ function barPanel(title, subtitle, rows, maximum) {
   return figure;
 }
 
-function renderChart(rung) {
+function renderChart(data) {
   const host = document.querySelector("#result-chart");
   if (!host) return;
-  const rows = ordered(rung.languages);
+  const rows = ordered(data.by_arm);
 
   const passRows = rows.map((row) => ({
     label: languageLabels[row.language],
@@ -220,34 +238,63 @@ function setText(selector, value) {
   if (element) element.textContent = String(value);
 }
 
-function updateHeadlineNumbers(data, rung) {
-  const weak = weakestRung(data);
-  setText("#stat-passed", `${rung.passed}/${rung.runs}`);
-  // The copy reads "every language ran it N times", so this is per language.
-  const perLanguage = ordered(rung.languages)[0];
-  setText("#stat-runs", perLanguage ? perLanguage.runs : rung.runs);
-  setText("#stat-spend", formatMoney(data.overall.total_cost_usd, 2));
-  setText("#detail-runs", rung.runs);
-  setText("#detail-passed", rung.passed);
-  setText("#detail-cost", formatMoney(data.overall.total_cost_usd));
-  setText("#detail-time", `${rung.mean_agent_seconds.toFixed(2)}s`);
-  setText("#weak-rung-result", `${weak.passed}/${weak.runs}`);
+function updateHeadlineNumbers(data) {
+  const passed = data.by_arm.reduce((total, row) => total + row.passed, 0);
+  setText("#stat-passed", `${passed}/${data.rollouts}`);
+  const perArm = ordered(data.by_arm)[0];
+  setText("#stat-runs", perArm ? perArm.runs : data.rollouts);
+  setText("#stat-spend", formatMoney(data.total_cost_usd, 2));
+  setText("#detail-runs", data.rollouts);
+  setText("#detail-passed", passed);
+  setText("#detail-cost", formatMoney(data.total_cost_usd));
+
+  const primary = data.primary_contrast.estimates.hidden_test_pass;
+  const [low, high] = primary.ci95;
+  const sign = primary.mean_difference >= 0 ? "+" : "";
+  setText(
+    "#primary-contrast",
+    `${sign}${primary.mean_difference.toFixed(3)} (95% CI ${low.toFixed(3)} to ${high.toFixed(3)})`,
+  );
+}
+
+/** The orderings, rendered so the reversal is visible rather than described. */
+function renderFamilyReversal(data) {
+  const host = document.querySelector("#family-reversal");
+  if (!host) return;
+  host.replaceChildren(
+    ...discriminatingFamilies(data).map((item) => {
+      const row = document.createElement("li");
+      const name = document.createElement("code");
+      name.textContent = item.family;
+      const order = document.createElement("span");
+      order.textContent = ` ${item.order
+        .map((cell) => `${languageLabels[cell.language]} ${cell.passed}/${cell.runs}`)
+        .join(" > ")}`;
+      row.append(name, order);
+      return row;
+    }),
+  );
 }
 
 async function loadResults() {
-  const response = await fetch("./data/v07-results.json", { cache: "no-cache" });
+  const response = await fetch("./data/v08-results.json", { cache: "no-cache" });
   if (!response.ok) throw new Error(`Aggregate request failed (${response.status})`);
 
   const data = await response.json();
-  if (data.schema_version !== "2.0.0" || !Array.isArray(data.rungs) || !data.overall) {
+  if (
+    data.schema_version !== "1.0.0" ||
+    !Array.isArray(data.by_arm) ||
+    !Array.isArray(data.by_family_and_arm) ||
+    !data.primary_contrast
+  ) {
     throw new Error("Unsupported aggregate schema");
   }
 
-  const rung = strongRung(data);
-  updateLanguageSummary(rung);
-  updateDetailsTable(rung);
-  updateHeadlineNumbers(data, rung);
-  renderChart(rung);
+  updateLanguageSummary(data);
+  updateDetailsTable(data);
+  updateHeadlineNumbers(data);
+  renderChart(data);
+  renderFamilyReversal(data);
 }
 
 loadResults().catch((error) => {
