@@ -114,6 +114,7 @@ cannot make.
 | `configuration-merge` | CLI | data-shape and precedence edge cases |
 | `money-rollup` | CLI | exact arithmetic, graph search, a wide rejection surface |
 | `circuit-breaker` | CLI | a state machine and an outcome union crossing module boundaries |
+| `text-redact` | CLI | Unicode code point offsets, which no checker sees |
 
 ## History
 

@@ -115,6 +115,18 @@ combine many interacting rules rather than one hard algorithm, and its terse
 prompts over large real repos make navigation a difficulty lever this repo
 cannot use without reintroducing ecosystem confounds.
 
+`text-redact` was added after v0.8 showed those two families ranking the arms
+in nearly opposite orders. Each ordering follows from the affordance the family
+rewards, so a third family that repeated either mechanism could not break the
+tie. This one turns on what a string is at runtime: every offset and length in
+its contract counts Unicode code points, which Python indexes already,
+JavaScript and TypeScript do not, and Go forces into the open as string against
+[]rune. tsc and mypy report nothing about the distinction, so it is the first
+family where the three checked arms have no reason to behave alike. Its
+calibration sabotages are all logic-level on purpose: a sabotage that swapped
+code points for UTF-16 units would be a no-op in Python and so could never be
+caught by the same case ids everywhere, which the parity gate forbids.
+
 Next families: schema migration with backward-compatible reads (static schema
 feedback); streaming parser recovery (sum types/error handling); dependency API
 migration (navigation and ecosystem knowledge); bounded worker queue
