@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+npm run build
+python3 scripts/dev_verify.py --visibility developer --command node dist/main.js

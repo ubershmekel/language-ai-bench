@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "v0.9-third-hard-family",
+  "study_sha256": "a062535684f750d70cf906dbee949b08879cbcca29c2067aa22e77c8333a6948",
+  "repo_revision": "faa2447c887108a8731577c2665760226c76d5d5",
+  "launch_ready": true,
+  "validation_errors": [],
+  "planned_rollouts": 2,
+  "projected_cost_usd": 0.7,
+  "schedule": [
+    {
+      "task_family": "text-redact",
+      "category": "code-point-offset-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/text-redact/javascript",
+      "attempt": 1,
+      "sample_seed": 3756012452,
+      "order_index": 6
+    },
+    {
+      "task_family": "text-redact",
+      "category": "code-point-offset-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/text-redact/go",
+      "attempt": 1,
+      "sample_seed": 1066028770,
+      "order_index": 7
+    }
+  ]
+}

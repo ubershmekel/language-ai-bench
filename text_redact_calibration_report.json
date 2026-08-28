@@ -1,0 +1,2227 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_version": "0.2.0",
+  "task_family": "text-redact",
+  "mode": "command",
+  "generated_at": "2026-08-28T01:56:23Z",
+  "green": true,
+  "checks": {
+    "reference_100_percent": true,
+    "null_failure_parity": true,
+    "sabotage_failure_parity": true
+  },
+  "null_failure_sets": {
+    "javascript": [
+      "astral-mask",
+      "code-point-offsets",
+      "literal-non-overlapping",
+      "merge-overlapping",
+      "merge-touching",
+      "min-length-drops-before-merge",
+      "rejects-invalid",
+      "stats-and-order",
+      "strict-allows-touching",
+      "strict-rejects-overlap"
+    ],
+    "typescript": [
+      "astral-mask",
+      "code-point-offsets",
+      "literal-non-overlapping",
+      "merge-overlapping",
+      "merge-touching",
+      "min-length-drops-before-merge",
+      "rejects-invalid",
+      "stats-and-order",
+      "strict-allows-touching",
+      "strict-rejects-overlap"
+    ],
+    "python": [
+      "astral-mask",
+      "code-point-offsets",
+      "literal-non-overlapping",
+      "merge-overlapping",
+      "merge-touching",
+      "min-length-drops-before-merge",
+      "rejects-invalid",
+      "stats-and-order",
+      "strict-allows-touching",
+      "strict-rejects-overlap"
+    ],
+    "python-typed": [
+      "astral-mask",
+      "code-point-offsets",
+      "literal-non-overlapping",
+      "merge-overlapping",
+      "merge-touching",
+      "min-length-drops-before-merge",
+      "rejects-invalid",
+      "stats-and-order",
+      "strict-allows-touching",
+      "strict-rejects-overlap"
+    ],
+    "go": [
+      "astral-mask",
+      "code-point-offsets",
+      "literal-non-overlapping",
+      "merge-overlapping",
+      "merge-touching",
+      "min-length-drops-before-merge",
+      "rejects-invalid",
+      "stats-and-order",
+      "strict-allows-touching",
+      "strict-rejects-overlap"
+    ]
+  },
+  "sabotage_failure_sets": {
+    "overlapping-literal-matches": {
+      "javascript": [
+        "literal-non-overlapping"
+      ],
+      "typescript": [
+        "literal-non-overlapping"
+      ],
+      "python": [
+        "literal-non-overlapping"
+      ],
+      "python-typed": [
+        "literal-non-overlapping"
+      ],
+      "go": [
+        "literal-non-overlapping"
+      ]
+    },
+    "merge-drops-touching": {
+      "javascript": [
+        "astral-mask",
+        "merge-touching",
+        "strict-allows-touching"
+      ],
+      "typescript": [
+        "astral-mask",
+        "merge-touching",
+        "strict-allows-touching"
+      ],
+      "python": [
+        "astral-mask",
+        "merge-touching",
+        "strict-allows-touching"
+      ],
+      "python-typed": [
+        "astral-mask",
+        "merge-touching",
+        "strict-allows-touching"
+      ],
+      "go": [
+        "astral-mask",
+        "merge-touching",
+        "strict-allows-touching"
+      ]
+    },
+    "min-length-after-merge": {
+      "javascript": [
+        "min-length-drops-before-merge"
+      ],
+      "typescript": [
+        "min-length-drops-before-merge"
+      ],
+      "python": [
+        "min-length-drops-before-merge"
+      ],
+      "python-typed": [
+        "min-length-drops-before-merge"
+      ],
+      "go": [
+        "min-length-drops-before-merge"
+      ]
+    },
+    "strict-allows-overlap": {
+      "javascript": [
+        "rejects-invalid",
+        "strict-rejects-overlap"
+      ],
+      "typescript": [
+        "rejects-invalid",
+        "strict-rejects-overlap"
+      ],
+      "python": [
+        "rejects-invalid",
+        "strict-rejects-overlap"
+      ],
+      "python-typed": [
+        "rejects-invalid",
+        "strict-rejects-overlap"
+      ],
+      "go": [
+        "rejects-invalid",
+        "strict-rejects-overlap"
+      ]
+    }
+  },
+  "runs": {
+    "javascript": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-literal-mask",
+            "passed": true,
+            "duration_ms": 1594.0
+          },
+          {
+            "case_id": "no-rules",
+            "passed": true,
+            "duration_ms": 1313.0
+          },
+          {
+            "case_id": "code-point-offsets",
+            "passed": true,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "astral-mask",
+            "passed": true,
+            "duration_ms": 1281.0
+          },
+          {
+            "case_id": "literal-non-overlapping",
+            "passed": true,
+            "duration_ms": 1125.0
+          },
+          {
+            "case_id": "merge-touching",
+            "passed": true,
+            "duration_ms": 1610.0
+          },
+          {
+            "case_id": "merge-overlapping",
+            "passed": true,
+            "duration_ms": 1781.0
+          },
+          {
+            "case_id": "min-length-drops-before-merge",
+            "passed": true,
+            "duration_ms": 1344.0
+          },
+          {
+            "case_id": "strict-rejects-overlap",
+            "passed": true,
+            "duration_ms": 2359.0
+          },
+          {
+            "case_id": "strict-allows-touching",
+            "passed": true,
+            "duration_ms": 1141.0
+          },
+          {
+            "case_id": "stats-and-order",
+            "passed": true,
+            "duration_ms": 1125.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 41609.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-literal-mask",
+            "passed": true,
+            "duration_ms": 1578.0
+          },
+          {
+            "case_id": "no-rules",
+            "passed": true,
+            "duration_ms": 1375.0
+          },
+          {
+            "case_id": "code-point-offsets",
+            "passed": false,
+            "duration_ms": 1250.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "astral-mask",
+            "passed": false,
+            "duration_ms": 3125.0
+          },
+          {
+            "case_id": "literal-non-overlapping",
+            "passed": false,
+            "duration_ms": 1250.0
+          },
+          {
+            "case_id": "merge-touching",
+            "passed": false,
+            "duration_ms": 1359.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "merge-overlapping",
+            "passed": false,
+            "duration_ms": 1250.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "min-length-drops-before-merge",
+            "passed": false,
+            "duration_ms": 1250.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "strict-rejects-overlap",
+            "passed": false,
+            "duration_ms": 3094.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "strict-allows-touching",
+            "passed": false,
+            "duration_ms": 1250.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "stats-and-order",
+            "passed": false,
+            "duration_ms": 1266.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 6062.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "overlapping-literal-matches": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1563.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1594.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": false,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 2312.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1516.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 42906.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "merge-drops-touching": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": false,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": false,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 2516.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": false,
+              "duration_ms": 3109.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 44328.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "min-length-after-merge": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1141.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": false,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 3203.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1516.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 42468.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "strict-allows-overlap": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1157.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1610.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1812.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 3219.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1218.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": false,
+              "duration_ms": 2485.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": false,
+              "duration_ms": 40454.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "typescript": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-literal-mask",
+            "passed": true,
+            "duration_ms": 4453.0
+          },
+          {
+            "case_id": "no-rules",
+            "passed": true,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "code-point-offsets",
+            "passed": true,
+            "duration_ms": 1563.0
+          },
+          {
+            "case_id": "astral-mask",
+            "passed": true,
+            "duration_ms": 1828.0
+          },
+          {
+            "case_id": "literal-non-overlapping",
+            "passed": true,
+            "duration_ms": 1531.0
+          },
+          {
+            "case_id": "merge-touching",
+            "passed": true,
+            "duration_ms": 1281.0
+          },
+          {
+            "case_id": "merge-overlapping",
+            "passed": true,
+            "duration_ms": 1203.0
+          },
+          {
+            "case_id": "min-length-drops-before-merge",
+            "passed": true,
+            "duration_ms": 1282.0
+          },
+          {
+            "case_id": "strict-rejects-overlap",
+            "passed": true,
+            "duration_ms": 2531.0
+          },
+          {
+            "case_id": "strict-allows-touching",
+            "passed": true,
+            "duration_ms": 1187.0
+          },
+          {
+            "case_id": "stats-and-order",
+            "passed": true,
+            "duration_ms": 1282.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 43140.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-literal-mask",
+            "passed": true,
+            "duration_ms": 1141.0
+          },
+          {
+            "case_id": "no-rules",
+            "passed": true,
+            "duration_ms": 1344.0
+          },
+          {
+            "case_id": "code-point-offsets",
+            "passed": false,
+            "duration_ms": 1172.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "astral-mask",
+            "passed": false,
+            "duration_ms": 1187.0
+          },
+          {
+            "case_id": "literal-non-overlapping",
+            "passed": false,
+            "duration_ms": 1172.0
+          },
+          {
+            "case_id": "merge-touching",
+            "passed": false,
+            "duration_ms": 1172.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "merge-overlapping",
+            "passed": false,
+            "duration_ms": 1219.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "min-length-drops-before-merge",
+            "passed": false,
+            "duration_ms": 1250.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "strict-rejects-overlap",
+            "passed": false,
+            "duration_ms": 2515.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "strict-allows-touching",
+            "passed": false,
+            "duration_ms": 1188.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "stats-and-order",
+            "passed": false,
+            "duration_ms": 1203.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 6906.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "overlapping-literal-matches": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 3172.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1141.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": false,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1157.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 2468.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 43406.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "merge-drops-touching": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1141.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": false,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": false,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 2531.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": false,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1125.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 46266.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "min-length-after-merge": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1141.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1703.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1562.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": false,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 2609.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 43344.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "strict-allows-overlap": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1125.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1406.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": false,
+              "duration_ms": 2469.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 3219.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": false,
+              "duration_ms": 41078.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "python": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-literal-mask",
+            "passed": true,
+            "duration_ms": 1437.0
+          },
+          {
+            "case_id": "no-rules",
+            "passed": true,
+            "duration_ms": 1313.0
+          },
+          {
+            "case_id": "code-point-offsets",
+            "passed": true,
+            "duration_ms": 1250.0
+          },
+          {
+            "case_id": "astral-mask",
+            "passed": true,
+            "duration_ms": 1672.0
+          },
+          {
+            "case_id": "literal-non-overlapping",
+            "passed": true,
+            "duration_ms": 1515.0
+          },
+          {
+            "case_id": "merge-touching",
+            "passed": true,
+            "duration_ms": 1422.0
+          },
+          {
+            "case_id": "merge-overlapping",
+            "passed": true,
+            "duration_ms": 1172.0
+          },
+          {
+            "case_id": "min-length-drops-before-merge",
+            "passed": true,
+            "duration_ms": 1281.0
+          },
+          {
+            "case_id": "strict-rejects-overlap",
+            "passed": true,
+            "duration_ms": 2704.0
+          },
+          {
+            "case_id": "strict-allows-touching",
+            "passed": true,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "stats-and-order",
+            "passed": true,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 48657.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-literal-mask",
+            "passed": true,
+            "duration_ms": 1250.0
+          },
+          {
+            "case_id": "no-rules",
+            "passed": true,
+            "duration_ms": 1235.0
+          },
+          {
+            "case_id": "code-point-offsets",
+            "passed": false,
+            "duration_ms": 1281.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "astral-mask",
+            "passed": false,
+            "duration_ms": 1265.0
+          },
+          {
+            "case_id": "literal-non-overlapping",
+            "passed": false,
+            "duration_ms": 1297.0
+          },
+          {
+            "case_id": "merge-touching",
+            "passed": false,
+            "duration_ms": 1250.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "merge-overlapping",
+            "passed": false,
+            "duration_ms": 1188.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "min-length-drops-before-merge",
+            "passed": false,
+            "duration_ms": 1265.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "strict-rejects-overlap",
+            "passed": false,
+            "duration_ms": 2500.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "strict-allows-touching",
+            "passed": false,
+            "duration_ms": 1188.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "stats-and-order",
+            "passed": false,
+            "duration_ms": 1250.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 5094.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "overlapping-literal-matches": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1953.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1437.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": false,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1218.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 2641.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 46547.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "merge-drops-touching": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": false,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": false,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1329.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 2547.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": false,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 44563.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "min-length-after-merge": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": false,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 3281.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1391.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 46203.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "strict-allows-overlap": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1594.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1703.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1437.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1218.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": false,
+              "duration_ms": 2563.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": false,
+              "duration_ms": 44469.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "python-typed": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-literal-mask",
+            "passed": true,
+            "duration_ms": 1359.0
+          },
+          {
+            "case_id": "no-rules",
+            "passed": true,
+            "duration_ms": 1344.0
+          },
+          {
+            "case_id": "code-point-offsets",
+            "passed": true,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "astral-mask",
+            "passed": true,
+            "duration_ms": 1391.0
+          },
+          {
+            "case_id": "literal-non-overlapping",
+            "passed": true,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "merge-touching",
+            "passed": true,
+            "duration_ms": 1313.0
+          },
+          {
+            "case_id": "merge-overlapping",
+            "passed": true,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "min-length-drops-before-merge",
+            "passed": true,
+            "duration_ms": 1359.0
+          },
+          {
+            "case_id": "strict-rejects-overlap",
+            "passed": true,
+            "duration_ms": 3313.0
+          },
+          {
+            "case_id": "strict-allows-touching",
+            "passed": true,
+            "duration_ms": 1766.0
+          },
+          {
+            "case_id": "stats-and-order",
+            "passed": true,
+            "duration_ms": 1265.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 47344.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-literal-mask",
+            "passed": true,
+            "duration_ms": 1187.0
+          },
+          {
+            "case_id": "no-rules",
+            "passed": true,
+            "duration_ms": 1219.0
+          },
+          {
+            "case_id": "code-point-offsets",
+            "passed": false,
+            "duration_ms": 2078.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "astral-mask",
+            "passed": false,
+            "duration_ms": 1782.0
+          },
+          {
+            "case_id": "literal-non-overlapping",
+            "passed": false,
+            "duration_ms": 1468.0
+          },
+          {
+            "case_id": "merge-touching",
+            "passed": false,
+            "duration_ms": 1157.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "merge-overlapping",
+            "passed": false,
+            "duration_ms": 1218.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "min-length-drops-before-merge",
+            "passed": false,
+            "duration_ms": 1219.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "strict-rejects-overlap",
+            "passed": false,
+            "duration_ms": 2500.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "strict-allows-touching",
+            "passed": false,
+            "duration_ms": 1234.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "stats-and-order",
+            "passed": false,
+            "duration_ms": 1235.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 4781.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "overlapping-literal-matches": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": false,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 2047.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1781.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 2657.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 44734.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "merge-drops-touching": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1719.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1547.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1984.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": false,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": false,
+              "duration_ms": 4406.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 2594.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": false,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 45157.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "min-length-after-merge": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1360.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": false,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 2687.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 47109.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "strict-allows-overlap": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1485.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1687.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1609.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": false,
+              "duration_ms": 3454.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": false,
+              "duration_ms": 42344.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "go": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-literal-mask",
+            "passed": true,
+            "duration_ms": 1390.0
+          },
+          {
+            "case_id": "no-rules",
+            "passed": true,
+            "duration_ms": 1141.0
+          },
+          {
+            "case_id": "code-point-offsets",
+            "passed": true,
+            "duration_ms": 1187.0
+          },
+          {
+            "case_id": "astral-mask",
+            "passed": true,
+            "duration_ms": 1141.0
+          },
+          {
+            "case_id": "literal-non-overlapping",
+            "passed": true,
+            "duration_ms": 1125.0
+          },
+          {
+            "case_id": "merge-touching",
+            "passed": true,
+            "duration_ms": 1203.0
+          },
+          {
+            "case_id": "merge-overlapping",
+            "passed": true,
+            "duration_ms": 1156.0
+          },
+          {
+            "case_id": "min-length-drops-before-merge",
+            "passed": true,
+            "duration_ms": 1204.0
+          },
+          {
+            "case_id": "strict-rejects-overlap",
+            "passed": true,
+            "duration_ms": 2750.0
+          },
+          {
+            "case_id": "strict-allows-touching",
+            "passed": true,
+            "duration_ms": 1562.0
+          },
+          {
+            "case_id": "stats-and-order",
+            "passed": true,
+            "duration_ms": 1125.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 46219.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-literal-mask",
+            "passed": true,
+            "duration_ms": 1391.0
+          },
+          {
+            "case_id": "no-rules",
+            "passed": true,
+            "duration_ms": 1328.0
+          },
+          {
+            "case_id": "code-point-offsets",
+            "passed": false,
+            "duration_ms": 1281.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "astral-mask",
+            "passed": false,
+            "duration_ms": 1813.0
+          },
+          {
+            "case_id": "literal-non-overlapping",
+            "passed": false,
+            "duration_ms": 1250.0
+          },
+          {
+            "case_id": "merge-touching",
+            "passed": false,
+            "duration_ms": 1203.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "merge-overlapping",
+            "passed": false,
+            "duration_ms": 1172.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "min-length-drops-before-merge",
+            "passed": false,
+            "duration_ms": 1109.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "strict-rejects-overlap",
+            "passed": false,
+            "duration_ms": 2359.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "strict-allows-touching",
+            "passed": false,
+            "duration_ms": 1141.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "stats-and-order",
+            "passed": false,
+            "duration_ms": 1125.0,
+            "error": "AssertionError: exit 1: unsupported rule kind\n"
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 2219.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "overlapping-literal-matches": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1140.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1157.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": false,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1125.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1657.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 3109.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1141.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 42812.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "merge-drops-touching": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1750.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1563.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": false,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": false,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 1125.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 2375.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": false,
+              "duration_ms": 1125.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1140.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 44188.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "min-length-after-merge": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1125.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1141.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": false,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": true,
+              "duration_ms": 2219.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1141.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1140.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 42610.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "strict-allows-overlap": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-literal-mask",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "no-rules",
+              "passed": true,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "code-point-offsets",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "astral-mask",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "literal-non-overlapping",
+              "passed": true,
+              "duration_ms": 1109.0
+            },
+            {
+              "case_id": "merge-touching",
+              "passed": true,
+              "duration_ms": 1110.0
+            },
+            {
+              "case_id": "merge-overlapping",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "min-length-drops-before-merge",
+              "passed": true,
+              "duration_ms": 2359.0
+            },
+            {
+              "case_id": "strict-rejects-overlap",
+              "passed": false,
+              "duration_ms": 2828.0
+            },
+            {
+              "case_id": "strict-allows-touching",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "stats-and-order",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": false,
+              "duration_ms": 38562.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    }
+  }
+}
