@@ -1,0 +1,1089 @@
+{
+  "schema_version": "1.0.0",
+  "primary_contrast": {
+    "left": "python-typed",
+    "right": "python",
+    "direction": "left_minus_right",
+    "blocks": 23,
+    "estimates": {
+      "hidden_test_pass": {
+        "mean_difference": 0.13043478260869565,
+        "ci95": [
+          -0.13043478260869565,
+          0.391304347826087
+        ]
+      },
+      "agent_steps": {
+        "mean_difference": 1.0,
+        "ci95": [
+          0.34782608695652173,
+          1.6956521739130435
+        ]
+      },
+      "cost_usd": {
+        "mean_difference": 0.0005304304347826087,
+        "ci95": [
+          -0.00023961342391304216,
+          0.0011607112173913038
+        ]
+      },
+      "output_tokens": {
+        "mean_difference": 207.7826086956522,
+        "ci95": [
+          36.475000000000286,
+          376.4347826086956
+        ]
+      }
+    }
+  },
+  "study_id": "v1.0-sized-family",
+  "repo_revision": "b27e075abffbfca00322637d60e6d533c5ce7d61",
+  "rollouts": 119,
+  "excluded_infrastructure_failures": [
+    {
+      "order_index": 93,
+      "language": "typescript",
+      "attempt": 7,
+      "exception_type": "NonZeroAgentExitCodeError"
+    }
+  ],
+  "total_cost_usd": 0.84914395,
+  "by_arm": [
+    {
+      "language": "go",
+      "runs": 24,
+      "passed": 15,
+      "pass_rate": 0.625,
+      "pass_rate_ci95": [
+        0.4270996229526447,
+        0.7884063254095233
+      ],
+      "total_cost_usd": 0.20011977,
+      "mean_agent_steps": 9.583333333333334,
+      "mean_input_tokens": 72502.625,
+      "mean_output_tokens": 3961.4166666666665,
+      "mean_cost_usd": 0.00833832375,
+      "mean_agent_steps_when_passed": 7.533333333333333,
+      "mean_files_changed": 4.25,
+      "mean_lines_added": 296.6666666666667,
+      "mean_lines_deleted": 102.33333333333333,
+      "mean_patch_lines": 399.0
+    },
+    {
+      "language": "javascript",
+      "runs": 24,
+      "passed": 18,
+      "pass_rate": 0.75,
+      "pass_rate_ci95": [
+        0.5510055583116656,
+        0.8800063384126703
+      ],
+      "total_cost_usd": 0.1567484,
+      "mean_agent_steps": 7.0,
+      "mean_input_tokens": 39661.791666666664,
+      "mean_output_tokens": 3196.3333333333335,
+      "mean_cost_usd": 0.006531183333333333,
+      "mean_agent_steps_when_passed": 7.055555555555555,
+      "mean_files_changed": 4.333333333333333,
+      "mean_lines_added": 60.541666666666664,
+      "mean_lines_deleted": 82.375,
+      "mean_patch_lines": 142.91666666666666
+    },
+    {
+      "language": "python",
+      "runs": 24,
+      "passed": 13,
+      "pass_rate": 0.5416666666666666,
+      "pass_rate_ci95": [
+        0.35074865225073715,
+        0.7210866638699854
+      ],
+      "total_cost_usd": 0.1534837,
+      "mean_agent_steps": 6.625,
+      "mean_input_tokens": 36683.208333333336,
+      "mean_output_tokens": 3071.2916666666665,
+      "mean_cost_usd": 0.006395154166666667,
+      "mean_agent_steps_when_passed": 6.538461538461538,
+      "mean_files_changed": 4.333333333333333,
+      "mean_lines_added": 109.16666666666667,
+      "mean_lines_deleted": 64.04166666666667,
+      "mean_patch_lines": 173.20833333333334
+    },
+    {
+      "language": "python-typed",
+      "runs": 24,
+      "passed": 16,
+      "pass_rate": 0.6666666666666666,
+      "pass_rate_ci95": [
+        0.46706316684738447,
+        0.8202780976355061
+      ],
+      "total_cost_usd": 0.16767614,
+      "mean_agent_steps": 7.625,
+      "mean_input_tokens": 47593.083333333336,
+      "mean_output_tokens": 3309.75,
+      "mean_cost_usd": 0.006986505833333333,
+      "mean_agent_steps_when_passed": 7.75,
+      "mean_files_changed": 127.375,
+      "mean_lines_added": 235.91666666666666,
+      "mean_lines_deleted": 80.125,
+      "mean_patch_lines": 316.0416666666667
+    },
+    {
+      "language": "typescript",
+      "runs": 23,
+      "passed": 15,
+      "pass_rate": 0.6521739130434783,
+      "pass_rate_ci95": [
+        0.4489033522338618,
+        0.8118872415619854
+      ],
+      "total_cost_usd": 0.17111594,
+      "mean_agent_steps": 8.521739130434783,
+      "mean_input_tokens": 60795.47826086957,
+      "mean_output_tokens": 3386.086956521739,
+      "mean_cost_usd": 0.007439823478260868,
+      "mean_agent_steps_when_passed": 7.6,
+      "mean_files_changed": 7.608695652173913,
+      "mean_lines_added": 240.7391304347826,
+      "mean_lines_deleted": 88.69565217391305,
+      "mean_patch_lines": 329.4347826086956
+    }
+  ],
+  "by_family_and_arm": [
+    {
+      "task_family": "circuit-breaker",
+      "language": "go",
+      "runs": 8,
+      "passed": 8,
+      "pass_rate": 1.0,
+      "pass_rate_ci95": [
+        0.6755924316585924,
+        1.0
+      ],
+      "total_cost_usd": 0.05015463,
+      "mean_agent_steps": 7.5,
+      "mean_input_tokens": 39634.5,
+      "mean_output_tokens": 3225.125,
+      "mean_cost_usd": 0.006269328750000001,
+      "mean_agent_steps_when_passed": 7.5,
+      "mean_files_changed": 4.0,
+      "mean_lines_added": 222.5,
+      "mean_lines_deleted": 79.75,
+      "mean_patch_lines": 302.25
+    },
+    {
+      "task_family": "circuit-breaker",
+      "language": "javascript",
+      "runs": 8,
+      "passed": 4,
+      "pass_rate": 0.5,
+      "pass_rate_ci95": [
+        0.21521606069626764,
+        0.7847839393037324
+      ],
+      "total_cost_usd": 0.04262199,
+      "mean_agent_steps": 5.875,
+      "mean_input_tokens": 28836.375,
+      "mean_output_tokens": 2650.5,
+      "mean_cost_usd": 0.00532774875,
+      "mean_agent_steps_when_passed": 5.5,
+      "mean_files_changed": 4.0,
+      "mean_lines_added": 67.25,
+      "mean_lines_deleted": 75.5,
+      "mean_patch_lines": 142.75
+    },
+    {
+      "task_family": "circuit-breaker",
+      "language": "python",
+      "runs": 8,
+      "passed": 2,
+      "pass_rate": 0.25,
+      "pass_rate_ci95": [
+        0.07147921209795555,
+        0.5907245720727483
+      ],
+      "total_cost_usd": 0.04358563,
+      "mean_agent_steps": 5.75,
+      "mean_input_tokens": 28015.25,
+      "mean_output_tokens": 2875.875,
+      "mean_cost_usd": 0.00544820375,
+      "mean_agent_steps_when_passed": 5.5,
+      "mean_files_changed": 4.0,
+      "mean_lines_added": 97.125,
+      "mean_lines_deleted": 60.5,
+      "mean_patch_lines": 157.625
+    },
+    {
+      "task_family": "circuit-breaker",
+      "language": "python-typed",
+      "runs": 8,
+      "passed": 4,
+      "pass_rate": 0.5,
+      "pass_rate_ci95": [
+        0.21521606069626764,
+        0.7847839393037324
+      ],
+      "total_cost_usd": 0.04695592,
+      "mean_agent_steps": 6.5,
+      "mean_input_tokens": 34323.25,
+      "mean_output_tokens": 2960.125,
+      "mean_cost_usd": 0.00586949,
+      "mean_agent_steps_when_passed": 6.25,
+      "mean_files_changed": 129.0,
+      "mean_lines_added": 209.75,
+      "mean_lines_deleted": 75.125,
+      "mean_patch_lines": 284.875
+    },
+    {
+      "task_family": "circuit-breaker",
+      "language": "typescript",
+      "runs": 8,
+      "passed": 5,
+      "pass_rate": 0.625,
+      "pass_rate_ci95": [
+        0.30574239265377096,
+        0.8631557152608771
+      ],
+      "total_cost_usd": 0.04464497,
+      "mean_agent_steps": 6.5,
+      "mean_input_tokens": 37427.75,
+      "mean_output_tokens": 2679.75,
+      "mean_cost_usd": 0.005580621250000001,
+      "mean_agent_steps_when_passed": 6.6,
+      "mean_files_changed": 7.0,
+      "mean_lines_added": 219.375,
+      "mean_lines_deleted": 98.625,
+      "mean_patch_lines": 318.0
+    },
+    {
+      "task_family": "expr-eval",
+      "language": "go",
+      "runs": 8,
+      "passed": 0,
+      "pass_rate": 0.0,
+      "pass_rate_ci95": [
+        0.0,
+        0.3244075683414076
+      ],
+      "total_cost_usd": 0.09327932,
+      "mean_agent_steps": 13.25,
+      "mean_input_tokens": 130996.0,
+      "mean_output_tokens": 4858.125,
+      "mean_cost_usd": 0.011659915,
+      "mean_agent_steps_when_passed": null,
+      "mean_files_changed": 4.0,
+      "mean_lines_added": 387.125,
+      "mean_lines_deleted": 123.75,
+      "mean_patch_lines": 510.875
+    },
+    {
+      "task_family": "expr-eval",
+      "language": "javascript",
+      "runs": 8,
+      "passed": 7,
+      "pass_rate": 0.875,
+      "pass_rate_ci95": [
+        0.5291118149439162,
+        0.9775825088000281
+      ],
+      "total_cost_usd": 0.06603834,
+      "mean_agent_steps": 8.25,
+      "mean_input_tokens": 55100.125,
+      "mean_output_tokens": 3742.5,
+      "mean_cost_usd": 0.0082547925,
+      "mean_agent_steps_when_passed": 8.285714285714286,
+      "mean_files_changed": 4.0,
+      "mean_lines_added": 44.75,
+      "mean_lines_deleted": 76.125,
+      "mean_patch_lines": 120.875
+    },
+    {
+      "task_family": "expr-eval",
+      "language": "python",
+      "runs": 8,
+      "passed": 4,
+      "pass_rate": 0.5,
+      "pass_rate_ci95": [
+        0.21521606069626764,
+        0.7847839393037324
+      ],
+      "total_cost_usd": 0.06442355,
+      "mean_agent_steps": 7.25,
+      "mean_input_tokens": 49970.625,
+      "mean_output_tokens": 3355.5,
+      "mean_cost_usd": 0.008052943750000001,
+      "mean_agent_steps_when_passed": 6.5,
+      "mean_files_changed": 4.0,
+      "mean_lines_added": 132.375,
+      "mean_lines_deleted": 73.375,
+      "mean_patch_lines": 205.75
+    },
+    {
+      "task_family": "expr-eval",
+      "language": "python-typed",
+      "runs": 8,
+      "passed": 4,
+      "pass_rate": 0.5,
+      "pass_rate_ci95": [
+        0.21521606069626764,
+        0.7847839393037324
+      ],
+      "total_cost_usd": 0.06787717,
+      "mean_agent_steps": 8.375,
+      "mean_input_tokens": 64671.5,
+      "mean_output_tokens": 3605.75,
+      "mean_cost_usd": 0.00848464625,
+      "mean_agent_steps_when_passed": 8.75,
+      "mean_files_changed": 113.0,
+      "mean_lines_added": 250.875,
+      "mean_lines_deleted": 78.75,
+      "mean_patch_lines": 329.625
+    },
+    {
+      "task_family": "expr-eval",
+      "language": "typescript",
+      "runs": 8,
+      "passed": 3,
+      "pass_rate": 0.375,
+      "pass_rate_ci95": [
+        0.13684428473912286,
+        0.694257607346229
+      ],
+      "total_cost_usd": 0.07863325,
+      "mean_agent_steps": 11.5,
+      "mean_input_tokens": 96430.25,
+      "mean_output_tokens": 4139.25,
+      "mean_cost_usd": 0.00982915625,
+      "mean_agent_steps_when_passed": 9.666666666666666,
+      "mean_files_changed": 7.0,
+      "mean_lines_added": 242.125,
+      "mean_lines_deleted": 87.875,
+      "mean_patch_lines": 330.0
+    },
+    {
+      "task_family": "money-rollup",
+      "language": "go",
+      "runs": 8,
+      "passed": 7,
+      "pass_rate": 0.875,
+      "pass_rate_ci95": [
+        0.5291118149439162,
+        0.9775825088000281
+      ],
+      "total_cost_usd": 0.05668582,
+      "mean_agent_steps": 8.0,
+      "mean_input_tokens": 46877.375,
+      "mean_output_tokens": 3801.0,
+      "mean_cost_usd": 0.0070857275,
+      "mean_agent_steps_when_passed": 7.571428571428571,
+      "mean_files_changed": 4.75,
+      "mean_lines_added": 280.375,
+      "mean_lines_deleted": 103.5,
+      "mean_patch_lines": 383.875
+    },
+    {
+      "task_family": "money-rollup",
+      "language": "javascript",
+      "runs": 8,
+      "passed": 7,
+      "pass_rate": 0.875,
+      "pass_rate_ci95": [
+        0.5291118149439162,
+        0.9775825088000281
+      ],
+      "total_cost_usd": 0.04808807,
+      "mean_agent_steps": 6.875,
+      "mean_input_tokens": 35048.875,
+      "mean_output_tokens": 3196.0,
+      "mean_cost_usd": 0.0060110087500000004,
+      "mean_agent_steps_when_passed": 6.714285714285714,
+      "mean_files_changed": 5.0,
+      "mean_lines_added": 69.625,
+      "mean_lines_deleted": 95.5,
+      "mean_patch_lines": 165.125
+    },
+    {
+      "task_family": "money-rollup",
+      "language": "python",
+      "runs": 8,
+      "passed": 7,
+      "pass_rate": 0.875,
+      "pass_rate_ci95": [
+        0.5291118149439162,
+        0.9775825088000281
+      ],
+      "total_cost_usd": 0.04547452,
+      "mean_agent_steps": 6.875,
+      "mean_input_tokens": 32063.75,
+      "mean_output_tokens": 2982.5,
+      "mean_cost_usd": 0.005684315,
+      "mean_agent_steps_when_passed": 6.857142857142857,
+      "mean_files_changed": 5.0,
+      "mean_lines_added": 98.0,
+      "mean_lines_deleted": 58.25,
+      "mean_patch_lines": 156.25
+    },
+    {
+      "task_family": "money-rollup",
+      "language": "python-typed",
+      "runs": 8,
+      "passed": 8,
+      "pass_rate": 1.0,
+      "pass_rate_ci95": [
+        0.6755924316585924,
+        1.0
+      ],
+      "total_cost_usd": 0.05284305,
+      "mean_agent_steps": 8.0,
+      "mean_input_tokens": 43784.5,
+      "mean_output_tokens": 3363.375,
+      "mean_cost_usd": 0.006605381250000001,
+      "mean_agent_steps_when_passed": 8.0,
+      "mean_files_changed": 140.125,
+      "mean_lines_added": 247.125,
+      "mean_lines_deleted": 86.5,
+      "mean_patch_lines": 333.625
+    },
+    {
+      "task_family": "money-rollup",
+      "language": "typescript",
+      "runs": 7,
+      "passed": 7,
+      "pass_rate": 1.0,
+      "pass_rate_ci95": [
+        0.6456695613241317,
+        1.0
+      ],
+      "total_cost_usd": 0.04783772,
+      "mean_agent_steps": 7.428571428571429,
+      "mean_input_tokens": 46776.0,
+      "mean_output_tokens": 3332.5714285714284,
+      "mean_cost_usd": 0.00683396,
+      "mean_agent_steps_when_passed": 7.428571428571429,
+      "mean_files_changed": 9.0,
+      "mean_lines_added": 263.57142857142856,
+      "mean_lines_deleted": 78.28571428571429,
+      "mean_patch_lines": 341.85714285714283
+    }
+  ],
+  "family_rankings": [
+    {
+      "task_family": "circuit-breaker",
+      "order": [
+        [
+          "go",
+          8,
+          8
+        ],
+        [
+          "typescript",
+          5,
+          8
+        ],
+        [
+          "javascript",
+          4,
+          8
+        ],
+        [
+          "python-typed",
+          4,
+          8
+        ],
+        [
+          "python",
+          2,
+          8
+        ]
+      ],
+      "spread": 0.75
+    },
+    {
+      "task_family": "expr-eval",
+      "order": [
+        [
+          "javascript",
+          7,
+          8
+        ],
+        [
+          "python",
+          4,
+          8
+        ],
+        [
+          "python-typed",
+          4,
+          8
+        ],
+        [
+          "typescript",
+          3,
+          8
+        ],
+        [
+          "go",
+          0,
+          8
+        ]
+      ],
+      "spread": 0.875
+    },
+    {
+      "task_family": "money-rollup",
+      "order": [
+        [
+          "python-typed",
+          8,
+          8
+        ],
+        [
+          "typescript",
+          7,
+          7
+        ],
+        [
+          "go",
+          7,
+          8
+        ],
+        [
+          "javascript",
+          7,
+          8
+        ],
+        [
+          "python",
+          7,
+          8
+        ]
+      ],
+      "spread": 0.125
+    }
+  ],
+  "paired_contrasts": [
+    {
+      "left": "javascript",
+      "right": "typescript",
+      "direction": "left_minus_right",
+      "blocks": 23,
+      "primary": false,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.13043478260869565,
+          "ci95": [
+            -0.13043478260869565,
+            0.391304347826087
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": -1.565217391304348,
+          "ci95": [
+            -2.5652173913043477,
+            -0.6086956521739131
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": -0.0009385439130434781,
+          "ci95": [
+            -0.0014683964456521732,
+            -0.0003960349347826085
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": -205.6086956521739,
+          "ci95": [
+            -384.1358695652174,
+            -11.259782608695746
+          ]
+        }
+      }
+    },
+    {
+      "left": "javascript",
+      "right": "python",
+      "direction": "left_minus_right",
+      "blocks": 23,
+      "primary": false,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.2608695652173913,
+          "ci95": [
+            0.08695652173913043,
+            0.43478260869565216
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": 0.30434782608695654,
+          "ci95": [
+            -0.13043478260869565,
+            0.7391304347826086
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": 3.7837826086956724e-05,
+          "ci95": [
+            -0.0005885651413043478,
+            0.0005358405326086956
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": 93.95652173913044,
+          "ci95": [
+            -67.26304347826085,
+            248.8695652173913
+          ]
+        }
+      }
+    },
+    {
+      "left": "javascript",
+      "right": "python-typed",
+      "direction": "left_minus_right",
+      "blocks": 23,
+      "primary": false,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.13043478260869565,
+          "ci95": [
+            -0.08695652173913043,
+            0.34782608695652173
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": -0.6956521739130435,
+          "ci95": [
+            -1.3478260869565217,
+            -0.08695652173913043
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": -0.000492592608695652,
+          "ci95": [
+            -0.0009273994891304342,
+            -5.953221739130381e-05
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": -113.82608695652173,
+          "ci95": [
+            -316.2173913043478,
+            87.4358695652173
+          ]
+        }
+      }
+    },
+    {
+      "left": "javascript",
+      "right": "go",
+      "direction": "left_minus_right",
+      "blocks": 23,
+      "primary": false,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.17391304347826086,
+          "ci95": [
+            -0.13043478260869565,
+            0.43478260869565216
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": -2.739130434782609,
+          "ci95": [
+            -3.6956521739130435,
+            -1.7391304347826086
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": -0.0019375899999999999,
+          "ci95": [
+            -0.0025658314999999995,
+            -0.0013195595217391318
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": -804.3478260869565,
+          "ci95": [
+            -1038.1315217391304,
+            -570.9510869565221
+          ]
+        }
+      }
+    },
+    {
+      "left": "typescript",
+      "right": "python",
+      "direction": "left_minus_right",
+      "blocks": 23,
+      "primary": false,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.13043478260869565,
+          "ci95": [
+            -0.13043478260869565,
+            0.391304347826087
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": 1.8695652173913044,
+          "ci95": [
+            0.9130434782608695,
+            2.9565217391304346
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": 0.0009763817391304349,
+          "ci95": [
+            0.00026442205434782615,
+            0.0016915068152173912
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": 299.5652173913044,
+          "ci95": [
+            56.64782608695653,
+            542.0445652173913
+          ]
+        }
+      }
+    },
+    {
+      "left": "typescript",
+      "right": "python-typed",
+      "direction": "left_minus_right",
+      "blocks": 23,
+      "primary": false,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.0,
+          "ci95": [
+            -0.2608695652173913,
+            0.2608695652173913
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": 0.8695652173913043,
+          "ci95": [
+            0.0,
+            1.8695652173913044
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": 0.0004459513043478262,
+          "ci95": [
+            -2.1922010869564954e-05,
+            0.0009261893152173916
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": 91.78260869565217,
+          "ci95": [
+            -105.7836956521739,
+            303.0880434782608
+          ]
+        }
+      }
+    },
+    {
+      "left": "typescript",
+      "right": "go",
+      "direction": "left_minus_right",
+      "blocks": 23,
+      "primary": false,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.043478260869565216,
+          "ci95": [
+            -0.17391304347826086,
+            0.2608695652173913
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": -1.173913043478261,
+          "ci95": [
+            -1.9565217391304348,
+            -0.391304347826087
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": -0.0009990460869565218,
+          "ci95": [
+            -0.0015485381847826093,
+            -0.00045156026086956563
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": -598.7391304347826,
+          "ci95": [
+            -802.4402173913044,
+            -386.9554347826088
+          ]
+        }
+      }
+    },
+    {
+      "left": "python",
+      "right": "python-typed",
+      "direction": "left_minus_right",
+      "blocks": 23,
+      "primary": true,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": -0.13043478260869565,
+          "ci95": [
+            -0.391304347826087,
+            0.13043478260869565
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": -1.0,
+          "ci95": [
+            -1.6956521739130435,
+            -0.34782608695652173
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": -0.0005304304347826087,
+          "ci95": [
+            -0.0011607112173913038,
+            0.00023961342391304216
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": -207.7826086956522,
+          "ci95": [
+            -376.4347826086956,
+            -36.475000000000286
+          ]
+        }
+      }
+    },
+    {
+      "left": "python",
+      "right": "go",
+      "direction": "left_minus_right",
+      "blocks": 23,
+      "primary": false,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": -0.08695652173913043,
+          "ci95": [
+            -0.34782608695652173,
+            0.17391304347826086
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": -3.0434782608695654,
+          "ci95": [
+            -4.173913043478261,
+            -1.9130434782608696
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": -0.001975427826086956,
+          "ci95": [
+            -0.002726711554347825,
+            -0.0012530697608695665
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": -898.304347826087,
+          "ci95": [
+            -1186.5239130434782,
+            -611.4315217391306
+          ]
+        }
+      }
+    },
+    {
+      "left": "python-typed",
+      "right": "go",
+      "direction": "left_minus_right",
+      "blocks": 23,
+      "primary": false,
+      "estimates": {
+        "hidden_test_pass": {
+          "mean_difference": 0.043478260869565216,
+          "ci95": [
+            -0.21739130434782608,
+            0.30434782608695654
+          ]
+        },
+        "agent_steps": {
+          "mean_difference": -2.0434782608695654,
+          "ci95": [
+            -3.130434782608696,
+            -0.9565217391304348
+          ]
+        },
+        "cost_usd": {
+          "mean_difference": -0.0014449973913043487,
+          "ci95": [
+            -0.002194654945652174,
+            -0.0007242271195652177
+          ]
+        },
+        "output_tokens": {
+          "mean_difference": -690.5217391304348,
+          "ci95": [
+            -964.6978260869564,
+            -413.77717391304395
+          ]
+        }
+      }
+    }
+  ],
+  "failure_profile": [
+    {
+      "language": "go",
+      "failed_cases": {
+        "undefined-name": 6,
+        "precedence-table": 4,
+        "bitwise-full-width": 4,
+        "parse-errors": 4,
+        "shift-range": 3,
+        "bindings-and-shadowing": 3,
+        "precedence-basics": 2,
+        "shift-semantics": 2,
+        "hex-and-signed-literals": 2,
+        "no-programs": 2,
+        "depth-limit": 2,
+        "empty-entries": 1,
+        "errors-basics": 1,
+        "literal-range": 1,
+        "division-truncation": 1,
+        "rejects-invalid": 1,
+        "bindings-basics": 1
+      }
+    },
+    {
+      "language": "javascript",
+      "failed_cases": {
+        "cooldown-boundary": 4,
+        "half-open-closes": 4,
+        "half-open-reopens": 4,
+        "half-open-limit": 4,
+        "target-ordering": 1,
+        "rejects-invalid": 1,
+        "parse-errors": 1
+      }
+    },
+    {
+      "language": "python",
+      "failed_cases": {
+        "cooldown-boundary": 6,
+        "half-open-closes": 6,
+        "half-open-reopens": 6,
+        "half-open-limit": 6,
+        "undefined-name": 3,
+        "rejects-invalid": 1,
+        "depth-limit": 1
+      }
+    },
+    {
+      "language": "python-typed",
+      "failed_cases": {
+        "cooldown-boundary": 4,
+        "half-open-closes": 4,
+        "half-open-reopens": 4,
+        "half-open-limit": 4,
+        "undefined-name": 3,
+        "depth-limit": 1
+      }
+    },
+    {
+      "language": "typescript",
+      "failed_cases": {
+        "undefined-name": 4,
+        "cooldown-boundary": 3,
+        "half-open-closes": 3,
+        "half-open-reopens": 3,
+        "half-open-limit": 3,
+        "wraparound-basics": 2,
+        "precedence-table": 2,
+        "wraparound": 2,
+        "depth-limit": 2,
+        "literal-range": 1,
+        "bindings-basics": 1,
+        "bindings-and-shadowing": 1
+      }
+    }
+  ],
+  "expr_eval_width_failures": [
+    {
+      "language": "javascript",
+      "runs": 8,
+      "width_case_failures": 0,
+      "rate": 0.0
+    },
+    {
+      "language": "typescript",
+      "runs": 8,
+      "width_case_failures": 2,
+      "rate": 0.25
+    },
+    {
+      "language": "python",
+      "runs": 8,
+      "width_case_failures": 0,
+      "rate": 0.0
+    },
+    {
+      "language": "python-typed",
+      "runs": 8,
+      "width_case_failures": 0,
+      "rate": 0.0
+    },
+    {
+      "language": "go",
+      "runs": 8,
+      "width_case_failures": 5,
+      "rate": 0.625
+    }
+  ],
+  "decisive_correctness": [
+    "JavaScript passed 0.261 more often than Python (95% CI [0.087, 0.435])"
+  ],
+  "decisive_steps": [
+    "JavaScript needed 1.57 fewer agent steps than TypeScript (95% CI [-2.565, -0.609])",
+    "JavaScript needed 0.70 fewer agent steps than Python (typed) (95% CI [-1.348, -0.087])",
+    "JavaScript needed 2.74 fewer agent steps than Go (95% CI [-3.696, -1.739])",
+    "TypeScript needed 1.87 more agent steps than Python (95% CI [0.913, 2.957])",
+    "TypeScript needed 1.17 fewer agent steps than Go (95% CI [-1.957, -0.391])",
+    "Python needed 1.00 fewer agent steps than Python (typed) (95% CI [-1.696, -0.348])",
+    "Python needed 3.04 fewer agent steps than Go (95% CI [-4.174, -1.913])",
+    "Python (typed) needed 2.04 fewer agent steps than Go (95% CI [-3.130, -0.957])"
+  ],
+  "notes": {
+    "primary_estimand": "per-family hidden-verifier pass rate by language, reported for all three families separately and never pooled into one score",
+    "pooled_by_arm": "the by_arm table pools families that do not agree; it is reported for completeness and is not the estimand",
+    "no_drift_table": "money-rollup and circuit-breaker ran against revised instruction text, so their pass rates are not comparable with v0.8 or v0.9",
+    "agent_seconds": "not reported: this cohort ran four rollouts concurrently, so elapsed time includes contention",
+    "stopping_rule": "fixed at 120 rollouts, declared before the first paid call; no interim analysis informed continuation"
+  },
+  "leadership": {
+    "minimum_spread_runs": 2,
+    "spread_runs": {
+      "circuit-breaker": 6,
+      "expr-eval": 7,
+      "money-rollup": 1
+    },
+    "discriminating_families": [
+      "circuit-breaker",
+      "expr-eval"
+    ],
+    "flat_families": [
+      "money-rollup"
+    ],
+    "best_on_every_discriminating_family": [],
+    "worst_on_every_discriminating_family": [],
+    "reversals": [
+      {
+        "language": "go",
+        "best_on": "circuit-breaker",
+        "worst_on": "expr-eval"
+      }
+    ]
+  }
+}
