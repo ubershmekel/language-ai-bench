@@ -86,6 +86,24 @@ def audit() -> list[str]:
                 f"{family}/{maturity}: language instructions are not byte-identical"
             )
 
+        # A family may put its contract in the workspace as SPEC.md instead of in
+        # the instruction. It then has to be identical everywhere the agent can
+        # read it, or the arms are not solving the same task.
+        specs = {
+            member.joinpath("SPEC.md").read_bytes()
+            for member in members
+            if member.joinpath("SPEC.md").exists()
+        }
+        if specs and len(specs) != 1:
+            errors.append(f"{family}/{maturity}: language specs are not byte-identical")
+        for member in members:
+            outer = member / "SPEC.md"
+            inner = member / "environment" / "SPEC.md"
+            if outer.exists() != inner.exists():
+                errors.append(f"{member.relative_to(ROOT)}: SPEC.md is not mirrored")
+            elif outer.exists() and outer.read_bytes() != inner.read_bytes():
+                errors.append(f"{member.relative_to(ROOT)}: SPEC.md copies differ")
+
         shared_verifier = TASKS / family / "verifier" / "verify.py"
         if shared_verifier.exists():
             expected = shared_verifier.read_bytes()

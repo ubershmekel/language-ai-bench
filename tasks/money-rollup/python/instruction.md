@@ -64,6 +64,4 @@ are equal, and two rates sharing the same `from` and `to` pair.
 A successful run emits only the report JSON and exits zero.
 
 Do not add runtime dependencies or change the stdin/stdout interface. Run
-`scripts/verify-local` for developer tests. Hidden tests cover chained and
-ambiguous conversion, half-to-even ties, per-entry rounding, exact large
-magnitudes, zero and negative formatting, prefix sorting, and rejection.
+`scripts/verify-local` for developer tests.

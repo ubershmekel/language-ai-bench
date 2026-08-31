@@ -77,6 +77,4 @@ unknown outcome `kind`, a `status` outcome whose `status` is not an integer in
 A successful run emits only the result JSON and exits zero.
 
 Do not add runtime dependencies or change the stdin/stdout interface. Run
-`scripts/verify-local` for developer tests. Hidden tests cover per-target
-isolation, cooldown boundaries, half-open probe limits, neutral outcomes,
-streak resets, ordering, and rejection.
+`scripts/verify-local` for developer tests.

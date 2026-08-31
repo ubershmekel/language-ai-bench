@@ -116,6 +116,7 @@ cannot make.
 | `circuit-breaker` | CLI | a state machine and an outcome union crossing module boundaries |
 | `text-redact` | CLI | Unicode code point offsets, which no checker sees |
 | `redact-spans` | CLI | the same contract with the hazard not announced, unadmitted |
+| `expr-eval` | CLI | 64-bit two's complement integers, an 8 line ticket over a workspace spec |
 
 ## History
 

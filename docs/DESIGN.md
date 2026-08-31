@@ -73,6 +73,14 @@ failure IDs, and identical failure IDs for off-by-one, missing-branch,
 wrong-status, and non-atomic-update sabotages. It uses readiness probes, never
 fixed sleeps. `calibration_report.json` is the receipt.
 
+Instructions must not enumerate what the hidden tests cover. Three of them used
+to, which handed the agent a checklist of exactly what the grader looks at. That
+line is gone from `money-rollup`, `circuit-breaker`, and `configuration-merge`
+as of task text revision v1.0; `text-redact` keeps its copy because it is frozen
+around a published result. Family pass rates are comparable only within a repo
+revision, and `tasks/FAMILIES.md` records which families are active, retired, or
+unadmitted, and why.
+
 The free gate proves the scoring is fair, not that the task is hard.
 `text-redact` passed it in all five languages, its untouched starter failed ten
 of twelve checks, and it still passed 39 of 40 paid attempts with its intended
@@ -164,6 +172,26 @@ remaining honest lever is task size, which is where the DeepSWE comparison
 already pointed: 844 reference patch lines against 301 here, and 15 instruction
 lines against 69. `redact-spans` stays in the tree, gate green and unadmitted,
 as the receipt for that. `docs/REDACT_SPANS_PROBE.md` is the report.
+
+`expr-eval` is the first family built to a different size. Every other family
+states its whole contract in a 69 to 82 line instruction over a reference of
+about 300 lines. DeepSWE's median is the other way round: a 15 line instruction
+over an 844 line patch. Two saturation results in a row, `text-redact` and then
+`redact-spans`, say that hiding a hazard inside a small task does not make it
+hard, so this one moves the size instead. The ticket is eight lines and points
+at `SPEC.md` in the workspace; the reference is a tokenizer, a precedence
+climbing parser, and an evaluator.
+
+Its affordance is a fourth one: what an integer is. The contract is signed
+64-bit two's complement. Go gets that from `int64`, truncating division and
+arithmetic shift, and only has to read literals as `uint64` and reinterpret.
+Python has to wrap every result and write truncating division itself, because
+`//` floors and `%` follows the divisor. JavaScript and TypeScript have to use
+`BigInt` throughout, because `number` stops being exact at 2^53 and the bitwise
+operators are 32 bits wide, and they cannot use `JSON.stringify` on the result.
+`tsc` reports `bigint` against `number` and nothing else; `mypy` reports none of
+it. Go having the least to do is the opposite of `money-rollup`, which is why
+the two are worth running together.
 
 Next families: schema migration with backward-compatible reads (static schema
 feedback); streaming parser recovery (sum types/error handling); dependency API

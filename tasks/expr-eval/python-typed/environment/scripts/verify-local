@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+mypy
+python scripts/dev_verify.py --visibility developer --command python src/main.py

@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "probe-expr-eval",
+  "status": "ready",
+  "objective": "Difficulty probe for expr-eval, the first family built to the size profile the DeepSWE comparison points at: an eight line ticket over a SPEC.md in the workspace, and a reference that is a tokenizer, a precedence climbing parser, and an evaluator rather than a single function. It turns on what an integer is. The contract is signed 64-bit two's complement, which Go gets for free, Python has to implement over unbounded integers, and JavaScript and TypeScript have to implement with BigInt because number is a float64 and the bitwise operators are 32 bits wide. redact-spans showed that hiding a hazard in a small task does not make it hard, so this probe is asking whether size and interaction count do.",
+  "languages": [
+    "javascript",
+    "typescript",
+    "python",
+    "python-typed",
+    "go"
+  ],
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "model_settings": {
+    "reasoning_effort": "low",
+    "cache_control": "default_end",
+    "temperature": null,
+    "provider_routing": "openrouter-default"
+  },
+  "agent": "mini-swe-agent@2.4.6",
+  "pier": "0.3.1",
+  "scaffold": "mini-swe-agent/bash-only",
+  "prompt_revision": "mini-swe-agent-1.1",
+  "randomization_seed": 20260831,
+  "attempts_per_cell": 2,
+  "per_rollout_cost_limit_usd": 0.35,
+  "study_cost_limit_usd": 1.0,
+  "pilot_mean_cost_usd": 0.0125,
+  "quality_outcomes": [
+    "hidden_test_pass",
+    "agent_steps",
+    "cost_usd"
+  ],
+  "task_families": [
+    {
+      "id": "expr-eval",
+      "status": "ready",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "paths": {
+        "javascript": "tasks/expr-eval/javascript",
+        "typescript": "tasks/expr-eval/typescript",
+        "python": "tasks/expr-eval/python",
+        "python-typed": "tasks/expr-eval/python-typed",
+        "go": "tasks/expr-eval/go"
+      }
+    }
+  ],
+  "analysis": {
+    "primary_estimand": "count of passing rollouts out of ten, and the count failing at least one of the five hidden cases that a wrong integer width or wrong division rule breaks: wraparound, hex-and-signed-literals, division-truncation, shift-semantics, bitwise-full-width",
+    "co_primary_outcomes": [
+      "hidden_test_pass"
+    ],
+    "uncertainty": "None reported. Ten rollouts cannot estimate a pass rate and this probe does not try.",
+    "stopping_rule": "Fixed at 10 rollouts, two per language, written down before the first paid call. No continuation on observed results."
+  },
+  "admission_rule": "Admit expr-eval to a cohort only if it passes at most 7 of 10 and at least 1 of 10. Passing 8 or more means it saturates like text-redact did. Passing 0 means it is a wall rather than a measurement, and a family every arm fails ranks nothing. Both bounds were written down before the first paid call.",
+  "model_rung": "strong",
+  "notes": "These rollouts are a go/no-go on the task and are never pooled into a reported cohort result. The free calibration gate is green and the untouched starter fails thirteen of fifteen checks in every language, which makes the scoring fair and says nothing about difficulty.",
+  "execution": {
+    "n_concurrent": 2,
+    "batch_size": 10,
+    "timing_telemetry_valid": false,
+    "note": "Command-mode family, so contention does not touch correctness, steps, or cost."
+  }
+}

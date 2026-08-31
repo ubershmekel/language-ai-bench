@@ -22,6 +22,4 @@ that is not an object by exiting nonzero. A successful invocation must emit only
 the merged JSON value and exit zero.
 
 Do not add runtime dependencies or change the stdin/stdout interface. Run
-`scripts/verify-local` for developer tests. Hidden tests cover nested
-precedence, deletion and re-addition, array replacement, type transitions,
-invalid inputs, and flat-merge regressions.
+`scripts/verify-local` for developer tests.

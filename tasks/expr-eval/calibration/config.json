@@ -1,0 +1,9 @@
+{
+  "mode": "command",
+  "sabotages": [
+    "precedence-additive-first",
+    "truncate-toward-negative",
+    "shift-count-unchecked",
+    "literal-range-unchecked"
+  ]
+}

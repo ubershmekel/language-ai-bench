@@ -1,0 +1,2702 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_version": "0.2.0",
+  "task_family": "expr-eval",
+  "mode": "command",
+  "generated_at": "2026-08-31T05:15:26Z",
+  "green": true,
+  "checks": {
+    "reference_100_percent": true,
+    "null_failure_parity": true,
+    "sabotage_failure_parity": true
+  },
+  "null_failure_sets": {
+    "javascript": [
+      "bindings-and-shadowing",
+      "bitwise-full-width",
+      "depth-limit",
+      "division-truncation",
+      "hex-and-signed-literals",
+      "literal-range",
+      "parse-errors",
+      "precedence-table",
+      "rejects-invalid",
+      "shift-range",
+      "shift-semantics",
+      "undefined-name",
+      "wraparound"
+    ],
+    "typescript": [
+      "bindings-and-shadowing",
+      "bitwise-full-width",
+      "depth-limit",
+      "division-truncation",
+      "hex-and-signed-literals",
+      "literal-range",
+      "parse-errors",
+      "precedence-table",
+      "rejects-invalid",
+      "shift-range",
+      "shift-semantics",
+      "undefined-name",
+      "wraparound"
+    ],
+    "python": [
+      "bindings-and-shadowing",
+      "bitwise-full-width",
+      "depth-limit",
+      "division-truncation",
+      "hex-and-signed-literals",
+      "literal-range",
+      "parse-errors",
+      "precedence-table",
+      "rejects-invalid",
+      "shift-range",
+      "shift-semantics",
+      "undefined-name",
+      "wraparound"
+    ],
+    "python-typed": [
+      "bindings-and-shadowing",
+      "bitwise-full-width",
+      "depth-limit",
+      "division-truncation",
+      "hex-and-signed-literals",
+      "literal-range",
+      "parse-errors",
+      "precedence-table",
+      "rejects-invalid",
+      "shift-range",
+      "shift-semantics",
+      "undefined-name",
+      "wraparound"
+    ],
+    "go": [
+      "bindings-and-shadowing",
+      "bitwise-full-width",
+      "depth-limit",
+      "division-truncation",
+      "hex-and-signed-literals",
+      "literal-range",
+      "parse-errors",
+      "precedence-table",
+      "rejects-invalid",
+      "shift-range",
+      "shift-semantics",
+      "undefined-name",
+      "wraparound"
+    ]
+  },
+  "sabotage_failure_sets": {
+    "precedence-additive-first": {
+      "javascript": [
+        "precedence-table"
+      ],
+      "typescript": [
+        "precedence-table"
+      ],
+      "python": [
+        "precedence-table"
+      ],
+      "python-typed": [
+        "precedence-table"
+      ],
+      "go": [
+        "precedence-table"
+      ]
+    },
+    "truncate-toward-negative": {
+      "javascript": [
+        "division-truncation"
+      ],
+      "typescript": [
+        "division-truncation"
+      ],
+      "python": [
+        "division-truncation"
+      ],
+      "python-typed": [
+        "division-truncation"
+      ],
+      "go": [
+        "division-truncation"
+      ]
+    },
+    "shift-count-unchecked": {
+      "javascript": [
+        "shift-range"
+      ],
+      "typescript": [
+        "shift-range"
+      ],
+      "python": [
+        "shift-range"
+      ],
+      "python-typed": [
+        "shift-range"
+      ],
+      "go": [
+        "shift-range"
+      ]
+    },
+    "literal-range-unchecked": {
+      "javascript": [
+        "literal-range"
+      ],
+      "typescript": [
+        "literal-range"
+      ],
+      "python": [
+        "literal-range"
+      ],
+      "python-typed": [
+        "literal-range"
+      ],
+      "go": [
+        "literal-range"
+      ]
+    }
+  },
+  "runs": {
+    "javascript": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-sum",
+            "passed": true,
+            "duration_ms": 1437.0
+          },
+          {
+            "case_id": "no-programs",
+            "passed": true,
+            "duration_ms": 1250.0
+          },
+          {
+            "case_id": "precedence-table",
+            "passed": true,
+            "duration_ms": 1203.0
+          },
+          {
+            "case_id": "wraparound",
+            "passed": true,
+            "duration_ms": 1266.0
+          },
+          {
+            "case_id": "hex-and-signed-literals",
+            "passed": true,
+            "duration_ms": 1266.0
+          },
+          {
+            "case_id": "literal-range",
+            "passed": true,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "division-truncation",
+            "passed": true,
+            "duration_ms": 1141.0
+          },
+          {
+            "case_id": "shift-semantics",
+            "passed": true,
+            "duration_ms": 1375.0
+          },
+          {
+            "case_id": "shift-range",
+            "passed": true,
+            "duration_ms": 1562.0
+          },
+          {
+            "case_id": "bitwise-full-width",
+            "passed": true,
+            "duration_ms": 1281.0
+          },
+          {
+            "case_id": "bindings-and-shadowing",
+            "passed": true,
+            "duration_ms": 1485.0
+          },
+          {
+            "case_id": "undefined-name",
+            "passed": true,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "depth-limit",
+            "passed": true,
+            "duration_ms": 1797.0
+          },
+          {
+            "case_id": "parse-errors",
+            "passed": true,
+            "duration_ms": 4500.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 28422.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-sum",
+            "passed": true,
+            "duration_ms": 1328.0
+          },
+          {
+            "case_id": "no-programs",
+            "passed": true,
+            "duration_ms": 1219.0
+          },
+          {
+            "case_id": "precedence-table",
+            "passed": false,
+            "duration_ms": 1219.0,
+            "error": "AssertionError: exit 1: unexpected character at 2\n"
+          },
+          {
+            "case_id": "wraparound",
+            "passed": false,
+            "duration_ms": 1375.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "hex-and-signed-literals",
+            "passed": false,
+            "duration_ms": 1406.0,
+            "error": "AssertionError: exit 1: unexpected character at 1\n"
+          },
+          {
+            "case_id": "literal-range",
+            "passed": false,
+            "duration_ms": 1156.0,
+            "error": "AssertionError: exit 1: unexpected character at 1\n"
+          },
+          {
+            "case_id": "division-truncation",
+            "passed": false,
+            "duration_ms": 1438.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "shift-semantics",
+            "passed": false,
+            "duration_ms": 1281.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "shift-range",
+            "passed": false,
+            "duration_ms": 1219.0,
+            "error": "AssertionError: exit 1: unexpected character at 2\n"
+          },
+          {
+            "case_id": "bitwise-full-width",
+            "passed": false,
+            "duration_ms": 1187.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "bindings-and-shadowing",
+            "passed": false,
+            "duration_ms": 1188.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "undefined-name",
+            "passed": false,
+            "duration_ms": 1578.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "depth-limit",
+            "passed": false,
+            "duration_ms": 1234.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "parse-errors",
+            "passed": false,
+            "duration_ms": 1219.0,
+            "error": "AssertionError: exit 1: Cannot read properties of undefined (reading 'value')\n"
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 3875.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "precedence-additive-first": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": false,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1125.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1218.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1218.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 27484.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "truncate-toward-negative": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1343.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1484.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": false,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1390.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 31594.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "shift-count-unchecked": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1468.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 2454.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1750.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1531.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1875.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 2109.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1531.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": false,
+              "duration_ms": 1500.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1547.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1500.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 29281.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "literal-range-unchecked": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1406.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1469.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1594.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": false,
+              "duration_ms": 1406.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1296.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1563.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 30359.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "typescript": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-sum",
+            "passed": true,
+            "duration_ms": 1578.0
+          },
+          {
+            "case_id": "no-programs",
+            "passed": true,
+            "duration_ms": 1281.0
+          },
+          {
+            "case_id": "precedence-table",
+            "passed": true,
+            "duration_ms": 1344.0
+          },
+          {
+            "case_id": "wraparound",
+            "passed": true,
+            "duration_ms": 1266.0
+          },
+          {
+            "case_id": "hex-and-signed-literals",
+            "passed": true,
+            "duration_ms": 1281.0
+          },
+          {
+            "case_id": "literal-range",
+            "passed": true,
+            "duration_ms": 1234.0
+          },
+          {
+            "case_id": "division-truncation",
+            "passed": true,
+            "duration_ms": 1281.0
+          },
+          {
+            "case_id": "shift-semantics",
+            "passed": true,
+            "duration_ms": 1219.0
+          },
+          {
+            "case_id": "shift-range",
+            "passed": true,
+            "duration_ms": 1281.0
+          },
+          {
+            "case_id": "bitwise-full-width",
+            "passed": true,
+            "duration_ms": 1454.0
+          },
+          {
+            "case_id": "bindings-and-shadowing",
+            "passed": true,
+            "duration_ms": 1437.0
+          },
+          {
+            "case_id": "undefined-name",
+            "passed": true,
+            "duration_ms": 1422.0
+          },
+          {
+            "case_id": "depth-limit",
+            "passed": true,
+            "duration_ms": 1359.0
+          },
+          {
+            "case_id": "parse-errors",
+            "passed": true,
+            "duration_ms": 1188.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 34750.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-sum",
+            "passed": true,
+            "duration_ms": 1594.0
+          },
+          {
+            "case_id": "no-programs",
+            "passed": true,
+            "duration_ms": 2125.0
+          },
+          {
+            "case_id": "precedence-table",
+            "passed": false,
+            "duration_ms": 1359.0,
+            "error": "AssertionError: exit 1: unexpected character at 2\n"
+          },
+          {
+            "case_id": "wraparound",
+            "passed": false,
+            "duration_ms": 1547.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "hex-and-signed-literals",
+            "passed": false,
+            "duration_ms": 1265.0,
+            "error": "AssertionError: exit 1: unexpected character at 1\n"
+          },
+          {
+            "case_id": "literal-range",
+            "passed": false,
+            "duration_ms": 1407.0,
+            "error": "AssertionError: exit 1: unexpected character at 1\n"
+          },
+          {
+            "case_id": "division-truncation",
+            "passed": false,
+            "duration_ms": 1375.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "shift-semantics",
+            "passed": false,
+            "duration_ms": 1625.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "shift-range",
+            "passed": false,
+            "duration_ms": 1500.0,
+            "error": "AssertionError: exit 1: unexpected character at 2\n"
+          },
+          {
+            "case_id": "bitwise-full-width",
+            "passed": false,
+            "duration_ms": 1578.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "bindings-and-shadowing",
+            "passed": false,
+            "duration_ms": 1453.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "undefined-name",
+            "passed": false,
+            "duration_ms": 1219.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "depth-limit",
+            "passed": false,
+            "duration_ms": 1234.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "parse-errors",
+            "passed": false,
+            "duration_ms": 1109.0,
+            "error": "AssertionError: exit 1: Cannot read properties of undefined (reading 'value')\n"
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 4657.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "precedence-additive-first": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1500.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": false,
+              "duration_ms": 1843.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1157.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1218.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1157.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1531.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1984.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 45219.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "truncate-toward-negative": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1703.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1766.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1469.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1563.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": false,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1453.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1453.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1750.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 33438.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "shift-count-unchecked": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1906.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 2422.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1844.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1703.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1640.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1610.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1422.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1406.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": false,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1391.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1484.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 31829.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "literal-range-unchecked": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1594.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1437.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1641.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": false,
+              "duration_ms": 1672.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1343.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1282.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 28375.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "python": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-sum",
+            "passed": true,
+            "duration_ms": 1500.0
+          },
+          {
+            "case_id": "no-programs",
+            "passed": true,
+            "duration_ms": 1484.0
+          },
+          {
+            "case_id": "precedence-table",
+            "passed": true,
+            "duration_ms": 1594.0
+          },
+          {
+            "case_id": "wraparound",
+            "passed": true,
+            "duration_ms": 1313.0
+          },
+          {
+            "case_id": "hex-and-signed-literals",
+            "passed": true,
+            "duration_ms": 1375.0
+          },
+          {
+            "case_id": "literal-range",
+            "passed": true,
+            "duration_ms": 1250.0
+          },
+          {
+            "case_id": "division-truncation",
+            "passed": true,
+            "duration_ms": 1421.0
+          },
+          {
+            "case_id": "shift-semantics",
+            "passed": true,
+            "duration_ms": 1672.0
+          },
+          {
+            "case_id": "shift-range",
+            "passed": true,
+            "duration_ms": 1438.0
+          },
+          {
+            "case_id": "bitwise-full-width",
+            "passed": true,
+            "duration_ms": 1375.0
+          },
+          {
+            "case_id": "bindings-and-shadowing",
+            "passed": true,
+            "duration_ms": 1359.0
+          },
+          {
+            "case_id": "undefined-name",
+            "passed": true,
+            "duration_ms": 1391.0
+          },
+          {
+            "case_id": "depth-limit",
+            "passed": true,
+            "duration_ms": 1390.0
+          },
+          {
+            "case_id": "parse-errors",
+            "passed": true,
+            "duration_ms": 1344.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 32110.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-sum",
+            "passed": true,
+            "duration_ms": 1265.0
+          },
+          {
+            "case_id": "no-programs",
+            "passed": true,
+            "duration_ms": 1672.0
+          },
+          {
+            "case_id": "precedence-table",
+            "passed": false,
+            "duration_ms": 1625.0,
+            "error": "AssertionError: exit 1: unexpected character at 2\n"
+          },
+          {
+            "case_id": "wraparound",
+            "passed": false,
+            "duration_ms": 1485.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "hex-and-signed-literals",
+            "passed": false,
+            "duration_ms": 1734.0,
+            "error": "AssertionError: exit 1: unexpected character at 1\n"
+          },
+          {
+            "case_id": "literal-range",
+            "passed": false,
+            "duration_ms": 1734.0,
+            "error": "AssertionError: exit 1: unexpected character at 1\n"
+          },
+          {
+            "case_id": "division-truncation",
+            "passed": false,
+            "duration_ms": 1485.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "shift-semantics",
+            "passed": false,
+            "duration_ms": 1265.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "shift-range",
+            "passed": false,
+            "duration_ms": 1313.0,
+            "error": "AssertionError: exit 1: unexpected character at 2\n"
+          },
+          {
+            "case_id": "bitwise-full-width",
+            "passed": false,
+            "duration_ms": 1422.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "bindings-and-shadowing",
+            "passed": false,
+            "duration_ms": 1234.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "undefined-name",
+            "passed": false,
+            "duration_ms": 1359.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "depth-limit",
+            "passed": false,
+            "duration_ms": 1266.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "parse-errors",
+            "passed": false,
+            "duration_ms": 1406.0,
+            "error": "AssertionError: exit 1: list index out of range\n"
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 5407.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "precedence-additive-first": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1329.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": false,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1906.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1406.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1562.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1875.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1360.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1343.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1282.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 29531.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "truncate-toward-negative": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1360.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1438.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": false,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1672.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1390.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1422.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1625.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 30937.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "shift-count-unchecked": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1516.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1343.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1329.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": false,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1437.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1719.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1406.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 29125.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "literal-range-unchecked": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1937.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1422.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1438.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": false,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1641.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 29750.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "python-typed": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-sum",
+            "passed": true,
+            "duration_ms": 1375.0
+          },
+          {
+            "case_id": "no-programs",
+            "passed": true,
+            "duration_ms": 1313.0
+          },
+          {
+            "case_id": "precedence-table",
+            "passed": true,
+            "duration_ms": 1296.0
+          },
+          {
+            "case_id": "wraparound",
+            "passed": true,
+            "duration_ms": 1282.0
+          },
+          {
+            "case_id": "hex-and-signed-literals",
+            "passed": true,
+            "duration_ms": 1390.0
+          },
+          {
+            "case_id": "literal-range",
+            "passed": true,
+            "duration_ms": 1297.0
+          },
+          {
+            "case_id": "division-truncation",
+            "passed": true,
+            "duration_ms": 1313.0
+          },
+          {
+            "case_id": "shift-semantics",
+            "passed": true,
+            "duration_ms": 1390.0
+          },
+          {
+            "case_id": "shift-range",
+            "passed": true,
+            "duration_ms": 1438.0
+          },
+          {
+            "case_id": "bitwise-full-width",
+            "passed": true,
+            "duration_ms": 1312.0
+          },
+          {
+            "case_id": "bindings-and-shadowing",
+            "passed": true,
+            "duration_ms": 1297.0
+          },
+          {
+            "case_id": "undefined-name",
+            "passed": true,
+            "duration_ms": 1360.0
+          },
+          {
+            "case_id": "depth-limit",
+            "passed": true,
+            "duration_ms": 1406.0
+          },
+          {
+            "case_id": "parse-errors",
+            "passed": true,
+            "duration_ms": 1297.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 31562.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-sum",
+            "passed": true,
+            "duration_ms": 1281.0
+          },
+          {
+            "case_id": "no-programs",
+            "passed": true,
+            "duration_ms": 1219.0
+          },
+          {
+            "case_id": "precedence-table",
+            "passed": false,
+            "duration_ms": 1312.0,
+            "error": "AssertionError: exit 1: unexpected character at 2\n"
+          },
+          {
+            "case_id": "wraparound",
+            "passed": false,
+            "duration_ms": 1672.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "hex-and-signed-literals",
+            "passed": false,
+            "duration_ms": 1297.0,
+            "error": "AssertionError: exit 1: unexpected character at 1\n"
+          },
+          {
+            "case_id": "literal-range",
+            "passed": false,
+            "duration_ms": 1156.0,
+            "error": "AssertionError: exit 1: unexpected character at 1\n"
+          },
+          {
+            "case_id": "division-truncation",
+            "passed": false,
+            "duration_ms": 1375.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "shift-semantics",
+            "passed": false,
+            "duration_ms": 1203.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "shift-range",
+            "passed": false,
+            "duration_ms": 1235.0,
+            "error": "AssertionError: exit 1: unexpected character at 2\n"
+          },
+          {
+            "case_id": "bitwise-full-width",
+            "passed": false,
+            "duration_ms": 1218.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "bindings-and-shadowing",
+            "passed": false,
+            "duration_ms": 1250.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "undefined-name",
+            "passed": false,
+            "duration_ms": 1250.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "depth-limit",
+            "passed": false,
+            "duration_ms": 1235.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "parse-errors",
+            "passed": false,
+            "duration_ms": 1234.0,
+            "error": "AssertionError: exit 1: list index out of range\n"
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 4969.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "precedence-additive-first": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": false,
+              "duration_ms": 1937.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1500.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1438.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1984.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1391.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1282.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 31172.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "truncate-toward-negative": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1719.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": false,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1343.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1500.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1328.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 29109.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "shift-count-unchecked": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1218.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1390.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1235.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": false,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1282.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1953.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 28485.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "literal-range-unchecked": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 5266.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1437.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1265.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": false,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1344.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1313.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1422.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 28407.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    },
+    "go": {
+      "reference": {
+        "schema_version": "1.0.0",
+        "passed": true,
+        "case_results": [
+          {
+            "case_id": "regression-sum",
+            "passed": true,
+            "duration_ms": 1359.0
+          },
+          {
+            "case_id": "no-programs",
+            "passed": true,
+            "duration_ms": 1328.0
+          },
+          {
+            "case_id": "precedence-table",
+            "passed": true,
+            "duration_ms": 1266.0
+          },
+          {
+            "case_id": "wraparound",
+            "passed": true,
+            "duration_ms": 1328.0
+          },
+          {
+            "case_id": "hex-and-signed-literals",
+            "passed": true,
+            "duration_ms": 1328.0
+          },
+          {
+            "case_id": "literal-range",
+            "passed": true,
+            "duration_ms": 1657.0
+          },
+          {
+            "case_id": "division-truncation",
+            "passed": true,
+            "duration_ms": 1218.0
+          },
+          {
+            "case_id": "shift-semantics",
+            "passed": true,
+            "duration_ms": 1391.0
+          },
+          {
+            "case_id": "shift-range",
+            "passed": true,
+            "duration_ms": 1578.0
+          },
+          {
+            "case_id": "bitwise-full-width",
+            "passed": true,
+            "duration_ms": 1141.0
+          },
+          {
+            "case_id": "bindings-and-shadowing",
+            "passed": true,
+            "duration_ms": 1187.0
+          },
+          {
+            "case_id": "undefined-name",
+            "passed": true,
+            "duration_ms": 1125.0
+          },
+          {
+            "case_id": "depth-limit",
+            "passed": true,
+            "duration_ms": 1203.0
+          },
+          {
+            "case_id": "parse-errors",
+            "passed": true,
+            "duration_ms": 3141.0
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": true,
+            "duration_ms": 26250.0
+          }
+        ],
+        "verifier_exit_status": 0
+      },
+      "null": {
+        "schema_version": "1.0.0",
+        "passed": false,
+        "case_results": [
+          {
+            "case_id": "regression-sum",
+            "passed": true,
+            "duration_ms": 1172.0
+          },
+          {
+            "case_id": "no-programs",
+            "passed": true,
+            "duration_ms": 1125.0
+          },
+          {
+            "case_id": "precedence-table",
+            "passed": false,
+            "duration_ms": 1125.0,
+            "error": "AssertionError: exit 1: unexpected character at 2\n"
+          },
+          {
+            "case_id": "wraparound",
+            "passed": false,
+            "duration_ms": 1156.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "hex-and-signed-literals",
+            "passed": false,
+            "duration_ms": 1156.0,
+            "error": "AssertionError: exit 1: unexpected character at 1\n"
+          },
+          {
+            "case_id": "literal-range",
+            "passed": false,
+            "duration_ms": 1110.0,
+            "error": "AssertionError: exit 1: strconv.ParseInt: parsing \"18446744073709551616\": value out of range\n"
+          },
+          {
+            "case_id": "division-truncation",
+            "passed": false,
+            "duration_ms": 1125.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "shift-semantics",
+            "passed": false,
+            "duration_ms": 1109.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "shift-range",
+            "passed": false,
+            "duration_ms": 1187.0,
+            "error": "AssertionError: exit 1: unexpected character at 2\n"
+          },
+          {
+            "case_id": "bitwise-full-width",
+            "passed": false,
+            "duration_ms": 1422.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "bindings-and-shadowing",
+            "passed": false,
+            "duration_ms": 1813.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "undefined-name",
+            "passed": false,
+            "duration_ms": 1172.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "depth-limit",
+            "passed": false,
+            "duration_ms": 1203.0,
+            "error": "AssertionError: exit 1: unexpected character at 0\n"
+          },
+          {
+            "case_id": "parse-errors",
+            "passed": false,
+            "duration_ms": 1359.0,
+            "error": "AssertionError: exit 2: panic: runtime error: index out of range [2] with length 2\n\ngoroutine 1 [running]:\nmain.evaluate(...)\n\t/workspace/src/evaluate.go:10\nmain.run(0xc00011e000?)\n\t/workspace/src/main.go:35 +0x1fb\nmain.main()\n\t/workspace/src/main.go:51 +0xdc\n"
+          },
+          {
+            "case_id": "rejects-invalid",
+            "passed": false,
+            "duration_ms": 6219.0
+          }
+        ],
+        "verifier_exit_status": 1
+      },
+      "sabotages": {
+        "precedence-additive-first": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": false,
+              "duration_ms": 1110.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1110.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1516.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1218.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 25500.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "truncate-toward-negative": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1594.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1234.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1109.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 4110.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": false,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1140.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1281.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1219.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 26890.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "shift-count-unchecked": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1485.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1718.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1375.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1782.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": true,
+              "duration_ms": 1484.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1266.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": false,
+              "duration_ms": 1125.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1188.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1156.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1094.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 25734.0
+            }
+          ],
+          "verifier_exit_status": 1
+        },
+        "literal-range-unchecked": {
+          "schema_version": "1.0.0",
+          "passed": false,
+          "case_results": [
+            {
+              "case_id": "regression-sum",
+              "passed": true,
+              "duration_ms": 1203.0
+            },
+            {
+              "case_id": "no-programs",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "precedence-table",
+              "passed": true,
+              "duration_ms": 1359.0
+            },
+            {
+              "case_id": "wraparound",
+              "passed": true,
+              "duration_ms": 1109.0
+            },
+            {
+              "case_id": "hex-and-signed-literals",
+              "passed": true,
+              "duration_ms": 1172.0
+            },
+            {
+              "case_id": "literal-range",
+              "passed": false,
+              "duration_ms": 1360.0
+            },
+            {
+              "case_id": "division-truncation",
+              "passed": true,
+              "duration_ms": 1843.0
+            },
+            {
+              "case_id": "shift-semantics",
+              "passed": true,
+              "duration_ms": 1297.0
+            },
+            {
+              "case_id": "shift-range",
+              "passed": true,
+              "duration_ms": 1250.0
+            },
+            {
+              "case_id": "bitwise-full-width",
+              "passed": true,
+              "duration_ms": 1766.0
+            },
+            {
+              "case_id": "bindings-and-shadowing",
+              "passed": true,
+              "duration_ms": 1547.0
+            },
+            {
+              "case_id": "undefined-name",
+              "passed": true,
+              "duration_ms": 1187.0
+            },
+            {
+              "case_id": "depth-limit",
+              "passed": true,
+              "duration_ms": 1641.0
+            },
+            {
+              "case_id": "parse-errors",
+              "passed": true,
+              "duration_ms": 1312.0
+            },
+            {
+              "case_id": "rejects-invalid",
+              "passed": true,
+              "duration_ms": 28953.0
+            }
+          ],
+          "verifier_exit_status": 1
+        }
+      }
+    }
+  }
+}
