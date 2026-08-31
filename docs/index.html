@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="color-scheme" content="dark" />
   <meta name="description" content="Measured error rates, agent effort, time, tokens, and cost across equivalent programming tasks in JavaScript, TypeScript, Python, and Go." />
-  <meta property="og:title" content="Does your programming language change how well AI codes?" />
+  <meta property="og:title" content="Type safety's effect on AI performance" />
   <meta property="og:description" content="Measured error rates, agent effort, time, tokens, and cost across equivalent programming tasks." />
-  <title>Does your programming language change how well AI codes? · Language AI Bench</title>
+  <title>Type safety's effect on AI performance · Language AI Bench</title>
   <link rel="stylesheet" href="./styles.css" />
   <script src="./app.js" defer></script>
 </head>
@@ -22,7 +22,7 @@
   <main id="top">
     <section class="hero section-shell">
       <div class="hero-copy-block">
-        <h1>Does your programming language change how well AI codes?</h1>
+        <h1>Type safety's effect on AI performance</h1>
         <p class="hero-copy">Same task, same model, same agent, fresh context every run. Only the language changes.</p>
       </div>
     </section>
@@ -38,11 +38,11 @@
       <div id="result-chart" class="chart-grid">
         <figure class="chart-panel">
           <figcaption><strong>Did it succeed?</strong><span>Share of attempts passing the hidden verifier.</span></figcaption>
-          <p class="chart-fallback">JavaScript 18/24 &middot; TypeScript 16/24 &middot; Python 16/24 &middot; Python typed 19/24 &middot; Go 16/24</p>
+          <p class="chart-fallback">JavaScript 18/24 &middot; TypeScript 15/23 &middot; Python 13/24 &middot; Python typed 16/24 &middot; Go 15/24</p>
         </figure>
         <figure class="chart-panel">
           <figcaption><strong>How much work did it take?</strong><span>Mean agent steps per attempt.</span></figcaption>
-          <p class="chart-fallback">JavaScript 5.96 &middot; TypeScript 6.92 &middot; Python 5.83 &middot; Python typed 6.75 &middot; Go 7.79</p>
+          <p class="chart-fallback">JavaScript 7.00 &middot; TypeScript 8.52 &middot; Python 6.62 &middot; Python typed 7.62 &middot; Go 9.58</p>
         </figure>
       </div>
 
@@ -59,26 +59,26 @@
             </tr>
           </thead>
           <tbody id="language-summary-results">
-            <tr><td>JavaScript</td><td>None</td><td>18/24</td><td>5.96</td><td>2,458</td><td>$0.005304</td></tr>
-            <tr><td>TypeScript</td><td>Strict</td><td>16/24</td><td>6.92</td><td>2,754</td><td>$0.006173</td></tr>
-            <tr><td>Python</td><td>None</td><td>16/24</td><td>5.83</td><td>2,300</td><td>$0.005088</td></tr>
-            <tr><td>Python (typed)</td><td>mypy strict</td><td>19/24</td><td>6.75</td><td>2,676</td><td>$0.005851</td></tr>
-            <tr><td>Go</td><td>Compiler</td><td>16/24</td><td>7.79</td><td>3,040</td><td>$0.006750</td></tr>
+            <tr><td>JavaScript</td><td>None</td><td>18/24</td><td>7.00</td><td>3,196</td><td>$0.006531</td></tr>
+            <tr><td>TypeScript</td><td>Strict</td><td>15/23</td><td>8.52</td><td>3,386</td><td>$0.007440</td></tr>
+            <tr><td>Python</td><td>None</td><td>13/24</td><td>6.62</td><td>3,071</td><td>$0.006395</td></tr>
+            <tr><td>Python (typed)</td><td>mypy strict</td><td>16/24</td><td>7.62</td><td>3,310</td><td>$0.006987</td></tr>
+            <tr><td>Go</td><td>Compiler</td><td>15/24</td><td>9.58</td><td>3,961</td><td>$0.008338</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="glance-note">Pass rate measures errors. Steps, tokens, and cost measure the work required to reach a correct result. Elapsed time is not shown: this cohort ran four attempts at once, so wall clock includes contention and is not comparable across studies. Total measured spend was <span id="stat-spend">$0.70</span>.</p>
+      <p class="glance-note">Pass rate measures errors. Steps, tokens, and cost measure the work required to reach a correct result. Elapsed time is not shown: this cohort ran four attempts at once, so wall clock includes contention and is not comparable across studies. Total measured spend was <span id="stat-spend">$0.85</span>.</p>
 
       <div class="glance-heading">
         <div>
           <p class="kicker">The main finding</p>
-          <h2>The two hard tasks still disagree, and the order is not stable</h2>
+          <h2>The task decides which language wins</h2>
         </div>
-        <p>Pooling these produces an average that describes neither task. This is why the project reports per task family and never as one score. The third task added this round was too easy to rank anything and is not shown.</p>
+        <p>Each task stresses a different part of writing code, and a type system helps with some of those parts and not others. So the tasks rank the languages differently, which is the expected result rather than a defect. Pooling them produces an average that describes none of them, which is why every number here is reported per task. A task whose best and worst setups differ by less than two runs is not shown as an ordering.</p>
       </div>
       <ul id="family-reversal" class="family-reversal">
-        <li><code>circuit-breaker</code> JavaScript 6/8 &gt; Go 4/8 &gt; Python (typed) 4/8 &gt; Python 2/8 &gt; TypeScript 2/8</li>
-        <li><code>money-rollup</code> Python (typed) 7/8 &gt; Python 6/8 &gt; TypeScript 6/8 &gt; JavaScript 5/8 &gt; Go 4/8</li>
+        <li><code>expr-eval</code> JavaScript 7/8 &gt; Python 4/8 &gt; Python (typed) 4/8 &gt; TypeScript 3/8 &gt; Go 0/8</li>
+        <li><code>circuit-breaker</code> Go 8/8 &gt; TypeScript 5/8 &gt; JavaScript 4/8 &gt; Python (typed) 4/8 &gt; Python 2/8</li>
       </ul>
     </section>
 
@@ -88,23 +88,27 @@
       </div>
       <div class="reading-grid">
         <article>
-          <h3>The task decides the winner</h3>
-          <p>One refactor turns on exact decimal arithmetic, where Python has a library that does it correctly out of the box. The other turns on covering every branch of a state machine, where a compiler that lists the branches you missed is worth more. Nothing about the model or the agent changed between them.</p>
+          <h3>A checker catches shapes, not values</h3>
+          <p>The state machine task fails when a branch of a union is dropped, which <code>go build</code>, <code>tsc</code>, and <code>mypy</code> all name at the point of the mistake: Go passes 8 of 8, Python 2 of 8. The money task fails on rounding mode and number formatting, which type check cleanly while being wrong, so a checker is silent and a library that does exact arithmetic is what pays. Both are ordinary bugs. Which kind a ticket contains is not a property of the language.</p>
+        </article>
+        <article>
+          <h3>Having the semantics built in can hurt</h3>
+          <p>The evaluator task specifies 64-bit two's complement integers. JavaScript has no such type, so the model makes a visible decision and reaches for <code>BigInt</code>: 7 of 8. Go has exactly that arithmetic in <code>int64</code> and passes 0 of 8, missing the parts that are not free, like reading a literal as unsigned before reinterpreting it and checking a shift count, while spending the most steps of any setup.</p>
         </article>
         <article>
           <h3>Adding types to Python changed little</h3>
           <p>The cleanest comparison holds the language fixed: identical Python, differing only by annotations and a <code>mypy --strict</code> step that must pass before the tests run. The gap in pass rate was <span id="primary-contrast">+0.125 (95% CI -0.125 to 0.375)</span>, an interval spanning zero, the same answer this pair gave last round. At this sample size no effect on correctness is detectable, which is a legitimate answer rather than a failed experiment.</p>
         </article>
         <article>
-          <h3>Checking still costs work</h3>
-          <p>JavaScript needed fewer agent steps than TypeScript, typed Python, and Go; plain Python needed fewer than Go. Those intervals do clear zero. The price in effort shows up reliably even where a benefit to correctness does not.</p>
+          <h3>Checking costs work, and money</h3>
+          <p>JavaScript needed fewer agent steps than TypeScript, typed Python, and Go; plain Python needed fewer than Go. Those intervals clear zero. Cost follows effort directly: Go averaged $0.008338 a run against Python's $0.006395, 1.30 times as much. The price in effort shows up reliably even where a benefit to correctness does not.</p>
         </article>
         <article>
           <h3>Eight attempts is thin, and here is the proof</h3>
-          <p>Both hard tasks were rerun this round with nothing changed but the random seed. TypeScript went from 6 of 8 to 2 of 8 on the state machine, Go from 7 of 8 to 4 of 8. The disagreement between the two tasks survives; the exact order inside either one does not, and no reading that leans on it is safe. A language here is a bundle including its toolchain and ecosystem, so none of this is a claim about syntax.</p>
+          <p>Rerunning a fixed task and language with nothing changed but the random seed has moved a cell by 4 runs out of 8 in this project. Which task beats which holds up; the exact order inside one task does not, and no reading that leans on it is safe. A language here is a bundle including its toolchain and ecosystem, so none of this is a claim about syntax.</p>
         </article>
       </div>
-      <p class="calibration-note">Not sure what a score like 2 out of 8 means? <a href="./methodology.html">How a run is scored</a> walks through one real failure step by step. Every paired contrast and the per-case failure breakdown are in the <a href="./V09_REPORT.md">written report</a>.</p>
+      <p class="calibration-note">Not sure what a score like 2 out of 8 means? <a href="./methodology.html">How a run is scored</a> walks through one real failure step by step. Every paired contrast and the per-case failure breakdown are in the <a href="./V10_REPORT.md">written report</a>.</p>
     </section>
 
     <section id="notes" class="notes section-shell" aria-labelledby="notes-title">
@@ -121,12 +125,12 @@
           <p>A simulator has to track one breaker per target through closed, open, and recovering, opening after enough consecutive failures, recovering only once a cooldown has elapsed, limiting trial calls while recovering, and treating an unlisted status code as neither success nor failure. Its starting code fails nine of twelve hidden checks in every language.</p>
         </article>
         <article>
-          <h3>text-redact</h3>
-          <p>A redaction tool has to count every offset and length in Unicode code points rather than in whatever unit its language indexes strings by, then merge overlapping and touching spans, drop short ones before merging, and reject a wide set of malformed input. It was added this round to break the tie between the other two, and it failed to: 39 of 40 attempts passed, and not one tripped the code point trap. The instruction stated the rule too loudly. That is a fix to the task, not to the result.</p>
+          <h3>expr-eval</h3>
+          <p>An evaluator for a small expression language has to handle a full precedence ladder, <code>let</code> bindings, and signed 64-bit two's complement arithmetic: wrapping, division that truncates toward zero, an arithmetic right shift, a checked shift count, and literals read as unsigned then reinterpreted. Its ticket is eight lines and points at a spec file in the workspace; its reference is a tokenizer, a parser, and an evaluator. The starting code fails 18 of 20 hidden checks in every language.</p>
         </article>
         <article>
           <h3>Why these tasks</h3>
-          <p>Earlier rounds were too easy: everything passed, which pins every difference at zero and answers nothing. The first two fail often enough to compare, and they were chosen to stress different things, which is how the disagreement above became visible at all. The third shows that a task can pass every free calibration check and still be too easy.</p>
+          <p>A task everything passes pins every difference at zero and answers nothing, so each of these has to fail often enough to compare, and each was chosen to stress something different. Before a task joins a round it has to clear a paid ten-run probe with its admission rule written down first: too easy and it ranks nothing, too hard and it ranks nothing either.</p>
         </article>
         <article>
           <h3>Calibration</h3>
@@ -140,14 +144,14 @@
       <dl class="spec-strip" aria-label="Study configuration">
         <div><dt>Model</dt><dd>GPT-5.6 Luna, low effort</dd></div>
         <div><dt>Agent</dt><dd>mini-swe-agent 2.4.6, bash only</dd></div>
-        <div><dt>Runs</dt><dd><span id="stat-passed">85/120</span> passed</dd></div>
+        <div><dt>Runs</dt><dd><span id="stat-passed">77/119</span> passed</dd></div>
         <div><dt>Cost</dt><dd>$0.70 total</dd></div>
       </dl>
       <div class="source-strip">
         <span>Read the actual tasks:</span>
         <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/circuit-breaker/instruction.md">circuit-breaker &#8599;</a>
         <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/money-rollup/instruction.md">money-rollup &#8599;</a>
-        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/text-redact/instruction.md">text-redact &#8599;</a>
+        <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/expr-eval/instruction.md">expr-eval &#8599;</a>
         <a href="https://github.com/ubershmekel/language-ai-bench/tree/main/tasks/circuit-breaker">All five versions &#8599;</a>
         <a href="https://github.com/ubershmekel/language-ai-bench/blob/main/tasks/circuit-breaker/verifier/verify.py">Shared verifier &#8599;</a>
         <a href="./methodology.html">How a run is scored</a>

@@ -196,7 +196,7 @@ language without being told to, and hiding the hazard better is not the lever.
 `redact-spans` stays in the tree, gate green and unadmitted, as the receipt.
 [docs/REDACT_SPANS_PROBE.md](docs/REDACT_SPANS_PROBE.md) is the report.
 
-The two carried-over families still disagree, and the cohort produced a second
+The two carried-over families disagree, and the cohort produced a second
 result worth more than the one it was designed for. Both were rerun with
 nothing changed but the randomization seed:
 
@@ -344,14 +344,7 @@ may be adjusted only within the range a real maintainer would recognize as a
 plausible ticket; if no realistic task lands in the band at any affordable rung,
 that is a finding about the model, not a licence to reshape the task.
 
-## v1.0: the new family separates the arms, and reverses one
-
-`expr-eval` is the first family in three cohorts whose third slot actually
-ranks anything. It turns on what an integer is: the contract is signed 64-bit
-two's complement, and its ticket is eight lines pointing at a `SPEC.md` in the
-workspace, against a reference that is a tokenizer, a precedence climbing
-parser, and an evaluator. That is the size profile the DeepSWE comparison has
-pointed at all along.
+## v1.0: the task decides which language wins
 
 **119 scored rollouts, $0.849144 measured.**
 
@@ -359,27 +352,43 @@ pointed at all along.
 |---|---:|---|
 | `expr-eval` | 7 runs | JavaScript 7/8 > Python 4/8 > Python (typed) 4/8 > TypeScript 3/8 > Go 0/8 |
 | `circuit-breaker` | 6 runs | Go 8/8 > TypeScript 5/8 > JavaScript 4/8 > Python (typed) 4/8 > Python 2/8 |
-| `money-rollup` | 1 run | flat, contributes no correctness signal this cohort |
+| `money-rollup` | 1 run | flat, so it is not reported as an ordering |
 
-Go passes every `circuit-breaker` rollout and none of the `expr-eval` ones.
-That is the cleanest version of this repo's central result: the ordering is a
-property of the task, not of the language.
+Two tasks, two different winners, and that is the expected result. A type
+system is not one lever, and these tasks fail for different reasons.
 
-Go's zero is worth reading carefully, because the obvious explanation is
-backwards. Go is the arm that gets the arithmetic free, since `int64` wraps,
-`/` truncates toward zero, and `>>` propagates the sign. It failed on the parts
-that are not free: reading a literal as `uint64` before reinterpreting it,
-checking a shift count, and spelling bitwise complement `^x` where the contract
-writes `~x`. Go rollouts also worked hardest, 13.25 steps against JavaScript's
-8.25, and still finished at zero.
+`circuit-breaker` fails when a case of a union that crosses files gets dropped.
+That is a shape a checker can see, and `go build`, `tsc`, and `mypy` all name
+the missing case at the point of the mistake. Go passes 8 of 8; Python, which
+reports nothing, passes 2 of 8.
 
-Getting there took two pre-registered probes and both are published. The first
-passed 0 of 10, which the rule calls a wall rather than a measurement, and the
-failure profile said why: no rollout ran out of steps or context, every one
-wrote a working interpreter, and each failed only 1 to 6 of 15 cases with a
-different set each time. The fix was to give the agent a feedback loop, not to
-shrink the work: five developer cases now cover the shapes it kept missing while
-the corners stay hidden. That moved it to 4 of 10.
+`money-rollup` fails on rounding mode, negative zero formatting, and which
+conversion path was taken. Every one of those type checks cleanly while being
+wrong, because `half-up` and `half-even` have the same type. No checker helps;
+having exact rational arithmetic in the standard library does.
+
+`expr-eval` specifies signed 64-bit two's complement integers. JavaScript has
+no such type, so the model has to make a visible decision, reach for `BigInt`,
+and mask to 64 bits: 7 of 8. Go has that arithmetic already in `int64`, which
+turns out to be the trap. It missed the parts that are not free, reading a
+literal as `uint64` before reinterpreting it, checking a shift count, and
+spelling complement `^x` where the contract writes `~x`, while spending the most
+steps of any setup at 13.25 against JavaScript's 8.25. It passes 0 of 8.
+
+So a type system pays when the bug is a shape and not when the bug is a value or
+a convention. Both kinds are ordinary, and which kind a ticket contains is not a
+property of the language you write it in.
+
+Cost tracks effort rather than correctness. Go averaged $0.008338 a rollout
+against Python's $0.006395, 1.30 times as much, with 9.58 agent steps against
+6.62.
+
+`expr-eval` reached this cohort through two pre-registered probes, both
+published. The first passed 0 of 10, which its rule calls a wall rather than a
+measurement, and the failure profile said why: no rollout ran out of steps or
+context, every one wrote a working interpreter, and each failed only 1 to 6 of
+15 cases with a different set each time. The fix was to give the agent a
+feedback loop rather than to shrink the work, and it moved to 4 of 10.
 See [docs/V10_REPORT.md](docs/V10_REPORT.md) and
 [docs/EXPR_EVAL_PROBE.md](docs/EXPR_EVAL_PROBE.md).
 
@@ -393,7 +402,7 @@ In priority order, each additive and accommodated by the current schema:
 2. **A second scaffold arm** through a real agent, per the section above.
 3. **More task families**, per the power argument above. v0.9 shows the free
    gate is not enough on its own: `text-redact` passed calibration in all five
-   languages and still saturated. The ten-rollout difficulty probe on the target
+   languages and saturated anyway. The ten-rollout difficulty probe on the target
    rung, before committing a matrix, now gates every new family and costs about
    $0.06.
 4. **More seeds on the cells that moved.** v1.0 splits the matched

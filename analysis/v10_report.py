@@ -1,25 +1,15 @@
 #!/usr/bin/env python3
-"""Build the v1.0 report: three families that all discriminate, at one revision.
+"""Build the v1.0 report from the cohort ledger and its schedule receipt.
 
-v0.8 and v0.9 both ended with the same shape of result. `money-rollup` and
-`circuit-breaker` rank the five arms in nearly opposite orders, and each
-ordering follows from the affordance that family rewards. The third family in
-each cohort could not break the tie: `text-redact` saturated at 39 of 40 with
-its hazard never firing, and `redact-spans`, the same contract with every
-signpost removed, then probed 10 of 10.
+Three task families, five language setups, eight attempts per cell, one model
+rung. The report is per family and never pools them into one score, because the
+families were built to reward different things and an average over them would
+describe none of them.
 
-v1.0's third family is `expr-eval`, which turns on what an integer is. It is
-also the first family built to a different size: an eight line ticket over a
-SPEC.md in the workspace, against a reference that is a tokenizer, a parser and
-an evaluator. It was admitted by a pre-registered probe at 4 of 10 after a first
-probe at 0 of 10, and both probes are reported in docs/EXPR_EVAL_PROBE.md.
-
-There is no drift table in this report. `money-rollup` and `circuit-breaker` no
-longer end their instructions by listing the topics their hidden tests cover, so
-their numbers here are measured against different text than v0.8 and v0.9 and
-the comparison would be dishonest.
-
-Agent wall time is deliberately absent. This cohort ran four rollouts at a time.
+Two things are deliberately absent. There is no comparison against earlier
+cohorts: two of these families ran against revised instruction text, so the
+comparison would be dishonest. And there is no wall-clock time: this cohort ran
+four rollouts at a time, so elapsed time includes contention.
 """
 
 from __future__ import annotations
@@ -27,6 +17,7 @@ from __future__ import annotations
 import argparse
 import json
 import pathlib
+import sys
 
 try:
     from analysis.v07_report import (
@@ -108,6 +99,68 @@ def width_failures(rows: list[dict]) -> list[dict]:
     ]
 
 
+def bar(value: float, largest: float, width: int = 28) -> str:
+    """A proportional bar. Full blocks, so it renders the same everywhere."""
+    if largest <= 0:
+        return ""
+    filled = max(1, round(width * value / largest))
+    return "█" * filled
+
+
+def cost_chart(report: dict) -> list[str]:
+    """What each language cost to run, per rollout and in total."""
+    rows = sorted(report["by_arm"], key=lambda cell: -cell["mean_cost_usd"])
+    largest = max(cell["mean_cost_usd"] for cell in rows)
+    lines = [
+        "## What each language cost",
+        "",
+        "Cost is measured from the provider's own usage metadata, not estimated.",
+        "It tracks agent steps closely, because steps are what buy tokens.",
+        "",
+        "Mean cost per rollout:",
+        "",
+        "```",
+    ]
+    for cell in rows:
+        label = f"{LABELS[cell['language']]:<14}"
+        amount = f"${cell['mean_cost_usd']:.6f}"
+        lines.append(f"{label} {amount}  {bar(cell['mean_cost_usd'], largest)}")
+    lines += [
+        "```",
+        "",
+        "| Language | Mean cost | Total | Mean steps | Mean output tokens |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    for cell in rows:
+        lines.append(
+            f"| {LABELS[cell['language']]} | ${cell['mean_cost_usd']:.6f} | "
+            f"${cell['total_cost_usd']:.4f} | {cell['mean_agent_steps']:.2f} | "
+            f"{cell['mean_output_tokens']:,.0f} |"
+        )
+
+    families: dict[str, float] = {}
+    for cell in report["by_family_and_arm"]:
+        families[cell["task_family"]] = (
+            families.get(cell["task_family"], 0.0) + cell["total_cost_usd"]
+        )
+    ordered = sorted(families.items(), key=lambda item: -item[1])
+    widest = max(value for _, value in ordered)
+    lines += ["", "Total spend by task family:", "", "```"]
+    for family, value in ordered:
+        lines.append(f"{family:<18} ${value:.4f}  {bar(value, widest)}")
+    lines += [
+        "```",
+        "",
+        f"The whole cohort cost ${report['total_cost_usd']:.6f}. The most expensive",
+        f"language to run was {LABELS[rows[0]['language']]} at "
+        f"${rows[0]['mean_cost_usd']:.6f} a rollout, "
+        f"{rows[0]['mean_cost_usd'] / rows[-1]['mean_cost_usd']:.2f} times the cheapest, "
+        f"{LABELS[rows[-1]['language']]}.",
+        "",
+    ]
+    return lines
+
+
 def build_report(schedule: pathlib.Path, ledger: pathlib.Path) -> dict:
     excluded: list[dict] = []
     rows = read_rows(ledger, schedule, excluded)
@@ -168,23 +221,18 @@ def render_markdown(report: dict) -> str:
     families = sorted({family for family, _ in cells})
 
     lines = [
-        "# Language AI Bench v1.0: a family sized like a real ticket",
+        "# Language AI Bench v1.0",
         "",
-        "## What this cohort was for",
+        "## What this measures",
         "",
-        "Two cohorts in a row ended with two families that discriminate and a",
-        "third that could not. `text-redact` saturated at 39 of 40 with its code",
-        "point hazard never firing once, and `redact-spans`, the same contract",
-        "with every signpost stripped out and more hidden cases able to catch a",
-        "wrong unit, then passed 10 of 10 on a probe. Hiding a hazard inside a",
-        "small task does not make the task hard.",
+        "One model, one agent, one scaffold, fresh context every run. Three",
+        "refactors, each authored idiomatically in five setups, each verified by",
+        "one language-neutral driver. The only thing that varies within a task is",
+        "the language and the type checking that comes with it.",
         "",
-        "So `expr-eval` moves the size instead. Its ticket is eight lines and",
-        "points at a `SPEC.md` in the workspace; its reference is a tokenizer, a",
-        "precedence climbing parser, and an evaluator. That is the shape the",
-        "DeepSWE comparison has pointed at since v0.7: their median instruction",
-        "is 15 lines over an 844 line patch, against 69 to 82 lines over about",
-        "300 here.",
+        "Each task deliberately rewards a different thing, because a type system",
+        "is not one lever. It reports the branch you forgot; it says nothing",
+        "about whether you rounded correctly.",
         "",
         "| Family | What it rewards |",
         "|---|---|",
@@ -219,10 +267,16 @@ def render_markdown(report: dict) -> str:
     lines += [
         "",
         "A family counts as discriminating only if its best and worst arms differ",
-        f"by at least {lead['minimum_spread_runs']} runs out of eight, the same bar v0.9 used. One run",
-        "of separation is not an ordering.",
+        f"by at least {lead['minimum_spread_runs']} runs out of eight. One run of separation is not an",
+        "ordering, and treating it as one manufactures reversals out of noise.",
         "",
-        "## Does any language lead everywhere?",
+        "## The task picks the winner",
+        "",
+        "Different tasks ranking the languages differently is the expected",
+        "result, not a defect in the measurement. Each of these tasks was built",
+        "to stress a different part of writing code, and the languages differ in",
+        "which of those parts they help with. An average over them would describe",
+        "none of them, which is why every number here is reported per task.",
         "",
     ]
     discriminating = lead["discriminating_families"]
@@ -264,38 +318,54 @@ def render_markdown(report: dict) -> str:
         lines.append("")
 
     lines += [
-        "## What the new family bought",
+        "## Why the tasks rank the languages differently",
         "",
-        "`expr-eval` is the first third family in three cohorts that separates",
-        "the arms, and it separates them further than either of the families it",
-        "was added to: a spread of 7 runs out of 8, against 6 for",
-        "`circuit-breaker`. It also produces the cleanest reversal this repo has",
-        "measured. Go passes every `circuit-breaker` rollout and none of the",
-        "`expr-eval` ones. Both orderings follow from what the family rewards, so",
-        "neither is a fact about Go.",
+        "The three tasks fail for different reasons, and a checker only helps",
+        "with one of them.",
         "",
-        "Go's failure is worth stating precisely, because the obvious reading is",
-        "wrong. Go is the arm that gets the contract's arithmetic for free:",
-        "`int64` wraps, `/` truncates toward zero, `>>` propagates the sign. What",
-        "it does not get for free is everything around that, and that is where it",
-        "failed: reading a literal as `uint64` before reinterpreting it, checking",
-        "a shift count, and spelling bitwise complement `^x` where the contract",
-        "writes `~x`. Go rollouts also worked hardest, at 13.25 steps against",
-        "8.25 for JavaScript, and still finished at zero. Having the semantics",
-        "built into the language did not help; having to say them out loud is a",
-        "different skill.",
+        "**`circuit-breaker` rewards being told what you missed.** The work is a",
+        "three-state machine and a three-variant outcome union consumed across",
+        "file boundaries. Drop a case and the program keeps running and returns",
+        "the wrong answer, in JavaScript and in Python. `go build`, `tsc` and",
+        "`mypy` all name the missing case at the point of the mistake. Go passes",
+        "8 of 8 here; Python, which reports nothing, passes 2 of 8.",
         "",
-        "The matched JavaScript and TypeScript pair splits here, 7 of 8 against 3",
-        "of 8, and the typed arm is the one that does worse while spending 3.25",
-        "more steps. Eight attempts per cell cannot carry that as a finding, and",
-        "v0.9 measured a single-seed swing of 4 runs out of 8 on a fixed cell, so",
-        "read it as a cell worth more seeds rather than as an effect.",
+        "**`money-rollup` rewards a library, and a checker is silent about it.**",
+        "The failures are rounding mode, negative zero formatting, and the",
+        "shortest conversion path. Every one of those type checks cleanly while",
+        "being wrong: `half-up` and `half-even` have the same type. What helps is",
+        "having exact rational arithmetic in the standard library, which Python",
+        "does. This task is flat this cohort, at 36 of 39, so it separates",
+        "nothing here, but that is what it separates on when it does.",
         "",
-        "`money-rollup` went flat, at 36 of 39 with a spread of 1 run, after",
-        "discriminating in both v0.8 and v0.9. Its instruction changed in this",
-        "revision, so there is no honest way to attribute that here, and it is",
-        "the reason a family needs re-probing after its text changes rather than",
-        "an inherited status.",
+        "**`expr-eval` rewards saying the semantics out loud.** The contract is",
+        "signed 64-bit two's complement. JavaScript has no such type at all, so",
+        "the model has to make a visible decision, reach for `BigInt`, and mask",
+        "to 64 bits; it passes 7 of 8. Go already has the semantics in `int64`,",
+        "which turns out to be the trap: the parts that are not free, reading a",
+        "literal as `uint64` before reinterpreting it, checking a shift count,",
+        "and spelling complement `^x` where the contract writes `~x`, get missed.",
+        "Go passes 0 of 8 while spending the most steps of any arm.",
+        "",
+        "So a type system helps when the error class is a shape the checker can",
+        "see, and does nothing when the error class is a value or a convention.",
+        "Both kinds of bug are ordinary. Which one a ticket contains is not a",
+        "property of the language you write it in.",
+        "",
+        "## Two results to read carefully",
+        "",
+        "The matched JavaScript and TypeScript pair splits on `expr-eval`, 7 of 8",
+        "against 3 of 8, with the typed arm behind while spending 3.25 more",
+        "steps. That pair is the analytical centerpiece of this design, so it is",
+        "tempting to read. Eight attempts per cell cannot carry it: a rerun of a",
+        "fixed cell with nothing changed but the random seed has moved by 4 runs",
+        "out of 8 in this project before. Treat it as a cell that needs more",
+        "seeds, not as an effect.",
+        "",
+        "`money-rollup` is flat here, at 36 of 39 with a spread of 1 run. Its",
+        "instruction was revised for this cohort, so there is no honest way to",
+        "separate the text from the seed, and the family is marked for re-probing",
+        "rather than carrying a status it did not earn under the text it ran.",
         "",
         "## Getting the integer width wrong",
         "",
@@ -303,8 +373,7 @@ def render_markdown(report: dict) -> str:
         "division rule, or the wrap is wrong: `wraparound`,",
         "`hex-and-signed-literals`, `literal-range`, `division-truncation`,",
         "`shift-semantics`, `shift-range`, and `bitwise-full-width`. This is the",
-        "mechanism the family was built to expose, and unlike v0.9's code point",
-        "hazard it does fire.",
+        "mechanism the family was built to expose, and it fires.",
         "",
         "| Language | Runs | Runs failing a width case | Rate |",
         "|---|---:|---:|---:|",
@@ -333,8 +402,10 @@ def render_markdown(report: dict) -> str:
                 f"{cell['pass_rate']:.2f} | {cell['mean_agent_steps']:.2f} |"
             )
 
+    lines.append("")
+    lines += cost_chart(report)
+
     lines += [
-        "",
         "## Pooled across all three families",
         "",
         "Reported for completeness. Pooling families that disagree produces a",
@@ -364,25 +435,20 @@ def render_markdown(report: dict) -> str:
 
     lines += [
         "",
-        "## Why there is no drift table",
+        "## Why earlier cohorts are not tabulated next to this one",
         "",
-        "v0.9 carried one, comparing each family against v0.8 with nothing",
-        "changed but the seed, and it was the most useful number in that report:",
-        "the largest single move was 4 runs out of 8.",
-        "",
-        "This cohort cannot carry one. `money-rollup` and `circuit-breaker` used",
-        "to end their instructions by listing the topics their hidden tests",
-        "cover, which hands the agent a checklist of what the grader looks at.",
-        "That line is gone as of task text revision v1.0, so these two families",
-        "ran against different text than they did in v0.8 and v0.9. Their pass",
-        "rates here are not comparable with those cohorts, and printing a change",
-        "column would invite exactly that comparison.",
+        "`money-rollup` and `circuit-breaker` used to end their instructions by",
+        "listing the topics their hidden tests cover, which hands the agent a",
+        "checklist of what the grader looks at. That line is gone, so these two",
+        "tasks ran against different text than in any earlier report and their",
+        "pass rates are not comparable with those. Printing a change column would",
+        "invite exactly that comparison, so there is none.",
         "",
         "## Scope and limits",
         "",
         "Three brownfield families, five arms, eight attempts per cell, one model",
-        "rung, one bash-only scaffold. Three families is still below the point",
-        "where between-family variance is well estimated, so this supports claims",
+        "rung, one bash-only scaffold. Three families is below the point where",
+        "between-family variance is well estimated, so this supports claims",
         "about these three tasks and no language-general claim.",
         "",
         "The stopping rule was fixed at 120 rollouts before the first paid call",
@@ -423,6 +489,10 @@ def main() -> None:
     text = render_markdown(report)
     if args.markdown_output:
         args.markdown_output.write_text(text, encoding="utf-8", newline="\n")
+    # The cost chart uses block characters; a legacy console encoding must not
+    # make writing the report fail.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     print(text, end="")
 
 

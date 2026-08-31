@@ -15,6 +15,7 @@ test -f docs/V07_REPORT.md
 test -f docs/data/v08-results.json
 test -f docs/V08_REPORT.md
 test -f docs/data/v09-results.json
+test -f docs/data/v10-results.json
 test -f docs/V09_REPORT.md
 
 node --check docs/app.js
@@ -150,7 +151,40 @@ node -e '
   const cp = data.text_redact_code_point_failures;
   if (cp.length !== 5) throw new Error("expected five code point rows");
 '
-grep -q 'too easy to rank anything' docs/index.html
+
+# The published cohort is v1.0. The site loads it at runtime, so the JSON and the
+# static fallbacks in the markup have to agree about which tasks rank anything.
+node -e '
+  const fs = require("node:fs");
+  const data = JSON.parse(fs.readFileSync("docs/data/v10-results.json", "utf8"));
+  const html = fs.readFileSync("docs/index.html", "utf8");
+  if (data.schema_version !== "1.0.0") throw new Error("unexpected v1.0 schema");
+  if (data.by_arm.length !== 5) throw new Error("expected five v1.0 arms");
+  if (data.by_arm.some((row) => "mean_agent_seconds" in row)) {
+    throw new Error("v1.0 ran concurrently; elapsed time must not be published");
+  }
+  const families = new Set(data.by_family_and_arm.map((row) => row.task_family));
+  if (families.size !== 3) throw new Error("expected three v1.0 families");
+  if (!families.has("expr-eval")) throw new Error("v1.0 must carry expr-eval");
+  if (!html.includes("./data/v10-results.json") && !fs.readFileSync("docs/app.js", "utf8").includes("v10-results.json")) {
+    throw new Error("the site does not load the published cohort");
+  }
+  // A task whose best and worst setups differ by under two runs is not an
+  // ordering, and the site must not print one as if it were.
+  const lead = data.leadership;
+  const listed = [...html.matchAll(/<li><code>([a-z-]+)<\/code>/g)].map((m) => m[1]);
+  if (listed.length === 0) throw new Error("no task ordering rendered in the markup");
+  for (const family of listed) {
+    if (!lead.discriminating_families.includes(family)) {
+      throw new Error(`site lists ${family} as an ordering but it does not discriminate`);
+    }
+  }
+  for (const family of lead.flat_families) {
+    if (listed.includes(family)) throw new Error(`flat family ${family} is shown as an ordering`);
+  }
+  const width = data.expr_eval_width_failures;
+  if (width.length !== 5) throw new Error("expected five integer-width rows");
+'
 if grep -q 'Agent time' docs/index.html docs/details.html; then
   echo "Elapsed time is published but this cohort ran concurrently." >&2
   exit 1

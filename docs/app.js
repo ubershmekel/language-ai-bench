@@ -283,7 +283,7 @@ function renderFamilyReversal(data) {
 }
 
 async function loadResults() {
-  const response = await fetch("./data/v09-results.json", { cache: "no-cache" });
+  const response = await fetch("./data/v10-results.json", { cache: "no-cache" });
   if (!response.ok) throw new Error(`Aggregate request failed (${response.status})`);
 
   const data = await response.json();
