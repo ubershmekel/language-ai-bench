@@ -88,6 +88,37 @@ def no_programs():
     return actual == {"results": [], "stats": {"programs": 0, "failed": 0}}
 
 
+def precedence_basics():
+    return check(["2 + 3 * 4", "8 >> 1 + 1", "2 * (3 + 4)"], [14, 2, 14])
+
+
+def wraparound_basics():
+    return check(
+        [
+            "9223372036854775807 + 1",
+            "4294967296 * 4294967296",
+            "-9223372036854775808 - 1",
+        ],
+        [MIN64, 0, MAX64],
+    )
+
+
+def division_signs():
+    return check(["-7 / 2", "-7 % 2", "7 % -2"], [-3, -1, 1])
+
+
+def errors_basics():
+    return check(["x", "1 +", "1 / 0"], [
+        ("UNDEFINED", 0),
+        ("PARSE", 3),
+        ("DIVIDE_BY_ZERO", 2),
+    ])
+
+
+def bindings_basics():
+    return check(["let x = 6; x * 7"], [42])
+
+
 def precedence_table():
     return check(
         [
@@ -294,6 +325,11 @@ def rejects_invalid():
 CASES = (
     ("regression-sum", "developer", regression_sum),
     ("no-programs", "developer", no_programs),
+    ("precedence-basics", "developer", precedence_basics),
+    ("wraparound-basics", "developer", wraparound_basics),
+    ("division-signs", "developer", division_signs),
+    ("errors-basics", "developer", errors_basics),
+    ("bindings-basics", "developer", bindings_basics),
     ("precedence-table", "hidden", precedence_table),
     ("wraparound", "hidden", wraparound),
     ("hex-and-signed-literals", "hidden", hex_and_signed_literals),

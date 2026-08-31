@@ -40,7 +40,8 @@ primary        := INT | IDENT | "(" expr ")"
 
 Every binary operator is left-associative. `INT` is `[0-9]+` or `0x` followed by
 one or more hexadecimal digits, either case. `IDENT` is
-`[A-Za-z_][A-Za-z0-9_]*`, except that `let` is a keyword. Space, tab, carriage
+`[A-Za-z_][A-Za-z0-9_]*`, except that `let` is a keyword. A `0x` that no
+hexadecimal digit follows is a `PARSE` error at the `0`. Space, tab, carriage
 return, and newline separate tokens and are otherwise ignored.
 
 ## Values

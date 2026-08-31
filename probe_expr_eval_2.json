@@ -1,0 +1,66 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "probe-expr-eval-2",
+  "status": "ready",
+  "objective": "Second difficulty probe for expr-eval. The first probe passed 0 of 10, which the admission rule calls a wall rather than a measurement. The failure profile said why: no rollout ran out of steps or context, every rollout wrote a whole interpreter in 5 to 14 steps, and each one failed only 1 to 6 of the 15 cases, with a different set each time. That is many independent requirements scored all or nothing, not an impossible task. The revision gives the agent a feedback loop instead of shrinking the work: five developer cases now cover the shapes the rollouts kept slipping on, which are operator precedence, wraparound, the sign of division and remainder, and error offsets, while the corners stay hidden. One genuinely ambiguous expectation, the offset of a 0x with no digits after it, is now specified in SPEC.md instead of being a judgment call.",
+  "languages": [
+    "javascript",
+    "typescript",
+    "python",
+    "python-typed",
+    "go"
+  ],
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "model_settings": {
+    "reasoning_effort": "low",
+    "cache_control": "default_end",
+    "temperature": null,
+    "provider_routing": "openrouter-default"
+  },
+  "agent": "mini-swe-agent@2.4.6",
+  "pier": "0.3.1",
+  "scaffold": "mini-swe-agent/bash-only",
+  "prompt_revision": "mini-swe-agent-1.1",
+  "randomization_seed": 20260901,
+  "attempts_per_cell": 2,
+  "per_rollout_cost_limit_usd": 0.35,
+  "study_cost_limit_usd": 1.0,
+  "pilot_mean_cost_usd": 0.009009,
+  "quality_outcomes": [
+    "hidden_test_pass",
+    "agent_steps",
+    "cost_usd"
+  ],
+  "task_families": [
+    {
+      "id": "expr-eval",
+      "status": "ready",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "paths": {
+        "javascript": "tasks/expr-eval/javascript",
+        "typescript": "tasks/expr-eval/typescript",
+        "python": "tasks/expr-eval/python",
+        "python-typed": "tasks/expr-eval/python-typed",
+        "go": "tasks/expr-eval/go"
+      }
+    }
+  ],
+  "analysis": {
+    "primary_estimand": "count of passing rollouts out of ten, and the count failing at least one of the five hidden cases that a wrong integer width or wrong division rule breaks: wraparound, hex-and-signed-literals, division-truncation, shift-semantics, bitwise-full-width",
+    "co_primary_outcomes": [
+      "hidden_test_pass"
+    ],
+    "uncertainty": "None reported. Ten rollouts cannot estimate a pass rate and this probe does not try.",
+    "stopping_rule": "Fixed at 10 rollouts, two per language, written down before the first paid call of this probe. No continuation on observed results, and no third probe if this one misses the band."
+  },
+  "admission_rule": "Unchanged from the first probe. Admit expr-eval to a cohort only if it passes at most 7 of 10 and at least 1 of 10. Passing 8 or more means it saturates. Passing 0 means it is a wall, and a family every arm fails ranks nothing.",
+  "model_rung": "strong",
+  "notes": "This is the second probe of the same family after a revision, and both are reported. Calibrating a task into the measurable band before it enters a cohort is what the selection ladder already asks for. What would not be legitimate is probing variations until a result looks good, or re-probing after seeing cohort outcomes. The admission rule and the rollout count were fixed before each probe and neither was changed after seeing results. If this probe also lands outside the band the family is reported as unadmitted, like redact-spans, rather than probed a third time.",
+  "execution": {
+    "n_concurrent": 2,
+    "batch_size": 10,
+    "timing_telemetry_valid": false,
+    "note": "Command-mode family, so contention does not touch correctness, steps, or cost."
+  }
+}
