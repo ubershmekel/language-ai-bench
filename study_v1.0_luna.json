@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "v1.0-sized-family",
+  "status": "ready",
+  "objective": "Read three families that all discriminate, in one cohort, at one revision. v0.8 and v0.9 showed money-rollup and circuit-breaker ranking the five arms in nearly opposite orders, each ordering following from the affordance that family rewards. The third family in v0.9 saturated and ranked nothing, and so did its de-signposted successor, so this cohort's third family is expr-eval, which turns on what an integer is and was admitted by a pre-registered probe at 4 of 10. If the pattern is affordance driven, the three orderings should keep disagreeing and no arm should lead everywhere.",
+  "languages": [
+    "javascript",
+    "typescript",
+    "python",
+    "python-typed",
+    "go"
+  ],
+  "model": "openrouter/openai/gpt-5.6-luna",
+  "model_settings": {
+    "reasoning_effort": "low",
+    "cache_control": "default_end",
+    "temperature": null,
+    "provider_routing": "openrouter-default"
+  },
+  "agent": "mini-swe-agent@2.4.6",
+  "pier": "0.3.1",
+  "scaffold": "mini-swe-agent/bash-only",
+  "prompt_revision": "mini-swe-agent-1.1",
+  "randomization_seed": 20260902,
+  "attempts_per_cell": 8,
+  "per_rollout_cost_limit_usd": 0.35,
+  "study_cost_limit_usd": 3.0,
+  "pilot_mean_cost_usd": 0.0097,
+  "quality_outcomes": [
+    "hidden_test_pass",
+    "agent_steps",
+    "cost_usd"
+  ],
+  "task_families": [
+    {
+      "id": "money-rollup",
+      "status": "ready",
+      "category": "exact-arithmetic-refactor",
+      "project_maturity": "brownfield",
+      "paths": {
+        "javascript": "tasks/money-rollup/javascript",
+        "typescript": "tasks/money-rollup/typescript",
+        "python": "tasks/money-rollup/python",
+        "python-typed": "tasks/money-rollup/python-typed",
+        "go": "tasks/money-rollup/go"
+      }
+    },
+    {
+      "id": "circuit-breaker",
+      "status": "ready",
+      "category": "state-machine-refactor",
+      "project_maturity": "brownfield",
+      "paths": {
+        "javascript": "tasks/circuit-breaker/javascript",
+        "typescript": "tasks/circuit-breaker/typescript",
+        "python": "tasks/circuit-breaker/python",
+        "python-typed": "tasks/circuit-breaker/python-typed",
+        "go": "tasks/circuit-breaker/go"
+      }
+    },
+    {
+      "id": "expr-eval",
+      "status": "ready",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "paths": {
+        "javascript": "tasks/expr-eval/javascript",
+        "typescript": "tasks/expr-eval/typescript",
+        "python": "tasks/expr-eval/python",
+        "python-typed": "tasks/expr-eval/python-typed",
+        "go": "tasks/expr-eval/go"
+      }
+    }
+  ],
+  "analysis": {
+    "primary_estimand": "per-family hidden-verifier pass rate by language, reported for all three families separately and never pooled into one score",
+    "co_primary_outcomes": [
+      "hidden_test_pass",
+      "agent_steps"
+    ],
+    "uncertainty": "Wilson intervals per arm within a family; paired bootstrap over attempt blocks for language contrasts. A family counts as discriminating only if its best and worst arms differ by at least 2 runs out of eight, the same bar v0.9 used.",
+    "stopping_rule": "Fixed at 120 rollouts, written down before the first paid call and before any result was looked at. No interim stopping and no continuation on observed pass rates."
+  },
+  "model_rung": "strong",
+  "notes": "Task text revision v1.0 applies. money-rollup and circuit-breaker no longer end their instructions by listing the topics their hidden tests cover, so their pass rates here are not comparable with v0.8 or v0.9 and the report must say so rather than tabulating a drift column against them. expr-eval is new and has never been in a cohort; its two probes are reported separately in docs/EXPR_EVAL_PROBE.md and its 20 probe rollouts are not pooled into this cohort. Three families is still below the point where between-family variance is well estimated, so this supports claims about these three tasks and no language-general claim.",
+  "execution": {
+    "n_concurrent": 4,
+    "batch_size": 40,
+    "timing_telemetry_valid": false,
+    "note": "Rollouts run four at a time. All three families are command-mode, so there are no servers, no port binding, and no timing-sensitive cases for contention to perturb; correctness, agent steps, and cost are unaffected. Wall-clock time is not reported."
+  }
+}

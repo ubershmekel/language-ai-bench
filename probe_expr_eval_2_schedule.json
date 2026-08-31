@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "probe-expr-eval-2",
+  "study_sha256": "69c23e0ff5e85b736a56075d8d3f7f72e22386793f7b38520b75b2deab958ef6",
+  "repo_revision": "0104f5249bb6012b1350d476abcaf6e8f5030545",
+  "launch_ready": true,
+  "validation_errors": [],
+  "planned_rollouts": 10,
+  "projected_cost_usd": 0.09009,
+  "schedule": [
+    {
+      "task_family": "expr-eval",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/expr-eval/python-typed",
+      "attempt": 1,
+      "sample_seed": 2606555707,
+      "order_index": 1
+    },
+    {
+      "task_family": "expr-eval",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/expr-eval/go",
+      "attempt": 1,
+      "sample_seed": 816415349,
+      "order_index": 2
+    },
+    {
+      "task_family": "expr-eval",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/expr-eval/javascript",
+      "attempt": 1,
+      "sample_seed": 3026416268,
+      "order_index": 3
+    },
+    {
+      "task_family": "expr-eval",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/expr-eval/typescript",
+      "attempt": 1,
+      "sample_seed": 2431933848,
+      "order_index": 4
+    },
+    {
+      "task_family": "expr-eval",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/expr-eval/python",
+      "attempt": 1,
+      "sample_seed": 3662670852,
+      "order_index": 5
+    },
+    {
+      "task_family": "expr-eval",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/expr-eval/python-typed",
+      "attempt": 2,
+      "sample_seed": 41383894,
+      "order_index": 6
+    },
+    {
+      "task_family": "expr-eval",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/expr-eval/python",
+      "attempt": 2,
+      "sample_seed": 3643089705,
+      "order_index": 7
+    },
+    {
+      "task_family": "expr-eval",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/expr-eval/typescript",
+      "attempt": 2,
+      "sample_seed": 2693084843,
+      "order_index": 8
+    },
+    {
+      "task_family": "expr-eval",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/expr-eval/javascript",
+      "attempt": 2,
+      "sample_seed": 3054770491,
+      "order_index": 9
+    },
+    {
+      "task_family": "expr-eval",
+      "category": "interpreter-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/expr-eval/go",
+      "attempt": 2,
+      "sample_seed": 3295997917,
+      "order_index": 10
+    }
+  ]
+}

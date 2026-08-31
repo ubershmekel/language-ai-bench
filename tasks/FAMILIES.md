@@ -8,7 +8,7 @@ separate the arms; the rest are kept for reproducibility, not for running.
 |---|---|---|---|
 | `circuit-breaker` | not dropping a case of a union that crosses files | active | v0.8 and v0.9 both discriminated; 18 of 40 in v0.9, spread 4 runs |
 | `money-rollup` | exact arithmetic in the standard library | active | v0.8 and v0.9 both discriminated; 28 of 40 in v0.9, spread 3 runs |
-| `expr-eval` | what an integer is: 64-bit two's complement | probe pending | gate green, starter fails 13 of 15 |
+| `expr-eval` | what an integer is: 64-bit two's complement | active | admitted at 4 of 10 on the second probe, after 0 of 10 on the first |
 | `text-redact` | what a string is at runtime | frozen | saturated in v0.9 at 39 of 40, hazard never fired |
 | `redact-spans` | the same, with the hazard not announced | unadmitted | probed 10 of 10 with zero wrong-unit failures |
 | `configuration-merge` | data shape and precedence edge cases | retired | 100 percent in v0.6 and again in v0.8 |

@@ -164,6 +164,34 @@ def main() -> None:
         lines += render_probe(title, load(study_path), rows(ledger_path, schedule_path))
         lines.append("")
 
+    lines += [
+        "## What the two probes together say",
+        "",
+        "The first probe is the useful one. Zero passes, but no rollout ran out",
+        "of steps or context, every rollout wrote a working interpreter in 5 to",
+        "14 steps, and each failed only 1 to 6 of the 15 cases with a different",
+        "set each time. A task can be far too hard to score while being nowhere",
+        "near too hard to do, and what made it unscoreable was the number of",
+        "independent requirements, not the difficulty of any one of them.",
+        "",
+        "The second probe changed the feedback available rather than the work.",
+        "Five developer cases now cover the shapes the first probe kept missing;",
+        "the corners stay hidden. That moved 0 of 10 to 4 of 10, which is the",
+        "band the design targets, and the failures that remain are real. Two Go",
+        "rollouts produced programs that compiled, ran, and were wrong, one of",
+        "them panicking on a bad type assertion over an error value.",
+        "",
+        "Two probes of one family is a step worth naming, because it can look",
+        "like fitting a task to a target. The line is this: the admission rule",
+        "and the rollout count were fixed before each probe and neither changed",
+        "after seeing results, both probes are reported, and the family enters a",
+        "cohort on fresh seeds. Calibrating a task into the measurable band",
+        "before it is used is what the selection ladder already asks for.",
+        "Probing variations until a result looks good is not, and a third probe",
+        "was ruled out in writing before the second one ran.",
+        "",
+    ]
+
     text = "\n".join(lines) + "\n"
     if args.output:
         args.output.write_text(text, encoding="utf-8", newline="\n")
