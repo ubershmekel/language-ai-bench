@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+go build -o /tmp/redact-spans ./src
+python3 scripts/dev_verify.py --visibility developer --command /tmp/redact-spans

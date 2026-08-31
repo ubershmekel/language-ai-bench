@@ -5,7 +5,7 @@ black-box verifier. Each starter is a three-file program (`parse`, `redact`,
 `main`) implementing the same shallow behavior: only literal rules, a scan that
 advances one position at a time and so reports overlapping matches, no merging,
 no `minLength`, no `policy`, and almost no validation. Every starter passes
-exactly the same two verifier cases and fails the same ten, so the null-failure
+exactly the same two verifier cases and fails the same eleven, so the null-failure
 set is identical across languages.
 
 Reference implementations use identical semantics: code point offsets, the
@@ -62,7 +62,7 @@ same way in all five languages and is caught by the same case ids everywhere:
 
 | Sabotage | Caught by |
 |---|---|
-| `overlapping-literal-matches` | `literal-non-overlapping` |
+| `overlapping-literal-matches` | `literal-non-overlapping`, `astral-literal-scan` |
 | `merge-drops-touching` | `astral-mask`, `merge-touching`, `strict-allows-touching` |
 | `min-length-after-merge` | `min-length-drops-before-merge` |
 | `strict-allows-overlap` | `strict-rejects-overlap`, `rejects-invalid` |
@@ -72,19 +72,47 @@ bytes. It would be a no-op in Python and so could not be caught by the same case
 ids everywhere, which is exactly what the parity gate forbids. The code point
 hazard is a hazard for the agent to fall into, not a fault the gate injects.
 
-## What happened when it was run
+## Where this family came from
 
-v0.9 ran this family 8 times in each of the five languages. It passed 39 of 40,
-and across those 40 runs not one failed `code-point-offsets` or `astral-mask`,
-the two cases that catch offsets counted in UTF-16 code units or bytes. The
-mechanism above is sound, but this task does not test it, because the
-instruction gives the code point rule a paragraph of its own and adds that it
-does not matter how your language indexes a string. That warning sits directly
-on the hazard, so every arm converted to a code point array before writing any
-logic.
+`redact-spans` is `text-redact` with the hazard no longer announced. That family
+ran 8 times in each of the five languages in v0.9, passed 39 of 40, and across
+those 40 runs not one failed `code-point-offsets` or `astral-mask`, the two
+cases that catch offsets counted in UTF-16 code units or bytes. The mechanism
+was sound and the task did not test it: the instruction titled itself after the
+hazard, gave the code point rule a paragraph of its own ending in a sentence
+saying it does not matter how your language indexes a string, and closed by
+naming the two hidden cases. Every language converted to a code point sequence
+before writing any logic.
 
-The family is kept as it stands so the v0.9 result stays reproducible. Do not
-modify it. The revision that gives the rule one plain sentence, keeps the
-developer tests ASCII only, and leaves every astral case hidden lives in
-`tasks/redact-spans` under its own id, with its own calibration receipt. Results
-under the two ids are not comparable and must never be pooled.
+Three things changed here, and nothing else:
+
+1. The instruction states the unit once, where each field is defined. The title,
+   the dedicated paragraph, and the list of hidden cases are gone.
+2. `astral-literal-scan` is a new hidden case whose literal is itself an astral
+   string, so the non-overlapping scan has to advance by code points.
+3. `merge-touching` and `min-length-drops-before-merge` run over astral text.
+
+Measured, not assumed: take the JavaScript reference and change its one code
+point conversion to `text.split("")`, which is the mistake this family exists to
+catch, and it fails seven of the thirteen cases here against four of twelve
+under `text-redact`. The developer tests remain ASCII only, which is what leaves
+the hidden cases something to catch.
+
+`text-redact` is left in the tree unmodified so the v0.9 cohort stays
+reproducible. The two families must never be pooled or compared as one: they
+have different instructions and different hidden cases, so a pass rate under one
+id says nothing about the other.
+
+The starter is the same one, and it fails eleven of the thirteen cases in every
+language.
+
+## Status: not admitted
+
+Ten paid rollouts, two per language, at the same rung the cohorts use, with the
+admission rule written down first. All ten passed and none failed a wrong-unit
+case, so the family is not admitted to a cohort. The de-signposting was not the
+binding constraint: at this rung the model counts code points correctly in every
+language without being told to. See `docs/REDACT_SPANS_PROBE.md` for the
+receipt. The family stays in the tree with its gate green because it is the
+evidence for that claim, and because a larger version of the same contract is
+the next thing worth trying.

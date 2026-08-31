@@ -115,6 +115,7 @@ cannot make.
 | `money-rollup` | CLI | exact arithmetic, graph search, a wide rejection surface |
 | `circuit-breaker` | CLI | a state machine and an outcome union crossing module boundaries |
 | `text-redact` | CLI | Unicode code point offsets, which no checker sees |
+| `redact-spans` | CLI | the same contract with the hazard not announced, unadmitted |
 
 ## History
 
@@ -180,6 +181,19 @@ plain: the instruction states the code point rule in its own paragraph and adds
 that it does not matter how your language indexes a string, which is a loud
 warning sitting directly on the hazard. A green calibration gate proves the
 scoring is fair in every language. It does not prove the task is hard.
+
+**The obvious fix did not work either.** `redact-spans` is the same contract
+with the signposting removed: no title naming the hazard, no paragraph of its
+own, no closing line listing the hidden cases, the unit stated once where each
+field is defined, and three more hidden cases that a wrong unit breaks. Changing
+the one code point conversion in the JavaScript reference to `text.split("")`
+fails seven of its thirteen cases against four of twelve before. A
+pre-registered ten-rollout probe, two per language, then passed 10 of 10 with
+zero wrong-unit failures for $0.052. So the instruction was not the binding
+constraint. At this rung the model counts code points correctly in every
+language without being told to, and hiding the hazard better is not the lever.
+`redact-spans` stays in the tree, gate green and unadmitted, as the receipt.
+[docs/REDACT_SPANS_PROBE.md](docs/REDACT_SPANS_PROBE.md) is the report.
 
 The two carried-over families still disagree, and the cohort produced a second
 result worth more than the one it was designed for. Both were rerun with
@@ -339,10 +353,15 @@ In priority order, each additive and accommodated by the current schema:
 2. **A second scaffold arm** through a real agent, per the section above.
 3. **More task families**, per the power argument above. v0.9 shows the free
    gate is not enough on its own: `text-redact` passed calibration in all five
-   languages and still saturated. A cheap two-rollout difficulty probe on the
-   target rung, before committing a matrix, would have caught it for $0.012.
-4. **A revision of `text-redact`** that stops telegraphing its own hazard, so
-   the code point mechanism gets a fair test.
+   languages and still saturated. The ten-rollout difficulty probe on the target
+   rung, before committing a matrix, now gates every new family and costs about
+   $0.06.
+4. **A family the size of a DeepSWE task.** `redact-spans` rules out the cheap
+   explanation for v0.9: the hazard was not saturating because it was
+   advertised. Every family here is a third the size of a DeepSWE reference
+   patch with an instruction four times as long, which is the profile that
+   produces 88% where DeepSWE gets about 2%. Shorter instruction, larger diff,
+   more interacting rules.
 5. **A second model family**, ideally third-party contributed.
 6. **Reasoning effort as a crossed factor**, which needs its own design rather
    than being a byproduct of the selection ladder.

@@ -65,6 +65,7 @@ repo has produced:
 | `money-rollup` | exact arithmetic in the standard library | Python |
 | `circuit-breaker` | not dropping a case of a union that crosses files | Go, TypeScript |
 | `text-redact` | knowing what a string is at runtime | nobody, it saturated |
+| `redact-spans` | the same, with the hazard not announced | nobody, unadmitted |
 
 A new family that repeats an existing mechanism buys almost nothing. Past
 roughly five seeds per cell, another family is worth more than more seeds.
@@ -72,15 +73,25 @@ roughly five seeds per cell, another family is worth more than more seeds.
 **A green gate does not mean the task is hard.** `text-redact` passed
 calibration in all five languages, its starter failed ten of twelve checks, and
 it still passed 39 of 40 paid attempts with its intended hazard never firing
-once. Spend $0.012 on a two-rollout difficulty probe at the target rung before
-committing a 120-rollout matrix. The gate proves the scoring is fair; only a
-paid probe tells you the task discriminates.
+once. Before a new family joins a cohort, run the ten-rollout difficulty probe:
+two attempts in each language at the target rung, admission threshold written
+into the probe JSON first, and the family admitted only if it passes at most
+seven of ten. That costs about $0.06 and protects a 40-rollout family block. The
+gate proves the scoring is fair; only a paid probe tells you the task
+discriminates.
 
 **Do not telegraph the hazard in the instruction.** `text-redact` gave its
 code point rule a paragraph of its own and added that it does not matter how
-your language indexes a string. Every arm then converted up front and the trap
-never sprang. State the contract once, plainly, and let the hidden cases do the
-catching.
+your language indexes a string. State the contract once, plainly, and let the
+hidden cases do the catching.
+
+**And do not expect that to be enough.** `redact-spans` is `text-redact` with
+every signpost removed and three more hidden cases that a wrong unit breaks. It
+probed 10 of 10 with zero wrong-unit failures. The hazard was not saturating
+because it was advertised; the model is just good at this. When a family
+saturates, the lever that is left is size, not subtlety: a DeepSWE reference
+patch is 844 lines against 301 here, over an instruction 15 lines long against
+69 here.
 
 Copy `tasks/circuit-breaker` as the template. What makes it a good one: a
 command-line program reading one JSON document from stdin, everything

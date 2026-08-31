@@ -73,6 +73,17 @@ failure IDs, and identical failure IDs for off-by-one, missing-branch,
 wrong-status, and non-atomic-update sabotages. It uses readiness probes, never
 fixed sleeps. `calibration_report.json` is the receipt.
 
+The free gate proves the scoring is fair, not that the task is hard.
+`text-redact` passed it in all five languages, its untouched starter failed ten
+of twelve checks, and it still passed 39 of 40 paid attempts with its intended
+hazard never firing. A new family therefore also has to clear a paid difficulty
+probe before it joins a cohort: ten rollouts at the target rung, two per
+language, with the family's admission threshold written down before the first
+call. Admit the family only if it passes at most seven of ten. At recent
+per-rollout cost that probe is about $0.06 and it protects a 40-rollout family
+block. The probe is a go/no-go on the family, it is reported separately, and its
+rollouts are never pooled into a cohort result.
+
 Analyze at task-family × language level, report full distributions and paired
 differences. With multiple families use a paired bootstrap, or mixed-effects
 logistic regression with task-family random intercepts. Intervals matter more
@@ -126,6 +137,33 @@ family where the three checked arms have no reason to behave alike. Its
 calibration sabotages are all logic-level on purpose: a sabotage that swapped
 code points for UTF-16 units would be a no-op in Python and so could never be
 caught by the same case ids everywhere, which the parity gate forbids.
+
+v0.9 ran that family and it saturated: 39 of 40 passes, and zero runs failed
+either hidden case that catches offsets counted in UTF-16 code units or bytes.
+The instruction was the cause. It titled the task after the hazard, gave the
+code point rule a paragraph of its own ending in a sentence saying it does not
+matter how your language indexes a string, and closed by naming the two hidden
+cases. Every language converted to a code point sequence before writing any
+logic. `redact-spans` is the revision. It states the unit once, where each field is
+defined, and drops the title, the paragraph, and the list of hidden cases. It
+also widens where the hazard can fire: `astral-literal-scan` is a new hidden
+case whose literal is itself an astral string, and `merge-touching` and
+`min-length-drops-before-merge` run over astral text. Changing the one code
+point conversion in the JavaScript reference to `text.split("")` fails seven of
+the thirteen cases in `redact-spans` against four of twelve in `text-redact`.
+The developer tests stay ASCII only, which is what makes the hidden cases worth
+running. It carries a new family id because it is a different task, and
+`text-redact` is left untouched so the v0.9 cohort stays reproducible; pass
+rates under the two ids are not comparable.
+
+The probe then said no. Ten rollouts, two per language, all ten passed, none
+failed a wrong-unit case, $0.052132 measured. So the instruction was not what
+made v0.9 saturate, and hiding the hazard better is not the lever. At this rung
+the model counts code points correctly in every language unprompted. The
+remaining honest lever is task size, which is where the DeepSWE comparison
+already pointed: 844 reference patch lines against 301 here, and 15 instruction
+lines against 69. `redact-spans` stays in the tree, gate green and unadmitted,
+as the receipt for that. `docs/REDACT_SPANS_PROBE.md` is the report.
 
 Next families: schema migration with backward-compatible reads (static schema
 feedback); streaming parser recovery (sum types/error handling); dependency API

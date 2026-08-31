@@ -1,0 +1,112 @@
+{
+  "schema_version": "1.0.0",
+  "study_id": "probe-redact-spans",
+  "study_sha256": "fe84cb22e3568326680b31063cb07f4f646329d78097807c20c5cc48287dfcbe",
+  "repo_revision": "f3d63e5c5371cb58a41f2faad9388c4a315262ca",
+  "launch_ready": true,
+  "validation_errors": [],
+  "planned_rollouts": 10,
+  "projected_cost_usd": 0.0591306,
+  "schedule": [
+    {
+      "task_family": "redact-spans",
+      "category": "code-point-offset-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/redact-spans/javascript",
+      "attempt": 1,
+      "sample_seed": 66866971,
+      "order_index": 1
+    },
+    {
+      "task_family": "redact-spans",
+      "category": "code-point-offset-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/redact-spans/typescript",
+      "attempt": 1,
+      "sample_seed": 4236334001,
+      "order_index": 2
+    },
+    {
+      "task_family": "redact-spans",
+      "category": "code-point-offset-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/redact-spans/python",
+      "attempt": 1,
+      "sample_seed": 2741056100,
+      "order_index": 3
+    },
+    {
+      "task_family": "redact-spans",
+      "category": "code-point-offset-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/redact-spans/python-typed",
+      "attempt": 1,
+      "sample_seed": 4162940359,
+      "order_index": 4
+    },
+    {
+      "task_family": "redact-spans",
+      "category": "code-point-offset-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/redact-spans/go",
+      "attempt": 1,
+      "sample_seed": 2817458976,
+      "order_index": 5
+    },
+    {
+      "task_family": "redact-spans",
+      "category": "code-point-offset-refactor",
+      "project_maturity": "brownfield",
+      "language": "python-typed",
+      "task_path": "tasks/redact-spans/python-typed",
+      "attempt": 2,
+      "sample_seed": 3187712796,
+      "order_index": 6
+    },
+    {
+      "task_family": "redact-spans",
+      "category": "code-point-offset-refactor",
+      "project_maturity": "brownfield",
+      "language": "go",
+      "task_path": "tasks/redact-spans/go",
+      "attempt": 2,
+      "sample_seed": 3939102825,
+      "order_index": 7
+    },
+    {
+      "task_family": "redact-spans",
+      "category": "code-point-offset-refactor",
+      "project_maturity": "brownfield",
+      "language": "javascript",
+      "task_path": "tasks/redact-spans/javascript",
+      "attempt": 2,
+      "sample_seed": 2330189168,
+      "order_index": 8
+    },
+    {
+      "task_family": "redact-spans",
+      "category": "code-point-offset-refactor",
+      "project_maturity": "brownfield",
+      "language": "typescript",
+      "task_path": "tasks/redact-spans/typescript",
+      "attempt": 2,
+      "sample_seed": 3149594175,
+      "order_index": 9
+    },
+    {
+      "task_family": "redact-spans",
+      "category": "code-point-offset-refactor",
+      "project_maturity": "brownfield",
+      "language": "python",
+      "task_path": "tasks/redact-spans/python",
+      "attempt": 2,
+      "sample_seed": 1891313693,
+      "order_index": 10
+    }
+  ]
+}
