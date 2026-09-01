@@ -25,13 +25,14 @@ This is the estimand. The pooled table further down is not.
 
 | Family | Spread | Ordering |
 |---|---:|---|
-| `circuit-breaker` | 6 runs | Go 8/8 > TypeScript 5/8 > JavaScript 4/8 > Python (typed) 4/8 > Python 2/8 |
-| `expr-eval` | 7 runs | JavaScript 7/8 > Python 4/8 > Python (typed) 4/8 > TypeScript 3/8 > Go 0/8 |
-| `money-rollup` | 1 run | Python (typed) 8/8 > Go 7/8 > JavaScript 7/8 > Python 7/8 > TypeScript 7/7 |
+| `circuit-breaker` | 6 runs | Go 8/8 > TypeScript 5/8 ~ JavaScript 4/8 ~ Python (typed) 4/8 > Python 2/8 |
+| `expr-eval` | 7 runs | JavaScript 7/8 > Python 4/8 ~ Python (typed) 4/8 ~ TypeScript 3/8 > Go 0/8 |
+| `money-rollup` | 1 run | Python (typed) 8/8 ~ TypeScript 7/7 ~ Go 7/8 ~ JavaScript 7/8 ~ Python 7/8 |
 
-A family counts as discriminating only if its best and worst arms differ
-by at least 2 runs out of eight. One run of separation is not an
-ordering, and treating it as one manufactures reversals out of noise.
+Setups within a run of each other are written as tied, `~`, because eight
+attempts cannot separate them. A family counts as discriminating only if
+its best and worst differ by at least 2 runs out of eight; treating one
+run of separation as an ordering manufactures reversals out of noise.
 
 ## The task picks the winner
 

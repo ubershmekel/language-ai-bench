@@ -7,7 +7,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
 def study():
-    return json.loads((ROOT / "study_v0.5.json").read_text(encoding="utf-8"))
+    return json.loads((ROOT / "studies" / "study_v0.5.json").read_text(encoding="utf-8"))
 
 
 def test_design_is_valid_but_not_launch_ready():

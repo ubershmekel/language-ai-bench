@@ -131,14 +131,14 @@ def main() -> None:
     probes = [
         (
             "First probe: 15 cases, two developer cases",
-            ROOT / "probe_expr_eval.json",
-            ROOT / "probe_expr_eval_schedule.json",
+            ROOT / "studies" / "probe_expr_eval.json",
+            ROOT / "studies" / "probe_expr_eval_schedule.json",
             ROOT / ".benchmark-state" / "probe-expr-eval-spend.json",
         ),
         (
             "Second probe: 20 cases, seven developer cases",
-            ROOT / "probe_expr_eval_2.json",
-            ROOT / "probe_expr_eval_2_schedule.json",
+            ROOT / "studies" / "probe_expr_eval_2.json",
+            ROOT / "studies" / "probe_expr_eval_2_schedule.json",
             ROOT / ".benchmark-state" / "probe-expr-eval-2-spend.json",
         ),
     ]

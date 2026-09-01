@@ -25,7 +25,7 @@ v0.5 adds brownfield Python and Go variants with the same prompt and byte-identi
 HTTP verifier. Python uses its standard-library HTTP server without a static
 checker; Go uses the pinned compiler. The four brownfield references, untouched
 baselines, and four seeded sabotage modes have identical pass/failure sets in
-`schedule_polyglot_calibration_report.json`.
+`calibration/schedule_polyglot_calibration_report.json`.
 ## Retrospective comparability note
 
 The 2026-08-24 Python and Go extensions used language-native monolithic

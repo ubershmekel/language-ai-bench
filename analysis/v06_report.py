@@ -288,7 +288,7 @@ def render_markdown(report: dict) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--ledger", type=pathlib.Path, default=ROOT / ".benchmark-state" / "v06-spend.json")
-    parser.add_argument("--schedule", type=pathlib.Path, default=ROOT / "study_v0.6_schedule.json")
+    parser.add_argument("--schedule", type=pathlib.Path, default=ROOT / "studies" / "study_v0.6_schedule.json")
     parser.add_argument("--json-output", type=pathlib.Path, default=ROOT / "docs" / "data" / "v06-results.json")
     parser.add_argument("--markdown-output", type=pathlib.Path, default=ROOT / "docs" / "V06_REPORT.md")
     args = parser.parse_args()

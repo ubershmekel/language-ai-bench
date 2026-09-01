@@ -75,7 +75,7 @@ This produces one attempt. Pier writes raw trials under `jobs/`, which is
 private by default. Inspect the trajectory usage fields and measured upstream
 cost; do not proceed if usage/cost/cache metadata is absent. After checking the
 OpenRouter dashboard, repeat with `--sample-seed 20260825`. Replace the
-mock-only values in `cost_pilot.json` with the two measured trials.
+mock-only values in `studies/cost_pilot.json` with the two measured trials.
 
 The OpenRouter $5/day cap is the provider backstop. Keep the experiment's
 harness ceiling lower (recommended first-session ceiling: `$4.00`) so retries

@@ -254,21 +254,27 @@ def render_markdown(report: dict) -> str:
     for family in families:
         ranked = sorted(
             (cells[(family, arm)] for arm in ARMS if (family, arm) in cells),
-            key=lambda cell: (-cell["passed"], cell["language"]),
+            key=lambda cell: (-cell["pass_rate"], cell["language"]),
         )
         spread = lead["spread_runs"][family]
-        ordering = " > ".join(
-            f"{LABELS[cell['language']]} {cell['passed']}/{cell['runs']}"
-            for cell in ranked
-        )
+        # Setups within a run of each other are shown as tied. Eight attempts
+        # cannot separate them, and a ">" there would read as a ranking.
+        pieces = []
+        for index, cell in enumerate(ranked):
+            if index:
+                tied = abs(ranked[index - 1]["passed"] - cell["passed"]) < 2
+                pieces.append(" ~ " if tied else " > ")
+            pieces.append(f"{LABELS[cell['language']]} {cell['passed']}/{cell['runs']}")
+        ordering = "".join(pieces)
         unit = "run" if spread == 1 else "runs"
         lines.append(f"| `{family}` | {spread} {unit} | {ordering} |")
 
     lines += [
         "",
-        "A family counts as discriminating only if its best and worst arms differ",
-        f"by at least {lead['minimum_spread_runs']} runs out of eight. One run of separation is not an",
-        "ordering, and treating it as one manufactures reversals out of noise.",
+        "Setups within a run of each other are written as tied, `~`, because eight",
+        "attempts cannot separate them. A family counts as discriminating only if",
+        f"its best and worst differ by at least {lead['minimum_spread_runs']} runs out of eight; treating one",
+        "run of separation as an ordering manufactures reversals out of noise.",
         "",
         "## The task picks the winner",
         "",
@@ -472,7 +478,7 @@ def render_markdown(report: dict) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--schedule", type=pathlib.Path, default=ROOT / "study_v1.0_luna_schedule.json"
+        "--schedule", type=pathlib.Path, default=ROOT / "studies" / "study_v1.0_luna_schedule.json"
     )
     parser.add_argument(
         "--ledger", type=pathlib.Path, default=ROOT / ".benchmark-state" / "v10-spend.json"

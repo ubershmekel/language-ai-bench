@@ -511,7 +511,7 @@ def render_markdown(report: dict) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--schedule", type=pathlib.Path, default=ROOT / "study_v0.9_luna_schedule.json"
+        "--schedule", type=pathlib.Path, default=ROOT / "studies" / "study_v0.9_luna_schedule.json"
     )
     parser.add_argument(
         "--ledger",

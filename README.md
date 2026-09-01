@@ -319,7 +319,8 @@ The v0.6 cohort cost $0.19101201 for 36 valid completions; the v0.7 cohort cost
 $1.00391751 for 121. The v0.8 pilot measured $0.00581969 per rollout and its
 120-rollout matrix came in at $0.644634. The v0.9 pilot measured $0.00591306 and
 its 120-rollout matrix came in at $0.699961, four at a time in about two hours.
-`cost_pilot.json`, `cost_pilot_v0.8.json`, and `cost_pilot_v0.9.json` store the
+`studies/cost_pilot.json`, `studies/cost_pilot_v0.8.json`, and
+`studies/cost_pilot_v0.9.json` store the
 pilots. Calibration, both mock agents, and the null
 and sabotage runs involve **no model calls**, so debug the entire pipeline at zero
 cost and spend only once the gate is green.
@@ -348,11 +349,14 @@ that is a finding about the model, not a licence to reshape the task.
 
 **119 scored rollouts, $0.849144 measured.**
 
-| Family | Spread | Ordering |
+| Task | Spread | Ordering |
 |---|---:|---|
-| `expr-eval` | 7 runs | JavaScript 7/8 > Python 4/8 > Python (typed) 4/8 > TypeScript 3/8 > Go 0/8 |
-| `circuit-breaker` | 6 runs | Go 8/8 > TypeScript 5/8 > JavaScript 4/8 > Python (typed) 4/8 > Python 2/8 |
-| `money-rollup` | 1 run | flat, so it is not reported as an ordering |
+| `expr-eval` | 7 runs | JavaScript 7/8 > Python 4/8 ~ Python (typed) 4/8 ~ TypeScript 3/8 > Go 0/8 |
+| `circuit-breaker` | 6 runs | Go 8/8 > TypeScript 5/8 ~ JavaScript 4/8 ~ Python (typed) 4/8 > Python 2/8 |
+| `money-rollup` | 1 run | Python (typed) 8/8 ~ TypeScript 7/7 ~ Go 7/8 ~ JavaScript 7/8 ~ Python 7/8 |
+
+Setups within a run of each other are written as tied, `~`: eight attempts
+cannot separate them.
 
 Two tasks, two different winners, and that is the expected result. A type
 system is not one lever, and these tasks fail for different reasons.
@@ -362,10 +366,11 @@ That is a shape a checker can see, and `go build`, `tsc`, and `mypy` all name
 the missing case at the point of the mistake. Go passes 8 of 8; Python, which
 reports nothing, passes 2 of 8.
 
-`money-rollup` fails on rounding mode, negative zero formatting, and which
+`money-rollup` ties across every setup here, so it ranks nothing this round.
+What it fails on is rounding mode, negative zero formatting, and which
 conversion path was taken. Every one of those type checks cleanly while being
-wrong, because `half-up` and `half-even` have the same type. No checker helps;
-having exact rational arithmetic in the standard library does.
+wrong, because `half-up` and `half-even` have the same type. No checker helps
+there; having exact rational arithmetic in the standard library does.
 
 `expr-eval` specifies signed 64-bit two's complement integers. JavaScript has
 no such type, so the model has to make a visible decision, reach for `BigInt`,
@@ -412,6 +417,17 @@ In priority order, each additive and accommodated by the current schema:
 5. **A second model family**, ideally third-party contributed.
 6. **Reasoning effort as a crossed factor**, which needs its own design rather
    than being a byproduct of the selection ladder.
+
+## Repository layout
+
+| Path | What is in it |
+|---|---|
+| `tasks/` | one directory per task family, five language versions each, plus the shared verifier |
+| `studies/` | study, probe, and schedule JSON: what was going to be run, fixed before it ran |
+| `calibration/` | one calibration receipt per family, the free gate that has to be green first |
+| `analysis/` | the report generators, one per cohort |
+| `docs/` | the published site, the written reports, and the aggregate JSON behind them |
+| `scripts/` | the gates and the runner |
 
 ## Results and contributions
 

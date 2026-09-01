@@ -101,7 +101,7 @@ def build_schedule(study: dict) -> list[dict]:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--study", default=str(ROOT / "study_v0.5.json"))
+    parser.add_argument("--study", default=str(ROOT / "studies" / "study_v0.5.json"))
     parser.add_argument("--output")
     parser.add_argument("--require-launch-ready", action="store_true")
     args = parser.parse_args()

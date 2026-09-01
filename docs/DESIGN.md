@@ -71,7 +71,7 @@ human-labeled subset.
 The blocking free gate requires reference 100% in all languages, identical null
 failure IDs, and identical failure IDs for off-by-one, missing-branch,
 wrong-status, and non-atomic-update sabotages. It uses readiness probes, never
-fixed sleeps. `calibration_report.json` is the receipt.
+fixed sleeps. Each family keeps its receipt in `calibration/`.
 
 Instructions must not enumerate what the hidden tests cover. Three of them used
 to, which handed the agent a checklist of exactly what the grader looks at. That

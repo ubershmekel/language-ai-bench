@@ -489,7 +489,7 @@ def main() -> None:
         action="append",
         required=True,
         metavar="RUNG=SCHEDULE,LEDGER",
-        help="repeatable, e.g. mid=study_v0.7_mini_schedule.json,.benchmark-state/v07-mid-spend.json",
+        help="repeatable, e.g. mid=studies/study_v0.7_mini_schedule.json,.benchmark-state/v07-mid-spend.json",
     )
     parser.add_argument(
         "--json-output",

@@ -180,9 +180,9 @@ def render(collected: list[dict], study: dict) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--study", type=pathlib.Path, default=ROOT / "probe_redact_spans.json")
+    parser.add_argument("--study", type=pathlib.Path, default=ROOT / "studies" / "probe_redact_spans.json")
     parser.add_argument(
-        "--schedule", type=pathlib.Path, default=ROOT / "probe_redact_spans_schedule.json"
+        "--schedule", type=pathlib.Path, default=ROOT / "studies" / "probe_redact_spans_schedule.json"
     )
     parser.add_argument(
         "--ledger",

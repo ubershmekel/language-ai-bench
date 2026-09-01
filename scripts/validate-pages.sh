@@ -169,18 +169,30 @@ node -e '
   if (!html.includes("./data/v10-results.json") && !fs.readFileSync("docs/app.js", "utf8").includes("v10-results.json")) {
     throw new Error("the site does not load the published cohort");
   }
-  // A task whose best and worst setups differ by under two runs is not an
-  // ordering, and the site must not print one as if it were.
-  const lead = data.leadership;
-  const listed = [...html.matchAll(/<li><code>([a-z-]+)<\/code>/g)].map((m) => m[1]);
-  if (listed.length === 0) throw new Error("no task ordering rendered in the markup");
-  for (const family of listed) {
-    if (!lead.discriminating_families.includes(family)) {
-      throw new Error(`site lists ${family} as an ordering but it does not discriminate`);
-    }
+  // Every task is listed, and setups within a run of each other are joined by
+  // an approximation sign rather than a greater-than: eight attempts cannot
+  // separate them, so a ">" there would read as a ranking that is not there.
+  const listed = [...html.matchAll(/<li><code>([a-z-]+)<\/code>([^<]*)</g)];
+  if (listed.length !== families.size) {
+    throw new Error(`site lists ${listed.length} tasks but the cohort has ${families.size}`);
   }
-  for (const family of lead.flat_families) {
-    if (listed.includes(family)) throw new Error(`flat family ${family} is shown as an ordering`);
+  for (const [, family, rendered] of listed) {
+    if (!families.has(family)) throw new Error(`site lists unknown task ${family}`);
+    const cells = data.by_family_and_arm
+      .filter((row) => row.task_family === family)
+      .sort((a, b) => b.pass_rate - a.pass_rate);
+    const plain = rendered.replace(/&gt;/g, ">").replace(/&#8776;|&asymp;/g, "≈");
+    const separators = plain.match(/[>≈]/g) || [];
+    if (separators.length !== cells.length - 1) {
+      throw new Error(`${family}: expected ${cells.length - 1} separators, found ${separators.length}`);
+    }
+    cells.slice(1).forEach((cell, index) => {
+      const tied = Math.abs(cells[index].passed - cell.passed) < 2;
+      const wanted = tied ? "≈" : ">";
+      if (separators[index] !== wanted) {
+        throw new Error(`${family}: separator ${index + 1} should be ${tied ? "a tie" : "a rank"}`);
+      }
+    });
   }
   const width = data.expr_eval_width_failures;
   if (width.length !== 5) throw new Error("expected five integer-width rows");

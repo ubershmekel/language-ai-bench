@@ -38,7 +38,8 @@ python3 scripts/calibrate.py --task-dir tasks/<family> \
 Green means three things at once: the reference passes 100% in every language,
 the untouched starter fails the *same case ids* in every language, and every
 sabotage is caught by the *same case ids* in every language. Each family keeps
-its own receipt at the repository root.
+its own receipt in `calibration/`, and study, probe, and schedule JSON lives in
+`studies/`.
 
 `python3 scripts/audit_task_integrity.py` is the other free gate. It requires
 `src/` and `environment/src/` to be byte-identical, `instruction.md` to be

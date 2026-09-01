@@ -126,7 +126,7 @@ def main():
     parser.add_argument("--task-dir", type=pathlib.Path, default=DEFAULT_TASK)
     parser.add_argument("--languages", nargs="+", default=list(DEFAULT_LANGUAGES))
     parser.add_argument("--readiness-path", default="/tasks/1")
-    parser.add_argument("--output", default=str(ROOT / "calibration_report.json"))
+    parser.add_argument("--output", default=str(ROOT / "calibration" / "calibration_report.json"))
     args = parser.parse_args()
     task_dir = args.task_dir.resolve()
     calibration_config_path = task_dir / "calibration" / "config.json"

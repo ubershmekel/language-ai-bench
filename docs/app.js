@@ -46,7 +46,7 @@ function ordered(rows) {
  */
 const MINIMUM_SPREAD_RUNS = 2;
 
-function discriminatingFamilies(data) {
+function familyOrderings(data) {
   const families = new Map();
   for (const cell of data.by_family_and_arm) {
     if (!families.has(cell.task_family)) families.set(cell.task_family, []);
@@ -55,13 +55,14 @@ function discriminatingFamilies(data) {
   const result = [];
   for (const [family, cells] of families) {
     const passed = cells.map((cell) => cell.passed);
-    if (Math.max(...passed) - Math.min(...passed) < MINIMUM_SPREAD_RUNS) continue;
     result.push({
       family,
+      spread: Math.max(...passed) - Math.min(...passed),
       order: [...cells].sort((a, b) => b.pass_rate - a.pass_rate),
     });
   }
-  return result.sort((a, b) => a.family.localeCompare(b.family));
+  // Widest separation first, so a task that ranks anything leads the list.
+  return result.sort((a, b) => b.spread - a.spread || a.family.localeCompare(b.family));
 }
 
 function fillRows(selector, rows, cells) {
@@ -223,6 +224,14 @@ function renderChart(data) {
   }));
   const stepMaximum = Math.max(...stepRows.map((row) => row.value)) * 1.15;
 
+  const costRows = rows.map((row) => ({
+    label: languageLabels[row.language],
+    color: languageColors[row.language],
+    value: row.mean_cost_usd,
+    display: `$${row.mean_cost_usd.toFixed(4)}`,
+  }));
+  const costMaximum = Math.max(...costRows.map((row) => row.value)) * 1.15;
+
   host.replaceChildren(
     barPanel(
       "Did it succeed?",
@@ -235,6 +244,12 @@ function renderChart(data) {
       "Mean agent steps per attempt: how much work the same result took. Lower is better.",
       stepRows,
       stepMaximum,
+    ),
+    barPanel(
+      "What did it cost?",
+      "Mean API spend per attempt, measured from provider usage. Lower is better.",
+      costRows,
+      costMaximum,
     ),
   );
 }
@@ -268,14 +283,23 @@ function renderFamilyReversal(data) {
   const host = document.querySelector("#family-reversal");
   if (!host) return;
   host.replaceChildren(
-    ...discriminatingFamilies(data).map((item) => {
+    ...familyOrderings(data).map((item) => {
       const row = document.createElement("li");
       const name = document.createElement("code");
       name.textContent = item.family;
+      // Setups within a run of each other are shown as tied. Eight attempts
+      // cannot separate them, and a ">" there would read as a ranking.
+      let text = "";
+      item.order.forEach((cell, index) => {
+        if (index > 0) {
+          const previous = item.order[index - 1];
+          const tied = Math.abs(previous.passed - cell.passed) < MINIMUM_SPREAD_RUNS;
+          text += tied ? " ≈ " : " > ";
+        }
+        text += `${languageLabels[cell.language]} ${cell.passed}/${cell.runs}`;
+      });
       const order = document.createElement("span");
-      order.textContent = ` ${item.order
-        .map((cell) => `${languageLabels[cell.language]} ${cell.passed}/${cell.runs}`)
-        .join(" > ")}`;
+      order.textContent = ` ${text}`;
       row.append(name, order);
       return row;
     }),

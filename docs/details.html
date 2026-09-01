@@ -12,7 +12,7 @@
 <body>
   <header class="site-header">
     <a class="brand" href="./"><span class="brand-mark">L/AB</span><span>Language AI Bench</span></a>
-    <nav><a href="./">Overview</a><a href="./#idea">The task</a><a href="./methodology.html">How scoring works</a><a href="./data/v09-results.json">Latest aggregates</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub &#8599;</a></nav>
+    <nav><a href="./">Overview</a><a href="./#idea">The task</a><a href="./methodology.html">How scoring works</a><a href="./data/v10-results.json">Latest aggregates</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub &#8599;</a></nav>
   </header>
 
   <main>
@@ -58,26 +58,26 @@
             <tr><th>Arm</th><th>Passed</th><th>Mean cost</th><th>Input tokens</th><th>Output tokens</th><th>Agent steps</th></tr>
           </thead>
           <tbody id="details-results">
-            <tr><td>JavaScript</td><td>17/24</td><td>$0.004941</td><td>29,077</td><td>2,376</td><td>5.92</td></tr>
-            <tr><td>TypeScript</td><td>20/24</td><td>$0.005586</td><td>33,357</td><td>2,528</td><td>6.67</td></tr>
-            <tr><td>Python</td><td>18/24</td><td>$0.005132</td><td>30,201</td><td>2,400</td><td>6.29</td></tr>
-            <tr><td>Python (typed)</td><td>19/24</td><td>$0.005247</td><td>31,556</td><td>2,595</td><td>6.75</td></tr>
-            <tr><td>Go</td><td>21/24</td><td>$0.005955</td><td>34,764</td><td>2,898</td><td>6.88</td></tr>
+            <tr><td>JavaScript</td><td>18/24</td><td>$0.006531</td><td>39,662</td><td>3,196</td><td>7.00</td></tr>
+            <tr><td>TypeScript</td><td>15/23</td><td>$0.007440</td><td>60,795</td><td>3,386</td><td>8.52</td></tr>
+            <tr><td>Python</td><td>13/24</td><td>$0.006395</td><td>36,683</td><td>3,071</td><td>6.62</td></tr>
+            <tr><td>Python (typed)</td><td>16/24</td><td>$0.006987</td><td>47,593</td><td>3,310</td><td>7.62</td></tr>
+            <tr><td>Go</td><td>15/24</td><td>$0.008338</td><td>72,503</td><td>3,961</td><td>9.58</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="details-note"><strong>Interpretation:</strong> no pass-rate contrast has a 95% bootstrap interval excluding zero, including the primary one between Python and typed Python, so no arm can be called better at producing a correct result across these three families. Four agent-step contrasts do exclude zero: JavaScript needed fewer steps than TypeScript, typed Python, and Go, and Python fewer than Go. These pooled figures conceal a reversal between the two hard families that is visible on the <a href="./">overview</a> and is the more important result. Paired contrasts use matched attempt blocks. Per-case failure breakdowns and patch metrics are in the <a href="./V08_REPORT.md">full report</a>.</p>
+      <p class="details-note"><strong>Interpretation:</strong> one pooled pass-rate contrast excludes zero, JavaScript over Python, while the primary contrast between Python and typed Python does not. Every agent-step contrast against Go excludes zero, and so does JavaScript against TypeScript and typed Python. These pooled figures conceal the per-task breakdown on the <a href="./">overview</a>, which is the more useful result: Go passes 8 of 8 on the state machine task and 0 of 8 on the evaluator. Paired contrasts use matched attempt blocks. Per-case failure breakdowns and patch metrics are in the <a href="./V10_REPORT.md">full report</a>.</p>
     </section>
 
     <section class="details-section section-shell">
       <h2>Spend and confidence</h2>
       <div class="config-grid">
-        <div><span>Attempts</span><strong id="detail-runs">120</strong></div>
-        <div><span>Passed</span><strong id="detail-passed">85</strong></div>
-        <div><span>v0.9 API spend</span><strong id="detail-cost">$0.699961</strong></div>
-        <div><span>Infrastructure failures</span><strong>0</strong></div>
+        <div><span>Attempts</span><strong id="detail-runs">119</strong></div>
+        <div><span>Passed</span><strong id="detail-passed">77</strong></div>
+        <div><span>API spend</span><strong id="detail-cost">$0.849144</strong></div>
+        <div><span>Infrastructure failures</span><strong>1</strong></div>
       </div>
-      <p class="details-note">Eight attempts per cell is enough to expose the reversal between families but not to resolve small differences within one. The stopping rule was fixed at 120 rollouts before the first paid call and no interim analysis informed continuation, unlike v0.7 where the second batch was run because the first left an interval touching zero. Elapsed time is not reported: this cohort ran four attempts concurrently, so wall clock includes contention. Rollouts ending in a runner exception are recorded in the ledger and excluded from scoring as infrastructure rather than counted as failures; this cohort had none.</p>
+      <p class="details-note">Eight attempts per cell is enough to expose the reversal between families but not to resolve small differences within one. The stopping rule was fixed at 120 rollouts before the first paid call and no interim analysis informed continuation, unlike v0.7 where the second batch was run because the first left an interval touching zero. Elapsed time is not reported: this cohort ran four attempts concurrently, so wall clock includes contention. Rollouts ending in a runner exception are recorded in the ledger and excluded from scoring as infrastructure rather than counted as failures; this cohort had one, at $0.0005.</p>
     </section>
 
     <section class="details-section section-shell">
@@ -89,7 +89,7 @@
 
   <footer class="section-shell">
     <div><strong>Language AI Bench</strong><p>Aggregate results only; private prompts, trajectories, patches, and environment variables are not published.</p></div>
-    <div class="footer-links"><a href="./data/v09-results.json">Latest aggregate JSON</a><a href="./V09_REPORT.md">Latest written report</a><a href="./methodology.html">How scoring works</a><a href="./V08_REPORT.md">Previous report</a><a href="./DESIGN.md">Design</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub</a></div>
+    <div class="footer-links"><a href="./data/v10-results.json">Latest aggregate JSON</a><a href="./V10_REPORT.md">Latest written report</a><a href="./methodology.html">How scoring works</a><a href="./V09_REPORT.md">Previous report</a><a href="./DESIGN.md">Design</a><a href="https://github.com/ubershmekel/language-ai-bench">GitHub</a></div>
   </footer>
 </body>
 </html>

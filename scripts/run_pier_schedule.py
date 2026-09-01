@@ -106,9 +106,9 @@ def command_for(
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--study", type=pathlib.Path, default=ROOT / "study_v0.6.json")
+    parser.add_argument("--study", type=pathlib.Path, default=ROOT / "studies" / "study_v0.6.json")
     parser.add_argument(
-        "--schedule", type=pathlib.Path, default=ROOT / "study_v0.6_schedule.json"
+        "--schedule", type=pathlib.Path, default=ROOT / "studies" / "study_v0.6_schedule.json"
     )
     parser.add_argument(
         "--jobs-dir",
