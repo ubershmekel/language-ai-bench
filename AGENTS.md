@@ -111,6 +111,32 @@ Two constraints that are easy to trip over:
   language's runtime representation belongs in the task, as a hazard for the
   agent, not in the gate.
 
+## Publishing a cohort
+
+The site is generated from the cohort JSON. Do not hand-edit anything between
+`<!-- generated:name -->` markers in `docs/index.html` or `docs/details.html`,
+and do not edit the fetch path in `docs/app.js`.
+
+```sh
+python3 scripts/publish_version.py --report --version v1.0
+```
+
+That rebuilds `docs/data/<slug>-results.json` and `docs/<SLUG>_REPORT.md` from
+the run ledger, then rewrites every derived region: the three chart fallbacks,
+the summary table, the per-task orderings with their tie marks, the spend and
+pass counts, and the report links on both pages. Drop `--report` to refresh the
+markup only, which is what you want on a machine that did not run the cohort,
+since ledgers are private.
+
+`scripts/validate-pages.sh` runs `--check`, so a page left behind by an edit
+fails the gate. v1.0 shipped with the landing page fetching the previous
+cohort's JSON and `details.html` carrying numbers from two cohorts before that;
+that is the failure this prevents.
+
+The prose around the generated regions is still yours to write. Numbers in it
+go stale silently, so keep claims in the report and let the page pull figures
+from the JSON.
+
 ## Verification is black box
 
 Observable behavior only: stdin, stdout, exit status. Never require a particular

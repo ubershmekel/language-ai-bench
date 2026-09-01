@@ -427,7 +427,13 @@ In priority order, each additive and accommodated by the current schema:
 | `calibration/` | one calibration receipt per family, the free gate that has to be green first |
 | `analysis/` | the report generators, one per cohort |
 | `docs/` | the published site, the written reports, and the aggregate JSON behind them |
-| `scripts/` | the gates and the runner |
+| `scripts/` | the gates, the runner, and `publish_version.py` |
+
+Publishing a cohort is one command, `python3 scripts/publish_version.py --report
+--version v1.0`. It rebuilds the aggregate JSON and the written report from the
+run ledger and then rewrites every part of the site derived from them. The same
+script run with `--check` is part of `validate-pages.sh`, so a page that drifts
+from its data fails the build.
 
 ## Results and contributions
 

@@ -38,15 +38,21 @@
       <div id="result-chart" class="chart-grid">
         <figure class="chart-panel">
           <figcaption><strong>Did it succeed?</strong><span>Share of attempts passing the hidden verifier.</span></figcaption>
+          <!-- generated:chart-pass -->
           <p class="chart-fallback">JavaScript 18/24 &middot; TypeScript 15/23 &middot; Python 13/24 &middot; Python typed 16/24 &middot; Go 15/24</p>
+          <!-- /generated:chart-pass -->
         </figure>
         <figure class="chart-panel">
           <figcaption><strong>How much work did it take?</strong><span>Mean agent steps per attempt.</span></figcaption>
+          <!-- generated:chart-steps -->
           <p class="chart-fallback">JavaScript 7.00 &middot; TypeScript 8.52 &middot; Python 6.62 &middot; Python typed 7.62 &middot; Go 9.58</p>
+          <!-- /generated:chart-steps -->
         </figure>
         <figure class="chart-panel">
           <figcaption><strong>What did it cost?</strong><span>Mean API spend per attempt.</span></figcaption>
+          <!-- generated:chart-cost -->
           <p class="chart-fallback">JavaScript $0.0065 &middot; TypeScript $0.0074 &middot; Python $0.0064 &middot; Python typed $0.0070 &middot; Go $0.0083</p>
+          <!-- /generated:chart-cost -->
         </figure>
       </div>
 
@@ -62,6 +68,7 @@
               <th>Mean cost</th>
             </tr>
           </thead>
+          <!-- generated:summary-rows -->
           <tbody id="language-summary-results">
             <tr><td>JavaScript</td><td>None</td><td>18/24</td><td>7.00</td><td>3,196</td><td>$0.006531</td></tr>
             <tr><td>TypeScript</td><td>Strict</td><td>15/23</td><td>8.52</td><td>3,386</td><td>$0.007440</td></tr>
@@ -69,6 +76,7 @@
             <tr><td>Python (typed)</td><td>mypy strict</td><td>16/24</td><td>7.62</td><td>3,310</td><td>$0.006987</td></tr>
             <tr><td>Go</td><td>Compiler</td><td>15/24</td><td>9.58</td><td>3,961</td><td>$0.008338</td></tr>
           </tbody>
+          <!-- /generated:summary-rows -->
         </table>
       </div>
       <p class="glance-note">Pass rate measures errors. Steps, tokens, and cost measure the work required to reach a correct result. Elapsed time is not shown: this cohort ran four attempts at once, so wall clock includes contention and is not comparable across studies. Total measured spend was <span id="stat-spend">$0.85</span>.</p>
@@ -79,11 +87,13 @@
         </div>
         <p>Setups within one run of each other are shown as tied (&#8776;), because eight attempts cannot separate them.</p>
       </div>
+      <!-- generated:task-orderings -->
       <ul id="family-reversal" class="family-reversal">
         <li><code>expr-eval</code> JavaScript 7/8 &gt; Python 4/8 &#8776; Python (typed) 4/8 &#8776; TypeScript 3/8 &gt; Go 0/8</li>
         <li><code>circuit-breaker</code> Go 8/8 &gt; TypeScript 5/8 &#8776; JavaScript 4/8 &#8776; Python (typed) 4/8 &gt; Python 2/8</li>
         <li><code>money-rollup</code> Python (typed) 8/8 &#8776; TypeScript 7/7 &#8776; Go 7/8 &#8776; JavaScript 7/8 &#8776; Python 7/8</li>
       </ul>
+      <!-- /generated:task-orderings -->
     </section>
 
     <section id="reading" class="study section-shell" aria-labelledby="reading-title">
@@ -186,12 +196,14 @@
       </div>
       <div class="footer-group">
         <span class="footer-heading">Results and history</span>
+        <!-- generated:report-links -->
         <a href="./V10_REPORT.md">Current report (v1.0)</a>
         <a href="./data/v10-results.json">Aggregate data (JSON)</a>
         <a href="./details.html">Technical details</a>
         <a href="./V09_REPORT.md">Previous study (v0.9)</a>
         <a href="./POLYGLOT_REPORT.md">Earlier study (v0.5)</a>
         <a href="./DESIGN.md">Experimental design</a>
+        <!-- /generated:report-links -->
       </div>
     </div>
   </footer>
